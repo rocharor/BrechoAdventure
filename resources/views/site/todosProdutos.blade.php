@@ -1,0 +1,202 @@
+@extends('template')
+@section('content')
+<link type="text/css" rel="stylesheet" href="/css/produto.css" />
+
+<style type="text/css">
+.img-ativo  {
+    background-image: url(/imagens/favorito_ativo.jpg);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+
+}
+.img-inativo  {
+    background-image: url(/imagens/favorito_inativo.jpg);
+    background-size: cover;
+    width: 20px;
+    height: 20px;
+
+}
+</style>
+
+<ol class="breadcrumb">
+  <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
+  <li><a href="/produto/">Produto</a></li>
+  <li class="active">Todos produtos</li>
+</ol>
+
+<div class="row">
+	{if $produtos|count eq 0}
+ 		<div class="well" align="center"><b><i>N&atilde;o foi poss&iacute;vel retornar nenhum produto</i></b></div>
+ 	{else}
+	<div class="col-lg-2">
+
+		{foreach from=$filtro key=categoria item=arrItens}
+			<div style="background-color: #eee; padding: 10px">
+				<p style="background-color: #ccc; font-weight: bold;" align="center">{$categoria}</p>
+				{foreach from=$arrItens key=valor item=item}
+					{if $valor|in_array:$arrCategorias}
+						<p><input type="checkbox" class="act-filtro" value="{$valor}" checked="checked" /> {$item}</p>
+					{else}
+						<p><input type="checkbox" class="act-filtro" value="{$valor}" /> {$item}</p>
+					{/if}
+				{/foreach}
+			</div>
+			<br />
+		{/foreach}
+	</div>
+
+	<div class="col-lg-10" style="border-left:solid">
+		<div class="row">
+			{counter assign=i start=0 print=false}
+			{foreach from=$produtos item=produto}
+		        <div class="col-md-4 div-produto" align='center'>
+		            <div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
+		                {if $logado eq 0}
+		                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
+		                {else}
+		                    {if $produto.favorito eq 1}
+		                        <a class="act-favorito favorito-ativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='0'>
+		                            <div class="img-ativo"></div>
+		                        </a>
+		                    {else}
+		                        <a class="act-favorito favorito-inativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='1'>
+		                            <div class="img-inativo"></div>
+		                        </a>
+		                    {/if}
+		                {/if}
+		            </div>
+		            <div style="width: 300px; height: 20px;" align="center">
+		                <b>{$produto.titulo}</b>
+		            </div>
+		            <div style="width: 250px; height: 250px;">
+		                <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;">
+		            </div>
+		            <div><b>Pre&ccedil;o: R$ {$produto.valor}</b></div>
+		            <div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{$produto.id}"><b>Ver detalhes</b></button></div>
+		        </div>
+			    {counter}
+			    {if $i is  div by 3}
+			         &nbsp;<hr>
+			    {/if}
+			{/foreach}
+		</div>
+	</div>
+	{/if}
+
+</div>
+
+
+
+<div class="row hide">
+	{counter assign=i start=0 print=false}
+	{foreach from=$produtos item=produto}
+        <div class="col-md-4" style="border: solid 0px;" align='center'>
+            <div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
+                {if $logado eq 0}
+                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
+                {else}
+                    {if $produto.favorito eq 1}
+                        <a class="act-favorito favorito-ativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='0'>
+                            <div class="img-ativo"></div>
+                        </a>
+                    {else}
+                        <a class="act-favorito favorito-inativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='1'>
+                            <div class="img-inativo"></div>
+                        </a>
+                    {/if}
+                {/if}
+            </div>
+            <div style="width: 300px; height: 20px;" align="center">
+                <b>{$produto.titulo}</b>
+            </div>
+            <div style="width: 250px; height: 250px;">
+                <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;">
+            </div>
+            <div><b>Pre&ccedil;o: R$ {$produto.valor}</b></div>
+            <div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{$produto.id}"><b>Ver detalhes</b></button></div>
+        </div>
+	    {counter}
+	    {if $i is  div by 3}
+	         &nbsp;<hr>
+	    {/if}
+	{/foreach}
+</div>
+
+
+<!--PAGINAÇÃO-->
+{if $arrCategorias|count eq 0}
+	<nav align='center'>
+	  <ul class="pagination">
+	     <li>
+		     {if $pg eq 1}
+		      	<span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span>
+		     {else}
+		     	<a href="/produto/todosProdutos/pg/{$pg - 1}/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+		     {/if}
+	    </li>
+	    {for $i=1 to $paginacao}
+			{if $i eq $pg}
+				<li class="active"><a>{$i}</a></li>
+			{else}
+				<li><a href="/produto/todosProdutos/pg/{$i}/">{$i}</a></li>
+			{/if}
+	    {/for}
+	     <li>
+		     {if $pg eq $paginacao}
+		      	<span aria-label="Previous"><span aria-hidden="true">&raquo;</span></span>
+		     {else}
+		     	<a href="/produto/todosProdutos/pg/{$pg + 1}/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+		     {/if}
+	    </li>
+	  </ul>
+	</nav>
+{/if}
+
+<!--Modal descricao-->
+<div class="modal fade" id='modal_descricao'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" >
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+
+            <div class="modal-body" >
+                <h2 align="center"><span id='titulo'></span></h2>
+                <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner produto_fotos" id='fotos' role="listbox">
+                        <div class='item active'></div>
+                        <!-- IMAGENS -->
+                    </div>
+
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                </div>
+                <hr>
+                <p><label>Titulo: &nbsp;</label><span class='produto_titulo'></span></p>
+                <p><label>Descrição: &nbsp;</label><span class='produto_descricao'></span></p>
+                <p><label>Estado: &nbsp;</label><span class='produto_estado'></span></p>
+                <p><label>Preço: &nbsp;</label><span class='produto_valor'></span></p>
+                <hr>
+                <p><label>Nome: &nbsp;</label><span class='produto_nome'></span></p>
+                <p><label>Email: &nbsp;</label><span class='produto_email'></span></p>
+                <p><label>Telefones: &nbsp;</label><span class='produto_telefone'></span></p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/produto.js"></script>
+<script type="text/javascript" src="/js/filtro.js"></script>
+<script type="text/javascript" src="/js/minhaConta/meusFavorito.js"></script>
+@stop
