@@ -10,9 +10,9 @@ class Produto extends Controller
 {
     public $model;
 
-    public function __construct(Produtos $produtos)
+    public function __construct(Produto $produto)
     {
-        $this->model = $produtos;
+        $this->model = $produto;
     }
 
     public function indexAction()

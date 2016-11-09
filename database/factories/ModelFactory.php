@@ -11,13 +11,28 @@
 |
 */
 
-$factory->define(App\User::class, function (Faker\Generator $faker) {
-    static $password;
+// $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+//     static $password;
+//
+//     return [
+//         'name' => $faker->name,
+//         'email' => $faker->unique()->safeEmail,
+//         'password' => $password ?: $password = bcrypt('secret'),
+//         'remember_token' => str_random(10),
+//     ];
+// });
 
+$factory->define(App\Models\Categoria::class, function (Faker\Generator $faker) {
     return [
-        'name' => $faker->name,
-        'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
-        'remember_token' => str_random(10),
+        'categoria' => $faker->word
+    ];
+});
+
+$factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\pt_br\Person($faker));
+    
+    return [
+        'frase' => $faker->text(rand(100, 150)),
+        'autor' => $faker->firstName
     ];
 });
