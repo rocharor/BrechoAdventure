@@ -30,9 +30,22 @@ $factory->define(App\Models\Categoria::class, function (Faker\Generator $faker) 
 
 $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\pt_br\Person($faker));
-    
+
     return [
         'frase' => $faker->text(rand(100, 150)),
         'autor' => $faker->firstName
+    ];
+});
+
+$factory->define(App\Models\Site\Produto::class, function (Faker\Generator $faker) {
+        return [
+        'usuario_id' => time(),
+        'categoria_id' => time(),
+        'titulo' => $faker->lastName,
+        'descricao' => $faker->text,
+        'valor' => 12000,
+        'estado' => 'novo',
+        'nm_imagem' => 'padrao.jpg',
+        'status' => 1
     ];
 });

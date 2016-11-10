@@ -7,9 +7,9 @@
 
 <div class="row">
 	<div class="col-md-6">
-	    {$msg}
+	    <!-- {$msg} -->
 
-	    <form action="/contato/" method="POST" name="form" id="form">
+	    <form action="/contato" method="POST" name="form" id="form">
 	        <div class="form-group">
 	        	<input class="form-control" type="text" name="nome" id="nome" placeholder="Nome">
 	        </div>
@@ -30,8 +30,10 @@
 	        </div>
 			<div class="form-group">
 	        	<input type="button" value="Enviar" class="btn btn-success btn-contato btn-enviar">
+				<input type="submit" value="Enviar2" class="btn btn-info">
 	        	<img src="/imagens/ajax-loader.gif" class="hide carregando" />
 	        </div>
+            <input type="hidden" name="_token" value="{{ csrf_token() }}">
 	    </form>
     </div>
 </div>

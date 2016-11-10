@@ -10,6 +10,7 @@
         <meta name="copyright" content="Ricardo Rocha"/>
         <meta name="e-mail" content="rocharor@gmail.com"/>
         <meta name="keywords" content="Brecho Adventure"/>
+		<meta name="csrf-token" content="{{ csrf_token() }}" />
 
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
 
@@ -20,6 +21,9 @@
 		<link type="text/css" rel="stylesheet" href="/css/global.css" />
 		<link type="text/css" rel="stylesheet" href="/css/topo.css" />
 		<link type="text/css" rel="stylesheet" href="/css/rodape.css" />
+
+		<script src="/libs/jquery/dist/jquery.js"></script>
+        <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
     </head>
     <body>
         <div>
@@ -30,12 +34,12 @@
             @yield('content')
         </div>
 
+		<br /><br />
+
         <div>
         	@include('rodape')
         </div>
 
-        <script src="/libs/jquery/dist/jquery.js"></script>
-        <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
-		<!-- <script src="/js/padrao.js"></script> -->
+		<script src="/js/padrao.js"></script>
     </body>
 </html>

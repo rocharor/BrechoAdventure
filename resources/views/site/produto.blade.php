@@ -48,13 +48,14 @@
 	                @endif
 	            </div>
 	            <div style="width: 300px; height: 20px;" align="center">
-	                <b>{$produto.titulo}</b>
+	                <b>{{$produto->titulo}}</b>
 	            </div>
 	            <div style="width: 250px; height: 250px;">
-	                <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;">
+	                <!-- <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;"> -->
+	                <img class="img-thumbnail" src="/imagens/produtos/{{$produto->nm_imagem}}" alt="" style="width: 100%; height: 100%;">
 	            </div>
-	            <div><b>Pre&ccedil;o: R$ {$produto.valor}</b></div>
-	            <div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{$produto.id}"><b>Ver detalhes</b></button></div>
+	            <div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
+	            <div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{{$produto->id}}"><b>Ver detalhes</b></button></div>
 	        </div>
 	        </div>
 		@endforeach

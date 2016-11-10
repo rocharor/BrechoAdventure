@@ -10,7 +10,7 @@ class Frase extends Model
 
     public function getFrases()
     {
-        $frases = Frases::all();
+        $frases = Frase::all();
         $frase = [];
         if (count($frases) > 0){
             $frase = $frases[rand(0,(count($frases)-1))];
