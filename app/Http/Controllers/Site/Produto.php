@@ -22,13 +22,16 @@ class Produto extends Controller
         return view('site/produto',['logado'=>0,'produtos'=>$produtos,'logado'=>0]);
     }
 
+
     public function getDescricaoProdutoAction()
     {
-        $produto_id = $_POST['produto_id'];
+        $produto_id = $_GET['produto_id'];
 
-        $arrProduto = $this->model->getDescricaoProduto($produto_id);
+        $produtos = $this->model->getDescricaoProduto($produto_id);
 
-        echo json_encode($arrProduto);
+        //echo json_encode($arrProduto[0]);
+        //echo response($produtos)->content();
+        echo response()->json($produtos)->content();
         die();
     }
 }

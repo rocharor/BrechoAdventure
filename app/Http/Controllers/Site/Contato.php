@@ -20,8 +20,30 @@ class Contato extends Controller
         return view('site/contato',['logado'=>0]);
     }
 
+    /**
+     * Salvo os dados de contato no banco de dados e manda email
+     *
+     * @param unknown $dados
+     */
     public function salvaContatoAction()
     {
+        $dados = $_POST;
+
+        $retorno = $this->model->setMensagem($dados);
+
         dd($_POST);
+
+        // if ($retorno) {
+        //     $msg = '<div class="alert alert-success" align="center" style="width: 400px;">Mensagem enviada com sucesso</div>';
+        //     $emailModel = new EmailModel();
+        //     $emailModel->respAutomaticaContato($dados['nome'], $dados['email']);
+        // } else {
+        //     $msg = '<div class="alert alert-danger" align="center" style="width: 400px;">Erro ao enviar a mensagem</div>';
+        // }
+        //
+        // $variaveis = [
+        //     'active_3' => 'active',
+        //     'msg' => $msg
+        // ];
     }
 }
