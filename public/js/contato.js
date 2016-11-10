@@ -31,3 +31,12 @@ $('.btn-enviar').click(function(e){
 
     $('#form').submit();
 });
+
+$(function(){
+	setTimeout(() => {
+		$('.msg-alert').addClass('fadeOutUp');
+		setTimeout(() => {
+			$('.msg-alert').addClass('hide');
+		}, 500);
+	}, 5000);
+});

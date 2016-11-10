@@ -17,6 +17,7 @@
         <title>Brechó Adventure</title>
         <!-- BOOTSTRAP CSS-->
         <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="/libs/animate.css/animate.css" />
 
 		<link type="text/css" rel="stylesheet" href="/css/global.css" />
 		<link type="text/css" rel="stylesheet" href="/css/topo.css" />

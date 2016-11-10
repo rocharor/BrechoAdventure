@@ -30,8 +30,8 @@ class Contato extends Controller
         $dados = $_POST;
 
         $retorno = $this->model->setMensagem($dados);
-
-        dd($_POST);
+		
+        return view('site/contato',['logado'=>0,'msg'=>$retorno]);
 
         // if ($retorno) {
         //     $msg = '<div class="alert alert-success" align="center" style="width: 400px;">Mensagem enviada com sucesso</div>';

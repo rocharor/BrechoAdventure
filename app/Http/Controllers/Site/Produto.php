@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Site;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Site\Produto as ProdutoModel;
 
@@ -25,13 +24,13 @@ class Produto extends Controller
 
     public function getDescricaoProdutoAction()
     {
-        $produto_id = $_GET['produto_id'];
+        $produto_id = $_POST['produto_id'];
 
         $produtos = $this->model->getDescricaoProduto($produto_id);
 
         //echo json_encode($arrProduto[0]);
         //echo response($produtos)->content();
-        echo response()->json($produtos)->content();
+        echo response()->json($produtos[0])->content();
         die();
     }
 }
