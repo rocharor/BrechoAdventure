@@ -16,6 +16,8 @@
 			@endif
 		@endif
 	    <form action="/contato" method="POST" name="form" id="form">
+            {{ csrf_field() }}
+
 	        <div class="form-group">
 	        	<input class="form-control" type="text" name="nome" id="nome" placeholder="Nome" required="required">
 	        </div>
@@ -39,7 +41,7 @@
 				<input type="submit" value="Enviar2" class="btn btn-info">
 	        	<img src="/imagens/ajax-loader.gif" class="hide carregando" />
 	        </div>
-            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+            {{-- <input type="hidden" name="_token" value="{{ csrf_token() }}"> --}}
 	    </form>
     </div>
 </div>

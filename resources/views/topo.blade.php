@@ -14,7 +14,9 @@
         @else
             @if($logado == 0)
                 <button class="btn btn-primary btn-login">Login</button>
+                <a href='/login_' class="btn btn-primary">Login2</a>
                 <button class="btn btn-success btn-cadastro">Cadastre-se</button>
+                <a href='/cadastre-se' class="btn btn-primary">Cadastre-se2</a>
             @else
                 <span class="btn-group">
                     <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -87,8 +89,8 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Login <img src="/imagens/logo.jpg" alt="Brecho Aventure" width="15%"></h4>
             </div>
-            <div class="modal-body">
-            	<span class='msg_login'></span>
+            <div class="modal-body">                
+                <span class='msg_login'></span>
            		<label>Email: <input type="text"class="form-control" id="email_login" style="width: 300px;"  /></label>
                	<label>Senha: <input type="password" class="form-control" id="senha_login" style="width: 300px;" /></label>
                	<div><small><i><a class='act-esqueci-senha btn-esqueci-senha'>Esqueci a senha</a></i></small></div>
