@@ -1,3 +1,6 @@
+$color1 = #F3BC55;
+$color2 = #fedd7a;
+
 /*Barra de menu*/
 .art-nav-inner
     text-align: center;
@@ -82,13 +85,6 @@ ul.art-hmenu
             background: linear-gradient(top, rgba(181, 79, 2, 0.23) 0, rgba(6, 3, 0, 0.15) 100%) no-repeat, url('https://lh3.googleusercontent.com/-A-20W-fJz5E/UjZn94-JKzI/AAAAAAAAEj0/9qYAExBfqXw/s2048/menuactiveitem.png'), linear-gradient(top, #974302 0, #231000 100%) no-repeat;
             -svg-background: linear-gradient(top, rgba(181, 79, 2, 0.23) 0, rgba(6, 3, 0, 0.15) 100%) no-repeat, url('https://lh3.googleusercontent.com/-A-20W-fJz5E/UjZn94-JKzI/AAAAAAAAEj0/9qYAExBfqXw/s2048/menuactiveitem.png'), linear-gradient(top, #974302 0, #231000 100%) no-repeat;
             border:1px solid rgba(217, 95, 2, 0.1);
-            /* -webkit-border-radius:8px;
-            -moz-border-radius:8px;
-            border-radius:8px; */
-            /* padding:0 40px;
-            margin:0 auto;
-            color: #fff;
-            text-decoration: none; */
 
 ul.art-hmenuli>a:hover, .desktop ul.art-hmenu>li:hover>a
     background: #FE901B url('https://lh6.googleusercontent.com/-owsRX177IbE/UjZn-TDWdrI/AAAAAAAAEj8/Ffl3wSggATU/s2048/menuhovereditem.png') scroll;
@@ -100,11 +96,6 @@ ul.art-hmenuli>a:hover, .desktop ul.art-hmenu>li:hover>a
     background: linear-gradient(top, rgba(254, 181, 103, 0.25) 0, rgba(241, 125, 1, 0.09) 75%, rgba(203, 105, 1, 0.12) 100%) no-repeat, url('https://lh6.googleusercontent.com/-owsRX177IbE/UjZn-TDWdrI/AAAAAAAAEj8/Ffl3wSggATU/s2048/menuhovereditem.png'), linear-gradient(top, #FEA94D 0, #FE8401 75%, #E47701 100%) no-repeat;
     -svg-background: linear-gradient(top, rgba(254, 181, 103, 0.25) 0, rgba(241, 125, 1, 0.09) 75%, rgba(203, 105, 1, 0.12) 100%) no-repeat, url('https://lh6.googleusercontent.com/-owsRX177IbE/UjZn-TDWdrI/AAAAAAAAEj8/Ffl3wSggATU/s2048/menuhovereditem.png'), linear-gradient(top, #FEA94D 0, #FE8401 75%, #E47701 100%) no-repeat;
     border:1px solid rgba(52, 34, 14, 0.3);
-    /* -webkit-border-radius:8px;
-    -moz-border-radius:8px;
-    border-radius:8px;
-    padding:0 40px;
-    margin:0 auto; */
 
 ul.art-hmenu>li>a:hover,
 .desktop-nav ul.art-hmenu>li:hover>a {
@@ -112,71 +103,70 @@ ul.art-hmenu>li>a:hover,
     /* text-decoration: none; */
 }
 
-/*Logo, nome do site, img login*/
 .menu
     background-color: #000;
     height: 70px;
     padding: 3px;
     position:relative;
 
-.topo_esquerdo
-    float: left;
+    .topo_esquerdo
+        float: left;
 
-.topo_direito
-    float:right;
-    padding-right: 5px;
-    margin-top: 15px;
+        .img_logo
+            width: 150px;
+            max-height: 65px;
+            min-height: 65px;
 
-.img_logo
-    width: 150px;
-    max-height: 65px;
-    min-height: 65px;
+        .img_logo_mobile
+            width: 100px;
+            max-height: 65px;
+            min-height: 65px;
 
-.img_logo_mobile
-    width: 100px;
-    max-height: 65px;
-    min-height: 65px;
+        .nome_site
+            color: #fff;
+            font-size: 30px;
+            margin-left: 20px;
 
-.nome_site
-    color: #fff;
-    font-size: 30px;
-    margin-left: 20px;
-
-.imagem_login
-    width: 80px;
-    max-height: 65px;
-    min-height: 65px;
-    cursor: pointer;
-    margin-top: -15px;
-
-
-
-/*Sombra em cima da imagem de login*/
-.box
-  position:relative;
-  display: block;
-
-.box:hover
-    .mask
-        opacity:0.9;
-
-.mask
-    transition: ease all 0.5s;
-    opacity:0;
-    background-color: #e8a84e;
-    position:absolute;
-    top:0;
-    width:100%;
-    height: 65px;
-    padding-top: 15px;
-    margin-top: -15px;
-
-.mask
-    span
-        color:#f00;
-        font-weight: bold;
-        font-size:12px;
-        cursor:pointer;
+    .topo_direito
+        float:right;
+        padding-right: 5px;
+        margin-top: 15px;
+        .btn-login, .btn-cadastro, .btn-inserir-produto
+            background-color:$color1;
+            color:#000;
+            border:	0px;
+        .btn-login:hover, .btn-cadastro:hover, .btn-inserir-produto:hover
+            background-color:$color2;
+            color:#000;
+.btn-group
+    .box
+        position:relative;
+        display: block;
+        .imagem_login
+            width: 80px;
+            max-height: 65px;
+            min-height: 65px;
+            cursor: pointer;
+            margin-top: -15px;
+        .mask
+            transition: ease all 0.5s;
+            opacity:0;
+            background-color: #e8a84e;
+            position:absolute;
+            top:0;
+            width:100%;
+            height: 65px;
+            padding-top: 15px;
+            margin-top: -15px;
+        .mask
+            span
+                color:#f00;
+                font-weight: bold;
+                font-size:12px;
+                cursor:pointer;
+    .box:hover
+        .mask
+            opacity:0.9;
 
 /*CAMPO BUSCAR*/
 .campo-buscar
@@ -187,18 +177,12 @@ ul.art-hmenu>li>a:hover,
 
 /*MENU MOBILE*/
 .menu-mobile
-	background-color:#fedd7a;
+	background-color:$color2;
 	text-align: center;
 
 /*BOTÕES MENU*/
-.menu-mobile button, .btn-login, .btn-cadastro, .btn-inserir-produto
-	background-color:#F3BC55;
-	color:#000;
-	border:	0px;
-
-.btn-login:hover, .btn-cadastro:hover, .btn-inserir-produto:hover
-	background-color:#fedd7a;
-	color:#000;
-
-.act-deslogar, .act-deslogar:hover
-	color:#000;
+.menu-mobile
+    button
+    	background-color:$color1;
+    	color:#000;
+    	border:	0px;

@@ -12,6 +12,7 @@ class Contato extends Controller
 
     public function __construct(ContatoModel $contato)
     {
+        //$this->middleware('auth');
         $this->model = $contato;
     }
 
@@ -30,7 +31,7 @@ class Contato extends Controller
         $dados = $_POST;
 
         $retorno = $this->model->setMensagem($dados);
-		
+
         return view('site/contato',['logado'=>0,'msg'=>$retorno]);
 
         // if ($retorno) {

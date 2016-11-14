@@ -1,39 +1,32 @@
 <!-- BARRA TOPO -->
 <div class="menu">
     <div class='topo_esquerdo '>
-        <a href="">
-            <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo hidden-xs'>
-            <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
-        </a>
+        <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo hidden-xs'>
+        <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         <span class='nome_site hidden-xs'>BRECHÓ ADVENTURE</span>
     </div>
 
     <div class="topo_direito">
-        @if(isset($escondeMenu))
-            <a class="btn btn-danger act-deslogar">Sair</a>
+        @if(Auth::check() == 0)
+            {{-- <button class="btn btn-primary btn-login">Login</button> --}}
+            {{-- <button class="btn btn-success btn-cadastro">Cadastre-se</button> --}}
+            <a href='/login_' class="btn btn-login">Login</a>
+            <a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a>
         @else
-            @if($logado == 0)
-                <button class="btn btn-primary btn-login">Login</button>
-                <a href='/login_' class="btn btn-primary">Login2</a>
-                <button class="btn btn-success btn-cadastro">Cadastre-se</button>
-                <a href='/cadastre-se' class="btn btn-primary">Cadastre-se2</a>
-            @else
-                <span class="btn-group">
-                    <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <img src="/imagens/cadastro/{$nome_imagem}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
-                        <div class="mask img-circle" align='center'><span class="">Minha <br />Conta<span></div>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li><a href="/minha-conta/perfil/">Meu Perfil</a></li>
-                        <li><a href="/minha-conta/meus-produtos/">Meus Produtos</a></li>
-                        <li><a href="/minha-conta/meus-favoritos/">Meus Favoritos</a></li>
-                    </ul>
-                </span>
-
-                <a href="/minha-conta/cadastro-produto/" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
-                <a class="btn btn-danger act-deslogar">Sair</a>
-            @endif
-    	@endif
+            <span class="btn-group">
+                <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <img src="/imagens/cadastro/{$nome_imagem}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
+                    <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="/minha-conta/perfil/">Meu Perfil</a></li>
+                    <li><a href="/minha-conta/meus-produtos/">Meus Produtos</a></li>
+                    <li><a href="/minha-conta/meus-favoritos/">Meus Favoritos</a></li>
+                </ul>
+            </span>
+            <a href="/minha-conta/cadastro-produto/" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
+            <a href='/logout_' class="btn btn-danger">Sair</a>
+        @endif
     </div>
 
 </div>
@@ -41,44 +34,41 @@
 <!-- IMAGEM FUNDO -->
 <img src="/imagens/banner.jpg" width="100%" />
 
-@if(isset($escondeMenu))
-@else
-	<!-- MENUS -->
-	<div class='section hidden-xs' id='crosscol'><div class='widget PageList' data-version='1' id='PageList98'>
-	    <div class='art-nav-inner'>
-	        <ul class='art-hmenu'>
-	            <li><a class='{$active_1}' href="{{ Route('home') }}"><small>Brecho Adventure</small></a></li>
-	            <li><a class='{$active_2}' href="{{ Route('produto') }}"><small>Produtos</small></a></li>
-	            <li><a class='{$active_3}' href="{{ Route('contato') }}"><small>Contato</small></a></li>
-	        </ul>
-	    </div>
-	    </div>
-	</div>
+<!-- Menu desktop -->
+<div class='section hidden-xs' id='crosscol'><div class='widget PageList' data-version='1' id='PageList98'>
+    <div class='art-nav-inner'>
+        <ul class='art-hmenu'>
+            <li><a class='{$active_1}' href="{{ Route('home') }}"><small>Brecho Adventure</small></a></li>
+            <li><a class='{$active_2}' href="{{ Route('produto') }}"><small>Produtos</small></a></li>
+            <li><a class='{$active_3}' href="{{ Route('contato') }}"><small>Contato</small></a></li>
+        </ul>
+    </div>
+    </div>
+</div>
 
-	<div class="dropdown menu-mobile hidden-sm hidden-md hidden-lg">
-		<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-			<span class="glyphicon glyphicon-menu-hamburger"></span>
+<!-- Menu Mobile -->
+<div class="dropdown menu-mobile hidden-sm hidden-md hidden-lg">
+	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+		<span class="glyphicon glyphicon-menu-hamburger"></span>
+	</button>
+	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+		<li><a href="/">Brecho Adventure</a></li>
+		<li><a href="/produto/">Produtos</a></li>
+		<li><a href="/contato/">Contato</a></li>
+	</ul>
+</div>
+
+
+<!-- BUSCA -->
+<div class="input-group campo-buscar hidden-xs">
+	<input type="text" class="form-control busca" placeholder="Buscar">
+	<div class="btn-group input-group-btn">
+		<button class="btn btn-primary act-buscar">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
 		</button>
-		<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-			<li><a href="/">Brecho Adventure</a></li>
-			<li><a href="/produto/">Produtos</a></li>
-			<li><a href="/contato/">Contato</a></li>
-		</ul>
 	</div>
+</div>
 
-
-	<!-- BUSCA -->
-	<div class="input-group campo-buscar hidden-xs">
-		<input type="text" class="form-control busca" placeholder="Buscar">
-		<div class="btn-group input-group-btn">
-			<button class="btn btn-primary act-buscar">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
-			</button>
-		</div>
-	</div>
-@endif
-
-
-
+{{--
 <!-- MODAL -->
 <!--Modal Login-->
 <div class="modal fade" id='login'>
@@ -89,7 +79,7 @@
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Login <img src="/imagens/logo.jpg" alt="Brecho Aventure" width="15%"></h4>
             </div>
-            <div class="modal-body">                
+            <div class="modal-body">
                 <span class='msg_login'></span>
            		<label>Email: <input type="text"class="form-control" id="email_login" style="width: 300px;"  /></label>
                	<label>Senha: <input type="password" class="form-control" id="senha_login" style="width: 300px;" /></label>
@@ -103,6 +93,7 @@
         </div>
     </div>
 </div>
+
 
 <!--Modal esqueci_senha-->
 <div class="modal fade" id='esqueci_senha'>
@@ -157,5 +148,5 @@
 </div>
 
 <script type="text/javascript" src="/js/login.js"></script>
-<script type="text/javascript" src="/js/cadastro.js"></script>
+<script type="text/javascript" src="/js/cadastro.js"></script> --}}
 <script type="text/javascript" src="/js/padrao.js"></script>

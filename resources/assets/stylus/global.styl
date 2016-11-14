@@ -2,21 +2,22 @@
 	font-family: "Adventure";
 	src: url("fonts/Adventure.otf") format("truetype");
 
+$color1 = #F3BC55;
+$color2 = #fedd7a;
+$font = arial; //Adventure
+
 html, body
 	height: 100%;
-	font-family: arial;
+	font-family: $font;
 	margin: 0;
 	padding: 0;
-	/* font-family: Adventure;
-     background-image: url("../imagens/background.jpg");
-     background-size:100% 100%; */
 
 a
 	cursor: pointer;
 	text-decoration: none;
 
 .modal-body
-	background-color: #F3BC55;
+	background-color: $color1;
 
 .modal-header, .modal-footer
-	background-color: #fedd7a;
+	background-color: $color2;

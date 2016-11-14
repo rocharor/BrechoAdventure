@@ -24,6 +24,7 @@ Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\Pr
 // Autentication
 Auth::routes();
 Route::get('/login_',['as'=>'login_','uses'=>'Auth\LoginController@showLoginForm']);
+Route::get('/logout_',['as'=>'logout_','uses'=>'Auth\LoginController@logout']);
 Route::get('/cadastre-se',['as'=>'cadastre-se','uses'=>'Auth\RegisterController@showRegistrationForm']);
 //Route::get('/home', 'HomeController@index');
 
