@@ -11,9 +11,14 @@
 |
 */
 
+// Menus
 Route::get('/',['as'=>'home','uses'=>'Site\Home@indexAction']);
 Route::get('/produto',['as'=>'produto','uses'=>'Site\Produto@indexAction']);
 Route::get('/contato',['as'=>'contato','uses'=>'Site\Contato@indexAction']);
+
+Route::get('/minha-conta/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\Perfil@indexAction']);
+Route::get('/minha-conta/produto',['as'=>'mcproduto','uses'=>'MinhaConta\Produto@indexAction']);
+Route::get('/minha-conta/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favorito@indexAction']);
 
 // Açoes
 Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\Contato@salvaContatoAction']);
@@ -23,8 +28,8 @@ Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\Pr
 
 // Autentication
 Auth::routes();
-Route::get('/login_',['as'=>'login_','uses'=>'Auth\LoginController@showLoginForm']);
-Route::get('/logout_',['as'=>'logout_','uses'=>'Auth\LoginController@logout']);
+Route::get('/login',['as'=>'login','uses'=>'Auth\LoginController@showLoginForm']);
+Route::get('/logout',['as'=>'logout','uses'=>'Auth\LoginController@logout']);
 Route::get('/cadastre-se',['as'=>'cadastre-se','uses'=>'Auth\RegisterController@showRegistrationForm']);
 //Route::get('/home', 'HomeController@index');
 

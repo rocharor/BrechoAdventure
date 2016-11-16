@@ -10,22 +10,22 @@
         @if(Auth::check() == 0)
             {{-- <button class="btn btn-primary btn-login">Login</button> --}}
             {{-- <button class="btn btn-success btn-cadastro">Cadastre-se</button> --}}
-            <a href='/login_' class="btn btn-login">Login</a>
+            <a href='/login' class="btn btn-login">Login</a>
             <a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a>
         @else
             <span class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/imagens/cadastro/{$nome_imagem}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
+                    <img src="/imagens/cadastro/padrao.jpg" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="/minha-conta/perfil/">Meu Perfil</a></li>
-                    <li><a href="/minha-conta/meus-produtos/">Meus Produtos</a></li>
-                    <li><a href="/minha-conta/meus-favoritos/">Meus Favoritos</a></li>
+                    <li><a href="{{ Route('mcperfil') }}">Meu Perfil</a></li>
+                    <li><a href="{{ Route('mcproduto') }}">Meus Produtos</a></li>
+                    <li><a href="{{ Route('mcfavorito') }}">Meus Favoritos</a></li>
                 </ul>
             </span>
-            <a href="/minha-conta/cadastro-produto/" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
-            <a href='/logout_' class="btn btn-danger">Sair</a>
+            <a href="/minha-conta/cadastro-produto" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
+            <a href='/logout' class="btn btn-danger">Sair</a>
         @endif
     </div>
 
@@ -52,9 +52,9 @@
 		<span class="glyphicon glyphicon-menu-hamburger"></span>
 	</button>
 	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="/">Brecho Adventure</a></li>
-		<li><a href="/produto/">Produtos</a></li>
-		<li><a href="/contato/">Contato</a></li>
+		<li><a href="{{ Route('home') }}">Brecho Adventure</a></li>
+		<li><a href="{{ Route('produto') }}">Produtos</a></li>
+		<li><a href="{{ Route('contato') }}">Contato</a></li>
 	</ul>
 </div>
 
