@@ -26,6 +26,7 @@ var altera_imagem = function(){
 
     $('.act-alter-foto').addClass('hide');
     $('.act-enviar-imagem').removeClass('hide');
+    $('#btnEnviaFoto').removeClass('hide');
 
     $('.nm_imagem').append(nm_imagem);
 }
@@ -39,9 +40,8 @@ $('.act-enviar-imagem').click(function(e){
     var $foto = $('#foto_upd')[0].files[0];
     var form_data = new FormData();
     form_data.append('arquivo',$foto);
-    form_data.append('act','update_foto');
     $.ajax({
-        url: '/minha-conta/perfil/updateFoto/',
+        url: '/minha-conta/perfil/updateFoto',
         type: 'post',
         dataType: 'json',
         processData: false,
@@ -72,19 +72,19 @@ $('.act-enviar-imagem').click(function(e){
 $('.act-update').click(function(e){
     e.preventDefault()
 
-    var nome          = $('#nome_upd').val();
-    var apelido          = $('#apelido_upd').val();
-    var email         = $('#email_upd').val();
-    var dt_nascimento = $('#dt_nascimento_upd').val();
-    var endereco      = $('#endereco_upd').val();
-    var numero        = $('#numero_upd').val();
-    var complemento   = $('#complemento_upd').val();
-    var bairro        = $('#bairro_upd').val();
-    var cidade        = $('#cidade_upd').val();
-    var uf            = $('#uf_upd').val();
-    var cep           = $('#cep_upd').val();
-    var tel_fixo      = $('#tel_upd').val();
-    var tel_cel       = $('#cel_upd').val();
+    var nome = empty($('#nome_upd').val()) ? null : $('#nome_upd').val();
+    var apelido = empty($('#apelido_upd').val()) ? null : $('#apelido_upd').val();
+    var email = empty($('#email_upd').val()) ? null : $('#email_upd').val();
+    var dt_nascimento = empty($('#dt_nascimento_upd').val()) ? null : $('#dt_nascimento_upd').val();
+    var endereco = empty($('#endereco_upd').val()) ? null : $('#endereco_upd').val();
+    var numero = empty($('#numero_upd').val()) ? null : $('#numero_upd').val();
+    var complemento = empty($('#complemento_upd').val()) ? null : $('#complemento_upd').val();
+    var bairro = empty($('#bairro_upd').val()) ? null : $('#bairro_upd').val();
+    var cidade = empty($('#cidade_upd').val()) ? null : $('#cidade_upd').val();
+    var uf = empty($('#uf_upd').val()) ? null : $('#uf_upd').val();
+    var cep = empty($('#cep_upd').val()) ? 0 : $('#cep_upd').val();
+    var tel_fixo = empty($('#tel_upd').val()) ? null : $('#tel_upd').val();
+    var tel_cel = empty($('#cel_upd').val()) ? null : $('#cel_upd').val();
 
     var erro = false;
 
@@ -118,7 +118,7 @@ $('.act-update').click(function(e){
     }
 
    if(!erro){
-   var dados = {  'nome':nome,
+   var dados = {  'name':nome,
                   'apelido':apelido,
                   'email':email,
                   'dt_nascimento':dt_nascimento,
@@ -132,32 +132,53 @@ $('.act-update').click(function(e){
                   'telefone_fixo':tel_fixo,
                   'telefone_cel':tel_cel
               };
-                             
+
         $.ajax({
             url:'/minha-conta/perfil/updatePerfil',
             dataType: 'json',
             type: 'POST',
             data: {'dados': dados},
             success: function(retorno){
-                if(retorno.sucesso == true){
-                    alert(retorno.mensagem);
+                if(retorno){
+                    alert('Dados salvos com sucesso');
                 }
-                else
-                    alert(retorno.mensagem)
+                else{
+                    alert('Erro ao salvar!')
+                }
             },
             error: function(retorno){
                 alert('Erro no sistema! cod-G1')
             }
-        })
-
+        });
     }
 });
 
-
 /**
-* Mascara dos campos
-*/
-$('#cep_upd').mask('99999-999');
-$('#tel_upd').mask('(99) 9999-9999');
-$('#cel_upd').mask('(99) 99999-9999');
-$('#dt_nascimento_upd').mask('99/99/9999');
+ * Método JS que verifica se var esta vazia
+ * @param  {[type]} mixedVar [description]
+ * @return {[type]}          [description]
+ */
+function empty (mixedVar) {
+    var undef
+    var key
+    var i
+    var len
+    var emptyValues = [undef, null, false, 0, '', '0']
+
+    for (i = 0, len = emptyValues.length; i < len; i++) {
+        if (mixedVar === emptyValues[i]) {
+            return true
+        }
+    }
+
+    if (typeof mixedVar === 'object') {
+        for (key in mixedVar) {
+            if (mixedVar.hasOwnProperty(key)) {
+            return false
+            }
+        }
+        return true
+    }
+
+    return false
+}

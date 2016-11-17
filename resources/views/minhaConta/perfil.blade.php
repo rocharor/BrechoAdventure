@@ -10,12 +10,18 @@
 <h1 class="text-danger">PERFIL</h1>
 <div>
     <div align="left">
-        <img src="/imagens/cadastro/padrao.jpg" alt="brechoAdventure" class="img_perfil" /><br>
-        <small><a class="act-alter-foto">Alterar foto de perfil</a></small>
-        <br>
-        <button class="btn btn-success hide act-enviar-imagem">Salvar foto</button>&nbsp;&nbsp;<b><small class='nm_imagem'></small></b>
+        <form action='/minha-conta/perfil/updateFoto' name='formFotoPerfil' method='POST' enctype="multipart/form-data">
+            {{ csrf_field() }}
 
-        <input type="file" class="hide" id='foto_upd' onchange="altera_imagem()">
+            <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" /><br>
+            <small><a class="act-alter-foto">Alterar foto de perfil</a></small>
+            <br>
+            {{-- <button class="btn btn-success hide act-enviar-imagem">Salvar foto</button>&nbsp;&nbsp;<b><small class='nm_imagem'></small></b> --}}
+            <button type='submit' id='btnEnviaFoto' class="btn btn-success hide">Salvar foto</button>&nbsp;&nbsp;
+            <b><small class='nm_imagem'></small></b>
+
+            <input type="file" class="hide" id='foto_upd' name='imagemPerfil' onchange="altera_imagem()">
+        </form>
     </div>
     <br>
 
@@ -64,14 +70,9 @@
             <td><label>UF: </label> </td>
             <td>
                 <select class="form-control" id='uf_upd' style="width: 100px;">
-                    {foreach from=$estados item=desc}
-                        {if $dadosUsuario.uf eq $desc}
-                            <option id="{$sigla}" selected="selected">{$desc}</option>
-                        {else}
-                            <option id="{$sigla}">{$desc}</option>
-                        {/if}
-
-                    {/foreach}
+                    @foreach($estados as $sigla=>$desc)
+                        <option id="{{$sigla}}">{{$desc}}</option>
+                    @endforeach
                 </select>
             </td>
         </tr>
@@ -89,6 +90,5 @@
     </table>
 </div>
 
-<script type="text/javascript" src="{$smarty.const._LIBS_}jquery-masked-input/dist/jquery.masked-input.js"></script>
 <script type="text/javascript" src="/js/minhaConta/perfil.js"></script>
 @endsection

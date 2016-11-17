@@ -22,10 +22,12 @@ Route::get('/minha-conta/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favor
 
 // Açoes
 Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\Contato@salvaContatoAction']);
-Route::post('/minha-conta/perfil/updatePerfil',['as'=>'updatePerfilPost','uses'=>'MinhaConta\Perfil@updatePerfil']);
+
 
 // AJAX
 Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\Produto@getDescricaoProdutoAction']);
+Route::post('/minha-conta/perfil/updatePerfil',['as'=>'updatePerfil','uses'=>'MinhaConta\Perfil@updatePerfilAction']);
+Route::post('/minha-conta/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\Perfil@updateFotoAction']);
 
 // Autentication
 Auth::routes();

@@ -31,7 +31,7 @@
         	@include('topo')
         </div>
 
-        <div class="container" style="border: solid 0px;">
+        <div class="container">
             @yield('content')
         </div>
 
@@ -42,5 +42,6 @@
         </div>
 
 		<script src="/js/padrao.js"></script>
+		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
     </body>
 </html>

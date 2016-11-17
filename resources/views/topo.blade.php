@@ -15,7 +15,7 @@
         @else
             <span class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/imagens/cadastro/padrao.jpg" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
+                    <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
                 <ul class="dropdown-menu">

@@ -64,7 +64,8 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    //'timezone' => 'UTC',
+    'timezone' => 'America/Sao_Paulo',
 
     /*
     |--------------------------------------------------------------------------
@@ -227,5 +228,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
+
+    '_IMAGENS_' => $_SERVER['DOCUMENT_ROOT'].'\imagens',
 
 ];

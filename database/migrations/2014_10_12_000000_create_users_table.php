@@ -28,7 +28,7 @@ class CreateUsersTable extends Migration
             $table->integer('cep')->nullable();
             $table->string('telefone_fixo')->nullable();
             $table->string('telefone_cel')->nullable();
-            $table->string('nome_imagem')->nullable();
+            $table->string('nome_imagem')->default('padrao.jpg');
             $table->string('password');
             $table->rememberToken();
             $table->timestamps();
