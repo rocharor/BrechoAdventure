@@ -3,11 +3,11 @@
 @section('content')
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-8 col-md-offset-2" >
             <div class="panel panel-default">
-                <div class="panel-heading">Novo usuário</div>
-                <div class="panel-body">
-                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}">
+                <div class="panel-heading" style="background-color:#F3BC55">Novo usuário</div>
+                <div class="panel-body" style="background-color:#fedd7a">
+                    <form class="form-horizontal" role="form" method="POST" action="{{ url('/register') }}" >
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

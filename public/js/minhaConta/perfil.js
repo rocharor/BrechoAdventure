@@ -1,3 +1,8 @@
+$.ajaxSetup({
+    headers: {
+        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+    }
+});
 /*=======================
 AÇÕES PARA ALTERAR FOTO
 =======================*/
@@ -89,21 +94,21 @@ $('.act-update').click(function(e){
         erro = true;
         return false;
     }
-    
+
     if(email == ''){
         $('#email_upd').parent().addClass('has-error');
         alert('Campo email é obrigatório');
         erro = true;
         return false;
     }
-    
+
     if(dt_nascimento == ''){
         $('#dt_nascimento_upd').parent().addClass('has-error');
         alert('Campo "Data de nascimento" é obrigatório');
         erro = true;
         return false;
     }
-    
+
     if(tel_fixo == '' && tel_cel == ''){
         $('#tel_upd').parent().addClass('has-error');
         $('#cel_upd').parent().addClass('has-error');
@@ -112,23 +117,24 @@ $('.act-update').click(function(e){
         return false;
     }
 
-    if(!erro){
-        var dados = {'nome':nome,
-        			 'apelido':apelido,
-                     'email':email,
-                     'dt_nascimento':dt_nascimento,
-                     'endereco':endereco,
-                     'numero':numero,
-                     'complemento':complemento,
-                     'bairro':bairro,
-                     'cidade':cidade,
-                     'uf':uf,
-                     'cep':cep,
-                     'telefone_fixo':tel_fixo,
-                     'telefone_cel':tel_cel
-                    };
+   if(!erro){
+   var dados = {  'nome':nome,
+                  'apelido':apelido,
+                  'email':email,
+                  'dt_nascimento':dt_nascimento,
+                  'endereco':endereco,
+                  'numero':numero,
+                  'complemento':complemento,
+                  'bairro':bairro,
+                  'cidade':cidade,
+                  'uf':uf,
+                  'cep':cep,
+                  'telefone_fixo':tel_fixo,
+                  'telefone_cel':tel_cel
+              };
+                             
         $.ajax({
-            url:'/minha-conta/perfil/updatePerfil/',
+            url:'/minha-conta/perfil/updatePerfil',
             dataType: 'json',
             type: 'POST',
             data: {'dados': dados},

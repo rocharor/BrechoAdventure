@@ -22,6 +22,7 @@ Route::get('/minha-conta/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favor
 
 // Açoes
 Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\Contato@salvaContatoAction']);
+Route::post('/minha-conta/perfil/updatePerfil',['as'=>'updatePerfilPost','uses'=>'MinhaConta\Perfil@updatePerfil']);
 
 // AJAX
 Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\Produto@getDescricaoProdutoAction']);

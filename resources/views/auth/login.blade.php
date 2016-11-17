@@ -5,8 +5,8 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Login</div>
-                <div class="panel-body">
+                <div class="panel-heading" style="background-color:#F3BC55"><label>Login</label></div>
+                <div class="panel-body" style="background-color:#fedd7a">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
 
