@@ -25,6 +25,10 @@
 
 		<script src="/libs/jquery/dist/jquery.js"></script>
         <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
+		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
+		<script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
+		{{-- <script src="/libs/notify/notify.js"></script> --}}
+		<script src="/js/global.js"></script>
     </head>
     <body>
         <div>
@@ -40,8 +44,5 @@
         <div>
         	@include('rodape')
         </div>
-
-		<script src="/js/padrao.js"></script>
-		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
     </body>
 </html>

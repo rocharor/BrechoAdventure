@@ -31,7 +31,7 @@ class Produto extends Model
     public function getDescricaoProduto($produto_id)
     {
         $produto_id = (int) $produto_id;
-        
+
         $arrProduto = DB::table('produtos as p')
                     ->join('usuarios as u','p.usuario_id','=','u.id')
                     ->select('p.categoria_id','p.titulo','p.descricao','p.valor','p.estado','p.nm_imagem','u.nome','u.email','u.telefone_fixo as fixo','u.telefone_cel as cel')

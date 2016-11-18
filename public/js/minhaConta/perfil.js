@@ -72,47 +72,49 @@ $('.act-enviar-imagem').click(function(e){
 $('.act-update').click(function(e){
     e.preventDefault()
 
-    var nome = empty($('#nome_upd').val()) ? null : $('#nome_upd').val();
-    var apelido = empty($('#apelido_upd').val()) ? null : $('#apelido_upd').val();
-    var email = empty($('#email_upd').val()) ? null : $('#email_upd').val();
-    var dt_nascimento = empty($('#dt_nascimento_upd').val()) ? null : $('#dt_nascimento_upd').val();
-    var endereco = empty($('#endereco_upd').val()) ? null : $('#endereco_upd').val();
-    var numero = empty($('#numero_upd').val()) ? null : $('#numero_upd').val();
-    var complemento = empty($('#complemento_upd').val()) ? null : $('#complemento_upd').val();
-    var bairro = empty($('#bairro_upd').val()) ? null : $('#bairro_upd').val();
-    var cidade = empty($('#cidade_upd').val()) ? null : $('#cidade_upd').val();
-    var uf = empty($('#uf_upd').val()) ? null : $('#uf_upd').val();
+    var nome = $('#nome_upd').val();
+    var apelido = $('#apelido_upd').val();
+    var email = $('#email_upd').val();
+    var dt_nascimento = $('#dt_nascimento_upd').val();
+    var endereco = $('#endereco_upd').val();
+    var numero = $('#numero_upd').val();
+    var complemento = $('#complemento_upd').val();
+    var bairro = $('#bairro_upd').val();
+    var cidade = $('#cidade_upd').val();
+    var uf = $('#uf_upd').val();
     var cep = empty($('#cep_upd').val()) ? 0 : $('#cep_upd').val();
-    var tel_fixo = empty($('#tel_upd').val()) ? null : $('#tel_upd').val();
-    var tel_cel = empty($('#cel_upd').val()) ? null : $('#cel_upd').val();
+    var telefone_fixo = $('#tel_upd').val();
+    var telefone_cel = $('#cel_upd').val();
 
     var erro = false;
 
+    $('input').parent().removeClass('has-error');
+
     if(nome == ''){
         $('#nome_upd').parent().addClass('has-error');
-        alert('Campo nome é obrigatório');
+        alertaPagina('Campo "nome" é obrigatório','danger');
         erro = true;
         return false;
     }
 
     if(email == ''){
         $('#email_upd').parent().addClass('has-error');
-        alert('Campo email é obrigatório');
+        alertaPagina('Campo "email" é obrigatório','danger');
         erro = true;
         return false;
     }
 
     if(dt_nascimento == ''){
         $('#dt_nascimento_upd').parent().addClass('has-error');
-        alert('Campo "Data de nascimento" é obrigatório');
+        alertaPagina('Campo "Data de nascimento" é obrigatório','danger');
         erro = true;
         return false;
     }
 
-    if(tel_fixo == '' && tel_cel == ''){
+    if(telefone_fixo == '' && telefone_cel == ''){
         $('#tel_upd').parent().addClass('has-error');
         $('#cel_upd').parent().addClass('has-error');
-        alert('Necessário pelo menos 1 número de telefone');
+        alertaPagina('Necessário pelo menos 1 número de telefone','danger');
         erro = true;
         return false;
     }
@@ -129,8 +131,8 @@ $('.act-update').click(function(e){
                   'cidade':cidade,
                   'uf':uf,
                   'cep':cep,
-                  'telefone_fixo':tel_fixo,
-                  'telefone_cel':tel_cel
+                  'telefone_fixo':telefone_fixo,
+                  'telefone_cel':telefone_cel
               };
 
         $.ajax({
@@ -139,46 +141,52 @@ $('.act-update').click(function(e){
             type: 'POST',
             data: {'dados': dados},
             success: function(retorno){
-                if(retorno){
-                    alert('Dados salvos com sucesso');
-                }
-                else{
-                    alert('Erro ao salvar!')
-                }
+               if(retorno){
+                  alertaPagina('Dados salvos com sucesso','success');
+               }else{
+                  alertaPagina('Erro ao salvar!','warning');
+               }
             },
             error: function(retorno){
-                alert('Erro no sistema! cod-G1')
+               alertaPagina('Erro no sistema! cod-G1','danger');
             }
         });
     }
 });
 
 /**
- * Método JS que verifica se var esta vazia
- * @param  {[type]} mixedVar [description]
- * @return {[type]}          [description]
- */
-function empty (mixedVar) {
-    var undef
-    var key
-    var i
-    var len
-    var emptyValues = [undef, null, false, 0, '', '0']
+* Faz autocomplete do endereço
+*/
+function buscaCEP(cep){
 
-    for (i = 0, len = emptyValues.length; i < len; i++) {
-        if (mixedVar === emptyValues[i]) {
-            return true
-        }
-    }
+   cep = cep.replace('-','');
+   console.log(cep);
 
-    if (typeof mixedVar === 'object') {
-        for (key in mixedVar) {
-            if (mixedVar.hasOwnProperty(key)) {
-            return false
-            }
-        }
-        return true
-    }
-
-    return false
 }
+// Mascaras
+(function() {
+   VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
+   VMasker(document.getElementById("cep_upd")).maskPattern('99999-999');
+   VMasker(document.getElementById("tel_upd")).maskPattern('(99) 9999-9999');
+   VMasker(document.getElementById("cel_upd")).maskPattern('(99) 99999-9999');
+
+	// #maskMoney
+	// VMasker(document.getElementById("default")).maskMoney();
+	// VMasker(document.getElementById("defaultValues")).maskMoney();
+	// VMasker(document.getElementById("zeroCents")).maskMoney({zeroCents: true});
+	// VMasker(document.getElementById("unit")).maskMoney({unit: 'R$'});
+	// VMasker(document.getElementById("suffixUnit")).maskMoney({suffixUnit: 'R$'});
+	// VMasker(document.getElementById("delimiter")).maskMoney({delimiter: ','});
+   // VMasker(document.getElementById("separator")).maskMoney({separator: '.'});
+
+	// #maskNumber
+	// VMasker(document.getElementById("numbers")).maskNumber();
+
+	// #maskPattern
+	// VMasker(document.getElementById("phone")).maskPattern('(99) 9999-9999');
+	// VMasker(document.getElementById("phoneValues")).maskPattern('(99) 9999-9999');
+	// VMasker(document.getElementById("date")).maskPattern('99/99/9999');
+	// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
+	// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
+	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
+})();

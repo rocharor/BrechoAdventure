@@ -25,7 +25,7 @@ class CreateUsersTable extends Migration
             $table->string('bairro')->nullable();
             $table->string('cidade')->nullable();
             $table->string('uf')->nullable();
-            $table->integer('cep')->nullable();
+            $table->string('cep')->nullable();
             $table->string('telefone_fixo')->nullable();
             $table->string('telefone_cel')->nullable();
             $table->string('nome_imagem')->default('padrao.jpg');

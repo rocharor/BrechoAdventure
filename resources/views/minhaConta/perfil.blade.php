@@ -71,7 +71,7 @@
             <td>
                 <select class="form-control" id='uf_upd' style="width: 100px;">
                     @foreach($estados as $sigla=>$desc)
-                        <option id="{{$sigla}}">{{$desc}}</option>
+                        <option value="{{$sigla}}">{{$desc}}</option>
                     @endforeach
                 </select>
             </td>

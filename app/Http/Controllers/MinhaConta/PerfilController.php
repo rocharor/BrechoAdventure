@@ -7,14 +7,19 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 
-class Perfil extends Controller
+class PerfilController extends Controller
 {
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    public function indexAction()
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
     {
         $estados = [
             "AC"=>"Acre",
@@ -46,22 +51,85 @@ class Perfil extends Controller
             "TO"=>"Tocantins"
         ];
 
+        Auth::user()->dt_nascimento = preg_replace("/([0-9]*)-([0-9]*)-([0-9]*)/", "$3/$2/$1", Auth::user()->dt_nascimento);
+
         return view('minhaConta/perfil',['estados'=>$estados]);
     }
 
-    public function updatePerfilAction(User $user, Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(User $user, Request $request)
     {
         $dados = $request->get('dados');
+        $dados['dt_nascimento'] = date("Y-m-d",strtotime(str_replace('/','-',$dados['dt_nascimento'])));
+        $dados['cep'] = str_replace('-','',$dados['cep']);
+        $dados['telefone_fixo'] = str_replace(['(',')','-'],'',$dados['telefone_fixo']);
+        $dados['telefone_cel'] = str_replace(['(',')','-'],'',$dados['telefone_cel']);
+
         $r = $user->find(Auth::user()->id);
 
         $retorno =  $r->update($dados);
 
         echo response()->json($retorno)->content();
         die();
-
     }
 
-    public function updateFotoAction(User $user, Request $request)
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function updateFoto(User $user, Request $request)
     {
         //$arquivo_file = $request->file('arquivo');
         $arquivo_file = $request->file('imagemPerfil');
@@ -110,9 +178,21 @@ dd($arquivo_file);
         //             'sucesso' => false,
         //             'mensagem' => 'Erro ao alterar imagem , tente novamente!'
         //         );
-            }
+            // }
         //
         //     echo json_encode($retorno);
-        //     exit();
+        //     exit()
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($id)
+    {
+        //
     }
 }

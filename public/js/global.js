@@ -1,18 +1,18 @@
 $('.act-buscar').click(function() {
-	
+
 	var valorBusca = $('.busca').val();
-	
+
 	if(valorBusca.length < 3){
 		alert('Digite pelo menos 3 caracteres');
 		return false;
-	}	
-	
+	}
+
 	url_busca = '/busca/'+valorBusca+'/';
-	
+
 	window.open(url_busca,'_self');
 });
 
-$('.busca').keypress(function(e){	
+$('.busca').keypress(function(e){
 	if(e.keyCode == 13){
 		$('.act-buscar').click();
 	}
@@ -25,13 +25,13 @@ var alertaPagina = function(texto,classe){
 	if(texto == 'undefined' || classe == 'undefined'){
 		return false;
 	}
-
+console.log(classe)
 	switch (classe) {
 	case 'success':
 		icone = 'glyphicon-warning-sign'
 		break;
-	case 'error':
-		icone = 'glyphicon-warning-sign'
+	case 'danger':
+		icone = 'glyphicon-danger-sign'
 		break;
 	case 'warning':
 		icone = 'glyphicon-warning-sign'
@@ -82,7 +82,7 @@ var alertaComponente = function(id_componente,texto,classe,posicao){
                 autoHideDelay: 5000,
                 arrowShow: true,
                 arrowSize: 5,
-                position: posicao,            
+                position: posicao,
                 style: 'bootstrap',
                 className: classe,
                 showAnimation: 'slideDown',
@@ -91,4 +91,34 @@ var alertaComponente = function(id_componente,texto,classe,posicao){
                 hideDuration: 200,
                 gap: 2}
     );
+}
+
+/**
+ * Método JS que verifica se var esta vazia
+ * @param  {[type]} mixedVar [description]
+ * @return {[type]}          [description]
+ */
+function empty (mixedVar) {
+    var undef
+    var key
+    var i
+    var len
+    var emptyValues = [undef, null, false, 0, '', '0']
+
+    for (i = 0, len = emptyValues.length; i < len; i++) {
+        if (mixedVar === emptyValues[i]) {
+            return true
+        }
+    }
+
+    if (typeof mixedVar === 'object') {
+        for (key in mixedVar) {
+            if (mixedVar.hasOwnProperty(key)) {
+            return false
+            }
+        }
+        return true
+    }
+
+    return false
 }

@@ -12,22 +12,22 @@
 */
 
 // Menus
-Route::get('/',['as'=>'home','uses'=>'Site\Home@indexAction']);
-Route::get('/produto',['as'=>'produto','uses'=>'Site\Produto@indexAction']);
-Route::get('/contato',['as'=>'contato','uses'=>'Site\Contato@indexAction']);
+Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
+Route::get('/produto',['as'=>'produto','uses'=>'Site\ProdutoController@index']);
+Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
-Route::get('/minha-conta/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\Perfil@indexAction']);
+Route::get('/minha-conta/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\PerfilController@index']);
 Route::get('/minha-conta/produto',['as'=>'mcproduto','uses'=>'MinhaConta\Produto@indexAction']);
 Route::get('/minha-conta/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favorito@indexAction']);
 
 // Açoes
-Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\Contato@salvaContatoAction']);
+Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
 
 
 // AJAX
-Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\Produto@getDescricaoProdutoAction']);
-Route::post('/minha-conta/perfil/updatePerfil',['as'=>'updatePerfil','uses'=>'MinhaConta\Perfil@updatePerfilAction']);
-Route::post('/minha-conta/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\Perfil@updateFotoAction']);
+Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\ProdutoController@getDescricaoProduto']);
+Route::post('/minha-conta/perfil/updatePerfil',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
+Route::post('/minha-conta/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\Perfil@updateFoto']);
 
 // Autentication
 Auth::routes();

@@ -33,7 +33,7 @@
 	        <div class="col-md-4" align="center" style="border-bottom: solid 1px; padding: 20px 0">
 	        <div class="div-produto" align="center">
 	            <div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
-	                @if ($logado == 0)
+	                @if(Auth::check() == 0)
 	                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
 	                @else
 	                    {if $produto.favorito eq 1}
