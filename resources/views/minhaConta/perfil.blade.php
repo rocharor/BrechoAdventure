@@ -8,7 +8,7 @@
 <link type="text/css" rel="stylesheet" href="/css/minhaConta.css" />
 
 <h1 class="text-danger">PERFIL</h1>
-<div>
+<div>    
     <div align="left">
         <form action='/minha-conta/perfil/updateFoto' name='formFotoPerfil' method='POST' enctype="multipart/form-data">
             {{ csrf_field() }}

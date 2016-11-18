@@ -6,12 +6,15 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Services\Util;
 
 class PerfilController extends Controller
 {
+    use Util;
+
     public function __construct()
     {
-        $this->middleware('auth');
+        //$this->middleware('auth');
     }
 
     /**
@@ -131,58 +134,28 @@ class PerfilController extends Controller
      */
     public function updateFoto(User $user, Request $request)
     {
-        //$arquivo_file = $request->file('arquivo');
-        $arquivo_file = $request->file('imagemPerfil');
-dd($arquivo_file);
-        if (
-            // Padrao::validaExtImagem([$arquivo_file])
-            1) {
-            // $usuario_id = Sessao::pegaSessao('logado');
-
-            $arrNomeFoto = explode('.', $arquivo_file['name']);
-            $extencao = end($arrNomeFoto);
-            $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $extencao;
-
-            dd(move_uploaded_file($arquivo_file['tmp_name'], config('app._IMAGENS_') . '\cadastro\\' . $foto_nome));
-
-            if (move_uploaded_file($arquivo_file['tmp_name'], config('app._IMAGENS_') . '\cadastro\\' . $foto_nome)){
-                $foto_salva = true;
-            }else{
-                $foto_salva = false;
+        // $arquivo_file = $request->file('imagemPerfil');
+        $foto_salva = false;
+        if ($request->hasFile('imagemPerfil') && $request->file('imagemPerfil')->isValid()){
+            // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome);
+            $ext = $request->imagemPerfil->extension();
+            if($this->validaExtImagem($ext)){
+                // $path = $request->imagemPerfil->store('imagens/cadastro');
+                $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
+                $foto_salva = $request->imagemPerfil->move(public_path("imagens\cadastro"), $foto_nome);
             }
-        //
-        //     if ($foto_salva) {
-        //         $user_id = Sessao::pegaSessao('logado');
-        //         $ret = $this->model->updateUsuario($user_id, '', $foto_nome);
-        //
-        //         if ($ret) {
-        //             $nome_imagem = Sessao::pegaSessao('nome_imagem');
-        //             if ($nome_imagem != 'padrao.jpg')
-        //                 unlink(_IMAGENS_ . 'cadastro/' . $nome_imagem);
-        //             Sessao::setaSessao(array(
-        //                 'nome_imagem' => $foto_nome
-        //             ));
-        //
-        //             $retorno = array(
-        //                 'sucesso' => true,
-        //                 'mensagem' => 'Foto alterada com sucesso.'
-        //             );
-        //         } else {
-        //             $retorno = array(
-        //                 'sucesso' => false,
-        //                 'mensagem' => 'Erro ao alterar imagem , tente novamente! cod-U1'
-        //             );
-        //         }
-        //     } else {
-        //         $retorno = array(
-        //             'sucesso' => false,
-        //             'mensagem' => 'Erro ao alterar imagem , tente novamente!'
-        //         );
-            // }
-        //
-        //     echo json_encode($retorno);
-        //     exit()
         }
+
+        if ($foto_salva) {
+            $r = $user->find(Auth::user()->id);
+            $ret =  $r->update(['nome_imagem'=>$foto_nome]);
+                if ($ret) {
+                    return redirect()->route('minha-conta.mcperfil')->with('sucesso','Foto alterada com sucesso.');
+                }
+        }
+
+        return redirect()->route('minha-conta.mcperfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+        // return redirect()->action('MinhaConta\PerfilController@index', $retorno);
     }
 
     /**

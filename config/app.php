@@ -228,7 +228,4 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
     ],
-
-    '_IMAGENS_' => $_SERVER['DOCUMENT_ROOT'].'\imagens',
-
 ];

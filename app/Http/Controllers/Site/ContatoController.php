@@ -23,7 +23,7 @@ class ContatoController extends Controller
      */
     public function index()
     {
-        return view('site/contato',['logado'=>0]);
+        return view('site/contato');
     }
 
     /**

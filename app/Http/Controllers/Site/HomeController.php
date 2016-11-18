@@ -23,7 +23,7 @@ class HomeController extends Controller
     public function index()
     {
         $frase = $this->model->frasesHome();
-        return view('site/home',['logado'=>0,'frase'=>$frase]);
+        return view('site/home',['frase'=>$frase]);
     }
 
     /**

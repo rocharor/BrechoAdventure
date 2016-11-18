@@ -19,9 +19,9 @@
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
                 <ul class="dropdown-menu">
-                    <li><a href="{{ Route('mcperfil') }}">Meu Perfil</a></li>
-                    <li><a href="{{ Route('mcproduto') }}">Meus Produtos</a></li>
-                    <li><a href="{{ Route('mcfavorito') }}">Meus Favoritos</a></li>
+                    <li><a href="{{ Route('minha-conta.mcperfil') }}">Meu Perfil</a></li>
+                    <li><a href="{{ Route('minha-conta.mcproduto') }}">Meus Produtos</a></li>
+                    <li><a href="{{ Route('minha-conta.mcfavorito') }}">Meus Favoritos</a></li>
                 </ul>
             </span>
             <a href="/minha-conta/cadastro-produto" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>

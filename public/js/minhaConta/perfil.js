@@ -37,32 +37,34 @@ var altera_imagem = function(){
 $('.act-enviar-imagem').click(function(e){
     e.preventDefault();
 
-    var $foto = $('#foto_upd')[0].files[0];
-    var form_data = new FormData();
-    form_data.append('arquivo',$foto);
-    $.ajax({
-        url: '/minha-conta/perfil/updateFoto',
-        type: 'post',
-        dataType: 'json',
-        processData: false,
-        contentType: false,
-        data: form_data,
-        success: function(retorno){
-            if(retorno.sucesso == true){
-                alert(retorno.mensagem);
-                window.location.reload();
-            }else{
-                alert(retorno.mensagem);
-                $('.act-alter-foto').removeClass('hide');
-                $('.act-enviar-imagem').addClass('hide');
-                $('.nm_imagem').html('');
-            }
-
-        },
-        error: function(retorno){
-
-        }
-    })
+    // var url_atual = window.location.href;
+    // var $foto = $('#foto_upd')[0].files[0];
+    // var form_data = new FormData();
+    // form_data.append('arquivo',$foto);
+    // $.ajax({
+    //     url: '/minha-conta/perfil/updateFoto',
+    //     type: 'post',
+    //     dataType: 'json',
+    //     processData: false,
+    //     contentType: false,
+    //     data: form_data,
+    //     success: function(retorno){
+    //         console.log(retorno)
+    //         if(retorno.sucesso == true){
+    //             alert(retorno.mensagem);
+    //             window.open(url_atual,'_self');
+    //         }else{
+    //             alert(retorno.mensagem);
+    //             $('.act-alter-foto').removeClass('hide');
+    //             $('.act-enviar-imagem').addClass('hide');
+    //             $('.nm_imagem').html('');
+    //         }
+    //
+    //     },
+    //     error: function(retorno){
+    //
+    //     }
+    // })
 })
 
 

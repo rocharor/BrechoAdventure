@@ -31,6 +31,14 @@
 		<script src="/js/global.js"></script>
     </head>
     <body>
+		@if (session('sucesso'))
+	        <script>alertaPagina('{{ session('sucesso') }}', 'success');</script>
+
+	    @endif
+	    @if (session('erro'))
+	        <script>alertaPagina('{{ session('erro') }}', 'danger');</script>
+	    @endif
+		
         <div>
         	@include('topo')
         </div>

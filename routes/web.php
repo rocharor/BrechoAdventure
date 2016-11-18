@@ -11,34 +11,31 @@
 |
 */
 
-// Menus
-Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
-Route::get('/produto',['as'=>'produto','uses'=>'Site\ProdutoController@index']);
-Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
+// Rotas da area Minha Conta
+    // Menus
+    Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
+    Route::get('/produto',['as'=>'produto','uses'=>'Site\ProdutoController@index']);
+    Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
-Route::get('/minha-conta/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\PerfilController@index']);
-Route::get('/minha-conta/produto',['as'=>'mcproduto','uses'=>'MinhaConta\Produto@indexAction']);
-Route::get('/minha-conta/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favorito@indexAction']);
+    // Açoes
+    Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
+    Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\ProdutoController@getDescricaoProduto']);
 
-// Açoes
-Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
+// Rotas da area Minha Conta
+Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
+    // Menus
+    Route::get('/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\PerfilController@index']);
+    Route::get('/produto',['as'=>'mcproduto','uses'=>'MinhaConta\Produto@indexAction']);
+    Route::get('/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favorito@indexAction']);
 
+    // Ações
+    Route::post('/perfil/updatePerfil',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
+    Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\PerfilController@updateFoto']);
+});
 
-// AJAX
-Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\ProdutoController@getDescricaoProduto']);
-Route::post('/minha-conta/perfil/updatePerfil',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
-Route::post('/minha-conta/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\Perfil@updateFoto']);
 
 // Autentication
 Auth::routes();
 Route::get('/login',['as'=>'login','uses'=>'Auth\LoginController@showLoginForm']);
 Route::get('/logout',['as'=>'logout','uses'=>'Auth\LoginController@logout']);
 Route::get('/cadastre-se',['as'=>'cadastre-se','uses'=>'Auth\RegisterController@showRegistrationForm']);
-//Route::get('/home', 'HomeController@index');
-
-
-
-// Route::post('/Produto/getDescricaoProduto', function () {
-//     die('akiiii');
-//     return view('welcome');
-// });

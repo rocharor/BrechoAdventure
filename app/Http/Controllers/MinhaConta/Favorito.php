@@ -13,7 +13,7 @@ class Favorito extends Controller
 
     public function __construct(FavoritoModel $objFavorito)
     {
-        $this->middleware('auth');
+        // $this->middleware('auth');
         $this->model = $objFavorito;
     }
 
