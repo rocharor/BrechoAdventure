@@ -19,7 +19,7 @@ class CreateContatosTable extends Migration
             $table->string('email');
             $table->string('tipo');
             $table->text('mensagem');
-            $table->integer('status_resposta');
+            $table->integer('status_resposta')->default(0);;
             $table->timestamps();
         });
     }

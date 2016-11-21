@@ -18,7 +18,7 @@
     Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
     // Açoes
-    Route::post('/contato',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
+    Route::post('/contato/create',['as'=>'contatoPost','uses'=>'Site\ContatoController@create']);
     Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\ProdutoController@getDescricaoProduto']);
 
 // Rotas da area Minha Conta
@@ -29,7 +29,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favorito@indexAction']);
 
     // Ações
-    Route::post('/perfil/updatePerfil',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
+    Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\PerfilController@updateFoto']);
 });
 

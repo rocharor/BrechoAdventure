@@ -121,39 +121,41 @@ $('.act-update').click(function(e){
         return false;
     }
 
-   if(!erro){
-   var dados = {  'name':nome,
-                  'apelido':apelido,
-                  'email':email,
-                  'dt_nascimento':dt_nascimento,
-                  'endereco':endereco,
-                  'numero':numero,
-                  'complemento':complemento,
-                  'bairro':bairro,
-                  'cidade':cidade,
-                  'uf':uf,
-                  'cep':cep,
-                  'telefone_fixo':telefone_fixo,
-                  'telefone_cel':telefone_cel
-              };
+    $('#formPerfil').submit();
 
-        $.ajax({
-            url:'/minha-conta/perfil/updatePerfil',
-            dataType: 'json',
-            type: 'POST',
-            data: {'dados': dados},
-            success: function(retorno){
-               if(retorno){
-                  alertaPagina('Dados salvos com sucesso','success');
-               }else{
-                  alertaPagina('Erro ao salvar!','warning');
-               }
-            },
-            error: function(retorno){
-               alertaPagina('Erro no sistema! cod-G1','danger');
-            }
-        });
-    }
+   // if(!erro){
+   // var dados = {  'name':nome,
+   //                'apelido':apelido,
+   //                'email':email,
+   //                'dt_nascimento':dt_nascimento,
+   //                'endereco':endereco,
+   //                'numero':numero,
+   //                'complemento':complemento,
+   //                'bairro':bairro,
+   //                'cidade':cidade,
+   //                'uf':uf,
+   //                'cep':cep,
+   //                'telefone_fixo':telefone_fixo,
+   //                'telefone_cel':telefone_cel
+   //            };
+   //
+   //      $.ajax({
+   //          url:'/minha-conta/perfil/updatePerfil',
+   //          dataType: 'json',
+   //          type: 'POST',
+   //          data: {'dados': dados},
+   //          success: function(retorno){
+   //             if(retorno){
+   //                alertaPagina('Dados salvos com sucesso','success');
+   //             }else{
+   //                alertaPagina('Erro ao salvar!','warning');
+   //             }
+   //          },
+   //          error: function(retorno){
+   //             alertaPagina('Erro no sistema! cod-G1','danger');
+   //          }
+   //      });
+   //  }
 });
 
 /**

@@ -111,18 +111,24 @@ class PerfilController extends Controller
      */
     public function update(User $user, Request $request)
     {
-        $dados = $request->get('dados');
+        $dados = $request->all();
+        unset($dados['_token']);
         $dados['dt_nascimento'] = date("Y-m-d",strtotime(str_replace('/','-',$dados['dt_nascimento'])));
         $dados['cep'] = str_replace('-','',$dados['cep']);
         $dados['telefone_fixo'] = str_replace(['(',')','-'],'',$dados['telefone_fixo']);
         $dados['telefone_cel'] = str_replace(['(',')','-'],'',$dados['telefone_cel']);
 
         $r = $user->find(Auth::user()->id);
-
         $retorno =  $r->update($dados);
 
-        echo response()->json($retorno)->content();
-        die();
+        if($retorno){
+            return redirect()->route('minha-conta.mcperfil')->with('sucesso','Dados salvos com sucesso.');
+        }else{
+            return redirect()->route('minha-conta.mcperfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+        }
+
+        // echo response()->json($retorno)->content();
+        // die();
     }
 
     /**

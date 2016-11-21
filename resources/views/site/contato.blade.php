@@ -7,15 +7,7 @@
 
 <div class="row">
 	<div class="col-md-6">
-	    <!-- {$msg} -->
-		@if(isset($msg))
-			@if($msg)
-				<div class="alert alert-success msg-alert animated" align="center" style="width: auto;">Mensagem enviada com sucesso</div>
-			@else
-				<div class="alert alert-danger" align="center" style="width: 400px;">Erro ao enviar a mensagem</div>
-			@endif
-		@endif
-	    <form action="/contato" method="POST" name="form" id="form">
+	    <form action="/contato/create" method="POST" name="form" id="form">
             {{ csrf_field() }}
 
 	        <div class="form-group">

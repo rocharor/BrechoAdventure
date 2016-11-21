@@ -12,7 +12,6 @@ class ContatoController extends Controller
 
     public function __construct(ContatoModel $contato)
     {
-        //$this->middleware('auth');
         $this->model = $contato;
     }
 
@@ -31,24 +30,15 @@ class ContatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        $dados = $_POST;
-
+        $dados = $request->all();
         $retorno = $this->model->setMensagem($dados);
-
-        return view('site/contato',['logado'=>0,'msg'=>$retorno]);
+        if($retorno){
+            return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
+        }else{
+            return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
+        }
 
         // if ($retorno) {
         //     $msg = '<div class="alert alert-success" align="center" style="width: 400px;">Mensagem enviada com sucesso</div>';
@@ -62,6 +52,17 @@ class ContatoController extends Controller
         //     'active_3' => 'active',
         //     'msg' => $msg
         // ];
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
     }
 
     /**
