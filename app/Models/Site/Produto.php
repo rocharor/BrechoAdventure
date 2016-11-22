@@ -4,16 +4,17 @@ namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use DB;
-use App\Models\Usuario;
+use App\Models\User;
 
 class Produto extends Model
 {
     protected $table = 'produtos';
 
-    /*Relacionamentos*/
+    /*Relacionamentos (1 para 1) */
     public function relUsuario()
     {
-        return $this->belongsTo(Usuario::class,'usuario_id');
+        //associa com o campo id da tabela Usuarios
+        return $this->belongsTo(User::class);
     }
 
     public function getProdutos($limit = false, $categorias = false)
@@ -33,19 +34,11 @@ class Produto extends Model
         $produto_id = (int) $produto_id;
 
         $arrProduto = DB::table('produtos as p')
-                    ->join('usuarios as u','p.usuario_id','=','u.id')
-                    ->select('p.categoria_id','p.titulo','p.descricao','p.valor','p.estado','p.nm_imagem','u.nome','u.email','u.telefone_fixo as fixo','u.telefone_cel as cel')
+                    ->join('users as u','p.usuario_id','=','u.id')
+                    ->select('p.categoria_id','p.titulo','p.descricao','p.valor','p.estado','p.nm_imagem','u.name','u.email','u.telefone_fixo as fixo','u.telefone_cel as cel')
                     ->where('p.id','=',$produto_id)
                     ->get();
 
-        // $sql = "SELECT p.categoria_id,p.titulo,p.descricao,p.valor,p.estado,p.nm_imagem,u.nome,u.email,u.telefone_fixo as fixo,u.telefone_cel as cel
-        //         FROM produtos p
-        //         inner join usuarios u
-        //         on (u.id = p.usuario_id)
-        //         WHERE p.id = {$produto_id}";
-        //
-        // $arrProduto = $this->conn->query($sql)->fetch(\PDO::FETCH_ASSOC);
-
-        return $arrProduto;
+        return $arrProduto[0];
     }
 }

@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Site;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Site\Produto as ProdutoModel;
+use App\Models\User;
 
 class ProdutoController extends Controller
 {
@@ -21,6 +23,9 @@ class ProdutoController extends Controller
      */
     public function index()
     {
+        // $teste = User::with('relProduto')->get();
+        // $teste = ProdutoModel::with('relUsuario')->get();
+        // dd($teste);
         $produtos = $this->model->getProdutos(9);
 
         return view('site/produto',['produtos'=>$produtos]);
@@ -48,14 +53,19 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Traz os dados do produto
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        //
+        $produto_id = $request->get('produto_id');
+        $produtos = $this->model->getDescricaoProduto($produto_id);
+
+        //echo response($produtos)->content();
+        echo response()->json($produtos)->content();
+        die();
     }
 
     /**
@@ -90,20 +100,5 @@ class ProdutoController extends Controller
     public function destroy($id)
     {
         //
-    }
-
-    /**
-    * Traz os dados do produto
-    */
-    public function getDescricaoProduto()
-    {
-        $produto_id = $_POST['produto_id'];
-dd($produto_id);
-        $produtos = $this->model->getDescricaoProduto($produto_id);
-
-        //echo json_encode($arrProduto[0]);
-        //echo response($produtos)->content();
-        echo response()->json($produtos[0])->content();
-        die();
     }
 }

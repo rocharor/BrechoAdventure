@@ -19,7 +19,8 @@
 
     // Açoes
     Route::post('/contato/create',['as'=>'contatoPost','uses'=>'Site\ContatoController@create']);
-    Route::post('/Produto/getDescricaoProduto',['as'=>'descProduto','uses'=>'Site\ProdutoController@getDescricaoProduto']);
+    Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
+
 
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {

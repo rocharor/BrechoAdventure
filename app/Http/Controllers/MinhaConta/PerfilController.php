@@ -5,6 +5,7 @@ namespace App\Http\Controllers\MinhaConta;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use File;
 use App\Models\User;
 use App\Services\Util;
 
@@ -143,16 +144,20 @@ class PerfilController extends Controller
         // $arquivo_file = $request->file('imagemPerfil');
         $foto_salva = false;
         if ($request->hasFile('imagemPerfil') && $request->file('imagemPerfil')->isValid()){
-            // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome);
             $ext = $request->imagemPerfil->extension();
             if($this->validaExtImagem($ext)){
-                // $path = $request->imagemPerfil->store('imagens/cadastro');
+                // $path = $request->imagemPerfil->store('imagens/cadastro'); /* envia as imagens para a pasta Storage/app*/
+                // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome); /*mesma coisa só que pode setar o nome*/
                 $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
                 $foto_salva = $request->imagemPerfil->move(public_path("imagens\cadastro"), $foto_nome);
             }
         }
 
         if ($foto_salva) {
+            $imagemAntiga = Auth::user()->nome_imagem;
+            $filename = public_path("imagens\cadastro\\" . $imagemAntiga);
+            File::delete($filename);
+
             $r = $user->find(Auth::user()->id);
             $ret =  $r->update(['nome_imagem'=>$foto_nome]);
                 if ($ret) {

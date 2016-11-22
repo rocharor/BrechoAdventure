@@ -15,7 +15,7 @@ $('.act-descricao').click(function(e){
     var produto_id = $(this).data('id');
 
     $.ajax({
-        url: '/Produto/getDescricaoProduto',
+        url: '/produto/descricao-produto',
         dataType: 'json',
         type: 'POST',
         data: {'produto_id': produto_id},

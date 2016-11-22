@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\Site\Produto;
 
 class User extends Authenticatable
 {
@@ -27,9 +28,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*Relacionamentos*/
+    /*Relacionamentos (1 para muitos) */
     public function relProduto()
     {
+        //associa com o campo user_id da tabela Produtos
         return $this->hasMany(Produto::class);
     }
 }
