@@ -1,9 +1,9 @@
 @extends('template')
 @section('content')
     <h1 class="text-danger">FAVORITOS</h1>
-    {if $favoritos|@count eq 0}
+    @if(count($favoritos) == 0)
          <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui nenhum favorito cadastrados</i></b></div>
-    {else}
+    @else
     	<table class="table table-striped">
     	    <tr>
     	        <td align="center" style="width: 300px;"><b>Titulo</b></td>
@@ -13,19 +13,19 @@
     	        <td></td>
     	        <td></td>
     	    </tr>
-    	    {foreach from=$favoritos item=favorito}
-    	        {assign var=imagem value="|"|explode:$favorito.nm_imagem}
+            @foreach($favoritos as $favorito)
+    	        {assign var=imagem value="|"|explode:$favorito.nm_imagem}                
     	        <tr>
-    	            <td>{$favorito.titulo}</td>
-    	            <td>{$favorito.descricao}</td>
-    	            <td>R$ {$favorito.valor}</td>
+    	            <td>{{ $favorito->titulo }}</td>
+    	            <td>{{ $favorito->descricao }}</td>
+    	            <td>R$ {{ $favorito->valor }}</td>
                     <td><img src="/imagens/produtos/{$imagem.0}" width="60px" height="60px"/></td>
-    	            <td><a class="btn btn-success act-ver-favorito" data-produto-id="{$favorito.produto_id}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
-    	            <td><a class="btn btn-danger act-excluir-favorito" data-produto-id="{$favorito.produto_id}"><span class="glyphicon glyphicon-trash"></span></a></td>
+    	            <td><a class="btn btn-success act-ver-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+    	            <td><a class="btn btn-danger act-excluir-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-trash"></span></a></td>
     	        </tr>
-    	    {/foreach}
+    	    @endforeach
     	</table>
-    {/if}
+    @endif
 
     <!--Modal descricao-->
     <div class="modal fade" id='modal_descricao_favorito'>

@@ -26,8 +26,8 @@
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
     // Menus
     Route::get('/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\PerfilController@index']);
-    Route::get('/produto',['as'=>'mcproduto','uses'=>'MinhaConta\Produto@indexAction']);
-    Route::get('/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\Favorito@indexAction']);
+    Route::get('/produto',['as'=>'mcproduto','uses'=>'MinhaConta\ProdutoController@index']);
+    Route::get('/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\FavoritoController@index']);
 
     // Ações
     Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);

@@ -32,19 +32,19 @@
 		@foreach($produtos as $produto)
 	        <div class="col-md-4" align="center" style="border-bottom: solid 1px; padding: 20px 0">
 	        <div class="div-produto" align="center">
-	            <div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
+	            <div class="div-favorito-{{ $produto->id }}" {{-- data-usuario-id="{$usuario_id}"--}}>
 	                @if(Auth::check() == 0)
 	                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
 	                @else
-	                    {if $produto.favorito eq 1}
-	                        <a class="act-favorito favorito-ativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='0'>
+	                    {{-- {if $produto.favorito eq 1} --}}
+	                        <a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='0'>
 	                            <span class="img-ativo"></span>
 	                        </a>
-	                    {else}
-	                        <a class="act-favorito favorito-inativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='1'>
-	                            <span class="img-inativo"></span>
-	                        </a>
-	                    {/if}
+	                    {{-- {else} --}}
+	                        {{-- <a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='1'> --}}
+	                            {{-- <span class="img-inativo"></span> --}}
+	                        {{-- </a> --}}
+	                    {{-- {/if} --}}
 	                @endif
 	            </div>
 	            <div style="width: 300px; height: 20px;" align="center">
