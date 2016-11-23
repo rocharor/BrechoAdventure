@@ -3,8 +3,10 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
-class Email
+
+class Email extends Controller
 {
     private $host = "smtp.gmail.com";
     private $emailAdmin = 'rocharor@gmail.com';
@@ -42,6 +44,7 @@ class Email
      */
     public function sendEmail($email, $assunto, $corpo, $copias=[])
     {
+        echo $email;
         $mail = $this->mail;
         $mail->Subject = $assunto;
         $mail->Body = $corpo;
@@ -52,11 +55,53 @@ class Email
             $this->mail->AddCC = $copia; // copia simples
         }
 
-        if ($mail->Send())
+        if ($mail->Send()){
+            $mail->ClearAllRecipients();
             return true;
-        else
+        }else{
             return false;
+        }
     }
+    /**
+     * Envia uma resposta automática quando alguem envia umamensagam pelo contato do site
+     * @param unknown $nome
+     * @param unknown $email
+     * @return boolean
+     */
+    public function respAutomaticaContato($nome, $email)
+    {
+        global $smarty;
+
+        $assunto = "Resposta automatica";
+        $corpo = view('email/respAutomatica',['nome'=>$nome,'email'=>$email]);
+
+        if ($this->sendEmail($email,$assunto,$corpo)){
+            $this->avisoNovaMensagem();
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     *
+     * @return boolean
+     */
+    public function avisoNovaMensagem()
+    {
+        $assunto = "Nova Mensagem";
+        $corpo = view('email/admin');
+        $retorno = $this->sendEmail($this->emailAdmin, $assunto, $corpo);
+
+        return $retorno;
+    }
+
+
+
+
+
+
+
 
     /**
      * Envia o e-mail para usuários que os produtos foram aprovados
@@ -74,40 +119,7 @@ class Email
         return $retorno;
     }
 
-    /**
-     * Envia uma resposta automática quando alguem envia umamensagam pelo contato do site
-     * @param unknown $nome
-     * @param unknown $email
-     * @return boolean
-     */
-    public function respAutomaticaContato($nome, $email)
-    {
-        global $smarty;
 
-        $assunto = "Resposta automatica";
-        $corpo = file_get_contents('arquivo.html');
-        // $this->mail->MsgHTML(file_get_contents('arquivo.html'));
-
-        if ($this->sendEmail($email,$assunto,$corpo)){
-            $this->avisoNovaMensagem();
-            return true;
-        }else{
-            return false;
-        }
-    }
-
-    /**
-     *
-     * @return boolean
-     */
-    public function avisoNovaMensagem()
-    {
-        $assunto = "Nova Mensagem";
-        $corpo = "Uma nova mensagem foi enviada";
-        $retorno = $this->sendEmail($this->emailAdmin, $assunto, $corpo);
-
-        return $retorno;
-    }
 
 
     /**

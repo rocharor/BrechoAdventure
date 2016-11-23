@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Site\Contato as ContatoModel;
+use App\Services\Email;
 
 class ContatoController extends Controller
 {
@@ -30,29 +31,18 @@ class ContatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request)
+    public function create(Request $request, Email $email)
     {
         $dados = $request->all();
         $retorno = $this->model->setMensagem($dados);
         if($retorno){
+            $email->respAutomaticaContato($dados['nome'],$dados['email']);
             return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
         }else{
             return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
         }
-
-        // if ($retorno) {
-        //     $msg = '<div class="alert alert-success" align="center" style="width: 400px;">Mensagem enviada com sucesso</div>';
-        //     $emailModel = new EmailModel();
-        //     $emailModel->respAutomaticaContato($dados['nome'], $dados['email']);
-        // } else {
-        //     $msg = '<div class="alert alert-danger" align="center" style="width: 400px;">Erro ao enviar a mensagem</div>';
-        // }
-        //
-        // $variaveis = [
-        //     'active_3' => 'active',
-        //     'msg' => $msg
-        // ];
     }
+
 
     /**
      * Store a newly created resource in storage.

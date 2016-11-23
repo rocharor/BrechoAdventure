@@ -39,8 +39,8 @@ $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $faker) {
         return [
-        'usuario_id' => time(),
-        'categoria_id' => time(),
+        'user_id' => rand(1,3),
+        'categoria_id' => rand(1,5),
         'titulo' => $faker->lastName,
         'descricao' => $faker->text,
         'valor' => 12000,

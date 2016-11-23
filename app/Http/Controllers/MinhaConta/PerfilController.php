@@ -155,8 +155,10 @@ class PerfilController extends Controller
 
         if ($foto_salva) {
             $imagemAntiga = Auth::user()->nome_imagem;
-            $filename = public_path("imagens\cadastro\\" . $imagemAntiga);
-            File::delete($filename);
+            if($imagemAntiga != 'padrao.jpg'){
+                $filename = public_path("imagens\cadastro\\" . $imagemAntiga);
+                File::delete($filename);
+            }
 
             $r = $user->find(Auth::user()->id);
             $ret =  $r->update(['nome_imagem'=>$foto_nome]);
