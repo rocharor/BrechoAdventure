@@ -10,9 +10,9 @@ class Favorito extends Model
     protected $table = 'favoritos';
 
     /*Relacionamentos (inverso) (1 para muitos) */
-    public function relFavoritoProduto()
+    public function produto()
     {
-        return $this->belongsTo(Produto::class,'produto_id');
+        return $this->belongsTo(Produto::class);
     }
 
     public function getFavoritos($user_id)

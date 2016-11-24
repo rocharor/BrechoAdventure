@@ -15,8 +15,8 @@ class CreateProdutosTable extends Migration
     {
         Schema::create('produtos', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('categoria_id');
+            $table->integer('user_id')->unsigned();
+            $table->integer('categoria_id')->unsigned()->nullable();
             $table->string('titulo');
             $table->text('descricao');
             $table->string('valor');
@@ -24,6 +24,14 @@ class CreateProdutosTable extends Migration
             $table->string('nm_imagem');
             $table->integer('status');
             $table->timestamps();
+
+            $table->foreign('user_id')->references('id')->on('users')
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
+
+            $table->foreign('categoria_id')->references('id')->on('categorias')
+            ->onUpdate('cascade')
+            ->onDelete('set null');
         });
     }
 

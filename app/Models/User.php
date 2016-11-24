@@ -29,7 +29,7 @@ class User extends Authenticatable
     ];
 
     /*Relacionamentos (1 para muitos) */
-    public function relProduto()
+    public function produto()
     {
         //associa com o campo user_id da tabela Produtos
         return $this->hasMany(Produto::class);

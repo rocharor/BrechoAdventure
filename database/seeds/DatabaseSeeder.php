@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
@@ -11,8 +12,14 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        //desativa as chaves estrangeiras
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+
         $this->call(FraseTableSeeder::class);
-        $this->call(ProdutoTableSeeder::class);
         $this->call(CategoriaTableSeeder::class);
+        $this->call(ProdutoTableSeeder::class);
+
+        //ativa as chaves estrangeiras
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
     }
 }

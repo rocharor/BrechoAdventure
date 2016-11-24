@@ -12,13 +12,13 @@ class Produto extends Model
     protected $table = 'produtos';
 
     /*Relacionamentos (inverso) (1 para muitos) */
-    public function relUser()
+    public function user()
     {
         //associa com o campo id da tabela Usuarios
-        return $this->belongsTo(User::class,'user_id');
+        return $this->belongsTo(User::class);
     }
     /*Relacionamentos (1 para muitos) */
-    public function relProdutoFavorito()
+    public function favorito()
     {
         return $this->hasMany(Favorito::class);
     }
