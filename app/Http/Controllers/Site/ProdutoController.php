@@ -23,9 +23,6 @@ class ProdutoController extends Controller
      */
     public function index()
     {
-        // $teste = User::with('relProduto')->get();
-        // $teste = ProdutoModel::with('relUsuario')->get();
-        // dd($teste);
         $produtos = $this->model->getProdutos(9);
         foreach($produtos as $produto){
             $img = $produto->nm_imagem;

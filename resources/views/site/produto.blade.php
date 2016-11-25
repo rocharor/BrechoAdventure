@@ -37,13 +37,13 @@
 	                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
 	                @else
 	                    {{-- {if $produto.favorito eq 1} --}}
-	                        <a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
-	                            <span class="img-ativo"></span>
-	                        </a>
-	                    {{-- {else} --}}
-	                        {{-- <a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='1'> --}}
-	                            {{-- <span class="img-inativo"></span> --}}
+	                        {{-- <a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'> --}}
+	                            {{-- <span class="img-ativo"></span> --}}
 	                        {{-- </a> --}}
+	                    {{-- {else} --}}
+	                        <a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='1'>
+	                            <span class="img-inativo"></span>
+	                        </a>
 	                    {{-- {/if} --}}
 	                @endif
 	            </div>

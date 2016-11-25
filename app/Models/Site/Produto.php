@@ -3,6 +3,7 @@
 namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\MinhaConta\Favorito;
 // use DB;
@@ -29,9 +30,14 @@ class Produto extends Model
 
     public function getProdutos($limit = false, $categorias = false)
     {
-        $produtos = Produto::limit($limit)->get();
-        //$produtos = Produtos::all()->limit(2);
-        //$produtos = Produtos::where('status', '=', 0)->orwhere('status', '=', 1)->get();
+        if(Auth::user()){
+            $produtos = $this->limit($limit)->get();
+            // $user = new User;
+            // $produtos2 = $user->find(Auth::user()->id)->favorito;
+            // dd($produtos2);
+        }else{
+            $produtos = $this->limit($limit)->get();
+        }
 
         return $produtos;
     }

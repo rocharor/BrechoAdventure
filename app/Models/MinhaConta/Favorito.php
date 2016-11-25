@@ -29,7 +29,7 @@ class Favorito extends Model
     public function getFavoritos()
     {
         $user_id = Auth::user()->id;
-        $favoritos = User::find($user_id)->favorito;
+        $favoritos = User::find($user_id)->favorito->where('status',1);
 
         return $favoritos;
     }

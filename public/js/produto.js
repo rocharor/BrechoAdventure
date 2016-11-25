@@ -26,11 +26,11 @@ $('.act-descricao').click(function(e){
     			$('.indicadores').html('');
     			for(var i in fotos){
     				if(i == 0){
-    					$('.produto_fotos').append("<div class='item active '><img src=/imagens/produtos/"+fotos[i]+" alt='' style='width:100%; height:400px'></div>")
-    					$('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='"+i+"' class='active'></li>")
+    					$('.produto_fotos').append("<div class='item active '><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>")
+    					$('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class='active'></li>")
     				}else{
-    					$('.produto_fotos').append("<div class='item'><img src=/imagens/produtos/"+fotos[i]+" alt='' style='width:100%; height:400px'></div>")
-    					$('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='"+i+"' class=''></li>")
+    					$('.produto_fotos').append("<div class='item'><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>")
+    					$('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class=''></li>")
     				}
     			}
 
@@ -38,11 +38,11 @@ $('.act-descricao').click(function(e){
             	$('.produto_titulo').html(retorno.titulo)
                 $('.produto_descricao').html(retorno.descricao)
                 $('.produto_estado').html(retorno.estado)
-                $('.produto_valor').html('R$ '+retorno.valor)
+                $('.produto_valor').html('R$ ' + retorno.valor)
 
-                $('.produto_nome').html(retorno.nome)
+                $('.produto_nome').html(retorno.name)
                 $('.produto_email').html(retorno.email)
-                $('.produto_telefone').html(retorno.fixo+" / "+retorno.cel)
+                $('.produto_telefone').html(retorno.fixo + " / " + retorno.cel)
 
                 $('#modal_descricao').modal();
             }else{
