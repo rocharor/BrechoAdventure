@@ -5,6 +5,7 @@
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Site\Produto;
+use App\Models\MinhaConta\Favorito;
 
 class User extends Authenticatable
 {
@@ -28,10 +29,17 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    /*Relacionamentos (1 para muitos) */
     public function produto()
     {
-        //associa com o campo user_id da tabela Produtos
         return $this->hasMany(Produto::class);
+        // Uso: $u->find(1)->produto
+        // Retorno: Todos os produtos com "1" na coluna "user_id" da tabela "produtos"
+    }
+
+    public function favorito()
+    {
+        return $this->hasMany(Favorito::class);
+        // Uso: $u->find(1)->favorito
+        // Retorno: Todos os favoritos com "1" na coluna "user_id" da tabela "favorito"
     }
 }

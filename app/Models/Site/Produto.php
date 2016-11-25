@@ -14,13 +14,17 @@ class Produto extends Model
     /*Relacionamentos (inverso) (1 para muitos) */
     public function user()
     {
-        //associa com o campo id da tabela Usuarios
         return $this->belongsTo(User::class);
+        // Uso: $p->find(1)->user
+        // Retorno: O usuário que este produto pertence (id=1) coluna "id" da tabela "users"
     }
     /*Relacionamentos (1 para muitos) */
     public function favorito()
     {
         return $this->hasMany(Favorito::class);
+        // Uso: $u->find(1)->produto
+        // Retorno: Todos os favoritos com "1" na coluna "produto_id" da tabela "favoritos"
+
     }
 
     public function getProdutos($limit = false, $categorias = false)
@@ -38,9 +42,9 @@ class Produto extends Model
     public function getDescricaoProduto($produto_id)
     {
         $produto_id = (int) $produto_id;
-
         $dadosProduto = Produto::find($produto_id);
-        $dadosUser = $dadosProduto->relUser;
+        $dadosUser = $dadosProduto->user;
+
         $arrProduto = '';
         if($dadosUser != '' && $dadosProduto != ''){
             $arrProduto = [

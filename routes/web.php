@@ -32,6 +32,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     // Ações
     Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\PerfilController@updateFoto']);
+    Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'MinhaConta\FavoritoController@create']);
 });
 
 

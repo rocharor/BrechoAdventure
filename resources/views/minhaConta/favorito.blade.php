@@ -14,12 +14,11 @@
     	        <td></td>
     	    </tr>
             @foreach($favoritos as $favorito)
-    	        {assign var=imagem value="|"|explode:$favorito.nm_imagem}                
     	        <tr>
-    	            <td>{{ $favorito->titulo }}</td>
-    	            <td>{{ $favorito->descricao }}</td>
-    	            <td>R$ {{ $favorito->valor }}</td>
-                    <td><img src="/imagens/produtos/{$imagem.0}" width="60px" height="60px"/></td>
+    	            <td>{{ $favorito->produto->titulo }}</td>
+    	            <td>{{ $favorito->produto->descricao }}</td>
+    	            <td>R$ {{ $favorito->produto->valor }}</td>
+                    <td><img src="/imagens/produtos/{{ $favorito->produto->imgPrincipal }}" width="60px" height="60px"/></td>
     	            <td><a class="btn btn-success act-ver-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-eye-open"></span></a></td>
     	            <td><a class="btn btn-danger act-excluir-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-trash"></span></a></td>
     	        </tr>

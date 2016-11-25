@@ -32,12 +32,12 @@
 		@foreach($produtos as $produto)
 	        <div class="col-md-4" align="center" style="border-bottom: solid 1px; padding: 20px 0">
 	        <div class="div-produto" align="center">
-	            <div class="div-favorito-{{ $produto->id }}" {{-- data-usuario-id="{$usuario_id}"--}}>
+	            <div class="div-favorito-{{ $produto->id }}">
 	                @if(Auth::check() == 0)
 	                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
 	                @else
 	                    {{-- {if $produto.favorito eq 1} --}}
-	                        <a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='0'>
+	                        <a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
 	                            <span class="img-ativo"></span>
 	                        </a>
 	                    {{-- {else} --}}
@@ -52,7 +52,7 @@
 	            </div>
 	            <div style="width: 250px; height: 250px;">
 	                <!-- <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;"> -->
-	                <img class="img-thumbnail" src="/imagens/produtos/{{$produto->nm_imagem}}" alt="" style="width: 100%; height: 100%;">
+	                <img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
 	            </div>
 	            <div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
 	            <div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{{$produto->id}}"><b>Ver detalhes</b></button></div>

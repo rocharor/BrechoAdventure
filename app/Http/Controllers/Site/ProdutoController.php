@@ -27,6 +27,11 @@ class ProdutoController extends Controller
         // $teste = ProdutoModel::with('relUsuario')->get();
         // dd($teste);
         $produtos = $this->model->getProdutos(9);
+        foreach($produtos as $produto){
+            $img = $produto->nm_imagem;
+            $arrImg = explode('|',$img);
+            $produto->imgPrincipal = $arrImg[0];
+        }
 
         return view('site/produto',['produtos'=>$produtos]);
     }

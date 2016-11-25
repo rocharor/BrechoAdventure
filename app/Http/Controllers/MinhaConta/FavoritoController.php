@@ -4,7 +4,6 @@ namespace App\Http\Controllers\MinhaConta;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
 use App\Models\MinhaConta\Favorito as FavoritoModel;
 
 class FavoritoController extends Controller
@@ -23,8 +22,13 @@ class FavoritoController extends Controller
      */
     public function index()
     {
-        $favoritos = $this->model->getFavoritos(Auth::user()->id);
-        
+        $favoritos = $this->model->getFavoritos();
+        foreach($favoritos as $key=>$favorito){
+            $img = $favorito->produto->nm_imagem;
+            $arrImg = explode('|',$img);
+            $favorito->produto->imgPrincipal = $arrImg[0];
+        }
+
         return view('minhaConta/favorito',['favoritos'=>$favoritos]);
     }
 
@@ -33,9 +37,14 @@ class FavoritoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $this->model->user_id = $request->user_id;
+        $this->model->produto_id = $request->produto_id;
+        $this->model->status = $request->status;
+        $this->model->save();
+        echo 1;
+        die();
     }
 
     /**

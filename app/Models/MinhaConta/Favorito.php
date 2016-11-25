@@ -3,29 +3,35 @@
 namespace App\Models\MinhaConta;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Produto;
+use App\Models\User;
+
 
 class Favorito extends Model
 {
     protected $table = 'favoritos';
 
-    /*Relacionamentos (inverso) (1 para muitos) */
     public function produto()
     {
         return $this->belongsTo(Produto::class);
+        // Uso: $f->find(1)->produto
+        // Retorno: O produto que este favorito pertence (id=1) coluna "id" da tabela "produto"
     }
 
-    public function getFavoritos($user_id)
+    public function user()
     {
-        $arrFavoritos = Favorito::where('user_id','=',$user_id)->where('status','=',1)->get();
-        // $sql = "SELECT produto_id FROM favoritos WHERE usuario_id = {$user_id} AND status = 1";
-        //
-        // $arrFavoritos = [];
-        // $rs = $this->conn->query($sql);
-        // while ($row = $rs->fetch(\PDO::FETCH_ASSOC)) {
-        //     $arrFavoritos[] = $row['produto_id'];
-        // }
-        return $arrFavoritos;
+        return $this->belongsTo(User::class);
+        // Uso: $f->find(1)->user
+        // Retorno: O user que este favorito pertence (id=1) coluna "id" da tabela "user"
+    }
+
+    public function getFavoritos()
+    {
+        $user_id = Auth::user()->id;
+        $favoritos = User::find($user_id)->favorito;
+
+        return $favoritos;
     }
 
 }
