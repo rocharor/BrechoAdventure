@@ -15,24 +15,24 @@
     // Menus
     Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
     Route::get('/produto',['as'=>'produto','uses'=>'Site\ProdutoController@index']);
+    Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProduto','uses'=>'Site\ProdutoController@todosProdutosIndex']);
     Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
-    // Açoes
+// Açoes
     Route::post('/contato/create',['as'=>'contatoPost','uses'=>'Site\ContatoController@create']);
     Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
-
 
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
     // Menus
-    Route::get('/perfil',['as'=>'mcperfil','uses'=>'MinhaConta\PerfilController@index']);
-    Route::get('/produto',['as'=>'mcproduto','uses'=>'MinhaConta\ProdutoController@index']);
-    Route::get('/favorito',['as'=>'mcfavorito','uses'=>'MinhaConta\FavoritoController@index']);
+    Route::get('/perfil',['as'=>'mcperfil','uses'=>'Site\PerfilController@index']);
+    Route::get('/produto',['as'=>'mcproduto','uses'=>'Site\ProdutoController@indexMC']);
+    Route::get('/favorito',['as'=>'mcfavorito','uses'=>'Site\FavoritoController@index']);
 
     // Ações
-    Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'MinhaConta\PerfilController@update']);
-    Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'MinhaConta\PerfilController@updateFoto']);
-    Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'MinhaConta\FavoritoController@create']);
+    Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'Site\PerfilController@update']);
+    Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'Site\PerfilController@updateFoto']);
+    Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'Site\FavoritoController@create']);
 });
 
 

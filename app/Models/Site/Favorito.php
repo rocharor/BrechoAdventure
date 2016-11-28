@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\MinhaConta;
+namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;

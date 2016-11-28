@@ -5,7 +5,7 @@
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Site\Produto;
-use App\Models\MinhaConta\Favorito;
+use App\Models\Site\Favorito;
 
 class User extends Authenticatable
 {

@@ -161,11 +161,13 @@ trait Util
     public static function geraLimitPaginacao($pg, $total_pagina)
     {
         if ($pg == 1) {
-            $limit = $total_pagina;
+            $limit['inicio'] = $total_pagina;
+            $limit['fim'] = 0;
         } else {
-            $limit_inicio = (($pg - 1) * $total_pagina);
-            $limit_fim = ($total_pagina);
-            $limit = "{$limit_inicio},{$limit_fim}";
+            $limit_inicio = $total_pagina;
+            $limit_fim = ($pg - 1) * ($total_pagina);
+            $limit['inicio'] = $limit_inicio;
+            $limit['fim'] = $limit_fim;
         }
 
         return $limit;

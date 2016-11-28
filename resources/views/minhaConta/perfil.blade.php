@@ -93,5 +93,5 @@
     </form>
 </div>
 
-<script type="text/javascript" src="/js/minhaConta/perfil.js"></script>
+<script type="text/javascript" src="/js/site/perfil.js"></script>
 @endsection

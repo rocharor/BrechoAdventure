@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\MinhaConta;
+namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\MinhaConta\Favorito as FavoritoModel;
+use App\Models\Site\Favorito as FavoritoModel;
 
 class FavoritoController extends Controller
 {
@@ -25,8 +25,7 @@ class FavoritoController extends Controller
     {
         $favoritos = $this->model->getFavoritos();
         foreach($favoritos as $key=>$favorito){
-            $img = $favorito->produto->nm_imagem;
-            $arrImg = explode('|',$img);
+            $arrImg = explode('|',$favorito->produto->nm_imagem);
             $favorito->produto->imgPrincipal = $arrImg[0];
         }
 

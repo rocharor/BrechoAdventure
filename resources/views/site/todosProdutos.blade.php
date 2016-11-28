@@ -26,63 +26,58 @@
 </ol>
 
 <div class="row">
-	{if $produtos|count eq 0}
+
+	@if(count($produtos) == 0)
  		<div class="well" align="center"><b><i>N&atilde;o foi poss&iacute;vel retornar nenhum produto</i></b></div>
- 	{else}
-	<div class="col-lg-2">
-
-		{foreach from=$filtro key=categoria item=arrItens}
-			<div style="background-color: #eee; padding: 10px">
-				<p style="background-color: #ccc; font-weight: bold;" align="center">{$categoria}</p>
-				{foreach from=$arrItens key=valor item=item}
-					{if $valor|in_array:$arrCategorias}
-						<p><input type="checkbox" class="act-filtro" value="{$valor}" checked="checked" /> {$item}</p>
-					{else}
-						<p><input type="checkbox" class="act-filtro" value="{$valor}" /> {$item}</p>
-					{/if}
-				{/foreach}
-			</div>
-			<br />
-		{/foreach}
-	</div>
-
-	<div class="col-lg-10" style="border-left:solid">
-		<div class="row">
-			{counter assign=i start=0 print=false}
-			{foreach from=$produtos item=produto}
-		        <div class="col-md-4 div-produto" align='center'>
-		            <div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
-		                {if $logado eq 0}
-		                    <a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
-		                {else}
-		                    {if $produto.favorito eq 1}
-		                        <a class="act-favorito favorito-ativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='0'>
-		                            <div class="img-ativo"></div>
-		                        </a>
-		                    {else}
-		                        <a class="act-favorito favorito-inativo-{$produto.id}" data-produto-id='{$produto.id}' data-status='1'>
-		                            <div class="img-inativo"></div>
-		                        </a>
-		                    {/if}
-		                {/if}
-		            </div>
-		            <div style="width: 300px; height: 20px;" align="center">
-		                <b>{$produto.titulo}</b>
-		            </div>
-		            <div style="width: 250px; height: 250px;">
-		                <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;">
-		            </div>
-		            <div><b>Pre&ccedil;o: R$ {$produto.valor}</b></div>
-		            <div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{$produto.id}"><b>Ver detalhes</b></button></div>
-		        </div>
-			    {counter}
-			    {if $i is  div by 3}
-			         &nbsp;<hr>
-			    {/if}
+ 	@else
+		<div class="col-lg-2 hide">
+			{foreach from=$filtro key=categoria item=arrItens}
+				<div style="background-color: #eee; padding: 10px">
+					<p style="background-color: #ccc; font-weight: bold;" align="center">{$categoria}</p>
+					{foreach from=$arrItens key=valor item=item}
+						{if $valor|in_array:$arrCategorias}
+							<p><input type="checkbox" class="act-filtro" value="{$valor}" checked="checked" /> {$item}</p>
+						{else}
+							<p><input type="checkbox" class="act-filtro" value="{$valor}" /> {$item}</p>
+						{/if}
+					{/foreach}
+				</div>
+				<br />
 			{/foreach}
 		</div>
-	</div>
-	{/if}
+
+		<div class="col-lg-12" style="border-left:solid">
+			<div class="row">
+				@foreach($produtos as $produto)
+					<div class="col-md-4 div-produto" align='center'>
+						<div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
+							@if(Auth::check() == 0)
+								<a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
+							@else
+								{{--{if $produto.favorito eq 1}--}}
+									{{--<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='0'>--}}
+										{{--<div class="img-ativo"></div>--}}
+									{{--</a>--}}
+								{{--{else}--}}
+									<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='1'>
+										<div class="img-inativo"></div>
+									</a>
+								{{--{/if}--}}
+							@endif
+						</div>
+						<div style="width: 300px; height: 20px;" align="center">
+							<b>{{$produto->titulo}}</b>
+						</div>
+						<div style="width: 250px; height: 250px;">
+							<img class="img-thumbnail" src="/imagens/produtos/{{ $produto->imgPrincipal }}" alt="" style="width: 100%; height: 100%;">
+						</div>
+						<div><b>Pre&ccedil;o: R$ {{ $produto->valor }}</b></div>
+						<div><button style=":width100%;" class='btn btn-warning act-descricao' data-id="{{ $produto->id }}"><b>Ver detalhes</b></button></div>
+					</div>
+				@endforeach
+			</div>
+		</div>
+	@endif
 
 </div>
 
@@ -125,36 +120,39 @@
 
 
 <!--PAGINAÇÃO-->
-{if $arrCategorias|count eq 0}
-	<nav align='center'>
-	  <ul class="pagination">
-	     <li>
-		     {if $pg eq 1}
-		      	<span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span>
-		     {else}
-		     	<a href="/produto/todosProdutos/pg/{$pg - 1}/" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
-		     {/if}
-	    </li>
-	    {for $i=1 to $paginacao}
-			{if $i eq $pg}
-				<li class="active"><a>{$i}</a></li>
-			{else}
-				<li><a href="/produto/todosProdutos/pg/{$i}/">{$i}</a></li>
-			{/if}
-	    {/for}
-	     <li>
-		     {if $pg eq $paginacao}
-		      	<span aria-label="Previous"><span aria-hidden="true">&raquo;</span></span>
-		     {else}
-		     	<a href="/produto/todosProdutos/pg/{$pg + 1}/" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
-		     {/if}
-	    </li>
-	  </ul>
-	</nav>
-{/if}
+<nav align='center'>
+  <ul class="pagination">
+	 <li>
+		 @if($pg == 1)
+			<span aria-label="Previous"><span aria-hidden="true">&laquo;</span></span>
+		 @else
+			<a href="/produto/todosProdutos/{{ $pg - 1 }}" aria-label="Previous"><span aria-hidden="true">&laquo;</span></a>
+		 @endif
+	</li>
+
+	@for($i = 1; $i <= $totalProdutos; $i++)
+		@if($i == $pg)
+			<li class="active"><a>{{ $i }}</a></li>
+		@else
+			<li><a href="/produto/todosProdutos/{{ $i }}">{{ $i }}</a></li>
+		@endif
+	@endfor
+	 <li>
+		 @if($pg == $totalProdutos)
+			<span aria-label="Previous"><span aria-hidden="true">&raquo;</span></span>
+		 @else
+			<a href="/produto/todosProdutos/{{ $pg + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>
+		 @endif
+	</li>
+  </ul>
+</nav>
+
 
 <!--Modal descricao-->
 <div class="modal fade" id='modal_descricao'>
+	@include('modalDescricao')
+</div>
+{{--<div class="modal fade" id='modal_descricao'>
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header" >
@@ -194,9 +192,9 @@
             </div>
         </div>
     </div>
-</div>
+</div>--}}
 
-<script type="text/javascript" src="/js/produto.js"></script>
+<script type="text/javascript" src="/js/siproduto.js"></script>
 <script type="text/javascript" src="/js/filtro.js"></script>
 <script type="text/javascript" src="/js/minhaConta/meusFavorito.js"></script>
 @stop

@@ -28,7 +28,8 @@
 
     <!--Modal descricao-->
     <div class="modal fade" id='modal_descricao_favorito'>
-        <div class="modal-dialog">
+        @include('modalDescricao')
+        {{-- <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header" >
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -69,8 +70,8 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Fechar</button>
                 </div>
             </div>
-        </div>
+        </div> --}}
     </div>
 
-    <script type="text/javascript" src="/js/minhaConta/meusFavorito.js"></script>
+    <script type="text/javascript" src="/js/site/favorito.js"></script>
 @endsection

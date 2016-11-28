@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Site\Produto as ProdutoModel;
-use App\Models\User;
+use App\Services\Util;
 
 class ProdutoController extends Controller
 {
+    use Util;
+    
     public $model;
+    public $totalPagina = 5;
 
     public function __construct(ProdutoModel $produto)
     {
@@ -25,12 +28,42 @@ class ProdutoController extends Controller
     {
         $produtos = $this->model->getProdutos(9);
         foreach($produtos as $produto){
-            $img = $produto->nm_imagem;
-            $arrImg = explode('|',$img);
+            $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
         }
 
         return view('site/produto',['produtos'=>$produtos]);
+    }
+
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function todosProdutosIndex($pg)
+    {
+        $totalProdutos = count($this->model->getProdutos());
+        $paginacao = (int)ceil($totalProdutos / $this->totalPagina);
+
+        $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
+        $produtos = $this->model->getProdutos($limit['inicio'],$limit['fim']);
+        foreach($produtos as $produto){
+            $arrImg = explode('|',$produto->nm_imagem);
+            $produto->imgPrincipal = $arrImg[0];
+        }
+
+        return view('site/todosProdutos',['produtos'=>$produtos,'pg'=>$pg,'totalProdutos'=>$paginacao]);
+    }
+
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function indexMC()
+    {
+        return view('minhaConta/produto');
     }
 
     /**

@@ -38,7 +38,7 @@
 	    @if (session('erro'))
 	        <script>alertaPagina('{{ session('erro') }}', 'danger');</script>
 	    @endif
-		
+
         <div>
         	@include('topo')
         </div>

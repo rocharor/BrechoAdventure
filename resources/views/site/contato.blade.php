@@ -11,7 +11,7 @@
             {{ csrf_field() }}
 
 	        <div class="form-group">
-	        	<input class="form-control" type="text" name="nome" placeholder="Nome" required="required" value="teste">
+	        	<input class="form-control" type="text" name="nome" placeholder="Nome" required="required">
 	        </div>
 	        <div class="form-group">
 	        	<input class="form-control" type="text" name="email" placeholder="E-mail" required="required">
@@ -38,5 +38,5 @@
 </div>
 
 
-<script type="text/javascript" src="/js/contato.js"></script>
+<script type="text/javascript" src="/js/site/contato.js"></script>
 @endsection
