@@ -23,25 +23,26 @@ class Produto extends Model
     public function favorito()
     {
         return $this->hasMany(Favorito::class);
-        // Uso: $u->find(1)->produto
+        // Uso: $u->find(1)->favorito
         // Retorno: Todos os favoritos com "1" na coluna "produto_id" da tabela "favoritos"
 
     }
 
     public function getProdutos($limit=false, $limitAux=false)
     {
-//        if(Auth::user()){
 
-//        }else{
-            if($limit){
-                if($limitAux){
-                    $produtos = $this->limit($limit)->offset($limitAux)->get();
-                }else{
-                    $produtos = $this->limit($limit)->get();
-                }
+        if(Auth::user()){
+
+        }
+        if($limit){
+            if($limitAux){
+                $produtos = $this->limit($limit)->offset($limitAux)->get();
             }else{
-                $produtos = $this->all();
+                $produtos = $this->limit($limit)->get();
             }
+        }else{
+            $produtos = $this->all();
+        }
 
         return $produtos;
     }
