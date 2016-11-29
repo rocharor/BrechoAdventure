@@ -24,7 +24,7 @@
                     <li><a href="{{ Route('minha-conta.mcfavorito') }}">Meus Favoritos</a></li>
                 </ul>
             </span>
-            <a href="/minha-conta/cadastro-produto" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
+            <a href="{{ Route('minha-conta.cadastro-produto') }}" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
             <a href='/logout' class="btn btn-danger">Sair</a>
         @endif
     </div>

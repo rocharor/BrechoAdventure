@@ -28,11 +28,14 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/perfil',['as'=>'mcperfil','uses'=>'Site\PerfilController@index']);
     Route::get('/produto',['as'=>'mcproduto','uses'=>'Site\ProdutoController@indexMC']);
     Route::get('/favorito',['as'=>'mcfavorito','uses'=>'Site\FavoritoController@index']);
+    Route::get('/produto/cadastro-produto',['as'=>'cadastro-produto','uses'=>'Site\ProdutoController@cadastroIndex']);
 
     // Ações
     Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'Site\PerfilController@update']);
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'Site\PerfilController@updateFoto']);
     Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'Site\FavoritoController@create']);
+    Route::post('/produto/create',['as'=>'create-produto','uses'=>'Site\ProdutoController@create']);
+
 });
 
 

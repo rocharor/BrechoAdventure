@@ -20,8 +20,12 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
+        // $request->session()->forget('teste');//apaga
+        // $request->session()->all();//busca tudo
+        // $request->session()->get('_token');//busca 1        
         $frase = $this->model->frasesHome();
         return view('site/home',['frase'=>$frase]);
     }
