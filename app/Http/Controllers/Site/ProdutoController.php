@@ -109,31 +109,38 @@ class ProdutoController extends Controller
     public function create(Request $request)
     {
 
-        if ($request->hasFile('foto') && $request->file('foto')->isValid()){
+
             $foto_salva = false;
             $nome_imagem = [];
-            foreach($request->foto as $foto){
-                $ext = $foto->extension();
-                if($this->validaExtImagem($ext)){
-                    $user_id = Auth::user()->id;
-                    $foto_nome = $user_id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
-                    $foto_salva = $request->imagemPerfil->move(public_path("imagens\produtos"), $foto_nome);
-                    $nome_imagem[] = $nome_imagem;
-                }
-            }
+
+            foreach($request->foto as $key=>$foto){
+                // if ($foto->hasFile('foto') &&  $foto->file('foto')->isValid()){
+                    $ext = $foto->extension();
+                    if($this->validaExtImagem($ext)){
+                        $user_id = Auth::user()->id;
+                        $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
+                        $foto_salva = $foto->move(public_path("imagens\produtos"), $foto_nome);
+                        $nome_imagem[] = $foto_nome;
+                    }
+                // }
+
         }
 
         if ($foto_salva) {
-            $this->user_id = $user_id;
-            $this->categoria_id = $request->get('categoria');
-            $this->titulo = $request->get('titulo');
-            $this->descricao = $request->get('descricao');
-            $this->valor = $request->get('valor');
-            $this->estado = $request->get('tipo');
-            $this->nm_imagem = implode('|',$nome_imagem);
-            $this->status = 0;
-            $this->save();
+            $this->model->user_id = $user_id;
+            $this->model->categoria_id = $request->get('categoria');
+            $this->model->titulo = $request->get('titulo');
+            $this->model->descricao = $request->get('descricao');
+            $this->model->valor = $request->get('valor');
+            $this->model->estado = $request->get('tipo');
+            $this->model->nm_imagem = implode('|',$nome_imagem);
+            $this->model->status = 0;
+            if($this->model->save()){
+                return redirect()->route('minha-conta.cadastro-produto')->with('sucesso','Produro inserido com sucesso.');
+            }
         }
+
+        return redirect()->route('minha-conta.cadastro-produto')->with('erro','Erro ao salvar produto, tente novamente!');
 
         // $arquivo_file = $request->file('imagemPerfil');
         // $foto_salva = false;
