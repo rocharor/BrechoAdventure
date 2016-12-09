@@ -22,7 +22,8 @@ class CreateProdutosTable extends Migration
             $table->string('valor');
             $table->string('estado');
             $table->string('nm_imagem');
-            $table->integer('status');
+            $table->integer('qtd_favorito')->default(0);
+            $table->integer('status')->default(2);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users')

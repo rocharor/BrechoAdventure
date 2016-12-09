@@ -34,6 +34,7 @@ class Produto extends Model
         if(Auth::user()){
 
         }
+
         if($limit){
             if($limitAux){
                 $produtos = $this->limit($limit)->offset($limitAux)->orderBy('id', 'DESC')->get();
@@ -41,7 +42,8 @@ class Produto extends Model
                 $produtos = $this->limit($limit)->orderBy('id', 'DESC')->get();
             }
         }else{
-            $produtos = $this->orderBy('id', 'DESC')->all();
+            $produtos = $this->orderBy('id', 'DESC')->get();
+
         }
 
         return $produtos;
@@ -79,5 +81,13 @@ class Produto extends Model
         //             ->get();
 
         return $arrProduto;
+    }
+
+
+    public function getMeusProdutos()
+    {
+        $meusProdutos = $this->where('user_id',Auth::user()->id)->orderBy('status', 'DESC')->orderBy('created_at', 'DESC')->get();
+
+        return $meusProdutos;
     }
 }

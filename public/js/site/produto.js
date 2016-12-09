@@ -4,11 +4,6 @@ $.ajaxSetup({
     }
 });
 
-$('.abre-descricao').click(function(e){
-	e.preventDefault();
-	$('#modal_descricao').modal();
-});
-
 $('.act-descricao').click(function(e){
     e.preventDefault();
 
@@ -55,6 +50,11 @@ $('.act-descricao').click(function(e){
         }
     })
 });
+
+// $('.abre-descricao').click(function(e){
+	// e.preventDefault();
+	// $('#modal_descricao').modal();
+// });
 
 $('.act-excluir-produto').click(function(e) {
 

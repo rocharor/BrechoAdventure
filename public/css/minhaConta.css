@@ -1,1 +1,7 @@
-.img_perfil{position:relative;max-height:100px;min-height:100px;max-width:100px;min-width:100px}
+.img_perfil {
+  max-height: 100px;
+  min-height: 100px;
+  max-width: 100px;
+  min-width: 100px;
+  border: solid 1px #ccc;
+}

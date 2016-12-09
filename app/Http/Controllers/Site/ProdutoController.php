@@ -80,7 +80,20 @@ class ProdutoController extends Controller
      */
     public function indexMC()
     {
-        return view('minhaConta/produto');
+        $meusProdutos = $this->model->getMeusProdutos();
+
+        foreach($meusProdutos as $produto){
+            $arrImg = explode('|',$produto->nm_imagem);
+            $produto->imgPrincipal = $arrImg[0];
+            // $produto->favorito = false;
+            // foreach($favoritos as $favorito){
+                // if($favorito->produto_id == $produto->id){
+                    // $produto->favorito = true;
+                // }
+            // }
+        }
+
+        return view('minhaConta/produto',['meusProdutos'=>$meusProdutos]);
     }
 
     /**
@@ -134,7 +147,6 @@ class ProdutoController extends Controller
             $this->model->valor = $request->get('valor');
             $this->model->estado = $request->get('tipo');
             $this->model->nm_imagem = implode('|',$nome_imagem);
-            $this->model->status = 0;
             if($this->model->save()){
                 return redirect()->route('minha-conta.cadastro-produto')->with('sucesso','Produro inserido com sucesso.');
             }

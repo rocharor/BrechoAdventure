@@ -14,7 +14,7 @@ gulp.task('unificacss', function() {
 gulp.task('stylus', function () {
   gulp.src('resources/assets/stylus/*.styl')
     .pipe(stylus({
-      compress: true
+      compress: false
     }))
     .pipe(gulp.dest('Public/css/'))
 });

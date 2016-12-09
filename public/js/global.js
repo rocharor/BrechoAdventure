@@ -25,7 +25,7 @@ var alertaPagina = function(texto,classe){
 	if(texto == 'undefined' || classe == 'undefined'){
 		return false;
 	}
-console.log(classe)
+
 	switch (classe) {
 	case 'success':
 		icone = 'glyphicon-warning-sign'
@@ -121,4 +121,21 @@ function empty (mixedVar) {
     }
 
     return false
+}
+
+/**
+ * Carrega uma miniatuda dentro de um IMG
+ * @param  {[type]} input  inputFile
+ * @param  {[type]} modelo classe da IMG
+ * @return {[type]} insere a imagem
+ */
+function carregarMiniatura(input,modelo) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('.'+modelo).attr('src', e.target.result);
+        }
+        reader.readAsDataURL(input.files[0]);
+    }
 }

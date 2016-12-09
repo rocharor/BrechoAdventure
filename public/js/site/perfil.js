@@ -16,6 +16,17 @@ $('.act-alter-foto').click(function(e){
    $('#foto_upd').trigger('click');
 });
 
+$('#btnCancelarFoto').click(function(e){
+    e.preventDefault();
+
+    $('.act-alter-foto').removeClass('hide');
+    $('#btnEnviaFoto').addClass('hide');
+    $('#btnCancelarFoto').addClass('hide');
+    $('.img_nova').addClass('hide');
+
+    $('.nm_imagem').html('');
+});
+
 /**
 * executa quando escolhe a imagem;
 *
@@ -23,50 +34,15 @@ $('.act-alter-foto').click(function(e){
 var altera_imagem = function(){
 
     var nm_imagem = $('#foto_upd')[0].files[0].name;
+    carregarMiniatura($('#foto_upd')[0],'img_nova');
 
     $('.act-alter-foto').addClass('hide');
-    $('.act-enviar-imagem').removeClass('hide');
     $('#btnEnviaFoto').removeClass('hide');
+    $('#btnCancelarFoto').removeClass('hide');
+    $('.img_nova').removeClass('hide');
 
     $('.nm_imagem').append(nm_imagem);
 }
-
-/**
-* Faz o update da imagem
-*/
-$('.act-enviar-imagem').click(function(e){
-    e.preventDefault();
-
-    // var url_atual = window.location.href;
-    // var $foto = $('#foto_upd')[0].files[0];
-    // var form_data = new FormData();
-    // form_data.append('arquivo',$foto);
-    // $.ajax({
-    //     url: '/minha-conta/perfil/updateFoto',
-    //     type: 'post',
-    //     dataType: 'json',
-    //     processData: false,
-    //     contentType: false,
-    //     data: form_data,
-    //     success: function(retorno){
-    //         console.log(retorno)
-    //         if(retorno.sucesso == true){
-    //             alert(retorno.mensagem);
-    //             window.open(url_atual,'_self');
-    //         }else{
-    //             alert(retorno.mensagem);
-    //             $('.act-alter-foto').removeClass('hide');
-    //             $('.act-enviar-imagem').addClass('hide');
-    //             $('.nm_imagem').html('');
-    //         }
-    //
-    //     },
-    //     error: function(retorno){
-    //
-    //     }
-    // })
-})
-
 
 /**
 * Salva dados do formulario
@@ -122,40 +98,6 @@ $('.act-update').click(function(e){
     }
 
     $('#formPerfil').submit();
-
-   // if(!erro){
-   // var dados = {  'name':nome,
-   //                'apelido':apelido,
-   //                'email':email,
-   //                'dt_nascimento':dt_nascimento,
-   //                'endereco':endereco,
-   //                'numero':numero,
-   //                'complemento':complemento,
-   //                'bairro':bairro,
-   //                'cidade':cidade,
-   //                'uf':uf,
-   //                'cep':cep,
-   //                'telefone_fixo':telefone_fixo,
-   //                'telefone_cel':telefone_cel
-   //            };
-   //
-   //      $.ajax({
-   //          url:'/minha-conta/perfil/updatePerfil',
-   //          dataType: 'json',
-   //          type: 'POST',
-   //          data: {'dados': dados},
-   //          success: function(retorno){
-   //             if(retorno){
-   //                alertaPagina('Dados salvos com sucesso','success');
-   //             }else{
-   //                alertaPagina('Erro ao salvar!','warning');
-   //             }
-   //          },
-   //          error: function(retorno){
-   //             alertaPagina('Erro no sistema! cod-G1','danger');
-   //          }
-   //      });
-   //  }
 });
 
 /**

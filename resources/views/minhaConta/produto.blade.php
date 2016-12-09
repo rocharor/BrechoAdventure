@@ -1,40 +1,37 @@
-@extends('template')
+    @extends('template')
 @section('content')
     <h1 class="text-danger">MEUS PRODUTOS</h1>
     <div class="row">
-        {if $meusProdutos|@count eq 0}
+        @if (count($meusProdutos) == 0)
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>
-        {else}
-            {counter assign=i start=0 print=false}
-            {foreach from=$meusProdutos item=produto}
+        @else
+            @foreach ($meusProdutos as $produto)
                 <div class="col-xs-12 col-sm-6 col-md-4 col-lg-4" style="border: solid 0px;">
                     <div style="width: 300px; height: 20px;">
-                        {if $produto.status eq 0}
+                        @if ($produto->status == 0)
                             <span class="label label-danger">Produto exclu&iacute;do</span>
-                        {else}
-                            Data de cadastro: <b>{$produto.data_cadastro}</b>
-                        {/if}
+                        @elseif ($produto->status == 1)
+                            Data de cadastro: <b>{{ $produto->created_at }}</b>
+                        @else
+                            <span class="label label-warning"><b>Aguardando aprovação</b></span>
+                        @endif
                     </div>
                     <div style="width: 300px; height: 280px; position: relative;">
-                        {if $produto.img_principal eq ''}
+                        @if ($produto->imgPrincipal == '')
                             <img src="/imagens/produtos/padrao.gif" style="width: 90%; height: 90%;">
-                        {else}
-                            <img src="/imagens/produtos/{$produto.img_principal}" style="width: 90%; height: 90%;">
-                        {/if}
+                        @else
+                            <img src="/imagens/produtos/{{ $produto->imgPrincipal }}" style="width: 90%; height: 90%;">
+                        @endif
                     </div>
-                    {if $produto.status eq 1}
-                    <div>
-                        <a href="/minha-conta/meus-produtos/meusProdutosEditar/produto/{$produto.id}" class="btn btn-success" data-produto-id="{$produto.id}">Editar</a>
-                        <button class="btn btn-danger act-excluir-produto" data-produto-id="{$produto.id}">Excluir</button>
-                    </div>
-                    {/if}
+                    @if ($produto->status == 1)
+                        <div>
+                            <a href="/minha-conta/meus-produtos/meusProdutosEditar/produto/{{ $produto->id }}" class="btn btn-success" data-produto-id="{$produto.id}">Editar</a>
+                            <button class="btn btn-danger act-excluir-produto" data-produto-id="{{ $produto->id }}">Excluir</button>
+                        </div>
+                    @endif
                 </div>
-                {counter}
-                {if $i is  div by 3}
-                     &nbsp;<hr>
-                {/if}
-            {/foreach}
-        {/if}
+            @endforeach
+        @endif
     </div>
 
     <script type="text/javascript" src="/libs/jquery/jquery.maskMoney.min.js"></script>
