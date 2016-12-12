@@ -3,7 +3,7 @@
 <link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
 <style type="text/css">
-.img-ativo  {
+/*.img-ativo  {
     background-image: url(/imagens/favorito_ativo.jpg);
     background-size: cover;
     width: 20px;
@@ -16,7 +16,7 @@
     width: 20px;
     height: 20px;
 
-}
+}*/
 </style>
 
 <ol class="breadcrumb">
@@ -32,7 +32,9 @@
 					<div class="col-md-4 div-produto" align='center'  style="border-bottom: solid 1px; padding: 20px 0">
 						<div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
 							@if(Auth::check() == 0)
-								<a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
+								<a class="act-favorito-deslogado">
+                                    <div class="img-inativo"></div>
+                                </a>
 							@else
 								@if($produto->favorito)
 									<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='0'>

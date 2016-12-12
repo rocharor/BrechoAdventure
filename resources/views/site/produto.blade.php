@@ -3,7 +3,7 @@
 	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
 	<style type="text/css">
-		.img-ativo  {
+		/*.img-ativo  {
 			background-image: url(/imagens/favorito_ativo.jpg);
 			background-size: cover;
 			width: 20px;
@@ -16,7 +16,7 @@
 			width: 20px;
 			height: 20px;
 			display:block;
-		}
+		}*/
 	</style>
 
 	<ol class="breadcrumb">
@@ -34,7 +34,9 @@
 				<div class="div-produto" align="center">
 					<div class="div-favorito-{{ $produto->id }}">
 						@if(Auth::check() == 0)
-							<a class="act-favorito-deslogado"><img src="/imagens/favorito_inativo.jpg" alt="" style="width: 20px;"></a>
+							<a class="act-favorito-deslogado">
+								<div class="img-inativo"></div>
+							</a>
 						@else
 							@if($produto->favorito)
 								<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
@@ -51,7 +53,6 @@
 						<b>{{$produto->titulo}}</b>
 					</div>
 					<div style="width: 250px; height: 250px;">
-						<!-- <img class="img-thumbnail" src="/imagens/produtos/{$produto.img_principal}" alt="" style="width: 100%; height: 100%;"> -->
 						<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
 					</div>
 					<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>

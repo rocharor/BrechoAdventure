@@ -217,9 +217,16 @@ class ProdutoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Categoria $categoria)
     {
-        //
+        $produto = $this->model->find($id);
+        $categorias = $categoria->all();
+
+        $imagens = explode('|',$produto->nm_imagem);
+        
+        $produto->imagens = $imagens;
+
+        return view('minhaConta/editarProduto',['categorias'=>$categorias,'produto'=>$produto]);
     }
 
     /**

@@ -14,9 +14,9 @@
 // Rotas da area Minha Conta
     // Menus
     Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
+    Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
     Route::get('/produto',['as'=>'produto','uses'=>'Site\ProdutoController@index']);
     Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProduto','uses'=>'Site\ProdutoController@todosProdutosIndex']);
-    Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
 // Açoes
     Route::post('/contato/create',['as'=>'contatoPost','uses'=>'Site\ContatoController@create']);
@@ -26,15 +26,18 @@
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
     // Menus
     Route::get('/perfil',['as'=>'mcperfil','uses'=>'Site\PerfilController@index']);
-    Route::get('/produto',['as'=>'mcproduto','uses'=>'Site\ProdutoController@indexMC']);
     Route::get('/favorito',['as'=>'mcfavorito','uses'=>'Site\FavoritoController@index']);
+    Route::get('/produto',['as'=>'mcproduto','uses'=>'Site\ProdutoController@indexMC']);
     Route::get('/produto/cadastro-produto',['as'=>'cadastro-produto','uses'=>'Site\ProdutoController@cadastroIndex']);
+    Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
 
     // Ações
+    Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'Site\FavoritoController@create']);
     Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'Site\PerfilController@update']);
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'Site\PerfilController@updateFoto']);
-    Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'Site\FavoritoController@create']);
     Route::post('/produto/create',['as'=>'create-produto','uses'=>'Site\ProdutoController@create']);
+    Route::post('/produto/update/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
+    Route::post('/produto/destroy/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@destroy']);
 
 });
 
