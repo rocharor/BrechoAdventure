@@ -61,19 +61,18 @@ $('.act-excluir-produto').click(function(e) {
     var produto_id = $(this).attr('data-produto-id');
 
     if (confirm('Deseja realmente excluir este produto?')) {
+
         $.ajax({
-            url : '/minha-conta/meus-produtos/deletarProduto/',
+            url : '/minha-conta/produto/destroy/' + produto_id,
             type : 'POST',
             dataType : 'json',
-            data : {
-                'produto_id' : produto_id
-            },
             success : function(retorno) {
-                if (retorno.sucesso == true) {
-                    alert(retorno.msg);
+                if (retorno) {
+                    alert('Excluido com sucesso');
                     window.location.reload();
+                    // window.open('minha-conta/produto','_self');
                 } else {
-                    alert(retorno.mensagem);
+                    alert('Erro ao excluir');
                 }
             },
             error : function() {
@@ -151,8 +150,7 @@ $('.act-alterar-produto').click(function(e) {
     $form.submit();
 });
 
-// $("#valor_produto_update").maskMoney({
-//     prefix : 'R$ ',
-//     thousands : '.',
-//     decimal : ','
-// });
+// Mascaras
+(function() {
+   VMasker(document.getElementById("valor")).maskMoney();
+})();

@@ -192,4 +192,13 @@ trait Util
         return $retorno;
 
     }
+
+    public static function formataMoedaBD($valor)
+    {
+        $valor = preg_replace("/[^0-9]/", "", $valor);
+        $valor = (int)$valor;
+        $valor = number_format($valor,2,'.','');
+        dd($valor);
+
+    }
 }
