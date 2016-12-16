@@ -29,7 +29,7 @@ $factory->define(App\Models\Categoria::class, function (Faker\Generator $faker) 
 });
 
 $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
-    $faker->addProvider(new Faker\Provider\pt_br\Person($faker));
+    $faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
 
     return [
         'frase' => $faker->text(rand(100, 150)),
