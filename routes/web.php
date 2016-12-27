@@ -21,6 +21,8 @@
 // Açoes
     Route::post('/contato/create',['as'=>'contatoPost','uses'=>'Site\ContatoController@create']);
     Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
+    Route::post('/mensagem/mensagem-produto',['as'=>'msgProduto','uses'=>'Site\MensagemController@show']);
+    Route::post('/mensagem/create',['as'=>'createMensagem','uses'=>'Site\MensagemController@create']);
 
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
@@ -28,6 +30,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/perfil',['as'=>'mcperfil','uses'=>'Site\PerfilController@index']);
     Route::get('/favorito',['as'=>'mcfavorito','uses'=>'Site\FavoritoController@index']);
     Route::get('/produto',['as'=>'mcproduto','uses'=>'Site\ProdutoController@indexMC']);
+    Route::get('/mensagem',['as'=>'mcmensagem','uses'=>'Site\MensagemController@index']);
     Route::get('/produto/cadastro-produto',['as'=>'cadastro-produto','uses'=>'Site\ProdutoController@cadastroIndex']);
     Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
 

@@ -185,7 +185,7 @@ class ProdutoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function edit($id, Categoria $categoria)
-    {   
+    {
 
         $produto = $this->model->find($id);
         $categorias = $categoria->all();

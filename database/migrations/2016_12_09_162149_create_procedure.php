@@ -28,6 +28,6 @@ class CreateProcedure extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('proc_qtd_favorito');
     }
 }

@@ -30,7 +30,7 @@
 		<div class="row" >
 			<h1 class="text-success" align="center">Ultimos produtos adicionados</h1>
 			@foreach($produtos as $produto)
-				<div class="col-md-4" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+				<div class="col-md-3 col-xs-6" align="center" style="border-bottom: solid 1px; padding: 20px 0">
 				<div class="div-produto" align="center">
 					<div class="div-favorito-{{ $produto->id }}">
 						@if(Auth::check() == 0)
@@ -56,7 +56,12 @@
 						<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
 					</div>
 					<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
-					<div><button style="width:100%;" class='btn btn-warning act-descricao' data-id="{{$produto->id}}"><b>Ver detalhes</b></button></div>
+					<div data-id="{{ $produto->id }}">
+						<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>
+						@if(Auth::check() != 0)
+							<button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button>
+						@endif
+					</div>
 				</div>
 				</div>
 			@endforeach
@@ -70,6 +75,11 @@
 	<!--Modal descricao-->
 	<div class="modal fade" id='modal_descricao'>
 		@include('modalDescricao')
+	</div>
+
+	<!--Modal mensagem-->
+	<div class="modal fade" id='modal-mensagem'>
+		@include('modalMensagem')
 	</div>
 
 	<script type="text/javascript" src="/js/site/produto.js"></script>

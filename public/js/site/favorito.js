@@ -42,7 +42,7 @@ $('.act-favorito').click(function(){
 });
 
 $('.act-favorito-deslogado').click(function(){
-   alert('Necessário estar logado para favoritar.');
+   alertaPagina('Necessário estar logado para favoritar.','danger');
 });
 
 $('.act-excluir-favorito').click(function(e){

@@ -35,7 +35,6 @@
         @endif
     </div>
 
-    <script type="text/javascript" src="/libs/jquery/jquery.maskMoney.min.js"></script>
     <script type="text/javascript" src="/js/site/produto.js"></script>
 
 @endsection

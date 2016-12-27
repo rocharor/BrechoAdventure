@@ -4,10 +4,34 @@ $.ajaxSetup({
     }
 });
 
+$('.act-modal-mensagem').click(function(e){
+
+    var produto_id = $(this).parent().attr('data-id');;
+
+    $.ajax({
+        url: '/mensagem/mensagem-produto',
+        dataType: 'json',
+        type: 'POST',
+        data: {'produto_id': produto_id},
+        success: function(retorno){
+            $('.mensagem_de').html(retorno.nome_remet);
+            $('.mensagem_para').html(retorno.name);
+            $('.mensagem_produto').html(retorno.titulo);
+            $('input[name=produto_id]').val(produto_id);
+        },
+        error:function(){
+            alert('Erro ao buscar dados.')
+        }
+    });
+
+    $('#modal-mensagem').modal();
+})
+
+
 $('.act-descricao').click(function(e){
     e.preventDefault();
 
-    var produto_id = $(this).data('id');
+    var produto_id = $(this).parent().attr('data-id');
 
     $.ajax({
         url: '/produto/descricao-produto',
@@ -50,11 +74,6 @@ $('.act-descricao').click(function(e){
         }
     })
 });
-
-// $('.abre-descricao').click(function(e){
-	// e.preventDefault();
-	// $('#modal_descricao').modal();
-// });
 
 $('.act-excluir-produto').click(function(e) {
 
@@ -152,5 +171,7 @@ $('.act-alterar-produto').click(function(e) {
 
 // Mascaras
 (function() {
-   VMasker(document.getElementById("valor")).maskMoney();
+    if (document.getElementById("valor") != null) {
+        VMasker(document.getElementById("valor")).maskMoney();
+    }
 })();

@@ -89,39 +89,38 @@
   color: #000;
   border: 0px;
 }
+.menu_link {
+  border: solid 0px #f00;
+  margin: 20px;
+}
 .menu_link ul {
+  border: solid 0px #0f0;
+  margin: 0 auto;
   list-style: none;
+  width: 900px;
+  text-align: center;
 }
 .menu_link ul li {
+  border: solid 0px #00f;
   background-color: #997d44;
-  position: relative;
-  float: left;
-  display: inline;
-  text-align: center;
-  margin-left: 35px;
-  height: 41px;
+  display: inline-block;
+  padding: 10px;
   width: 200px;
-  line-height: 41px;
+  margin-right: 50px;
 }
 .menu_link ul li a {
   color: #fff;
+  padding: 10px;
   text-decoration: none;
-  display: block;
   font-weight: bold;
 }
 .menu_link ul li a:hover {
   background-color: #ffc88d;
   color: #000;
-  -moz-box-shadow: 0 10px 10px 0 #ccc;
-  -webkit-box-shadow: 0 3px 10px 0 #ccc;
-  text-shadow: 0px 0px 3px #000;
 }
 .menu_link ul li a.active {
   background-color: #b49780;
   color: #fff;
-  -moz-box-shadow: 0 10px 10px 0 #ccc;
-  -webkit-box-shadow: 0 3px 10px 0 #ccc;
-  text-shadow: 0px 0px 5px #fff;
 }
 /*Barra de menu*/
 /*

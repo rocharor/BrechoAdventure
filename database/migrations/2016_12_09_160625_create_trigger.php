@@ -38,6 +38,7 @@ class CreateTrigger extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('tgr_insert_qtd_favorito');
+        Schema::dropIfExists('tgr_update_qtd_favorito');
     }
 }

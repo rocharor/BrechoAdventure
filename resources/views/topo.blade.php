@@ -20,6 +20,7 @@
                     <li><a href="{{ Route('minha-conta.mcperfil') }}">Meu Perfil</a></li>
                     <li><a href="{{ Route('minha-conta.mcproduto') }}">Meus Produtos</a></li>
                     <li><a href="{{ Route('minha-conta.mcfavorito') }}">Meus Favoritos</a></li>
+                    <li><a style='display:inline' href="{{ Route('minha-conta.mcmensagem') }}">Mensagens</a><span><b>0</b></span></li>
                 </ul>
             </span>
             <a href="{{ Route('minha-conta.cadastro-produto') }}" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
