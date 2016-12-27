@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Mensagem;
 use App\Models\Site\Produto;
+use App\Models\Site\Conversa;
 
 class MensagemController extends Controller
 {
@@ -23,11 +24,13 @@ class MensagemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Conversa $conversa)
     {
         $user_id = Auth::user()->id;
-        $mensagens = $this->model->where('user_id_remet',$user_id)->get();
-        dd($mensagens);
+        $dados = $conversa->where('user_id_envio',$user_id)->select('id')->get();
+
+        dd($dados);
+
         return view('minhaConta/mensagem');
     }
 
@@ -36,21 +39,25 @@ class MensagemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Produto $produto)
+    public function create(Request $request, Produto $produto, Conversa $conversa)
     {
         $produto_id = $request->get('produto_id');
         $mensagem = $request->get('mensagem');
-        $user_id_remet = Auth::user()->id;
-        $user_id_dest = $produto->find($produto_id)->user_id;
+        $user_id_envio = Auth::user()->id;
+        $user_id_destino = $produto->find($produto_id)->user_id;
 
-        $this->model->user_id_dest = $user_id_dest;
-        $this->model->produto_id = $produto_id;
-        $this->model->user_id_remet = $user_id_remet;
-        $this->model->mensagem = $mensagem;
+        $conversa->user_id_envio = $user_id_envio;
+        $conversa->user_id_destino = $user_id_destino;
+        $conversa->produto_id = $produto_id;
+        if($conversa->save()) {
+            $this->model->conversa_id = $conversa->id;
+            $this->model->user_id = $user_id_envio;
+            $this->model->mensagem = $mensagem;
+            if ($this->model->save()) {
+                return redirect()->route('produto')->with('sucesso','Mensagem enviada com sucesso.');
+            }
+        };
 
-        if ($this->model->save()) {
-            return redirect()->route('produto')->with('sucesso','Mensagem enviada com sucesso.');
-        }
         return redirect()->route('produto')->with('erro','Erro ao enviar mensagem, tente novamente!');
     }
 

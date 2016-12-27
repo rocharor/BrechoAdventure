@@ -8,5 +8,6 @@ use App\Models\Site\Produto;
 
 class Mensagem extends Model
 {
-    
+    public $table = 'mensagens';
+
 }
