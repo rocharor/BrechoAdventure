@@ -47,7 +47,7 @@
 
     	            <div>
     	                <label>Preço:</label>
-    	                <input type="text" class="form-control" name='valor' maxlength="10" required="required" />
+    	                <input type="text" class="form-control" name='valor' id='valor' maxlength="10" required="required" />
     	            </div>
     	            <br>
 

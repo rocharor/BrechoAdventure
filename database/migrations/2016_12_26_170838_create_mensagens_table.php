@@ -18,7 +18,7 @@ class CreateMensagensTable extends Migration
             $table->integer('conversa_id')->nullable();
             $table->integer('user_id')->nullable();
             $table->text('mensagem')->nullable();
-            $table->integer('status')->default(1);
+            $table->integer('lido')->default(1);
             $table->timestamps();
         });
     }

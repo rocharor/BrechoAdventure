@@ -27,9 +27,8 @@ class MensagemController extends Controller
     public function index(Conversa $conversa)
     {
         $user_id = Auth::user()->id;
-        $dados = $conversa->where('user_id_envio',$user_id)->select('id')->get();
-
-        dd($dados);
+        $conversas = $conversa->where('user_id_destino',$user_id)->get();
+        dd($conversas);
 
         return view('minhaConta/mensagem');
     }

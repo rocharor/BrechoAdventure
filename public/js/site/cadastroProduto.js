@@ -3,6 +3,13 @@ function abreCampoFoto(obj){
     // $('[name=foto'+id+']').removeClass('hide');
 }
 
+// Mascaras
+(function() {
+    if (document.getElementById("valor") != null) {
+        VMasker(document.getElementById("valor")).maskMoney();
+    }
+})();
+
 // $('.act-cadastrar-produto').click(function(e){
 //     e.preventDefault()
 //
