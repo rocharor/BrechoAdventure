@@ -1,3 +1,9 @@
+$.ajaxSetup({
+	headers: {
+		'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+	}
+});
+
 $('.act-buscar').click(function() {
 
 	var valorBusca = $('.busca').val();
@@ -138,4 +144,27 @@ function carregarMiniatura(input,modelo) {
         }
         reader.readAsDataURL(input.files[0]);
     }
+}
+
+/**
+ * Busca notificações com intervalo de 5 minutos
+ */
+function buscaNotificacao(){
+	setTimeout(function(){
+		$.post(
+			"/mensagem/buscaNotificacao",
+			function( data ) {
+				if (data != '') {
+					$('.qtdMsg').html(data);
+					if (data > 0) {
+						var styles = {"font-weight":"bold","color":"red"};
+					}else{
+						var styles = {"font-weight":"normal","color":"black"};
+					}
+					$('.qtdMsg').css(styles);
+					buscaNotificacao();
+				}
+			}
+		);
+	},300000)
 }

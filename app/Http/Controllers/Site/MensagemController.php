@@ -24,13 +24,12 @@ class MensagemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Conversa $conversa)
+    public function index()
     {
-        $user_id = Auth::user()->id;
-        $conversas = $conversa->where('user_id_destino',$user_id)->get();
-        dd($conversas);
+        $conversas_enviadas = $this->model->buscaConversasEnviadas();
+        $conversas_recebidas = $this->model->buscaConversasRecebidas();
 
-        return view('minhaConta/mensagem');
+        return view('minhaConta/mensagem',['conversas_enviadas'=>$conversas_enviadas,'conversas_recebidas'=>$conversas_recebidas]);
     }
 
     /**
@@ -120,5 +119,16 @@ class MensagemController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function buscaNotificacao()
+    {
+        if (Auth::user()){
+            $user_id = Auth::user()->id;
+            $mensagens = $this->model->where('lido',1)->select('id')->get();
+
+            echo count($mensagens);
+            die();
+        }
     }
 }

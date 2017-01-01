@@ -77,40 +77,78 @@
 
     <div class="aba-msgEnviadas">
         <div class="panel panel-default">
-            <div class="panel-heading">
-              <h4>Titulo</h4>
-            </div>
-            <div class="panel-body">
-                <div class="mensagem">
-                    <div class="titulo">Produto</div>
-                    <div class="img"><img src='http://www.interne.com.br/novidades/images/fotos_materias/Arvore-dia-saude210915.jpg' width='100'/></div>
-                    <div class="excluir"><button class="btn btn-danger">X</button></div>
-                    <div class="responder"><a class='act-conversa' data-status=1 href=""><small>Responder</small></a></div>
+            @if(count($conversas_enviadas) == 0)
+                 <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui nenhuma mensagem</i></b></div>
+            @else
+                <div class="panel-heading">
+                  <h4>Conversas</h4>
+                </div>
+                @foreach ($conversas_enviadas as $conversa)
+                <div class="panel-body">
+                    <div class="mensagem">
+                        <div class="titulo">{{ $conversa['produto']->titulo }}</div>
+                        <div class="img"><img src='/imagens/produtos/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
+                        <div class="excluir"><button class="btn btn-danger">X</button></div>
+                        <div class="responder"><a class='act-conversa' data-status=1 href=""><small>Responder</small></a></div>
 
-                    <div class="conversa hide">
-                        <div class="conversa-esquerda">
-                            <small><i>Fulano 31/12/2016</i></small>
-                            <p>teste left</p>
-                        </div>
-                        <div class="conversa-direita">
-                            <small><i>Fulano 31/12/2016</i></small>
-                            <p>teste direita</p>
-                        </div>
-                        <br />
-                        <div class='textarea'>
-                            <textarea name="" id="" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
-                            <button class='btn btn-primary'>Enviar</button>
+                        <div class="conversa hide">
+                            @foreach ($conversa['mensagens'] as $mensagem)
+                                <div class="conversa-{{ $mensagem->posicao }}">
+                                    <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small>
+                                    <p>{{ $mensagem->mensagem }}</p>
+                                </div>
+                            @endforeach
+                            <br />
+                            <div class='textarea'>
+                                <textarea name="" id="" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
+                                <button class='btn btn-primary'>Enviar</button>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <hr />
-            </div>
+                    <hr />
+                </div>
+                @endforeach
+            @endif
         </div>
     </div>
 
     <div class="aba-msgMeusProdutos hide">
-        Meus Produtos
+        <div class="panel panel-default">
+            @if(count($conversas_recebidas) == 0)
+                 <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui nenhuma mensagem</i></b></div>
+            @else
+                <div class="panel-heading">
+                  <h4>Conversas</h4>
+                </div>
+                @foreach ($conversas_recebidas as $conversa)
+                <div class="panel-body">
+                    <div class="mensagem">
+                        <div class="titulo">{{ $conversa['produto']->titulo }}</div>
+                        <div class="img"><img src='/imagens/produtos/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
+                        <div class="excluir"><button class="btn btn-danger">X</button></div>
+                        <div class="responder"><a class='act-conversa' data-status=1 href=""><small>Responder</small></a></div>
+
+                        <div class="conversa hide">
+                            @foreach ($conversa['mensagens'] as $mensagem)
+                                <div class="conversa-{{ $mensagem->posicao }}">
+                                    <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small>
+                                    <p>{{ $mensagem->mensagem }}</p>
+                                </div>
+                            @endforeach
+                            <br />
+                            <div class='textarea'>
+                                <textarea name="" id="" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
+                                <button class='btn btn-primary'>Enviar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr />
+                </div>
+                @endforeach
+            @endif
+        </div>
     </div>
 
     <script type="text/javascript" src="/js/site/mensagem.js"></script>

@@ -23,6 +23,7 @@
     Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
     Route::post('/mensagem/mensagem-produto',['as'=>'msgProduto','uses'=>'Site\MensagemController@show']);
     Route::post('/mensagem/create',['as'=>'createMensagem','uses'=>'Site\MensagemController@create']);
+    Route::post('/mensagem/buscaNotificacao',['as'=>'buscaNotificacao','uses'=>'Site\MensagemController@buscaNotificacao']);
 
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
@@ -40,7 +41,6 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'Site\PerfilController@updateFoto']);
     Route::post('/produto/create',['as'=>'create-produto','uses'=>'Site\ProdutoController@create']);
     Route::post('/produto/destroy/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@destroy']);
-
     Route::post('/produto/update/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
 });
 
