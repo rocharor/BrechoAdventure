@@ -91,18 +91,20 @@
                         <div class="excluir"><button class="btn btn-danger">X</button></div>
                         <div class="responder"><a class='act-conversa' data-status=1 href=""><small>Responder</small></a></div>
 
-                        <div class="conversa hide">
-                            @foreach ($conversa['mensagens'] as $mensagem)
-                                <div class="conversa-{{ $mensagem->posicao }}">
-                                    <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small>
-                                    <p>{{ $mensagem->mensagem }}</p>
-                                </div>
-                            @endforeach
-                            <br />
-                            <div class='textarea'>
-                                <textarea name="" id="" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
-                                <button class='btn btn-primary'>Enviar</button>
+                        <div class="conversa hide" data-conversa-id="{{ $conversa['mensagens'][0]->conversa_id }}">
+                            <div class="conversa_{{ $conversa['mensagens'][0]->conversa_id }}">
+                                @foreach ($conversa['mensagens'] as $mensagem)
+                                    <div class="conversa-{{ $mensagem->posicao }}">
+                                        <small><i>{{ $mensagem->nome }} - {{ $mensagem->created_at }}</i></small>
+                                        <p>{{ $mensagem->mensagem }}</p>
+                                    </div>
+                                @endforeach
                             </div>
+                            <br />
+
+                            <textarea name="resposta" id="resposta_{{ $conversa['mensagens'][0]->conversa_id }}" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
+
+                            <button class='btn btn-primary act-enviar-resposta' data-tipo='1'>Enviar</button>
                         </div>
                     </div>
 
@@ -129,18 +131,20 @@
                         <div class="excluir"><button class="btn btn-danger">X</button></div>
                         <div class="responder"><a class='act-conversa' data-status=1 href=""><small>Responder</small></a></div>
 
-                        <div class="conversa hide">
-                            @foreach ($conversa['mensagens'] as $mensagem)
-                                <div class="conversa-{{ $mensagem->posicao }}">
-                                    <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small>
-                                    <p>{{ $mensagem->mensagem }}</p>
-                                </div>
-                            @endforeach
-                            <br />
-                            <div class='textarea'>
-                                <textarea name="" id="" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
-                                <button class='btn btn-primary'>Enviar</button>
+                        <div class="conversa hide" data-conversa-id="{{ $conversa['mensagens'][0]->conversa_id }}">
+                            <div class="conversa_{{ $conversa['mensagens'][0]->conversa_id }}">
+                                @foreach ($conversa['mensagens'] as $mensagem)
+                                    <div class="conversa-{{ $mensagem->posicao }}">
+                                        <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small>
+                                        <p>{{ $mensagem->mensagem }}</p>
+                                    </div>
+                                @endforeach
                             </div>
+                            <br />
+
+                            <textarea name="resposta" id="resposta_{{ $conversa['mensagens'][0]->conversa_id }}" cols="5" rows="10" class="form-control" placeholder='Responda aqui ...'></textarea>
+
+                            <button class='btn btn-primary act-enviar-resposta' data-tipo='2'>Enviar</button>
                         </div>
                     </div>
 

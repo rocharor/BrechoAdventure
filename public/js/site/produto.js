@@ -9,7 +9,7 @@ $('.act-modal-mensagem').click(function(e){
     var produto_id = $(this).parent().attr('data-id');;
 
     $.ajax({
-        url: '/mensagem/mensagem-produto',
+        url: '/minha-conta/mensagem/createMensagem',
         dataType: 'json',
         type: 'POST',
         data: {'produto_id': produto_id},

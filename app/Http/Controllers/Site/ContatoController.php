@@ -31,16 +31,9 @@ class ContatoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Email $email)
+    public function create()
     {
-        $dados = $request->all();
-        $retorno = $this->model->setMensagem($dados);
-        if($retorno){
-            $email->respAutomaticaContato($dados['nome'],$dados['email']);
-            return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
-        }else{
-            return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
-        }
+
     }
 
 
@@ -50,9 +43,22 @@ class ContatoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, Email $email)
     {
-        //
+        $this->validate($request, [
+            'nome' => 'required|unique:contatos|min:255',
+            'email' => 'required',
+            'tipo' => 'required',
+        ]);
+
+        $dados = $request->all();
+        $retorno = $this->model->setMensagem($dados);
+        if($retorno){
+            // $email->respAutomaticaContato($dados['nome'],$dados['email']);
+            return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
+        }else{
+            return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 <div class="modal-dialog">
     <div class="modal-content">
-        <form name='form' action="/mensagem/create" method="post">
+        <form name='form' action="/minha-conta/mensagem/store" method="post">
             {{ csrf_field() }}
             <input type="hidden" name="produto_id" value="">
 

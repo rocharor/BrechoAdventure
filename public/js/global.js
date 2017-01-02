@@ -150,21 +150,21 @@ function carregarMiniatura(input,modelo) {
  * Busca notificações com intervalo de 5 minutos
  */
 function buscaNotificacao(){
-	setTimeout(function(){
-		$.post(
-			"/mensagem/buscaNotificacao",
-			function( data ) {
-				if (data != '') {
-					$('.qtdMsg').html(data);
-					if (data > 0) {
-						var styles = {"font-weight":"bold","color":"red"};
-					}else{
-						var styles = {"font-weight":"normal","color":"black"};
-					}
-					$('.qtdMsg').css(styles);
-					buscaNotificacao();
+	$.post(
+		"/minha-conta/mensagem/buscaNotificacao",
+		function( data ) {
+			if (data != '') {
+				$('.qtdMsg').html(data);
+				if (data > 0) {
+					var styles = {"font-weight":"bold","color":"red"};
+				}else{
+					var styles = {"font-weight":"normal","color":"black"};
 				}
+				$('.qtdMsg').css(styles);
 			}
-		);
-	},300000)
+		}
+	);
+	setTimeout(function(){
+		buscaNotificacao();
+	},300000);
 }

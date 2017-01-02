@@ -25,34 +25,15 @@ class Mensagem extends Model
     {
         $conversas_envio = Conversa::where('user_id_envio',Auth::user()->id)->get();
         $conversas = $this->buscaMensagens($conversas_envio);
-        return $conversas;
 
-        // $conversas = [];
-        // foreach ($conversas_envio as  $key1=>$conversa_envio) {
-        //     $produto = Produto::find($conversa_envio->produto_id);
-        //     $arrImg = explode('|',$produto->nm_imagem);
-        //     $produto->imgPrincipal = $arrImg[0];
-        //     $mensagens = Conversa::find($conversa_envio->id)->mensagem;
-        //     foreach ($mensagens as $key=>$mensagem) {
-        //         if($mensagem->user_id == $meuUser->id){
-        //             $mensagens[$key]['posicao'] = 'esquerda';
-        //             $mensagens[$key]['nome'] = $meuUser->name;
-        //         }else{
-        //             $mensagens[$key]['posicao'] = 'direita';
-        //             $mensagens[$key]['nome'] = User::find($mensagem->user_id)->name;
-        //         }
-        //     }
-        //     $conversas[$key1]['produto'] = $produto;
-        //     $conversas[$key1]['mensagens'] = $mensagens;
-        // }
-        //
-        // return $conversas;
+        return $conversas;
     }
 
     public function buscaConversasRecebidas()
     {
         $conversas_meus_produtos = Conversa::where('user_id_destino',Auth::user()->id)->get();
         $conversas = $this->buscaMensagens($conversas_meus_produtos);
+
         return $conversas;
     }
 

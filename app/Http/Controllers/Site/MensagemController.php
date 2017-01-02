@@ -37,7 +37,24 @@ class MensagemController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Request $request, Produto $produto, Conversa $conversa)
+    public function create(Request $request,Produto $produto)
+    {
+        $produto_id = $request->get('produto_id');
+
+        $dados = $produto->getDescricaoProduto($produto_id);
+        $dados['nome_remet'] = Auth::user()->name;
+
+        echo response()->json($dados)->content();
+        die();
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request, Produto $produto, Conversa $conversa)
     {
         $produto_id = $request->get('produto_id');
         $mensagem = $request->get('mensagem');
@@ -60,31 +77,14 @@ class MensagemController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Request $request,Produto $produto)
+    public function show()
     {
-        $produto_id = $request->get('produto_id');
 
-        $dados = $produto->getDescricaoProduto($produto_id);
-        $dados['nome_remet'] = Auth::user()->name;
-
-        echo response()->json($dados)->content();
-        die();
     }
 
     /**
@@ -105,9 +105,26 @@ class MensagemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $user = Auth::user();
+        $conversa_id = $request->get('conversa_id');
+        $user_id = $user->id;
+        $mensagem = $request->get('mensagem');
+
+        $this->model->conversa_id = $conversa_id;
+        $this->model->user_id = $user_id;
+        $this->model->mensagem = $mensagem;
+
+        $dados = [];
+        if ($this->model->save()) {
+            $dados['nome'] = $user->name;
+            $dados['mensagem'] = $this->model->mensagem;
+            $dados['data'] = $this->model->created_at;
+        }
+
+        echo response()->json($dados)->content();
+        die();
     }
 
     /**
@@ -130,5 +147,12 @@ class MensagemController extends Controller
             echo count($mensagens);
             die();
         }
+    }
+
+    public function update2(Request $request)
+    {
+        $conversa_id = $request->get('conversa_id');
+        $mensagens = $this->model->where('conversa_id',$conversa_id)->update(['lido'=>0]);
+
     }
 }
