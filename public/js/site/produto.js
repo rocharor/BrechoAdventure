@@ -4,30 +4,6 @@ $.ajaxSetup({
     }
 });
 
-$('.act-modal-mensagem').click(function(e){
-
-    var produto_id = $(this).parent().attr('data-id');;
-
-    $.ajax({
-        url: '/minha-conta/mensagem/createMensagem',
-        dataType: 'json',
-        type: 'POST',
-        data: {'produto_id': produto_id},
-        success: function(retorno){
-            $('.mensagem_de').html(retorno.nome_remet);
-            $('.mensagem_para').html(retorno.name);
-            $('.mensagem_produto').html(retorno.titulo);
-            $('input[name=produto_id]').val(produto_id);
-        },
-        error:function(){
-            alert('Erro ao buscar dados.')
-        }
-    });
-
-    $('#modal-mensagem').modal();
-})
-
-
 $('.act-descricao').click(function(e){
     e.preventDefault();
 

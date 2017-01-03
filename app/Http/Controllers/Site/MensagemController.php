@@ -66,7 +66,8 @@ class MensagemController extends Controller
         $conversa->produto_id = $produto_id;
         if($conversa->save()) {
             $this->model->conversa_id = $conversa->id;
-            $this->model->user_id = $user_id_envio;
+            $this->model->user_id_envio = $user_id_envio;
+            $this->model->user_id_destino = $user_id_destino;
             $this->model->mensagem = $mensagem;
             if ($this->model->save()) {
                 return redirect()->route('produto')->with('sucesso','Mensagem enviada com sucesso.');
@@ -105,15 +106,19 @@ class MensagemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request,Conversa $conversa)
     {
         $user = Auth::user();
         $conversa_id = $request->get('conversa_id');
-        $user_id = $user->id;
+        $user_id_envio = $user->id;
         $mensagem = $request->get('mensagem');
 
+        $dados = $conversa->find($conversa_id)->select('user_id_envio','user_id_destino')->get();
+        $user_id_destino = ($dados[0]->user_id_envio == $user_id_envio) ? $dados[0]->user_id_destino : $dados[0]->user_id_envio;
+
         $this->model->conversa_id = $conversa_id;
-        $this->model->user_id = $user_id;
+        $this->model->user_id_envio = $user_id_envio;
+        $this->model->user_id_destino = $user_id_destino;
         $this->model->mensagem = $mensagem;
 
         $dados = [];
@@ -142,7 +147,7 @@ class MensagemController extends Controller
     {
         if (Auth::user()){
             $user_id = Auth::user()->id;
-            $mensagens = $this->model->where('lido',1)->select('id')->get();
+            $mensagens = $this->model->where(['lido'=>1,'user_id_destino'=>$user_id])->select('id')->get();
 
             echo count($mensagens);
             die();
@@ -151,8 +156,9 @@ class MensagemController extends Controller
 
     public function update2(Request $request)
     {
+        $user_id = Auth::user()->id;
         $conversa_id = $request->get('conversa_id');
-        $mensagens = $this->model->where('conversa_id',$conversa_id)->update(['lido'=>0]);
+        $mensagens = $this->model->where(['conversa_id'=>$conversa_id,'user_id_destino'=>$user_id])->update(['lido'=>0]);
 
     }
 }

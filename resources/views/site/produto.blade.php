@@ -84,4 +84,5 @@
 
 	<script type="text/javascript" src="/js/site/produto.js"></script>
 	<script type="text/javascript" src="/js/site/favorito.js"></script>
+	<script type="text/javascript" src="/js/site/mensagem.js"></script>
 @endsection

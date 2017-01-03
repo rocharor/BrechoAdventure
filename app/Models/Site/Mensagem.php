@@ -46,12 +46,12 @@ class Mensagem extends Model
             $produto->imgPrincipal = $arrImg[0];
             $mensagens = Conversa::find($conversa->id)->mensagem;
             foreach ($mensagens as $key=>$mensagem) {
-                if($mensagem->user_id == Auth::user()->id){
+                if($mensagem->user_id_envio == Auth::user()->id){
                     $mensagens[$key]['posicao'] = 'esquerda';
                     $mensagens[$key]['nome'] = Auth::user()->name;
                 }else{
                     $mensagens[$key]['posicao'] = 'direita';
-                    $mensagens[$key]['nome'] = User::find($mensagem->user_id)->name;
+                    $mensagens[$key]['nome'] = User::find($mensagem->user_id_envio)->name;
                 }
             }
             $conversas[$key1]['produto'] = $produto;

@@ -39,7 +39,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/produto/create',['as'=>'create-produto','uses'=>'Site\ProdutoController@create']);
     Route::post('/produto/destroy/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@destroy']);
     Route::post('/produto/update/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
-    Route::post('/mensagem/createMensagem',['as'=>'createMensagem','uses'=>'Site\MensagemController@create']);
+    Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MensagemController@create']);
     Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MensagemController@store']);
     Route::post('/mensagem/update',['as'=>'updateMensagem','uses'=>'Site\MensagemController@update']);
     Route::post('/mensagem/buscaNotificacao',['as'=>'buscaNotificacao','uses'=>'Site\MensagemController@buscaNotificacao']);
