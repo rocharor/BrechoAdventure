@@ -10,39 +10,39 @@ AÇÕES PARA ALTERAR FOTO
 /**
 * acão para quando clica no link alterar foto;
 */
-$('.act-alter-foto').click(function(e){
-    e.preventDefault();
+// $('.act-alter-foto').click(function(e){
+//     e.preventDefault();
+//
+//    $('#foto_upd').trigger('click');
+// });
 
-   $('#foto_upd').trigger('click');
-});
-
-$('#btnCancelarFoto').click(function(e){
-    e.preventDefault();
-
-    $('.act-alter-foto').removeClass('hide');
-    $('#btnEnviaFoto').addClass('hide');
-    $('#btnCancelarFoto').addClass('hide');
-    $('.img_nova').addClass('hide');
-
-    $('.nm_imagem').html('');
-});
+// $('#btnCancelarFoto').click(function(e){
+//     e.preventDefault();
+//
+//     $('.act-alter-foto').removeClass('hide');
+//     $('#btnEnviaFoto').addClass('hide');
+//     $('#btnCancelarFoto').addClass('hide');
+//     $('.img_nova').addClass('hide');
+//
+//     $('.nm_imagem').html('');
+// });
 
 /**
 * executa quando escolhe a imagem;
 *
 */
-var altera_imagem = function(){
-
-    var nm_imagem = $('#foto_upd')[0].files[0].name;
-    carregarMiniatura($('#foto_upd')[0],'img_nova');
-
-    $('.act-alter-foto').addClass('hide');
-    $('#btnEnviaFoto').removeClass('hide');
-    $('#btnCancelarFoto').removeClass('hide');
-    $('.img_nova').removeClass('hide');
-
-    $('.nm_imagem').append(nm_imagem);
-}
+// var altera_imagem = function(){
+//
+//     var nm_imagem = $('#foto_upd')[0].files[0].name;
+//     carregarMiniatura($('#foto_upd')[0],'img_nova');
+//
+//     $('.act-alter-foto').addClass('hide');
+//     $('#btnEnviaFoto').removeClass('hide');
+//     $('#btnCancelarFoto').removeClass('hide');
+//     $('.img_nova').removeClass('hide');
+//
+//     $('.nm_imagem').append(nm_imagem);
+// }
 
 /**
 * Salva dados do formulario
@@ -110,11 +110,11 @@ function buscaCEP(cep){
 
 }
 // Mascaras
-(function() {
-   VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
-   VMasker(document.getElementById("cep_upd")).maskPattern('99999-999');
-   VMasker(document.getElementById("tel_upd")).maskPattern('(99) 9999-9999');
-   VMasker(document.getElementById("cel_upd")).maskPattern('(99) 99999-9999');
+// (function() {
+   // VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
+   // VMasker(document.getElementById("cep_upd")).maskPattern('99999-999');
+   // VMasker(document.getElementById("tel_upd")).maskPattern('(99) 9999-9999');
+   // VMasker(document.getElementById("cel_upd")).maskPattern('(99) 99999-9999');
 
 	// #maskMoney
 	// VMasker(document.getElementById("default")).maskMoney();
@@ -135,4 +135,81 @@ function buscaCEP(cep){
 	// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
 	// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
 	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
+// })();
+
+var PerfilClass = (function() {
+
+    function Perfil() {
+    }
+
+    Perfil.prototype = {
+        init: function() {
+          this.actions();
+          this.mask();
+        },
+        actions: function() {
+			var self = this;
+            $('#foto_upd').on('change',function(e){
+                e.preventDefault();
+                var $file = $('#foto_upd')[0];
+                self.altera_imagem($file);
+            })
+
+            $('.act-alter-foto').on('click',function(e){
+                e.preventDefault();
+                $('#foto_upd').trigger('click');
+            });
+
+            $('#btnCancelarFoto')on('click',function(e){
+                e.preventDefault();
+                $('.act-alter-foto').removeClass('hide');
+                $('#btnEnviaFoto').addClass('hide');
+                $('#btnCancelarFoto').addClass('hide');
+                $('.img_nova').addClass('hide');
+
+                $('.nm_imagem').html('');
+            });
+
+        },
+        mask: function(){
+            VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
+            VMasker(document.getElementById("cep_upd")).maskPattern('99999-999');
+            VMasker(document.getElementById("tel_upd")).maskPattern('(99) 9999-9999');
+            VMasker(document.getElementById("cel_upd")).maskPattern('(99) 99999-9999');
+
+         	// #maskMoney
+         	// VMasker(document.getElementById("default")).maskMoney();
+         	// VMasker(document.getElementById("defaultValues")).maskMoney();
+         	// VMasker(document.getElementById("zeroCents")).maskMoney({zeroCents: true});
+         	// VMasker(document.getElementById("unit")).maskMoney({unit: 'R$'});
+         	// VMasker(document.getElementById("suffixUnit")).maskMoney({suffixUnit: 'R$'});
+         	// VMasker(document.getElementById("delimiter")).maskMoney({delimiter: ','});
+            // VMasker(document.getElementById("separator")).maskMoney({separator: '.'});
+
+         	// #maskNumber
+         	// VMasker(document.getElementById("numbers")).maskNumber();
+
+         	// #maskPattern
+         	// VMasker(document.getElementById("phone")).maskPattern('(99) 9999-9999');
+         	// VMasker(document.getElementById("phoneValues")).maskPattern('(99) 9999-9999');
+         	// VMasker(document.getElementById("date")).maskPattern('99/99/9999');
+         	// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
+         	// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
+         	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
+        },
+        altera_imagem: function($file){
+            carregarMiniatura($file,'img_nova');
+
+            $('.act-alter-foto').addClass('hide');
+            $('#btnEnviaFoto').removeClass('hide');
+            $('#btnCancelarFoto').removeClass('hide');
+            $('.img_nova').removeClass('hide');
+
+            $('.nm_imagem').append($file.files[0].name);
+        }
+
+    };
+    return Perfil;
 })();
+
+new PerfilClass().init();

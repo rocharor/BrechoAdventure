@@ -25,7 +25,6 @@ class Mensagem extends Model
     {
         $conversas_envio = Conversa::where('user_id_envio',Auth::user()->id)->get();
         $conversas = $this->buscaMensagens($conversas_envio);
-
         return $conversas;
     }
 
@@ -40,7 +39,9 @@ class Mensagem extends Model
     public function buscaMensagens ($objConversa)
     {
         $conversas = [];
+        $qtdNotificacaoGeral = 0;
         foreach ($objConversa as  $key1=>$conversa) {
+            $qtdNotificacaoProduto = 0;
             $produto = Produto::find($conversa->produto_id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
@@ -52,11 +53,17 @@ class Mensagem extends Model
                 }else{
                     $mensagens[$key]['posicao'] = 'direita';
                     $mensagens[$key]['nome'] = User::find($mensagem->user_id_envio)->name;
+                    if ($mensagem->lido == 1) {
+                        $qtdNotificacaoGeral++;
+                        $qtdNotificacaoProduto++;
+                    }
                 }
             }
             $conversas[$key1]['produto'] = $produto;
             $conversas[$key1]['mensagens'] = $mensagens;
+            $conversas[$key1]['naoLidas'] = $qtdNotificacaoProduto;
         }
+        $conversas['naoLidas'] = $qtdNotificacaoGeral;
 
         return $conversas;
 

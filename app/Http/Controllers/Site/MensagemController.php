@@ -29,7 +29,18 @@ class MensagemController extends Controller
         $conversas_enviadas = $this->model->buscaConversasEnviadas();
         $conversas_recebidas = $this->model->buscaConversasRecebidas();
 
-        return view('minhaConta/mensagem',['conversas_enviadas'=>$conversas_enviadas,'conversas_recebidas'=>$conversas_recebidas]);
+        $qtdConversasEnviadas = $conversas_enviadas['naoLidas'];
+        $qtdConversasRecebidas = $conversas_recebidas['naoLidas'];
+        unset($conversas_enviadas['naoLidas']);
+        unset($conversas_recebidas['naoLidas']);
+
+        return view('minhaConta/mensagem',[
+            'conversas_enviadas'=>$conversas_enviadas,
+            'conversas_recebidas'=>$conversas_recebidas,
+            'qtdConversasEnviadas'=>$qtdConversasEnviadas,
+            'qtdConversasRecebidas'=>$qtdConversasRecebidas,
+            ]
+        );
     }
 
     /**

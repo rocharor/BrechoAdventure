@@ -23,7 +23,7 @@
             <button id='btnCancelarFoto' class="btn btn-danger hide"><span class="glyphicon glyphicon-trash"></span></button>&nbsp;&nbsp;
             <b><small class='nm_imagem'></small></b>
 
-            <input type="file" class="hide" id='foto_upd' name='imagemPerfil' onchange="altera_imagem()">
+            <input type="file" class="hide" id='foto_upd' name='imagemPerfil' {{--onchange="altera_imagem()"--}}>
         </form>
     </div>
     <br>

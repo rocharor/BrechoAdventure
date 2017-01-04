@@ -70,8 +70,18 @@
     <h1 class="text-danger"><span class="glyphicon glyphicon-envelope"></span> Mensagens</h1>
 
     <ul class="nav nav-tabs nav-justified">
-      <li role="presentation" class="active act-aba-msgEnviadas"><a href="#">Mensagens Enviadas</a></li>
-      <li role="presentation" class='act-aba-msgMeusProdutos'><a href="#">Mensagens Meus Produtos</a></li>
+      <li role="presentation" class="active act-aba-msgEnviadas">
+          <a href="">
+              Mensagens Enviadas
+              <span @if($qtdConversasEnviadas > 0) class='text-danger' @else class='hide' @endif><b>({{ $qtdConversasEnviadas }})</b></span>
+          </a>
+      </li>
+      <li role="presentation" class='act-aba-msgMeusProdutos'>
+          <a href="">
+              Mensagens Recebidas
+              <span @if($qtdConversasRecebidas > 0) class='text-danger' @else class='hide' @endif><b>({{ $qtdConversasRecebidas }})</b></span>
+          </a>
+      </li>
     </ul>
     <br />
 
@@ -86,6 +96,9 @@
                 @foreach ($conversas_enviadas as $conversa)
                 <div class="panel-body">
                     <div class="mensagem">
+                        <span @if($conversa['naoLidas'] > 0) class='text-danger' @else class='hide' @endif >
+                            <b>({{ $conversa['naoLidas'] }})</b>
+                        </span>
                         <div class="titulo">{{ $conversa['produto']->titulo }}</div>
                         <div class="img"><img src='/imagens/produtos/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
                         <div class="excluir"><button class="btn btn-danger">X</button></div>
@@ -126,6 +139,9 @@
                 @foreach ($conversas_recebidas as $conversa)
                 <div class="panel-body">
                     <div class="mensagem">
+                        <span @if($conversa['naoLidas'] > 0) class='text-danger' @else class='hide' @endif >
+                            <b>({{ $conversa['naoLidas'] }})</b>
+                        </span>
                         <div class="titulo">{{ $conversa['produto']->titulo }}</div>
                         <div class="img"><img src='/imagens/produtos/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
                         <div class="excluir"><button class="btn btn-danger">X</button></div>
