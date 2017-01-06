@@ -18,6 +18,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FraseTableSeeder::class);
         $this->call(CategoriaTableSeeder::class);
         $this->call(ProdutoTableSeeder::class);
+        $this->call(UserTableSeeder::class);
 
         //ativa as chaves estrangeiras
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');

@@ -13,12 +13,12 @@ class CreateProcedures extends Migration
      */
     public function up()
     {
-        DB::unprepared('
-           CREATE PROCEDURE proc_qtd_favorito (produto_id INT(11))
-           BEGIN
-               UPDATE produtos SET qtd_favorito = (qtd_favorito + 1) WHERE id = produto_id;
-           END
-        ');
+        DB::unprepared(
+            'CREATE PROCEDURE procQtdFavorito (produto_id INT(11))
+            BEGIN
+                UPDATE produtos SET qtd_favorito = (qtd_favorito + 1) WHERE id = produto_id;
+            END'
+        );        
     }
 
     /**
@@ -28,6 +28,6 @@ class CreateProcedures extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('proc_qtd_favorito');
+        Schema::dropIfExists('procQtdFavorito');
     }
 }

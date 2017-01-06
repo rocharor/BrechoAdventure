@@ -8,6 +8,7 @@
     "gulp": "^3.9.1",
     "gulp-minify-css": "^1.2.3",
     "gulp-stylus": "^2.5.0",
-    "gulp-concat": "^2.6.0"
+    "gulp-concat": "^2.6.0",
+    "vue": "^2.1.8"
   }
 }

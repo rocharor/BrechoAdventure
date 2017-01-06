@@ -34,11 +34,7 @@
             <tr>
                 <td><label>Nome: <span class='text-danger'>*</span></label> </td>
                 <td><input type="text" id='nome_upd' name='nome' class="form-control" style="width: 300px;" value="{{ Auth::user()->name }}" /></td>
-            </tr>
-            <tr>
-                <td><label>Apelido: </label> </td>
-                <td><input type="text" id='apelido_upd' name="apelido" class="form-control" style="width: 300px;" value="{{ Auth::user()->apelido }}" /></td>
-            </tr>
+            </tr>            
             <tr>
                 <td> <label>Email: <span class='text-danger'>*</span></label> </td>
                 <td><input type="text" id='email_upd' name='email' class="form-control" style="width: 300px;" value="{{ Auth::user()->email }}" /></td>

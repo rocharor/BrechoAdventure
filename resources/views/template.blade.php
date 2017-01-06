@@ -27,7 +27,7 @@
         <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
 		<script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
-		{{-- <script src="/libs/notify/notify.js"></script> --}}
+		<script src="/libs/vue2/dist/vue.min.js"></script>
 		<script src="/js/global.js"></script>
     </head>
     <body>

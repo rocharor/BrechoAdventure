@@ -30,15 +30,14 @@ $factory->define(App\Models\Categoria::class, function (Faker\Generator $faker) 
 
 $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
-
     return [
-        'frase' => $faker->text(rand(100, 150)),
+        // 'frase' => $faker->text(rand(100, 150)),
         'autor' => $faker->firstName
     ];
 });
 
 $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $faker) {
-        return [
+    return [
         'user_id' => rand(1,2),
         'categoria_id' => rand(1,5),
         'titulo' => $faker->lastName,
@@ -48,4 +47,8 @@ $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $fake
         'nm_imagem' => 'padrao.jpg',
         'status' => 1
     ];
+});
+
+$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
+    return [];
 });
