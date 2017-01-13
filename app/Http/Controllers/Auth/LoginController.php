@@ -36,4 +36,13 @@ class LoginController extends Controller
     {
         $this->middleware('guest', ['except' => 'logout']);
     }
+
+    /**
+    * Criado para fazer redirecionamento para a pagina atual onde o usuário estava
+    * @return [type] [description]
+    */
+    public function redirectPath()
+    {
+        return session('backUrl') ? session('backUrl') : $this->redirectTo;
+    }
 }

@@ -149,7 +149,7 @@ class PerfilController extends Controller
                 // $path = $request->imagemPerfil->store('imagens/cadastro'); /* envia as imagens para a pasta Storage/app*/
                 // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome); /*mesma coisa só que pode setar o nome*/
                 $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
-                $foto_salva = $request->imagemPerfil->move(public_path("imagens\cadastro"), $foto_nome);
+                $foto_salva = $request->imagemPerfil->move(public_path("imagens/cadastro"), $foto_nome);
             }
         }
 

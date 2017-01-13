@@ -46,9 +46,10 @@ class ContatoController extends Controller
     public function store(Request $request, Email $email)
     {
         $this->validate($request, [
-            'nome' => 'required|unique:contatos|min:255',
+            'nome' => 'required|max:255',
             'email' => 'required',
             'tipo' => 'required',
+            //unique:contatos
         ]);
 
         $dados = $request->all();

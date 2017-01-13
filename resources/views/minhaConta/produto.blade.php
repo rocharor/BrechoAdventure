@@ -1,5 +1,15 @@
-    @extends('template')
+@extends('template')
 @section('content')
+    <style>
+        .favorito{
+            background-image: url(/imagens/favorito_ativo.jpg);
+			background-size: cover;
+			width: 35px;
+			height: 35px;
+			display:inline-block;
+            border:solid 1px #f00;
+        }
+    </style>
     <h1 class="text-danger">MEUS PRODUTOS</h1>
     <div class="row">
         @if (count($meusProdutos) == 0)
@@ -27,7 +37,7 @@
                         <div>
                             <a href="/minha-conta/produto/editar-produto/{{ $produto->id }}" class="btn btn-primary" data-produto-id="{$produto.id}">Editar</a>
                             <button class="btn btn-danger act-excluir-produto" data-produto-id="{{ $produto->id }}">Excluir</button>
-                            <span> favoritos</span>
+                            <div class='favorito'></div>
                         </div>
                     @endif
                 </div>

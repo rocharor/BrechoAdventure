@@ -65,4 +65,5 @@
         </div>
     </div>
 </div>
+<?php session(['backUrl' => url()->previous()]);?>
 @endsection

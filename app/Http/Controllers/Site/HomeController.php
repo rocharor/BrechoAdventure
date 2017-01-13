@@ -25,7 +25,7 @@ class HomeController extends Controller
 
         // $request->session()->forget('teste');//apaga
         // $request->session()->all();//busca tudo
-        // $request->session()->get('_token');//busca 1        
+        // $request->session()->get('_token');//busca 1
         $frase = $this->model->frasesHome();
         return view('site/home',['frase'=>$frase]);
     }
