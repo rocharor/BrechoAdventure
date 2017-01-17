@@ -23,6 +23,9 @@
                     <li><a style='display:inline' href="{{ Route('minha-conta.mcmensagem') }}">Mensagens</a><span class='qtdMsg'>0</span></li>
                 </ul>
             </span>
+            @if(Auth::user()->id == 1)
+                <a href="{{ Route('admin.home') }}" class="btn btn-primary">Admin</a>
+            @endif
             <a href="{{ Route('minha-conta.cadastro-produto') }}" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
             <a href='/logout' class="btn btn-danger">Sair</a>
         @endif

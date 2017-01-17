@@ -11,7 +11,7 @@
 |
 */
 
-// Rotas da area Minha Conta
+// Rotas do site
     // Menus
     Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
     Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
@@ -46,6 +46,11 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/mensagem/update2',['as'=>'update2','uses'=>'Site\MensagemController@update2']);
 });
 
+// Rotas da area Admin
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+    //Links
+    Route::get('/home',['as'=>'home','uses'=>'Admin\AdminController@index']);
+});
 
 // Autentication
 Auth::routes();
