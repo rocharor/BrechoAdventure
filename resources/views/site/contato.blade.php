@@ -5,7 +5,7 @@
   <li class="active">Contato</li>
 </ol>
 
-@include('exibeErro');
+@include('exibeErro')
 
 
 <div class="row">
