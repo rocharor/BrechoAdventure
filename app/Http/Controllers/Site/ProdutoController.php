@@ -15,7 +15,7 @@ class ProdutoController extends Controller
     use Util;
 
     public $model;
-    public $totalPagina = 5;
+    public $totalPagina = 8;
 
     public function __construct(Produto $produto)
     {
@@ -29,7 +29,7 @@ class ProdutoController extends Controller
      */
     public function index(Favorito $favorito)
     {
-        $produtos = $this->model->getProdutos(9);
+        $produtos = $this->model->getProdutos($this->totalPagina);
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
             $arrImg = explode('|',$produto->nm_imagem);

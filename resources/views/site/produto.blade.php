@@ -1,27 +1,10 @@
 @extends('template')
 @section('content')
 	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
-
-	<style type="text/css">
-		/*.img-ativo  {
-			background-image: url(/imagens/favorito_ativo.jpg);
-			background-size: cover;
-			width: 20px;
-			height: 20px;
-			display:block;
-		}
-		.img-inativo  {
-			background-image: url(/imagens/favorito_inativo.jpg);
-			background-size: cover;
-			width: 20px;
-			height: 20px;
-			display:block;
-		}*/
-	</style>
-
+	
 	<ol class="breadcrumb">
-		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-		<li class="active">Produtos</li>
+		<li class="active"><span class='glyphicon glyphicon-home'> Home</span></li>
+		{{-- <li class="active">Produtos</li> --}}
 	</ol>
 
 	@if(count($produtos) == 0)
