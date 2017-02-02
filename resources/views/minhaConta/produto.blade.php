@@ -10,7 +10,12 @@
             border:solid 1px #f00;
         }
     </style>
-    <h1 class="text-danger">MEUS PRODUTOS</h1>
+
+    <ol class="breadcrumb">
+		<li><span class='glyphicon glyphicon-home'> Home</span></li>
+		<li class="active">Meus Produtos</li>
+	</ol>
+
     <div class="row">
         @if (count($meusProdutos) == 0)
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>

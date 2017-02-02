@@ -2,63 +2,50 @@
 @section('content')
 <link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
-<style type="text/css">
-/*.img-ativo  {
-    background-image: url(/imagens/favorito_ativo.jpg);
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-
-}
-.img-inativo  {
-    background-image: url(/imagens/favorito_inativo.jpg);
-    background-size: cover;
-    width: 20px;
-    height: 20px;
-
-}*/
-</style>
-
 <ol class="breadcrumb">
   <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-  <li><a href="/produto/">Produto</a></li>
   <li class="active">Todos produtos</li>
 </ol>
 
-<div class="row">
-	<div class="col-lg-12">
-			<div class="row">
-				@foreach($produtos as $produto)
-					<div class="col-md-4 div-produto" align='center'  style="border-bottom: solid 1px; padding: 20px 0">
-						<div class="div-favorito-{$produto.id}" data-usuario-id="{$usuario_id}">
-							@if(Auth::check() == 0)
-								<a class="act-favorito-deslogado">
-                                    <div class="img-inativo"></div>
-                                </a>
-							@else
-								@if($produto->favorito)
-									<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='0'>
-										<div class="img-ativo"></div>
-									</a>
-								@else
-									<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-status='1'>
-										<div class="img-inativo"></div>
-									</a>
-								@endif
-							@endif
-						</div>
-						<div style="width: 300px; height: 20px;" align="center">
-							<b>{{$produto->titulo}}</b>
-						</div>
-						<div style="width: 250px; height: 250px;">
-							<img class="img-thumbnail" src="/imagens/produtos/{{ $produto->imgPrincipal }}" alt="" style="width: 100%; height: 100%;">
-						</div>
-						<div><b>Pre&ccedil;o: R$ {{ $produto->valor }}</b></div>
-						<div><button style=":width100%;" class='btn btn-warning act-descricao' data-id="{{ $produto->id }}"><b>Ver detalhes</b></button></div>
-					</div>
-				@endforeach
+<div class="row" >
+	@foreach($produtos as $produto)
+		<div class="col-md-3 col-xs-6" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+		<div class="div-produto" align="center">
+			<div class="div-favorito-{{ $produto->id }}">
+				@if(Auth::check() == 0)
+					<a class="act-favorito-deslogado">
+						<div class="img-inativo"></div>
+					</a>
+				@else
+					@if($produto->favorito)
+						<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
+							<span class="img-ativo"></span>
+						</a>
+					@else
+						<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='1'>
+							<span class="img-inativo"></span>
+						</a>
+					@endif
+				@endif
+			</div>
+
+			<div style="height: 20px;" align="center">
+				<b>{{$produto->titulo}}</b>
+			</div>
+			<div style="width: 200px; height: 200px;">
+				<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
+			</div>
+
+			<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
+			<div data-id="{{ $produto->id }}">
+				<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>
+				@if(Auth::check() != 0)
+					<button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button>
+				@endif
 			</div>
 		</div>
+		</div>
+	@endforeach
 </div>
 
 <!--PAGINAÇÃO-->

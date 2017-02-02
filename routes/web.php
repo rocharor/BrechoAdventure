@@ -16,8 +16,7 @@
     // Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
     Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
     Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
-    // Route::get('/produto',['as'=>'produto','uses'=>'Site\ProdutoController@index']);
-    Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProduto','uses'=>'Site\ProdutoController@todosProdutosIndex']);
+    Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutosIndex']);
 
 // Açoes
     Route::post('/contato/store',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);

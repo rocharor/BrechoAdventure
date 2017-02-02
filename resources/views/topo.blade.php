@@ -4,12 +4,12 @@
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo hidden-xs'>
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         {{-- <span class='nome_site hidden-xs'>BRECHÓ ADVENTURE</span> --}}
-        <a {{ (Request::is('/') ? 'class=active' : '') }} href="{{ Route('home') }}">Home</a>
-        {{-- <a {{ (Request::is('produto') ? 'class=active' : '') }} href="{{ Route('produto') }}">Produtos</a> --}}
-        <a {{ (Request::is('produto') ? 'class=active' : '') }} href="/produto/todosProdutos/1">Todos Produtos</a>
-        <a {{ (Request::is('contato') ? 'class=active' : '') }} href="{{ Route('contato') }}">Contato</a>
+        <div class="links">
+            <a {{ (Request::is('/') ? 'class=active' : '') }} href="{{ Route('home') }}">Home</a>
+            <a {{ (Request::is('todosProdutos') ? 'class=active' : '') }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
+            <a {{ (Request::is('contato') ? 'class=active' : '') }} href="{{ Route('contato') }}">Contato</a>
+        </div>
     </div>
-
     <div class="topo_direito">
         @if(Auth::check() == 0)
             {{-- <a href='/login' class="btn btn-login">Login</a>
@@ -22,13 +22,12 @@
             	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             		<span class="glyphicon glyphicon-menu-hamburger"></span>
             	</button>
-            	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin: 2px -120px 0; ">
                     <li><a href='/login' class="btn btn-login">Login</a></li>
                     <li><a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a></li>
             	</ul>
             </div>
         @else
-
             <span class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">

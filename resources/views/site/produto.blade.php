@@ -1,7 +1,7 @@
 @extends('template')
 @section('content')
 	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
-	
+
 	<ol class="breadcrumb">
 		<li class="active"><span class='glyphicon glyphicon-home'> Home</span></li>
 		{{-- <li class="active">Produtos</li> --}}
@@ -32,12 +32,14 @@
 							@endif
 						@endif
 					</div>
-					<div style="width: 300px; height: 20px;" align="center">
+
+					<div style="height: 20px;" align="center">
 						<b>{{$produto->titulo}}</b>
 					</div>
-					<div style="width: 250px; height: 250px;">
+					<div style="width: 200px; height: 200px;">
 						<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
 					</div>
+
 					<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
 					<div data-id="{{ $produto->id }}">
 						<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>

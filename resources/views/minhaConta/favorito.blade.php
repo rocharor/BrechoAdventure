@@ -1,6 +1,9 @@
 @extends('template')
 @section('content')
-    <h1 class="text-danger">FAVORITOS</h1>
+    <ol class="breadcrumb">
+		<li><span class='glyphicon glyphicon-home'> Home</span></li>
+		<li class="active">Meus Favoritos</li>
+	</ol>
     @if(count($favoritos) == 0)
          <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui nenhum favorito cadastrados</i></b></div>
     @else

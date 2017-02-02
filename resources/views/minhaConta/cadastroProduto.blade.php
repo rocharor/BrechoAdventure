@@ -1,8 +1,11 @@
 @extends('template')
 @section('content')
+    <ol class="breadcrumb">
+		<li><span class='glyphicon glyphicon-home'> Home</span></li>
+		<li class="active">Cadastro de Produtos</li>
+	</ol>
     <div align="center">
-        <div align="left" style="width: 500px;">
-            <h1>Cadastro de Produtos</h1>
+        <div align="left" style="width: 500px;">            
             @if($autorizado == false)
             	<div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.mcperfil') }}">CLIQUE AQUI</a></div>
             @else

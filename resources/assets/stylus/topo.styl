@@ -20,10 +20,18 @@ $color2 = #fedd7a;
             max-height: 65px;
             min-height: 65px;
 
-        .nome_site
-            color: #fff;
-            font-size: 30px;
-            margin-left: 20px;
+        .links
+            display:inline;
+            a
+                margin:10px;
+                font-weight:bold;
+                text-decoration:none;
+                color:$color1;
+            a:hover
+                color:$color2;
+            .active
+                color:#fff;
+
 
     .topo_direito
         float:right;
@@ -73,18 +81,17 @@ $color2 = #fedd7a;
 	position: absolute;
 	width: 20%;
 	top:80px;
-	right:10px
+	right:10px;
 
 
 /*MENU MOBILE*/
 .menu-mobile
-	background-color:$color2;
-	text-align: center;
     button
-    	background-color:$color1;
-    	color:#000;
-    	border:	0px;
-
+        background-color:$color1;
+        color:#000;
+        border:	0px;
+    background-color:$color2;
+    text-align: center;
 // .menu_link
 //     border:solid 0px #f00;
 //     margin: 20px;
