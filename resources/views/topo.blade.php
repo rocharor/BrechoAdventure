@@ -5,11 +5,12 @@
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         {{-- <span class='nome_site hidden-xs'>BRECHÓ ADVENTURE</span> --}}
         <div class="links">
-            <a {{ (Request::is('/') ? 'class=active' : '') }} href="{{ Route('home') }}">Home</a>
-            <a {{ (Request::is('todosProdutos') ? 'class=active' : '') }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
-            <a {{ (Request::is('contato') ? 'class=active' : '') }} href="{{ Route('contato') }}">Contato</a>
+            <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
+            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
+            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
         </div>
     </div>
+
     <div class="topo_direito">
         @if(Auth::check() == 0)
             {{-- <a href='/login' class="btn btn-login">Login</a>

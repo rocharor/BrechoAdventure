@@ -30,6 +30,7 @@ class ProdutoController extends Controller
     public function index(Favorito $favorito)
     {
         $produtos = $this->model->getProdutos($this->totalPagina);
+
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
             $arrImg = explode('|',$produto->nm_imagem);
@@ -50,8 +51,9 @@ class ProdutoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function todosProdutosIndex($pg, Favorito $favorito)
+    public function todosProdutosIndex($pg, Favorito $favorito,Request $request)
     {
+        // dd(Request::route()->getName());
         $totalProdutos = count($this->model->getProdutos());
         $paginacao = (int)ceil($totalProdutos / $this->totalPagina);
 
