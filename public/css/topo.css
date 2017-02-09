@@ -38,17 +38,24 @@
   margin-top: 15px;
 }
 .menu .topo_direito .btn-login,
-.menu .topo_direito .btn-cadastro,
-.menu .topo_direito .btn-inserir-produto {
+.menu .topo_direito .btn-cadastro {
   background-color: #f3bc55;
   color: #000;
   border: 0px;
 }
 .menu .topo_direito .btn-login:hover,
-.menu .topo_direito .btn-cadastro:hover,
-.menu .topo_direito .btn-inserir-produto:hover {
+.menu .topo_direito .btn-cadastro:hover {
   background-color: #fedd7a;
   color: #000;
+}
+.menu .topo_direito .menu-mobile {
+  background-color: #fedd7a;
+  text-align: center;
+}
+.menu .topo_direito .menu-mobile button {
+  background-color: #f3bc55;
+  color: #000;
+  border: 0px;
 }
 /*MENU LOGADO (FOTO) */
 .btn-group .box {
@@ -82,6 +89,9 @@
 .btn-group .box:hover .mask {
   opacity: 0.9;
 }
+.btn-group .menu_logado {
+  margin: 2px -100px 0;
+}
 /*CAMPO BUSCAR*/
 .campo-buscar {
   position: absolute;
@@ -89,14 +99,3 @@
   top: 80px;
   right: 10px;
 }
-/*MENU MOBILE*/
-.menu-mobile {
-  background-color: #fedd7a;
-  text-align: center;
-}
-.menu-mobile button {
-  background-color: #f3bc55;
-  color: #000;
-  border: 0px;
-}
-/*Barra de menu*/

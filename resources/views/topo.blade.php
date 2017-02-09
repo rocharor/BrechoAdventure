@@ -4,7 +4,12 @@
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo hidden-xs'>
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         {{-- <span class='nome_site hidden-xs'>BRECHÓ ADVENTURE</span> --}}
-        <div class="links">
+        <div class="links hidden-xs">
+            <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
+            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
+            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
+        </div>
+        <div class="links hidden-md hidden-lg hidden-sm" style="font-size:7px">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
             <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
@@ -13,8 +18,6 @@
 
     <div class="topo_direito">
         @if(Auth::check() == 0)
-            {{-- <a href='/login' class="btn btn-login">Login</a>
-            <a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a> --}}
             <div class="hidden-xs">
                 <a href='/login' class="btn btn-login">Login</a>
                 <a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a>
@@ -23,9 +26,9 @@
             	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
             		<span class="glyphicon glyphicon-menu-hamburger"></span>
             	</button>
-            	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin: 2px -120px 0; ">
-                    <li><a href='/login' class="btn btn-login">Login</a></li>
-                    <li><a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a></li>
+            	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1" style="margin: 2px -120px 0;">
+                    <li><a href='/login' >Login</a></li>
+                    <li><a href='/cadastre-se'>Cadastre-se</a></li>
             	</ul>
             </div>
         @else
@@ -34,7 +37,7 @@
                     <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
-                <ul class="dropdown-menu">
+                <ul class="dropdown-menu menu_logado">
                     <li><a href="{{ Route('minha-conta.cadastro-produto') }}">Inserir Produtos</a></li>
                     <li><a href="{{ Route('minha-conta.mcperfil') }}">Meu Perfil</a></li>
                     <li><a href="{{ Route('minha-conta.mcproduto') }}">Meus Produtos</a></li>
@@ -43,14 +46,9 @@
                     @if(Auth::user()->id == 1)
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
                     @endif
+                    <li><a href='/logout'>Sair</a></li>
                 </ul>
             </span>
-            <a href='/logout' class="btn btn-danger">Sair</a>
-            {{-- @if(Auth::user()->id == 1)
-                <a href="{{ Route('admin.home') }}" class="btn btn-primary">Admin</a>
-            @endif
-            <a href="{{ Route('minha-conta.cadastro-produto') }}" class="btn btn-warning btn-inserir-produto">Inserir Produtos</a>
-            <a href='/logout' class="btn btn-danger">Sair</a> --}}
         @endif
     </div>
 </div>
@@ -67,38 +65,6 @@
 	</div>
 </div>
 
-{{-- <div class='section hidden-xs' id='crosscol'>
-    <div class='widget PageList' data-version='1' id='PageList98'>
-        <div class='art-nav-inner'>
-            <ul class='art-hmenu'>
-                <li><a {{ (Request::is('/') ? 'class=active' : '') }} href="{{ Route('home') }}"><small>Brecho Adventure</small></a></li>
-                <li><a {{ (Request::is('produto') ? 'class=active' : '') }} href="{{ Route('produto') }}"><small>Produtos</small></a></li>
-                <li><a {{ (Request::is('contato') ? 'class=active' : '') }} href="{{ Route('contato') }}"><small>Contato</small></a></li>
-            </ul>
-        </div>
-    </div>
-</div> --}}
-
-<!-- Menu desktop -->
-{{-- <nav class="menu_link hidden-xs">
-    <ul>
-        <li><a {{ (Request::is('/') ? 'class=active' : '') }} href="{{ Route('home') }}">Brecho Adventure</a></li>
-        <li><a {{ (Request::is('produto') ? 'class=active' : '') }} href="{{ Route('produto') }}">Produtos</a></li>
-        <li><a {{ (Request::is('contato') ? 'class=active' : '') }} href="{{ Route('contato') }}">Contato</a></li>
-    </ul>
-</nav> --}}
-
-<!-- Menu Mobile -->
-{{-- <div class="dropdown menu-mobile hidden-sm hidden-md hidden-lg">
-	<button class="btn btn-default dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-		<span class="glyphicon glyphicon-menu-hamburger"></span>
-	</button>
-	<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-		<li><a href="{{ Route('home') }}">Brecho Adventure</a></li>
-		<li><a href="{{ Route('produto') }}">Produtos</a></li>
-		<li><a href="{{ Route('contato') }}">Contato</a></li>
-	</ul>
-</div> --}}
 
 <br style="clear:both;"/><br>
 

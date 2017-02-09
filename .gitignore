@@ -1,5 +1,5 @@
-Public/imagens/cadastro/*
-Public/imagens/produtos/*
+public/imagens/cadastro/*
+public/imagens/produtos/*
 !padrao.jpg
 composer.lock
 .project
