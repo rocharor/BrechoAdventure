@@ -1,0 +1,10 @@
+/*Seleção 1*/
+#app .navbar-static-top {
+  background-color: #f3b300;
+}
+.row .col-md-offset-2 .panel .panel-heading {
+  background-color: #f3b300;
+}
+.row .col-md-offset-2 .panel .panel-body {
+  background-color: #ffca4c;
+}

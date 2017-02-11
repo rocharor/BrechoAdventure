@@ -197,8 +197,8 @@ trait Util
     {
         $valor = preg_replace("/[^0-9]/", "", $valor);
         $valor = (int)$valor;
-        $valor = number_format($valor,2,'.','');
-        dd($valor);
+        $valor = preg_replace("/([0-9]{2})$/", "$2.$1", $valor);
 
+        return $valor;
     }
 }

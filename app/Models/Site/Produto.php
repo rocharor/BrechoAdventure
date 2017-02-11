@@ -37,12 +37,12 @@ class Produto extends Model
 
         if($limit){
             if($limitAux){
-                $produtos = $this->limit($limit)->offset($limitAux)->orderBy('id', 'DESC')->get();
+                $produtos = $this->where('status',1)->limit($limit)->offset($limitAux)->orderBy('id', 'DESC')->get();
             }else{
-                $produtos = $this->limit($limit)->orderBy('id', 'DESC')->get();
+                $produtos = $this->where('status',1)->limit($limit)->orderBy('id', 'DESC')->get();
             }
         }else{
-            $produtos = $this->orderBy('id', 'DESC')->get();
+            $produtos = $this->where('status',1)->orderBy('id', 'DESC')->get();
 
         }
 

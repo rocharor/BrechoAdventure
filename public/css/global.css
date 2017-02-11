@@ -2,6 +2,7 @@
   font-family: "Adventure";
   src: url("fonts/Adventure.otf") format("truetype");
 }
+/*Seleção 1*/
 html,
 body {
   height: 100%;
@@ -14,9 +15,9 @@ a {
   text-decoration: none;
 }
 .modal-body {
-  background-color: #f3bc55;
+  background-color: #f3b300;
 }
 .modal-header,
 .modal-footer {
-  background-color: #fedd7a;
+  background-color: #ffca4c;
 }

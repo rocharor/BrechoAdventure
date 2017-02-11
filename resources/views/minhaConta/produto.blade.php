@@ -1,5 +1,8 @@
 @extends('template')
 @section('content')
+
+    <link type="text/css" rel="stylesheet" href="/css/produto.css" />
+
     <ol class="breadcrumb">
         <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
 		<li class="active">Meus Produtos</li>
@@ -10,7 +13,7 @@
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>
         @else
             @foreach ($meusProdutos as $produto)
-                <div class="col-md-3 col-xs-6" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+                <div class="col-md-3 col-xs-12 div-meus-produtos" align="center">
                     @if ($produto->status == 0)
                         <span class="label label-danger">Produto exclu&iacute;do</span>
                     @elseif ($produto->status == 1)
@@ -19,33 +22,27 @@
                         <span class="label label-warning"><b>Aguardando aprovação</b></span>
                     @endif
 
-                    <div style="width: 200px; height:200px;">
+                    <div class="titulo"><b>{{$produto->titulo}}</b></div>
+
+                    <div class='div_imagem'>
                         @if ($produto->imgPrincipal == '')
-                            <img src="/imagens/produtos/padrao.gif" style="width: 100%; height: 100%;">
+                            <img src="/imagens/produtos/padrao.gif">
                         @else
-                            <img src="/imagens/produtos/{{ $produto->imgPrincipal }}" style="width: 100%; height: 100%">
+                            <img src="/imagens/produtos/{{ $produto->imgPrincipal }}">
                         @endif
                     </div>
                     <br />
                     @if ($produto->status == 1)
-
-                        <style>
-                            .btn_acoes > div{
-                                float: left;
-                                padding: 5px
-                            }
-                            .favorito{
-                                background-image: url(/imagens/favorito_ativo.jpg);
-                                background-size: cover;
-                                width: 35px;
-                                height: 35px;
-                            }
-                        </style>
-
                         <div class='btn_acoes'>
                             <div><a href="/minha-conta/produto/editar-produto/{{ $produto->id }}" class="btn btn-primary" data-produto-id="{$produto.id}">Editar</a></div>
                             <div><button class="btn btn-danger act-excluir-produto" data-produto-id="{{ $produto->id }}">Excluir</button></div>
-                            <div><div class='favorito'></div></div>
+                            <div><div class='favorito favorito-ativo'></div></div>
+                        </div>
+                    @else
+                        <div class='btn_acoes'>
+                            <div><a href="" class="btn btn-primary" disabled>Editar</a></div>
+                            <div><button class="btn btn-danger" disabled >Excluir</button></div>
+                            <div><div class='favorito favorito-inativo'></div></div>
                         </div>
                     @endif
                 </div>

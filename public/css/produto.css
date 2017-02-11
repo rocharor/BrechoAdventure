@@ -1,5 +1,11 @@
-.div-produto {
+.div-produtos {
   padding: 10px;
+}
+.div-produtos .titulo {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 .div-produto:hover {
   transition: ease all 0.5s;
@@ -19,4 +25,38 @@
   width: 20px;
   height: 20px;
   display: block;
+}
+/* MEUS PRODUTOS */
+.div-meus-produtos {
+  border-bottom: solid 1px;
+  padding: 20px 0;
+}
+.div-meus-produtos .titulo {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.div-meus-produtos .div_imagem {
+  width: 150px;
+  height: 150px;
+}
+.div-meus-produtos .div_imagem img {
+  width: 100%;
+  height: 100%;
+}
+.div-meus-produtos .btn_acoes div {
+  float: left;
+  padding: 5px;
+}
+.div-meus-produtos .btn_acoes .favorito {
+  background-size: cover;
+  width: 35px;
+  height: 35px;
+}
+.div-meus-produtos .btn_acoes .favorito-ativo {
+  background-image: url("/imagens/favorito_ativo.jpg");
+}
+.div-meus-produtos .btn_acoes .favorito-inativo {
+  background-image: url("/imagens/favorito_inativo.jpg");
 }

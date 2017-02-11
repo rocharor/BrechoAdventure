@@ -16,7 +16,7 @@ class CreateTriggers extends Migration
         DB::unprepared('
             CREATE TRIGGER tgr_insert_qtd_favorito AFTER INSERT ON `favoritos` FOR EACH ROW
             BEGIN
-                CALL proc_qtd_favorito(NEW.produto_id);
+                CALL proc_qtd_favorito(NEW.produto_id,1);
             END
         ');
 
@@ -24,8 +24,10 @@ class CreateTriggers extends Migration
             CREATE TRIGGER tgr_update_qtd_favorito AFTER UPDATE ON `favoritos` FOR EACH ROW
             BEGIN
                 IF(NEW.status = 1)
-                THEN
-                    CALL proc_qtd_favorito(NEW.produto_id);
+                    THEN
+                        CALL proc_qtd_favorito(NEW.produto_id,1);
+                ELSE
+                    CALL procQtdFavorito(NEW.produto_id,-1);
                 END IF;
             END
         ');

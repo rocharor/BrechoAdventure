@@ -9,6 +9,7 @@ use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
+use File;
 
 class ProdutoController extends Controller
 {
@@ -22,11 +23,6 @@ class ProdutoController extends Controller
         $this->model = $produto;
     }
 
-    /**
-     * Abre pagina de produtos
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index(Favorito $favorito)
     {
         $produtos = $this->model->getProdutos($this->totalPagina);
@@ -46,11 +42,6 @@ class ProdutoController extends Controller
         return view('site/produto',['produtos'=>$produtos]);
     }
 
-    /**
-     * Abre pagina de todos os produtos
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function todosProdutosIndex($pg, Favorito $favorito,Request $request)
     {
         // dd(Request::route()->getName());
@@ -74,11 +65,6 @@ class ProdutoController extends Controller
         return view('site/todosProdutos',['produtos'=>$produtos,'pg'=>$pg,'totalProdutos'=>$paginacao]);
     }
 
-    /**
-     * Abre pagina de produtos (Minha Conta)
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function indexMC()
     {
         $meusProdutos = $this->model->getMeusProdutos();
@@ -97,11 +83,6 @@ class ProdutoController extends Controller
         return view('minhaConta/produto',['meusProdutos'=>$meusProdutos]);
     }
 
-    /**
-     * Abre pagina para cadastrar produto
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function cadastroIndex(Categoria $categoria)
     {
         $autorizado = false;
@@ -114,11 +95,7 @@ class ProdutoController extends Controller
         return view('minhaConta/cadastroProduto',['autorizado'=>$autorizado,'categorias'=>$categorias]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create(Request $request)
     {
             $foto_salva = false;
@@ -134,8 +111,7 @@ class ProdutoController extends Controller
                         $nome_imagem[] = $foto_nome;
                     }
                 // }
-
-        }
+            }
 
         if ($foto_salva) {
             $this->model->user_id = $user_id;
@@ -153,23 +129,6 @@ class ProdutoController extends Controller
         return redirect()->route('minha-conta.cadastro-produto')->with('erro','Erro ao salvar produto, tente novamente!');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Traz os dados do produto
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show(Request $request)
     {
         $produto_id = $request->get('produto_id');
@@ -180,15 +139,8 @@ class ProdutoController extends Controller
         die();
     }
 
-    /**
-     * Abre pagina para editar
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id, Categoria $categoria)
     {
-
         $produto = $this->model->find($id);
         $categorias = $categoria->all();
 
@@ -202,15 +154,16 @@ class ProdutoController extends Controller
         return view('minhaConta/editarProduto',['categorias'=>$categorias,'produto'=>$produto]);
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update($id, Request $request)
     {
+        $this->validate($request, [
+            'titulo' => 'required|max:255',
+            'categoria' => 'required',
+            'descricao' => 'required',
+            'estado' => 'required',
+            'valor' => 'required'
+        ]);
+
         $produto = $this->model->find($id);
 
         $produto->categoria_id = $request->get('categoria');
@@ -218,33 +171,76 @@ class ProdutoController extends Controller
         $produto->descricao = $request->get('descricao');
         $produto->valor = Util::formataMoedaBD($request->get('valor'));
         $produto->estado = $request->get('estado');
-        // $produto->nm_imagem = '';
-        // $produto->status = 2;
-        //
+        $produto->status = 2;
+        $nome_imagem[] = $produto->nm_imagem;
+
+        if (!is_null($request->imagemProduto)) {
+            foreach($request->imagemProduto as $key=>$foto){
+                $ext = $foto->extension();
+                if($this->validaExtImagem($ext)){
+                    $user_id = Auth::user()->id;
+                    $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
+                    $foto_salva = $foto->move(public_path("imagens\produtos"), $foto_nome);
+                    $nome_imagem[] = $foto_nome;
+                }
+            }
+
+            $produto->nm_imagem = implode('|',$nome_imagem);
+        }
+
         if ($produto->save()) {
-            return redirect()->route('minha-conta.mcproduto')->with('sucesso','Salvo com sucesso!');
+            return redirect()->route('minha-conta.editar-produto',$id)->with('sucesso','Salvo com sucesso!');
         };
 
-        return redirect()->route('minha-conta.mcproduto')->with('erro','Erro ao salvar, tente novamente!');
+        return redirect()->route('minha-conta.editar-produto',$id)->with('erro','Erro ao salvar, tente novamente!');
     }
 
-    /**
-     * Desativa produto
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    public function deletePhoto(Request $request)
+    {
+        $produto = $this->model->find($request->get('produto_id'));
+
+        $arrFotos = explode('|',$produto->nm_imagem);
+        $key = array_search($request->get('nm_foto'),$arrFotos);
+        unset($arrFotos[$key]);
+        $nm_imagem = implode('|',$arrFotos);
+        $produto->nm_imagem = $nm_imagem;
+
+        if($produto->save()){
+            $filename = public_path("imagens\produtos\\" . $request->get('nm_foto'));
+            File::delete($filename);
+            $retorno = ['sucesso'=>true,'msg'=>'Foto excluída com sucesso'];
+        }else{
+            $retorno = ['sucesso'=>false,'msg'=>'Erro ao excluir foto'];
+        }
+
+        echo json_encode($retorno);
+        die();
+
+    }
+
     public function destroy($id)
     {
         $produto = $this->model->find($id);
         $produto->status = 0;
 
+        $retorno = 0;
         if ($produto->save()) {
-            echo 1;
-            die();
+            $retorno = 1;
         }
 
-        echo 0;
+        echo $retorno;
         die();
     }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
 }

@@ -14,11 +14,11 @@ class CreateProcedures extends Migration
     public function up()
     {
         DB::unprepared(
-            'CREATE PROCEDURE procQtdFavorito (produto_id INT(11))
+            'CREATE PROCEDURE procQtdFavorito (produto_id INT(11), qtd INT(2))
             BEGIN
-                UPDATE produtos SET qtd_favorito = (qtd_favorito + 1) WHERE id = produto_id;
+                UPDATE produtos SET qtd_favorito = (qtd_favorito + (qtd)) WHERE id = produto_id;
             END'
-        );        
+        );
     }
 
     /**

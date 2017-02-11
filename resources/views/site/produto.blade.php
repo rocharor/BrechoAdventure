@@ -4,52 +4,56 @@
 
 	<ol class="breadcrumb">
 		<li class="active"><span class='glyphicon glyphicon-home'> Home</span></li>
-		{{-- <li class="active">Produtos</li> --}}
 	</ol>
 
 	@if(count($produtos) == 0)
 		<div class="well" align="center"><b><i>N&atilde;o existe nenhum produto cadastrado</i></b></div>
 	@else
 		<div class="row" >
-			<h1 class="text-success" align="center">Ultimos produtos adicionados</h1>
-			@foreach($produtos as $produto)
-				<div class="col-md-3 col-xs-6" align="center" style="border-bottom: solid 1px; padding: 20px 0">
-				<div class="div-produto" align="center">
-					<div class="div-favorito-{{ $produto->id }}">
-						@if(Auth::check() == 0)
-							<a class="act-favorito-deslogado">
-								<div class="img-inativo"></div>
-							</a>
-						@else
-							@if($produto->favorito)
-								<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
-									<span class="img-ativo"></span>
+			<div class="col-xs-12 col-sm-10">
+				<h1 class="text-success" align="center">Novidades</h1>
+				@foreach($produtos as $produto)
+					<div class="col-md-3 col-xs-6" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+					<div class="div-produtos" align="center">
+						<div class="div-favorito-{{ $produto->id }}">
+							@if(Auth::check() == 0)
+								<a class="act-favorito-deslogado">
+									<div class="img-inativo"></div>
 								</a>
 							@else
-								<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='1'>
-									<span class="img-inativo"></span>
-								</a>
+								@if($produto->favorito)
+									<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
+										<span class="img-ativo"></span>
+									</a>
+								@else
+									<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='1'>
+										<span class="img-inativo"></span>
+									</a>
+								@endif
 							@endif
-						@endif
-					</div>
+						</div>
 
-					<div style="height: 20px;" align="center">
-						<b>{{$produto->titulo}}</b>
-					</div>
-					<div style="width: 200px; height: 200px;">
-						<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
-					</div>
+						<div class='titulo' style="height: 20px;" align="center">
+							<b>{{$produto->titulo}}</b>
+						</div>
+						<div style="width: 200px; height: 200px;">
+							<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
+						</div>
 
-					<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
-					<div data-id="{{ $produto->id }}">
-						<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>
-						@if(Auth::check() != 0)
-							<button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button>
-						@endif
+						<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
+						<div data-id="{{ $produto->id }}">
+							<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>
+							@if(Auth::check() != 0)
+								<button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button>
+							@endif
+						</div>
 					</div>
-				</div>
-				</div>
-			@endforeach
+					</div>
+				@endforeach
+			</div>
+			<div class="col-sm-2 hidden-xs" style="border:solid 1px; height:500px">
+				Anuncios
+			</div>
 		</div>
 		<br><br>
 		<div align="center">

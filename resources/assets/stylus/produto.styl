@@ -1,5 +1,10 @@
-.div-produto
+.div-produtos
 	padding: 10px;
+	.titulo
+		white-space: nowrap;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
 
 .div-produto:hover
 	transition: ease all 0.5s;
@@ -19,3 +24,32 @@
 	width: 20px;
 	height: 20px;
 	display:block;
+
+/* MEUS PRODUTOS */
+.div-meus-produtos
+	border-bottom: solid 1px;
+	padding: 20px 0;
+	.titulo
+		white-space: nowrap;
+		width: 100%;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	.div_imagem
+		width: 150px;
+		height:150px;
+		img
+			width: 100%;
+			height: 100%;
+	.btn_acoes
+		div
+			float: left;
+			padding: 5px
+
+		.favorito
+			background-size: cover;
+			width: 35px;
+			height: 35px;
+		.favorito-ativo
+			background-image: url(/imagens/favorito_ativo.jpg);
+		.favorito-inativo
+			background-image: url(/imagens/favorito_inativo.jpg);
