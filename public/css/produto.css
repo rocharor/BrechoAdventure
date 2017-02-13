@@ -1,3 +1,25 @@
+@font-face {
+  font-family: "Adventure";
+  src: url("fonts/Adventure.otf") format("truetype");
+}
+html,
+body {
+  height: 100%;
+  font-family: arial;
+  margin: 0;
+  padding: 0;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.modal-body {
+  background-color: #f3b300;
+}
+.modal-header,
+.modal-footer {
+  background-color: #ffca4c;
+}
 .div-produtos {
   padding: 10px;
 }
@@ -46,17 +68,20 @@
   height: 100%;
 }
 .div-meus-produtos .btn_acoes div {
-  float: left;
+  display: inline-block;
   padding: 5px;
 }
-.div-meus-produtos .btn_acoes .favorito {
+.div-meus-produtos .btn_acoes .favorito div {
   background-size: cover;
-  width: 35px;
-  height: 35px;
+  width: 25px;
+  height: 25px;
+  margin: -3px;
 }
-.div-meus-produtos .btn_acoes .favorito-ativo {
+.div-meus-produtos .btn_acoes .favorito .favorito-ativo {
   background-image: url("/imagens/favorito_ativo.jpg");
+  z-index: 999;
 }
-.div-meus-produtos .btn_acoes .favorito-inativo {
+.div-meus-produtos .btn_acoes .favorito .favorito-inativo {
   background-image: url("/imagens/favorito_inativo.jpg");
+  z-index: 999;
 }

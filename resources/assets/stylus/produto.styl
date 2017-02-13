@@ -1,3 +1,5 @@
+@import "global.styl";
+
 .div-produtos
 	padding: 10px;
 	.titulo
@@ -42,14 +44,19 @@
 			height: 100%;
 	.btn_acoes
 		div
-			float: left;
+			// float: left;
+			display: inline-block;
 			padding: 5px
 
 		.favorito
-			background-size: cover;
-			width: 35px;
-			height: 35px;
-		.favorito-ativo
-			background-image: url(/imagens/favorito_ativo.jpg);
-		.favorito-inativo
-			background-image: url(/imagens/favorito_inativo.jpg);
+			div
+				background-size: cover;
+				width: 25px;
+				height: 25px;
+				margin:-3px;
+			.favorito-ativo
+				background-image: url(/imagens/favorito_ativo.jpg);
+				z-index: 999;
+			.favorito-inativo
+				background-image: url(/imagens/favorito_inativo.jpg);
+				z-index: 999;
