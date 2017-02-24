@@ -23,9 +23,7 @@
 // });
 
 $factory->define(App\Models\Categoria::class, function (Faker\Generator $faker) {
-    return [
-        'categoria' => $faker->word
-    ];
+    return [];
 });
 
 $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
@@ -37,12 +35,13 @@ $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
 });
 
 $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $faker) {
+    $faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
     return [
         'user_id' => rand(1,2),
         'categoria_id' => rand(1,5),
         'titulo' => $faker->lastName,
         'descricao' => $faker->text,
-        'valor' => 12000,
+        'valor' => $faker->randomFloat($nbMaxDecimals = 2, $min = 500, $max = 3000),
         'estado' => 'novo',
         'nm_imagem' => 'padrao.jpg',
         'status' => 1

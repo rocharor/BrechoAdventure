@@ -17,7 +17,7 @@
                     @if ($produto->status == 0)
                         <p><span class="label label-danger">Produto exclu&iacute;do</span></p>
                     @elseif ($produto->status == 1)
-                        <p><span class="label label-success">Data de cadastro: <b>{{ $produto->created_at }}</b></span></p>
+                        <p><span class="label label-success">Data de cadastro: <b>{{ $produto->dataExibicao }}</b></span></p>
                     @else
                         <p><span class="label label-warning"><b>Aguardando aprovação</b></span></p>
                     @endif
@@ -36,7 +36,7 @@
                         <div class='btn_acoes'>
                             <div><a href="/minha-conta/produto/editar-produto/{{ $produto->id }}" class="btn btn-primary" data-produto-id="{$produto.id}">Editar</a></div>
                             <div><button class="btn btn-danger act-excluir-produto" data-produto-id="{{ $produto->id }}">Excluir</button></div>
-                            <div><button class="btn  btn-warning favorito"><div class="favorito-ativo"></div></button></div>
+                            <div><button class="btn  btn-warning favorito"><div class="favorito-ativo"></div> - {{ $produto->qtd_favorito }}</button></div>
                         </div>
                     @else
                         <div class='btn_acoes'>

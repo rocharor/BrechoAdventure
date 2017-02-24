@@ -19,7 +19,7 @@ class CreateMensagensTable extends Migration
             $table->integer('user_id_envio')->nullable();
             $table->integer('user_id_destino')->nullable();
             $table->text('mensagem')->nullable();
-            $table->integer('lido')->default(1);
+            $table->integer('lido')->default(0);
             $table->timestamps();
         });
     }

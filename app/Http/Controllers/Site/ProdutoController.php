@@ -72,12 +72,7 @@ class ProdutoController extends Controller
         foreach($meusProdutos as $produto){
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
-            // $produto->favorito = false;
-            // foreach($favoritos as $favorito){
-                // if($favorito->produto_id == $produto->id){
-                    // $produto->favorito = true;
-                // }
-            // }
+            $produto->dataExibicao = Util::formataDataExibicao($produto->created_at);            
         }
 
         return view('minhaConta/produto',['meusProdutos'=>$meusProdutos]);

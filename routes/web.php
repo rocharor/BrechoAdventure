@@ -37,6 +37,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
 
     Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'Site\PerfilController@update']);
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'Site\PerfilController@updateFoto']);
+    Route::post('/perfil/buscaCep',['as'=>'buscaCep','uses'=>'Site\PerfilController@buscaCep']);
 
     Route::post('/produto/create',['as'=>'create-produto','uses'=>'Site\ProdutoController@create']);
     Route::post('/produto/destroy/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@destroy']);

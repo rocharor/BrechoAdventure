@@ -53,7 +53,7 @@ class Mensagem extends Model
                 }else{
                     $mensagens[$key]['posicao'] = 'direita';
                     $mensagens[$key]['nome'] = User::find($mensagem->user_id_envio)->name;
-                    if ($mensagem->lido == 1) {
+                    if ($mensagem->lido == 0) {
                         $qtdNotificacaoGeral++;
                         $qtdNotificacaoProduto++;
                     }

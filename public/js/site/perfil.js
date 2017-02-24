@@ -1,8 +1,4 @@
-$.ajaxSetup({
-    headers: {
-        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-    }
-});
+$.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
 var PerfilClass = (function() {
 
@@ -36,14 +32,13 @@ var PerfilClass = (function() {
 
                 $('.nm_imagem').html('');
             });
+
             $('.act-update').on('click',function(e){
 
                 e.preventDefault();
 
                 self.validaPerfil();
             });
-
-
         },
         mask: function(){
             VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
@@ -98,7 +93,7 @@ var PerfilClass = (function() {
                 alertaPagina('Campo "nome" é obrigatório','danger');
                 erro = true;
                 return false;
-            }            
+            }
 
             if(email == ''){
                 $('#email_upd').parent().addClass('has-error');
@@ -124,9 +119,48 @@ var PerfilClass = (function() {
 
             $('#formPerfil').submit();
         }
+
     };
 
     return Perfil;
 })();
 
 new PerfilClass().init();
+
+
+function buscaCEP(cep){
+    var cep = cep.replace(/\D/g, '');
+    if (cep != "") {
+        var validacep = /^[0-9]{8}$/;
+        if(validacep.test(cep)) {
+            $("#endereco_upd").val("...");
+            $("#bairro_upd").val("...");
+            $("#cidade_upd").val("...");
+            $("#uf_upd").val("...");
+
+            $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
+                if (!("erro" in dados)) {
+                    $("#endereco_upd").val(dados.logradouro);
+                    $("#bairro_upd").val(dados.bairro);
+                    $("#cidade_upd").val(dados.localidade);
+                    $("#uf_upd").val(dados.uf);
+                }else {
+                    limpaEndereco();
+                    alert("CEP não encontrado.");
+                }
+            });
+        }else {
+            limpaEndereco();
+            alert("Formato de CEP inválido.");
+        }
+    }else {
+        limpaEndereco();
+    }
+}
+
+function limpaEndereco(){
+    $("#endereco_upd").val('');
+    $("#bairro_upd").val('');
+    $("#cidade_upd").val('');
+    $("#uf_upd").val('');
+}

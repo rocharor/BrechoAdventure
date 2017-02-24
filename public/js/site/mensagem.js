@@ -35,6 +35,14 @@ var MensagemClass = (function() {
 
 			})
 
+            $('.act-enviar-mensagem').on('click',function(e){
+                e.preventDefault();
+                var produto_id = $('input[name=produto_id]').val();
+                var mensagem = $('textarea[name=mensagem]').val();
+
+                self.enviarMensagem(produto_id, mensagem);
+            });
+
 			$('.act-enviar-resposta').on('click',function(e){
 				e.preventDefault();
 				var conversa_id = $(this).parent().attr('data-conversa-id') ;
@@ -42,6 +50,7 @@ var MensagemClass = (function() {
 				var tipo = $(this).attr('data-tipo');
 				self.enviarResposta(conversa_id,mensagem,tipo);
 			})
+
         },
 		abaMsgEnviada: function(){
 			$('.act-aba-msgEnviadas').addClass('active');
@@ -91,6 +100,33 @@ var MensagemClass = (function() {
 				objThis.parent().next().addClass('hide');
 			}
 		},
+        enviarMensagem:function(produto_id, mensagem){
+            if (mensagem == '') {
+                alertaPagina('Campo mensagem não pode ser vazio','danger');
+                return false;
+            }
+
+            $.ajax({
+                url: '/minha-conta/mensagem/store',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    produto_id: produto_id,
+                    mensagem:mensagem
+                },
+                success: function(retorno){
+                    if (retorno.success == 1) {
+                        alertaPagina('Mensagem enviada com sucesso.','success');
+                    }else{
+                        alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=1]','danger');
+                    }
+                    $('#modal-mensagem').modal('hide');
+                },
+                error:function(){
+                    alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=2]','danger');
+                }
+            });
+        },
 		enviarResposta(conversa_id,mensagem,tipo){
 			if (mensagem == '') {
 				alertaPagina('Campo resposta não pode ser vazio','danger');

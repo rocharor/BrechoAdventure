@@ -67,6 +67,7 @@ class MensagemController extends Controller
      */
     public function store(Request $request, Produto $produto, Conversa $conversa)
     {
+
         $produto_id = $request->get('produto_id');
         $mensagem = $request->get('mensagem');
         $user_id_envio = Auth::user()->id;
@@ -75,17 +76,20 @@ class MensagemController extends Controller
         $conversa->user_id_envio = $user_id_envio;
         $conversa->user_id_destino = $user_id_destino;
         $conversa->produto_id = $produto_id;
+
+        $retorno = ['success'=>0];
         if($conversa->save()) {
             $this->model->conversa_id = $conversa->id;
             $this->model->user_id_envio = $user_id_envio;
             $this->model->user_id_destino = $user_id_destino;
             $this->model->mensagem = $mensagem;
             if ($this->model->save()) {
-                return redirect()->route('produto')->with('sucesso','Mensagem enviada com sucesso.');
+                // return redirect()->route('todosProdutos',1)->with('sucesso','Mensagem enviada com sucesso.');
+                $retorno = ['success'=>1];
             }
         };
-
-        return redirect()->route('produto')->with('erro','Erro ao enviar mensagem, tente novamente!');
+        // return redirect()->route('todosProdutos',1)->with('erro','Erro ao enviar mensagem, tente novamente!');
+        echo response()->json($retorno)->content();
     }
 
     /**
@@ -158,7 +162,7 @@ class MensagemController extends Controller
     {
         if (Auth::user()){
             $user_id = Auth::user()->id;
-            $mensagens = $this->model->where(['lido'=>1,'user_id_destino'=>$user_id])->select('id')->get();
+            $mensagens = $this->model->where(['lido'=>0,'user_id_destino'=>$user_id])->select('id')->get();
 
             echo count($mensagens);
             die();
@@ -169,7 +173,7 @@ class MensagemController extends Controller
     {
         $user_id = Auth::user()->id;
         $conversa_id = $request->get('conversa_id');
-        $mensagens = $this->model->where(['conversa_id'=>$conversa_id,'user_id_destino'=>$user_id])->update(['lido'=>0]);
+        $mensagens = $this->model->where(['conversa_id'=>$conversa_id,'user_id_destino'=>$user_id])->update(['lido'=>1]);
 
     }
 }

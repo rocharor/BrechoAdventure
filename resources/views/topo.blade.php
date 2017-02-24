@@ -81,13 +81,15 @@
 </div>
 
 <!-- IMAGEM FUNDO -->
-<img src="/imagens/banner.jpg" width="100%" />
+<div class="img_fundo">
+    <img src="/imagens/banner.jpg" width="100%" />
+</div>
 
 <!-- BUSCA -->
 <div class="input-group campo-buscar hidden-xs">
 	<input type="text" class="form-control busca" placeholder="Buscar">
 	<div class="btn-group input-group-btn">
-		<button class="btn btn-primary act-buscar">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
+		<button class="btn btn-primary">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
 		</button>
 	</div>
 </div>
@@ -96,5 +98,5 @@
 <br style="clear:both;"/><br>
 
 <script type="text/javascript">
-if (!empty({{ Auth::check() }})) {buscaNotificacao();}
+    if (!empty({{ Auth::check() }})) {buscaNotificacao();}
 </script>

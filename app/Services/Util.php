@@ -201,4 +201,20 @@ trait Util
 
         return $valor;
     }
+
+    public static function formataDataExibicao($data)
+    {
+        return date("d/m/Y H:m:s",strtotime($data));;
+    }
+
+    public static function formataDataBD($data)
+    {
+        $arrDataHora = explode(' ',$data);
+        $arrData = explode('/',$arrDataHora[0]);
+        $arrDataHora[0] = implode('-',array_reverse($arrData));
+        $data = implode(' ',$arrDataHora);
+
+        return date("Y-m-d H:m:s",strtotime($data));;
+    }
+
 }
