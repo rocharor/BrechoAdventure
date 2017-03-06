@@ -11,7 +11,7 @@ $('.act-favorito').click(function(){
    // var user_id = $(this).attr('data-user-id');
 
    $.ajax({
-        url:'/minha-conta/favorito/setFavorito',
+        url:'/minha-conta/favorito/storeFavorito',
         dataType: 'json',
         type: 'POST',
         data: {
@@ -52,7 +52,7 @@ $('.act-excluir-favorito').click(function(e){
 		var produto_id = $(this).attr('data-produto-id');
 
 		$.ajax({
-	        url: '/minha-conta/favorito/setFavorito',
+	        url: '/minha-conta/favorito/storeFavorito',
 	        dataType: 'json',
 	        type: 'POST',
 	        data: {'status': 0,

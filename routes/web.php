@@ -15,7 +15,7 @@
     // Menus
     // Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
     Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
-    Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutosIndex']);
+    Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
     Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
 // Açoes
@@ -25,21 +25,22 @@
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
     // Menus
-    Route::get('/perfil',['as'=>'mcperfil','uses'=>'Site\PerfilController@index']);
-    Route::get('/favorito',['as'=>'mcfavorito','uses'=>'Site\FavoritoController@index']);
-    Route::get('/mensagem',['as'=>'mcmensagem','uses'=>'Site\MensagemController@index']);
-    Route::get('/produto',['as'=>'mcproduto','uses'=>'Site\ProdutoController@indexMC']);
-    Route::get('/produto/cadastro-produto',['as'=>'cadastro-produto','uses'=>'Site\ProdutoController@cadastroIndex']);
+    Route::get('/perfil',['as'=>'perfil','uses'=>'Site\PerfilController@index']);
+    Route::get('/favorito',['as'=>'meusFavorito','uses'=>'Site\FavoritoController@index']);
+    Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
+    Route::get('/produto',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
+    // Route::get('/produto/cadastro-produto',['as'=>'cadastro-produto','uses'=>'Site\ProdutoController@cadastroIndex']);
+    Route::get('/produto/create',['as'=>'createProduto','uses'=>'Site\ProdutoController@create']);
     Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
 
     // Ações
-    Route::post('/favorito/setFavorito',['as'=>'setFavorito','uses'=>'Site\FavoritoController@create']);
+    Route::post('/favorito/storeFavorito',['as'=>'storeFavorito','uses'=>'Site\FavoritoController@store']);
 
     Route::post('/perfil/update',['as'=>'updatePerfil','uses'=>'Site\PerfilController@update']);
     Route::post('/perfil/updateFoto',['as'=>'updateFoto','uses'=>'Site\PerfilController@updateFoto']);
     Route::post('/perfil/buscaCep',['as'=>'buscaCep','uses'=>'Site\PerfilController@buscaCep']);
 
-    Route::post('/produto/create',['as'=>'create-produto','uses'=>'Site\ProdutoController@create']);
+    Route::post('/produto/store',['as'=>'storeProduto','uses'=>'Site\ProdutoController@store']);
     Route::post('/produto/destroy/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@destroy']);
     Route::post('/produto/update/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
     Route::post('/produto/deletePhoto',['as'=>'delete-photo','uses'=>'Site\ProdutoController@deletePhoto']);

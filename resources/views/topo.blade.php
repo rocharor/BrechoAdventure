@@ -22,11 +22,11 @@
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
-                    <li><a href="{{ Route('minha-conta.cadastro-produto') }}">Inserir Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.mcperfil') }}">Meu Perfil</a></li>
-                    <li><a href="{{ Route('minha-conta.mcproduto') }}">Meus Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.mcfavorito') }}">Meus Favoritos</a></li>
-                    <li><a href="{{ Route('minha-conta.mcmensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a></li>
+                    <li><a href="{{ Route('minha-conta.createProduto') }}">Inserir Produtos</a></li>
+                    <li><a href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a></li>
+                    <li><a href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a></li>
+                    <li><a href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a></li>
+                    <li><a href="{{ Route('minha-conta.mensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a></li>
                     @if(Auth::user()->id == 1)
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
                     @endif
@@ -65,11 +65,11 @@
                     <div class="img-circle" align='center'></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
-                    <li><a href="{{ Route('minha-conta.cadastro-produto') }}">Inserir Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.mcperfil') }}">Meu Perfil</a></li>
-                    <li><a href="{{ Route('minha-conta.mcproduto') }}">Meus Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.mcfavorito') }}">Meus Favoritos</a></li>
-                    <li><a style='display:inline' href="{{ Route('minha-conta.mcmensagem') }}">Mensagens</a><span class='qtdMsg'>0</span></li>
+                    <li><a href="{{ Route('minha-conta.createProduto') }}">Inserir Produtos</a></li>
+                    <li><a href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a></li>
+                    <li><a href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a></li>
+                    <li><a href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a></li>
+                    <li><a style='display:inline' href="{{ Route('minha-conta.mensagem') }}">Mensagens</a><span class='qtdMsg'>0</span></li>
                     @if(Auth::user()->id == 1)
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
                     @endif
