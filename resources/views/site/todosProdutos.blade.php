@@ -8,8 +8,8 @@
     </ol>
 
     <div class="row" >
-        <div class="col-sm-2 hidden-xs" style="border:solid 1px; height:500px">
-            Filtro
+        <div class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
+            @include('filtroLateral')
         </div>
         <div class="col-xs-12 col-sm-10">
         	@foreach($produtos as $produto)
