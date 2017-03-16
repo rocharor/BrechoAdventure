@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Site\Produto;
+use App\Services\Memcached;
 
 class AdminController extends Controller
 {
@@ -17,6 +18,11 @@ class AdminController extends Controller
     {
         // $arrQtdHome = $this->model->buscaQuantidadeHome();
         return view('admin/home');
+    }
+
+    public function updateCacheProducts(Memcached $cache)
+    {
+        $cache->updateCacheAll();
     }
 
     /**

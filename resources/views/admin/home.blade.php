@@ -3,6 +3,10 @@
 	<link type="text/css" rel="stylesheet" href="/css/admin.css" />
 
 	<div class='row'>
+		{{-- PROVISORIO --}}
+			<p><a href='/cache/atualizar' target='_blank' class='btn btn-danger' name="button">Atualizar Cache Produtos</a></p>
+		{{-- FIM PROVISORIO --}}
+
 		<div class='col-md-6'>
 			<table class="table table-hover">
 				<thead>

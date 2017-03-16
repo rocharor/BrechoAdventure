@@ -10,6 +10,7 @@ use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
 use File;
+use App\Services\Memcached;
 
 class ProdutoController extends Controller
 {
@@ -23,9 +24,10 @@ class ProdutoController extends Controller
         $this->model = $produto;
     }
 
-    public function index(Favorito $favorito)
+    public function index(Favorito $favorito, Memcached $cache)
     {
-        $produtos = $this->model->getProdutos($this->totalPagina);
+        // $produtos = $this->model->getProdutos($this->totalPagina);
+        $produtos = $this->getProducts($this->totalPagina);
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
@@ -223,6 +225,27 @@ class ProdutoController extends Controller
 
         echo $retorno;
         die();
+    }
+
+    public function getProducts($quantity=0)
+    {
+        if ($quantity > 0) {
+            $products = $this->model->getProdutos($quantity);
+        }else{
+            $products = $this->model->getProdutos();
+        }
+
+        return $products;
+    }
+
+    public function getCacheProducts(Memcached $cache)
+    {
+        // $cache->deleteCache('products');
+        // $cache->updateCacheAll();
+        // $products = collect(json_decode($products,true));
+        $products = $cache->getCache('products');
+
+        return $products;
     }
 
 }

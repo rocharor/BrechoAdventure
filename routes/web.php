@@ -5,15 +5,16 @@
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| This file is where you may define all of the routes that are handled
 | by your application. Just tell Laravel the URIs it should respond
+| This file is where you may define all of the routes that are handled
 | to using a Closure or controller method. Build something great!
 |
 */
 
+Route::get('/cache/atualizar',['as'=>'cache','uses'=>'Admin\AdminController@updateCacheProducts']);
+
 // Rotas do site
     // Menus
-    // Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
     Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
     Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
     Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
@@ -21,6 +22,7 @@
 // Açoes
     Route::post('/contato/store',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
     Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
+    Route::post('/produto/getCacheProdutcts',['as'=>'getCacheProdutcts','uses'=>'Site\ProdutoController@getCacheProducts']);
 
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {

@@ -162,9 +162,8 @@ input[type="checkbox"]:checked:before {
 
 
 <script>
-console.clear()
 
-var appVue = new Vue({
+var appVueFiltro = new Vue({
   el:'#filtro_lateral',
   data:{
     categorias: [
@@ -227,9 +226,4 @@ var appVue = new Vue({
    }
   }
 })
-
-
-
-
-
 </script>

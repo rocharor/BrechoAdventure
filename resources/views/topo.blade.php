@@ -86,16 +86,24 @@
 </div>
 
 <!-- BUSCA -->
-<div class="input-group campo-buscar hidden-xs">
-	<input type="text" class="form-control busca" placeholder="Buscar">
-	<div class="btn-group input-group-btn">
-		<button class="btn btn-primary">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
-		</button>
-	</div>
+<div class='campo-buscar' id='sistemaBusca'>
+    <div class="input-group hidden-xs">
+        <span class="hide">@{{autoComplete}}</span>
+    	<input type="text" class="form-control busca" placeholder="Buscar" v-model="campoBusca.input">
+    	<div class="btn-group input-group-btn">
+    		<button class="btn btn-primary">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
+    		</button>
+    	</div>
+    </div>
+    <ul class="list-group"  :class="{'hide':campoBusca.result == false}">
+        <li class="list-group-item" v-for="item in listProducts">@{{item.titulo}}</li>
+    </ul>
 </div>
 
 
 <br style="clear:both;"/><br>
+
+<script type="text/javascript" src="/js/site/topo.js"></script>
 
 <script type="text/javascript">
     if (!empty({{ Auth::check() }})) {buscaNotificacao();}
