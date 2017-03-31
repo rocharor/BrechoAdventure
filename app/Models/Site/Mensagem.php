@@ -8,6 +8,7 @@ use App\Models\Site\Conversa;
 use App\Models\Site\Mensagem;
 use App\Models\Site\Produto;
 use App\Models\User;
+use App\Services\Util;
 
 class Mensagem extends Model
 {
@@ -58,6 +59,7 @@ class Mensagem extends Model
                         $qtdNotificacaoProduto++;
                     }
                 }
+                $mensagem->data = Util::formataDataExibicao($mensagem->created_at);
             }
             $conversas[$key1]['produto'] = $produto;
             $conversas[$key1]['mensagens'] = $mensagens;

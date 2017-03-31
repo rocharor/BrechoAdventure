@@ -12,17 +12,17 @@
 */
 
 Route::get('/cache/atualizar',['as'=>'cache','uses'=>'Admin\AdminController@updateCacheProducts']);
+Route::post('/cache/getFilter',['as'=>'getFilter','uses'=>'Site\ProdutoController@getCacheFilter']);
 
 // Rotas do site
-    // Menus
-    Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
-    Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
-    Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
+// Menus
+Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
+Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
+Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
 // Açoes
-    Route::post('/contato/store',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
-    Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
-    Route::post('/produto/getCacheProdutcts',['as'=>'getCacheProdutcts','uses'=>'Site\ProdutoController@getCacheProducts']);
+Route::post('/contato/store',['as'=>'contatoPost','uses'=>'Site\ContatoController@store']);
+Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
 
 // Rotas da area Minha Conta
 Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
@@ -31,7 +31,6 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/favorito',['as'=>'meusFavorito','uses'=>'Site\FavoritoController@index']);
     Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
     Route::get('/produto',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
-    // Route::get('/produto/cadastro-produto',['as'=>'cadastro-produto','uses'=>'Site\ProdutoController@cadastroIndex']);
     Route::get('/produto/create',['as'=>'createProduto','uses'=>'Site\ProdutoController@create']);
     Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
 
@@ -51,11 +50,11 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MensagemController@store']);
     Route::post('/mensagem/update',['as'=>'updateMensagem','uses'=>'Site\MensagemController@update']);
     Route::post('/mensagem/buscaNotificacao',['as'=>'buscaNotificacao','uses'=>'Site\MensagemController@buscaNotificacao']);
-    Route::post('/mensagem/update2',['as'=>'update2','uses'=>'Site\MensagemController@update2']);
+    Route::post('/mensagem/updateNotificacao',['as'=>'updateNotificacao','uses'=>'Site\MensagemController@updateNotificacao']);
 });
 
 // Rotas da area Admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth', 'middleware' => ['can:admin'] ], function () {
     //Links
     Route::get('/home',['as'=>'home','uses'=>'Admin\AdminController@index']);
 });

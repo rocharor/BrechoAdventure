@@ -89,7 +89,7 @@ var MensagemClass = (function() {
 				objThis.parent().next().removeClass('hide');
 
 				$.post(
-					"/minha-conta/mensagem/update2",
+					"/minha-conta/mensagem/updateNotificacao",
 					{conversa_id:conversa_id},
 					function( data ) {
 						buscaNotificacao();

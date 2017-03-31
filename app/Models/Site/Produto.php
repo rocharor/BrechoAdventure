@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Site\Favorito;
-// use DB;
+use App\Models\Categoria;
 
 class Produto extends Model
 {
@@ -25,16 +25,17 @@ class Produto extends Model
         return $this->hasMany(Favorito::class);
         // Uso: $u->find(1)->favorito
         // Retorno: Todos os favoritos com "1" na coluna "produto_id" da tabela "favoritos"
+    }
 
+    public function categoria()
+    {
+        return $this->belongsTo(Categoria::class);
+        // Uso: $p->find(1)->user
+        // Retorno: O usuário que este produto pertence (id=1) coluna "id" da tabela "users"
     }
 
     public function getProdutos($limit=false, $limitAux=false)
     {
-
-        if(Auth::user()){
-
-        }
-
         if($limit){
             if($limitAux){
                 $produtos = $this->where('status',1)->limit($limit)->offset($limitAux)->orderBy('id', 'DESC')->get();
@@ -44,6 +45,12 @@ class Produto extends Model
         }else{
             $produtos = $this->where('status',1)->orderBy('id', 'DESC')->get();
 
+        }
+
+        $categorias = Categoria::all();
+        foreach ($produtos as $produto) {            
+            $categoria = $categorias->find($produto->categoria_id)->categoria;
+            $produto->categoria_nome = $categoria;
         }
 
         return $produtos;

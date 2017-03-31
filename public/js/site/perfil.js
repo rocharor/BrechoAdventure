@@ -77,7 +77,6 @@ var PerfilClass = (function() {
             $('.nm_imagem').append($file.files[0].name);
         },
         validaPerfil: function(){
-            console.log('aki')
             var nome = $('#nome_upd').val();
             var email = $('#email_upd').val();
             var dt_nascimento = $('#dt_nascimento_upd').val();

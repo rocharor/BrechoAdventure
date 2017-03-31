@@ -169,7 +169,7 @@ class MensagemController extends Controller
         }
     }
 
-    public function update2(Request $request)
+    public function updateNotificacao(Request $request)
     {
         $user_id = Auth::user()->id;
         $conversa_id = $request->get('conversa_id');

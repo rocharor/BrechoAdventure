@@ -34,8 +34,14 @@ class Memcached
     public function updateCacheAll()
     {
         //Atualiza os produtos no cache
+        // $products = $this->produto->getProducts();
+        // $products = response()->json($products)->content();
+        // $this->setCache('products', $products);
+
+        //Cria array com o filtro lateral
         $products = $this->produto->getProducts();
-        $products = response()->json($products)->content();
-        $this->setCache('products', $products);
+        $dataFilter = $this->produto->mountDataFilter($products);
+        $dataFilter = response()->json($dataFilter)->content();
+        $this->setCache('filter', $dataFilter);
     }
 }

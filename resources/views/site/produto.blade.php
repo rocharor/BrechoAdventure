@@ -53,8 +53,8 @@
 					</div>
 				@endforeach
 			</div>
-			<div class="col-sm-2 hidden-xs" style="border:solid 1px; height:500px">
-				Anuncios
+			<div class="col-sm-2 hidden-xs" style="border:solid 0px;">				
+				<a class="twitter-timeline" data-height="1000" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets by Adventure__Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</div>
 		</div>
 		<br><br>

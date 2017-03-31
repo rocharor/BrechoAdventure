@@ -24,7 +24,7 @@ class ProdutoController extends Controller
         $this->model = $produto;
     }
 
-    public function index(Favorito $favorito, Memcached $cache)
+    public function index(Favorito $favorito)
     {
         // $produtos = $this->model->getProdutos($this->totalPagina);
         $produtos = $this->getProducts($this->totalPagina);
@@ -47,11 +47,13 @@ class ProdutoController extends Controller
     public function todosProdutos($pg, Favorito $favorito,Request $request)
     {
         // dd(Request::route()->getName());
-        $totalProdutos = count($this->model->getProdutos());
+        // $totalProdutos = count($this->model->getProdutos());
+        $totalProdutos = count($this->getProducts());
         $paginacao = (int)ceil($totalProdutos / $this->totalPagina);
 
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
-        $produtos = $this->model->getProdutos($limit['inicio'],$limit['fim']);
+        // $produtos = $this->model->getProdutos($limit['inicio'],$limit['fim']);
+        $produtos = $this->getProducts($limit['inicio'],$limit['fim']);
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
             $arrImg = explode('|',$produto->nm_imagem);
@@ -227,10 +229,10 @@ class ProdutoController extends Controller
         die();
     }
 
-    public function getProducts($quantity=0)
+    public function getProducts($quantity1=false,$quantity2=false)
     {
-        if ($quantity > 0) {
-            $products = $this->model->getProdutos($quantity);
+        if (!$quantity1) {
+            $products = $this->model->getProdutos($quantity1,$quantity2);
         }else{
             $products = $this->model->getProdutos();
         }
@@ -238,14 +240,33 @@ class ProdutoController extends Controller
         return $products;
     }
 
-    public function getCacheProducts(Memcached $cache)
+    public function mountDataFilter($products):array
+    {
+        $data = [];
+        foreach ($products as $key=>$product) {
+            $data['Categoria']['itens'][$product['categoria_nome']] = [
+                'id'=>$product['categoria_id'],
+                'rotulo'=>$product['categoria_nome'],
+                'qtd' => isset($data['Categoria']['itens'][$product['categoria_nome']]) ? count($data['Categoria']['itens'][$product['categoria_nome']]) : 1
+            ];
+
+            $data['Estado']['itens'][$product['estado']] = [
+                'id'=>$product['estado'],
+                'rotulo'=>$product['estado'],
+                'qtd' => isset($data['Estado']['itens'][$product['estado']]) ? count($data['Estado']['itens'][$product['estado']]) : 1
+            ];
+        }
+        return $data;
+    }
+
+    public function getCacheFilter(Memcached $cache)
     {
         // $cache->deleteCache('products');
         // $cache->updateCacheAll();
         // $products = collect(json_decode($products,true));
-        $products = $cache->getCache('products');
-
-        return $products;
+        // echo json_decode($cache->getCache('filter'),true);
+        echo $cache->getCache('filter');
+        die();
     }
 
 }

@@ -108,7 +108,8 @@
                             <div class="conversa_{{ $conversa['mensagens'][0]->conversa_id }}">
                                 @foreach ($conversa['mensagens'] as $mensagem)
                                     <div class="conversa-{{ $mensagem->posicao }}">
-                                        <small><i>{{ $mensagem->nome }} - {{ $mensagem->created_at }}</i></small>
+                                        {{-- <small><i>{{ $mensagem->nome }} - {{ $mensagem->created_at }}</i></small> --}}
+                                        <small><i>{{ $mensagem->nome }} - {{ $mensagem->data }}</i></small>
                                         <p>{{ $mensagem->mensagem }}</p>
                                     </div>
                                 @endforeach
@@ -151,7 +152,8 @@
                             <div class="conversa_{{ $conversa['mensagens'][0]->conversa_id }}">
                                 @foreach ($conversa['mensagens'] as $mensagem)
                                     <div class="conversa-{{ $mensagem->posicao }}">
-                                        <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small>
+                                        {{-- <small><i>{{ $mensagem->nome }} {{ $mensagem->created_at }}</i></small> --}}
+                                        <small><i>{{ $mensagem->nome }} {{ $mensagem->data }}</i></small>
                                         <p>{{ $mensagem->mensagem }}</p>
                                     </div>
                                 @endforeach

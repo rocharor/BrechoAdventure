@@ -27,9 +27,9 @@
                     <li><a href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a></li>
                     <li><a href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a></li>
                     <li><a href="{{ Route('minha-conta.mensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a></li>
-                    @if(Auth::user()->id == 1)
+                    @can('admin')
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
-                    @endif
+                    @endcan
                     <li><a href='/logout'>Sair</a></li>
                 </ul>
             </span>
@@ -86,20 +86,15 @@
 </div>
 
 <!-- BUSCA -->
-<div class='campo-buscar' id='sistemaBusca'>
+<div class='campo-buscar'>
     <div class="input-group hidden-xs">
-        <span class="hide">@{{autoComplete}}</span>
-    	<input type="text" class="form-control busca" placeholder="Buscar" v-model="campoBusca.input">
+    	<input type="text" class="form-control busca" placeholder="Buscar">
     	<div class="btn-group input-group-btn">
     		<button class="btn btn-primary">&nbsp;<span class="glyphicon glyphicon-search"></span>&nbsp;
     		</button>
     	</div>
     </div>
-    <ul class="list-group"  :class="{'hide':campoBusca.result == false}">
-        <li class="list-group-item" v-for="item in listProducts">@{{item.titulo}}</li>
-    </ul>
 </div>
-
 
 <br style="clear:both;"/><br>
 

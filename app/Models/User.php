@@ -1,11 +1,12 @@
 <?php
 
-    namespace App\Models;
+namespace App\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
+use App\Models\Acl\Role;
 
 class User extends Authenticatable
 {
@@ -29,6 +30,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    /**
+     * Relation Produto
+     * @return object
+     */
     public function produto()
     {
         return $this->hasMany(Produto::class);
@@ -36,10 +41,37 @@ class User extends Authenticatable
         // Retorno: Todos os produtos com "1" na coluna "user_id" da tabela "produtos"
     }
 
+    /**
+     * Relation Favorito
+     * @return object
+     */
     public function favorito()
     {
         return $this->hasMany(Favorito::class);
         // Uso: $u->find(1)->favorito
         // Retorno: Todos os favoritos com "1" na coluna "user_id" da tabela "favorito"
+    }
+
+    /**
+     * Relation Roles
+     * @return object
+     */
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class);
+    }
+
+    /**
+     * Validate permission the user
+     * @param  Object/String  $role = Object of Roles or string of one role
+     * @return boolean
+     */
+    public function hasRole($role)
+    {
+        if (is_string($role)) {
+            return $this->roles->contains('name',$role);
+        }
+
+        return !! $role->intersect($this->roles)->count();
     }
 }

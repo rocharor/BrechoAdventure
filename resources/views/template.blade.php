@@ -23,19 +23,23 @@
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
 
         <title>Brechó Adventure</title>
+
         <!-- BOOTSTRAP CSS-->
         <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="/libs/animate.css/animate.css" />
+		<link type="text/css" rel="stylesheet" href="/libs/jquery-ui-autocomplete/jquery-ui.min.css" />
 
 		{{-- <link type="text/css" rel="stylesheet" href="/css/global.css" /> --}}
 		<link type="text/css" rel="stylesheet" href="/css/topo.css" />
 		<link type="text/css" rel="stylesheet" href="/css/rodape.css" />
+
 
 		<script src="/libs/jquery/dist/jquery.js"></script>
         <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
 		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
 		<script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
 		<script src="/libs/vue2/dist/vue.min.js"></script>
+		<script src="/libs/jquery-ui-autocomplete/jquery-ui.min.js"></script>
 		<script src="/js/global.js"></script>
     </head>
     <body>
