@@ -48,7 +48,7 @@ class Produto extends Model
         }
 
         $categorias = Categoria::all();
-        foreach ($produtos as $produto) {            
+        foreach ($produtos as $produto) {
             $categoria = $categorias->find($produto->categoria_id)->categoria;
             $produto->categoria_nome = $categoria;
         }

@@ -8,7 +8,7 @@
 		<li class="active">Meus Produtos</li>
 	</ol>
 
-    <div class="row">
+    <div class="row el-produtos-minha-conta hide">
         @if (count($meusProdutos) == 0)
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>
         @else
@@ -35,7 +35,7 @@
                     @if ($produto->status == 1)
                         <div class='btn_acoes'>
                             <div><a href="/minha-conta/produto/editar-produto/{{ $produto->id }}" class="btn btn-primary" data-produto-id="{$produto.id}">Editar</a></div>
-                            <div><button class="btn btn-danger act-excluir-produto" data-produto-id="{{ $produto->id }}">Excluir</button></div>
+                            <div><button class="btn btn-danger" onclick="excluir_produto({{ $produto->id }})">Excluir</button></div>
                             <div><button class="btn  btn-warning favorito"><div class="favorito-ativo"></div> - {{ $produto->qtd_favorito }}</button></div>
                         </div>
                     @else

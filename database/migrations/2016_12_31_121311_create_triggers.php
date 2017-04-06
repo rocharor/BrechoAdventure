@@ -27,7 +27,7 @@ class CreateTriggers extends Migration
                     THEN
                         CALL proc_qtd_favorito(NEW.produto_id,1);
                 ELSE
-                    CALL procQtdFavorito(NEW.produto_id,-1);
+                    CALL proc_qtd_favorito(NEW.produto_id,-1);
                 END IF;
             END
         ');

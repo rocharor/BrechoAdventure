@@ -11,7 +11,7 @@
         <div class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
             @include('filtroLateral')
         </div>
-        <div class="col-xs-12 col-sm-10">
+        <div class="col-xs-12 col-sm-10 el-produtos hide">
         	@foreach($produtos as $produto)
         		<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
             		<div class="div-produtos" align="center">
@@ -21,15 +21,13 @@
             						<div class="img-inativo"></div>
             					</a>
             				@else
-            					@if($produto->favorito)
-            						<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
-            							<span class="img-ativo"></span>
-            						</a>
-            					@else
-            						<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='1'>
-            							<span class="img-inativo"></span>
-            						</a>
-            					@endif
+                                <a class="produto-{{ $produto->id }}" @click.prevent='setFavorite({{ $produto->id }})'>
+                                    @if($produto->favorito)
+                                        <span class="img-ativo"></span>
+                                    @else
+                                        <span class="img-inativo"></span>
+                                    @endif
+                                </a>
             				@endif
             			</div>
 
@@ -41,15 +39,26 @@
             			</div>
 
             			<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
-            			<div data-id="{{ $produto->id }}">
-            				<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>
-            				@if(Auth::check() != 0)
-            					<button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button>
-            				@endif
-            			</div>
+                        <div>
+                            <button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button>
+                            @if(Auth::check() != 0)
+                                <button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
+                            @endif
+                        </div>
             		</div>
         		</div>
         	@endforeach
+
+            <!--Modal descricao-->
+            <div class="modal fade" id='modal_descricao'>
+            	@include('modalDescricao')
+            </div>
+
+            <!--Modal mensagem-->
+            <div class="modal fade" id='modal-mensagem'>
+                @include('modalMensagem')
+            </div>
+
         </div>
     </div>
 
@@ -81,18 +90,6 @@
       </ul>
     </nav>
 
-
-    <!--Modal descricao-->
-    <div class="modal fade" id='modal_descricao'>
-    	@include('modalDescricao')
-    </div>
-
-    <!--Modal mensagem-->
-    <div class="modal fade" id='modal-mensagem'>
-        @include('modalMensagem')
-    </div>
-
     <script type="text/javascript" src="/js/site/produto.js"></script>
-    <script type="text/javascript" src="/js/site/favorito.js"></script>
-    <script type="text/javascript" src="/js/site/mensagem.js"></script>
+    {{-- <script type="text/javascript" src="/js/site/mensagem.js"></script> --}}
 @endsection

@@ -48,11 +48,13 @@ class ProdutoController extends Controller
     {
         // dd(Request::route()->getName());
         // $totalProdutos = count($this->model->getProdutos());
+
         $totalProdutos = count($this->getProducts());
         $paginacao = (int)ceil($totalProdutos / $this->totalPagina);
 
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
         // $produtos = $this->model->getProdutos($limit['inicio'],$limit['fim']);
+
         $produtos = $this->getProducts($limit['inicio'],$limit['fim']);
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
@@ -196,18 +198,20 @@ class ProdutoController extends Controller
     {
         $produto = $this->model->find($request->get('produto_id'));
 
-        $arrFotos = explode('|',$produto->nm_imagem);
-        $key = array_search($request->get('nm_foto'),$arrFotos);
-        unset($arrFotos[$key]);
-        $nm_imagem = implode('|',$arrFotos);
-        $produto->nm_imagem = $nm_imagem;
+        $retorno = ['sucesso'=>false,'msg'=>'Erro ao excluir foto'];
+        if (Auth::user()->id == $produto->user_id) {
+            $arrFotos = explode('|',$produto->nm_imagem);
+            $key = array_search($request->get('nm_foto'),$arrFotos);
+            unset($arrFotos[$key]);
+            $nm_imagem = implode('|',$arrFotos);
+            $produto->nm_imagem = $nm_imagem;
 
-        if($produto->save()){
-            $filename = public_path("imagens/produtos/" . $request->get('nm_foto'));
-            File::delete($filename);
-            $retorno = ['sucesso'=>true,'msg'=>'Foto excluída com sucesso'];
-        }else{
-            $retorno = ['sucesso'=>false,'msg'=>'Erro ao excluir foto'];
+            if($produto->save()){
+                $filename = public_path("imagens/produtos/" . $request->get('nm_foto'));
+                File::delete($filename);
+                $retorno = ['sucesso'=>true,'msg'=>'Foto excluída com sucesso'];
+            }
+
         }
 
         echo json_encode($retorno);
@@ -218,21 +222,22 @@ class ProdutoController extends Controller
     public function destroy($id)
     {
         $produto = $this->model->find($id);
-        $produto->status = 0;
-
         $retorno = 0;
-        if ($produto->save()) {
-            $retorno = 1;
-        }
+        if (Auth::user()->id == $produto->user_id) {
+            $produto->status = 0;
 
+            if ($produto->save()) {
+                $retorno = 1;
+            }
+        }
         echo $retorno;
         die();
     }
 
     public function getProducts($quantity1=false,$quantity2=false)
     {
-        if (!$quantity1) {
-            $products = $this->model->getProdutos($quantity1,$quantity2);
+        if ($quantity1) {
+            $products = $this->model->getProdutos($quantity1,$quantity2,$params);
         }else{
             $products = $this->model->getProdutos();
         }

@@ -10,7 +10,7 @@
 		<div class="well" align="center"><b><i>N&atilde;o existe nenhum produto cadastrado</i></b></div>
 	@else
 		<div class="row" >
-			<div class="col-xs-12 col-sm-10">
+			<div class="col-xs-12 col-sm-10 el-produtos hide">
 				<h1 class="text-success" align="center">Novidades</h1>
 				<p>Confira os novos produtos adicionados recentemente em nosso site.</p>
 				<p>Fique sempre atento em nossa promoções :)</p>
@@ -19,19 +19,17 @@
 						<div class="div-produtos" align="center">
 							<div class="div-favorito-{{ $produto->id }}">
 								@if(Auth::check() == 0)
-									<a class="act-favorito-deslogado">
+									<a @click.prevent='setFavorite(0)'>
 										<div class="img-inativo"></div>
 									</a>
 								@else
-									@if($produto->favorito)
-										<a class="act-favorito favorito-ativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='0'>
+									<a class="produto-{{ $produto->id }}" @click.prevent='setFavorite({{ $produto->id }})'>
+										@if($produto->favorito)
 											<span class="img-ativo"></span>
-										</a>
-									@else
-										<a class="act-favorito favorito-inativo-{{ $produto->id }}" data-produto-id='{{ $produto->id }}' data-user-id="{{ Auth::user()->id }}" data-status='1'>
+										@else
 											<span class="img-inativo"></span>
-										</a>
-									@endif
+										@endif
+									</a>
 								@endif
 							</div>
 
@@ -43,17 +41,28 @@
 							</div>
 
 							<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
-							<div data-id="{{ $produto->id }}">
-								<button class='btn btn-warning act-descricao'><b>Ver detalhes</b></button>
+							<div>
+								<button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button>
 								@if(Auth::check() != 0)
-									<button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button>
+									<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
 								@endif
 							</div>
 						</div>
 					</div>
 				@endforeach
+
+				<!--Modal descricao-->
+				<div class="modal fade" id='modal_descricao'>
+					@include('modalDescricao')
+				</div>
+
+				<!--Modal mensagem-->
+				<div class="modal fade" id='modal-mensagem'>
+					@include('modalMensagem')
+				</div>
+
 			</div>
-			<div class="col-sm-2 hidden-xs" style="border:solid 0px;">				
+			<div class="col-sm-2 hidden-xs" style="border:solid 0px;">
 				<a class="twitter-timeline" data-height="1000" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets by Adventure__Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</div>
 		</div>
@@ -63,17 +72,6 @@
 		</div>
 	@endif
 
-	<!--Modal descricao-->
-	<div class="modal fade" id='modal_descricao'>
-		@include('modalDescricao')
-	</div>
-
-	<!--Modal mensagem-->
-	<div class="modal fade" id='modal-mensagem'>
-		@include('modalMensagem')
-	</div>
-
 	<script type="text/javascript" src="/js/site/produto.js"></script>
-	<script type="text/javascript" src="/js/site/favorito.js"></script>
 	<script type="text/javascript" src="/js/site/mensagem.js"></script>
 @endsection

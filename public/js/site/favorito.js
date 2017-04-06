@@ -1,45 +1,45 @@
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
-$('.act-favorito').click(function(){
-
-   var status = $(this).attr('data-status');
-   var produto_id = $(this).attr('data-produto-id');
-   // var user_id = $(this).attr('data-user-id');
-
-   $.ajax({
-        url:'/minha-conta/favorito/storeFavorito',
-        dataType: 'json',
-        type: 'POST',
-        data: {
-                // 'user_id':user_id,
-               'status': status,
-               'produto_id':produto_id},
-        success: function(retorno){
-            if(retorno){
-                if(status == 0){
-                    var link = $('.favorito-ativo-' + produto_id);
-                    var div_imagem = $('.favorito-ativo-'+produto_id).find('.img-ativo');
-                    link.attr('data-status',1).addClass('favorito-inativo-'+produto_id).removeClass('favorito-ativo-'+produto_id);
-                    div_imagem.addClass('img-inativo').removeClass('img-ativo');
-                }else{
-                    var link = $('.favorito-inativo-' + produto_id);
-                    var div_imagem = $('.favorito-inativo-'+produto_id).find('.img-inativo');
-                    link.attr('data-status',0).addClass('favorito-ativo-'+produto_id).removeClass('favorito-inativo-'+produto_id);
-                    div_imagem.addClass('img-ativo').removeClass('img-inativo');
-                }
-            }else{
-                alert('Erro ao salvar favorito.')
-            }
-        },
-        error: function(retorno){
-            alert('Erro no sistema! cod-02')
-        }
-    });
-});
-
-$('.act-favorito-deslogado').click(function(){
-   alertaPagina('Necessário estar logado para favoritar.','danger');
-});
+// $('.act-favorito').click(function(){
+//
+//    var status = $(this).attr('data-status');
+//    var produto_id = $(this).attr('data-produto-id');
+//    // var user_id = $(this).attr('data-user-id');
+//
+//    $.ajax({
+//         url:'/minha-conta/favorito/storeFavorito',
+//         dataType: 'json',
+//         type: 'POST',
+//         data: {
+//                 // 'user_id':user_id,
+//                'status': status,
+//                'produto_id':produto_id},
+//         success: function(retorno){
+//             if(retorno){
+//                 if(status == 0){
+//                     var link = $('.favorito-ativo-' + produto_id);
+//                     var div_imagem = $('.favorito-ativo-'+produto_id).find('.img-ativo');
+//                     link.attr('data-status',1).addClass('favorito-inativo-'+produto_id).removeClass('favorito-ativo-'+produto_id);
+//                     div_imagem.addClass('img-inativo').removeClass('img-ativo');
+//                 }else{
+//                     var link = $('.favorito-inativo-' + produto_id);
+//                     var div_imagem = $('.favorito-inativo-'+produto_id).find('.img-inativo');
+//                     link.attr('data-status',0).addClass('favorito-ativo-'+produto_id).removeClass('favorito-inativo-'+produto_id);
+//                     div_imagem.addClass('img-ativo').removeClass('img-inativo');
+//                 }
+//             }else{
+//                 alert('Erro ao salvar favorito.')
+//             }
+//         },
+//         error: function(retorno){
+//             alert('Erro no sistema! cod-02')
+//         }
+//     });
+// });
+//
+// $('.act-favorito-deslogado').click(function(){
+//    alertaPagina('Necessário estar logado para favoritar.','danger');
+// });
 
 $('.act-excluir-favorito').click(function(e){
 	e.preventDefault();

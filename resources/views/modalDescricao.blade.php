@@ -25,14 +25,14 @@
                 </a>
             </div>
             <hr>
-            <p><label>Titulo: &nbsp;</label><span class='produto_titulo'></span></p>
-            <p><label>Descrição: &nbsp;</label><span class='produto_descricao'></span></p>
-            <p><label>Estado: &nbsp;</label><span class='produto_estado'></span></p>
-            <p><label>Preço: &nbsp;</label><span class='produto_valor'></span></p>
+            <p><label>Titulo: &nbsp;</label><span>@{{dataDescription.titulo}}</span></p>
+            <p><label>Descrição: &nbsp;</label><span>@{{dataDescription.descricao}}</span></p>
+            <p><label>Estado: &nbsp;</label><span>@{{dataDescription.estado}}</span></p>
+            <p><label>Preço: &nbsp;</label><span>@{{dataDescription.valor}}</span></p>
             <hr>
-            <p><label>Nome: &nbsp;</label><span class='produto_nome'></span></p>
-            <p><label>Email: &nbsp;</label><span class='produto_email'></span></p>
-            <p><label>Telefones: &nbsp;</label><span class='produto_telefone'></span></p>
+            <p><label>Nome: &nbsp;</label><span>@{{dataDescription.name}}</span></p>
+            <p><label>Email: &nbsp;</label><span>@{{dataDescription.email}}</span></p>
+            <p><label>Telefones: &nbsp;</label><span>@{{dataDescription.fixo}} / @{{dataDescription.cel}}</span></p>
         </div>
 
         <div class="modal-footer">

@@ -21,11 +21,11 @@ var MensagemClass = (function() {
 				self.abaMsgMeusProdutos();
 			});
 
-			$('.act-modal-mensagem').on('click',function(e){
-				e.preventDefault();
-				var produto_id = $(this).parent().attr('data-id');;
-				self.abreModalMsg(produto_id);
-			})
+			// $('.act-modal-mensagem').on('click',function(e){
+			// 	e.preventDefault();
+			// 	var produto_id = $(this).parent().attr('data-id');;
+			// 	self.abreModalMsg(produto_id);
+			// })
 
 			$('.act-abre-conversa').on('click',function(e){
 				e.preventDefault();
@@ -35,13 +35,13 @@ var MensagemClass = (function() {
 
 			})
 
-            $('.act-enviar-mensagem').on('click',function(e){
-                e.preventDefault();
-                var produto_id = $('input[name=produto_id]').val();
-                var mensagem = $('textarea[name=mensagem]').val();
-
-                self.enviarMensagem(produto_id, mensagem);
-            });
+            // $('.act-enviar-mensagem').on('click',function(e){
+            //     e.preventDefault();
+            //     var produto_id = $('input[name=produto_id]').val();
+            //     var mensagem = $('textarea[name=mensagem]').val();
+            //
+            //     self.enviarMensagem(produto_id, mensagem);
+            // });
 
 			$('.act-enviar-resposta').on('click',function(e){
 				e.preventDefault();
@@ -64,25 +64,25 @@ var MensagemClass = (function() {
 			$('.aba-msgMeusProdutos').removeClass('hide');
 			$('.aba-msgEnviadas').addClass('hide');
 		},
-		abreModalMsg: function(produto_id){
-			$.ajax({
-		        url: '/minha-conta/mensagem/create',
-		        dataType: 'json',
-		        type: 'POST',
-		        data: {'produto_id': produto_id},
-		        success: function(retorno){
-		            $('.mensagem_de').html(retorno.nome_remet);
-		            $('.mensagem_para').html(retorno.name);
-		            $('.mensagem_produto').html(retorno.titulo);
-		            $('input[name=produto_id]').val(produto_id);
-		        },
-		        error:function(){
-		            alertaPagina('Erro ao buscar dados.','danger');
-		        }
-		    });
-
-		    $('#modal-mensagem').modal();
-		},
+		// abreModalMsg: function(produto_id){
+		// 	$.ajax({
+		//         url: '/minha-conta/mensagem/create',
+		//         dataType: 'json',
+		//         type: 'POST',
+		//         data: {'produto_id': produto_id},
+		//         success: function(retorno){
+		//             $('.mensagem_de').html(retorno.nome_remet);
+		//             $('.mensagem_para').html(retorno.name);
+		//             $('.mensagem_produto').html(retorno.titulo);
+		//             $('input[name=produto_id]').val(produto_id);
+		//         },
+		//         error:function(){
+		//             alertaPagina('Erro ao buscar dados.','danger');
+		//         }
+		//     });
+        //
+		//     $('#modal-mensagem').modal();
+		// },
 		abreConversa: function(status,conversa_id,objThis){
 			if (status == 1) {
 				objThis.attr('data-status',0);
@@ -100,33 +100,33 @@ var MensagemClass = (function() {
 				objThis.parent().next().addClass('hide');
 			}
 		},
-        enviarMensagem:function(produto_id, mensagem){
-            if (mensagem == '') {
-                alertaPagina('Campo mensagem não pode ser vazio','danger');
-                return false;
-            }
-
-            $.ajax({
-                url: '/minha-conta/mensagem/store',
-                dataType: 'json',
-                type: 'POST',
-                data: {
-                    produto_id: produto_id,
-                    mensagem:mensagem
-                },
-                success: function(retorno){
-                    if (retorno.success == 1) {
-                        alertaPagina('Mensagem enviada com sucesso.','success');
-                    }else{
-                        alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=1]','danger');
-                    }
-                    $('#modal-mensagem').modal('hide');
-                },
-                error:function(){
-                    alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=2]','danger');
-                }
-            });
-        },
+        // enviarMensagem:function(produto_id, mensagem){
+        //     if (mensagem == '') {
+        //         alertaPagina('Campo mensagem não pode ser vazio','danger');
+        //         return false;
+        //     }
+        //
+        //     $.ajax({
+        //         url: '/minha-conta/mensagem/store',
+        //         dataType: 'json',
+        //         type: 'POST',
+        //         data: {
+        //             produto_id: produto_id,
+        //             mensagem:mensagem
+        //         },
+        //         success: function(retorno){
+        //             if (retorno.success == 1) {
+        //                 alertaPagina('Mensagem enviada com sucesso.','success');
+        //             }else{
+        //                 alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=1]','danger');
+        //             }
+        //             $('#modal-mensagem').modal('hide');
+        //         },
+        //         error:function(){
+        //             alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=2]','danger');
+        //         }
+        //     });
+        // },
 		enviarResposta(conversa_id,mensagem,tipo){
 			if (mensagem == '') {
 				alertaPagina('Campo resposta não pode ser vazio','danger');

@@ -187,8 +187,8 @@ var appVueFiltro = new Vue({
             }
         },
         guardaCheck:function(item){
-            var tipo = item[0];
-            var valor = item[1];
+            var tipo = item[0].toLowerCase();
+            var valor = typeof item[1] == 'string' ? item[1].toLowerCase() : item[1];
 
             if (this.arrChecks[tipo] != null) {
                 var key = this.arrChecks[tipo].indexOf(valor);
@@ -212,12 +212,15 @@ var appVueFiltro = new Vue({
                 this.arrChecks[tipo] = [valor];
             }
 
-            // var url = '?'
-            // var aux = false;
-            // for (var i in this.arrChecks) {
-            //     url += i + '=' +  this.arrChecks[i].join('|');
-            // }
-            // window.open(url,'_self');
+            var aux = [];
+            var j = 0;
+            for (var i in this.arrChecks) {
+                aux[j] = [ i + '=' +  this.arrChecks[i].join(',') ];
+                j++;
+            }
+            var url = '?' + aux.join('&');
+
+            window.open(url,'_self');
         },
         buscaDadosFiltro:function(){
             $.ajax({

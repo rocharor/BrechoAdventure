@@ -1,5 +1,5 @@
 <div class="modal-dialog">
-    <div class="modal-content">  
+    <div class="modal-content">
         <input type="hidden" name="produto_id" value="">
 
         <div class="modal-header" >
@@ -9,13 +9,13 @@
         <div class="modal-body" >
             <h2 align="center"><span id='titulo'>Mensagem</span></h2>
 
-            <p><label>De: &nbsp;</label><span class='mensagem_de'></span></p>
-            <p><label>Para: &nbsp;</label><span class='mensagem_para'></span></p>
-            <p><label>Produto: &nbsp;</label><span class='mensagem_produto'></span></p>
-            <p><label>Mensagem: &nbsp;</label><textarea class='form-control' name="mensagem" rows="8" cols="50" required="required"></textarea></p>
+            <p><label>De: &nbsp;</label><span>@{{dataContact.remetente}}</span></p>
+            <p><label>Para: &nbsp;</label><span>@{{dataContact.destinatario}}</span></p>
+            <p><label>Produto: &nbsp;</label><span>@{{dataContact.titulo}}</span></p>
+            <p><label>Mensagem: &nbsp;</label><textarea class='form-control' name="mensagem" rows="8" cols="50" required="required" id='campo-mensagem' v-model='dataContact.mensagem'></textarea></p>
         </div>
         <div class="modal-footer">
-            <button type="button" class='btn btn-success act-enviar-mensagem' name="button">Enviar</button>
+            <button type="button" class='btn btn-success act-enviar-mensagem' name="button" @click.prevent="sendContact()">Enviar</button>
         </div>
 
     </div>

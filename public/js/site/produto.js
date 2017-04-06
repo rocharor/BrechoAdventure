@@ -1,56 +1,179 @@
 $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
-$('.act-descricao').click(function(e){
-    e.preventDefault();
+var appProdutosSite = new Vue({
+    el:'.el-produtos',
+    data:{
+        dataDescription:{
+            titulo:'',
+            descricao:'',
+            estado:'',
+            valor:'',
+            name:'',
+            email:'',
+            fixo:'',
+            cel:''
+        },
+        dataContact:{
+            remetente:'',
+            destinatario:'',
+            titulo:'',
+            produto_id:0,
+            mensagem:''
+        }
 
-    var produto_id = $(this).parent().attr('data-id');
+    },
+    methods:{
+        setFavorite:function(produto_id){
 
-    $.ajax({
-        url: '/produto/descricao-produto',
-        dataType: 'json',
-        type: 'POST',
-        data: {'produto_id': produto_id},
-        success: function(retorno){
-            if(retorno){
-    			var fotos = retorno.nm_imagem.split('|');
-    			$('.produto_fotos').html('');
-    			$('.indicadores').html('');
-    			for(var i in fotos){
-    				if(i == 0){
-    					$('.produto_fotos').append("<div class='item active '><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>")
-    					$('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class='active'></li>")
-    				}else{
-    					$('.produto_fotos').append("<div class='item'><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>")
-    					$('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class=''></li>")
-    				}
-    			}
-
-
-            	$('.produto_titulo').html(retorno.titulo)
-                $('.produto_descricao').html(retorno.descricao)
-                $('.produto_estado').html(retorno.estado)
-                $('.produto_valor').html('R$ ' + retorno.valor)
-
-                $('.produto_nome').html(retorno.name)
-                $('.produto_email').html(retorno.email)
-                $('.produto_telefone').html(retorno.fixo + " / " + retorno.cel)
-
-                $('#modal_descricao').modal();
-            }else{
-                alert('Erro ao buscar descrição do produto.')
+            if (produto_id == 0) {
+                alertaPagina('Necessário estar logado para favoritar.','danger');
+                return false;
             }
 
+            $.ajax({
+                url:'/minha-conta/favorito/storeFavorito',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    'produto_id':produto_id
+                },
+                success: function(retorno){
+                    var statusFavorito = window.sessionStorage.getItem('favorite-product-' + produto_id);
+                    if (statusFavorito == null) {
+                        window.sessionStorage.setItem('favorite-product-' + produto_id, retorno.status);
+                    }else{
+                        window.sessionStorage.setItem('favorite-product-' + produto_id, retorno.status);
+                    }
+                    statusFavorito = window.sessionStorage.getItem('favorite-product-' + produto_id);
+
+                    if(retorno.success){
+                        if(statusFavorito == 0){
+                            var div_imagem = $('.produto-' + produto_id).find('.img-ativo');
+                            div_imagem.addClass('img-inativo').removeClass('img-ativo');
+                        }else{
+                            var div_imagem = $('.produto-' + produto_id).find('.img-inativo');
+                            div_imagem.addClass('img-ativo').removeClass('img-inativo');
+                        }
+                    }else{
+                        alertaPagina('Erro ao salvar favorito.','danger');
+                    }
+                },
+                error: function(retorno){
+                    alertaPagina('Erro no sistema! cod-02','danger');
+                }
+            });
         },
-        error: function(retorno){
-            alert('Erro no sistema! cod-02')
+        openDescription:function(produto_id){
+
+            $.ajax({
+                url: '/produto/descricao-produto',
+                dataType: 'json',
+                type: 'POST',
+                data: {'produto_id': produto_id},
+                success: function(retorno){
+                    if(retorno){
+                        var fotos = retorno.nm_imagem.split('|');
+                        $('.produto_fotos').html('');
+                        $('.indicadores').html('');
+                        for(var i in fotos){
+                            if(i == 0){
+                                $('.produto_fotos').append("<div class='item active '><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>");
+                                $('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class='active'></li>");
+                            }else{
+                                $('.produto_fotos').append("<div class='item'><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>");
+                                $('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class=''></li>");
+                            }
+                        }
+
+                        appProdutosSite.dataDescription.titulo = retorno.titulo;
+                        appProdutosSite.dataDescription.descricao = retorno.descricao;
+                        appProdutosSite.dataDescription.estado = retorno.estado;
+                        appProdutosSite.dataDescription.valor = retorno.valor;
+                        appProdutosSite.dataDescription.name = retorno.name;
+                        appProdutosSite.dataDescription.email = retorno.email;
+                        appProdutosSite.dataDescription.fixo = retorno.fixo;
+                        appProdutosSite.dataDescription.cel = retorno.cel;
+
+                        $('#modal_descricao').modal();
+                    }else{
+                        alertaPagina('Erro ao buscar descrição do produto.','danger');
+                    }
+
+                },
+                error: function(retorno){
+                    alertaPagina('Erro no sistema! cod-02','danger');
+                }
+            })
+        },
+        openContact:function(produto_id){
+            this.dataContact.mensagem = '';
+
+            $.ajax({
+		        url: '/minha-conta/mensagem/create',
+		        dataType: 'json',
+		        type: 'POST',
+		        data: {'produto_id': produto_id},
+		        success: function(retorno){
+                    appProdutosSite.dataContact.remetente = retorno.nome_remet;
+                    appProdutosSite.dataContact.destinatario = retorno.name;
+                    appProdutosSite.dataContact.titulo = retorno.titulo;
+                    appProdutosSite.dataContact.produto_id = produto_id;
+		        },
+		        error:function(){
+		            alertaPagina('Erro ao buscar dados.','danger');
+		        }
+		    });
+
+		    $('#modal-mensagem').modal();
+        },
+        sendContact:function(){
+            if (this.dataContact.mensagem == '') {
+                alertaPagina('Campo mensagem não pode ser vazio','danger');
+                return false;
+            }
+
+            $.ajax({
+                url: '/minha-conta/mensagem/store',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    produto_id: this.dataContact.produto_id,
+                    mensagem:this.dataContact.mensagem
+                },
+                success: function(retorno){
+                    if (retorno.success == 1) {
+                        alertaPagina('Mensagem enviada com sucesso.','success');
+                    }else{
+                        alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=1]','danger');
+                    }
+
+                    $('#modal-mensagem').modal('hide');
+                },
+                error:function(){
+                    alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=2]','danger');
+                }
+            });
         }
-    })
+    },
+    created:function () {
+        $('.el-produtos').removeClass('hide');
+    }
 });
 
-$('.act-excluir-produto').click(function(e) {
+var appProdutosMinhaConta = new Vue({
+    el:'.el-produtos-minha-conta',
+    data:{},
+    methods:{
+        teste:function(){
+            appProdutosSite.sendContact();
+        }
+    },
+    created:function () {
+        $('.el-produtos-minha-conta').removeClass('hide');
+    }
+});
 
-    var produto_id = $(this).attr('data-produto-id');
-
+var excluir_produto = function(produto_id){
     if (confirm('Deseja realmente excluir este produto?')) {
 
         $.ajax({
@@ -69,7 +192,7 @@ $('.act-excluir-produto').click(function(e) {
             }
         })
     }
-});
+}
 
 $('.act-excluir-foto').click(function() {
 
@@ -87,7 +210,6 @@ $('.act-excluir-foto').click(function() {
             },
             success : function(retorno) {
                 if (retorno.sucesso = true) {
-                    // window.open('/minha-conta/meus-produtos/meusProdutosEditar/produto/'+produto_id,'_self');
                     window.location.reload();
                 } else {
                     alertaPagina(retorno.msg, 'danger');

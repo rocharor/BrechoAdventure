@@ -43,18 +43,26 @@ class FavoritoController extends Controller
         $user_id = Auth::user()->id;
         $vefificacao = $this->model->where('user_id',$user_id)->where('produto_id',$request->produto_id)->get();
 
+        $status = 1;
         if(count($vefificacao) == 0){
-            // $this->model->user_id = $request->user_id;
             $this->model->user_id = $user_id;
             $this->model->produto_id = $request->produto_id;
-            $this->model->status = $request->status;
+            $this->model->status = $status;
             $retorno = $this->model->save();
         }else{
-            $retorno = $this->update($request->produto_id,$request->status);
+            if($vefificacao[0]->status == 1){
+                $status = 0;
+            }
+            
+            $retorno = $this->update($request->produto_id, $status);
         }
 
         if($retorno){
-            echo 1;
+            echo response()->json([
+                'success' => 1,
+                'produto_id' => $request->produto_id,
+                'status' => $status
+            ])->content();
             die();
         }
         echo 0;
