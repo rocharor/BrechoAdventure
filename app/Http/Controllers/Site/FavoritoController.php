@@ -53,7 +53,7 @@ class FavoritoController extends Controller
             if($vefificacao[0]->status == 1){
                 $status = 0;
             }
-            
+
             $retorno = $this->update($request->produto_id, $status);
         }
 
@@ -84,16 +84,5 @@ class FavoritoController extends Controller
         $retorno = $produto[0]->save();
 
         return $retorno;
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
     }
 }

@@ -4,6 +4,7 @@ namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Site\Conversa;
 use App\Models\Site\Mensagem;
 use App\Models\Site\Produto;
@@ -12,7 +13,10 @@ use App\Services\Util;
 
 class Mensagem extends Model
 {
+    use SoftDeletes;
+
     public $table = 'mensagens';
+    protected $dates = ['deleted_at'];
 
     public function conversa()
     {

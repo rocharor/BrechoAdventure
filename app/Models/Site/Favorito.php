@@ -4,13 +4,17 @@ namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Site\Produto;
 use App\Models\User;
 
 
 class Favorito extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'favoritos';
+    protected $dates = ['deleted_at'];
 
     public function produto()
     {

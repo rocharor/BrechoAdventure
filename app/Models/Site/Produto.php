@@ -4,14 +4,17 @@ namespace App\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
 
 class Produto extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'produtos';
-    protected $softDelete = true;
+    protected $dates = ['deleted_at'];
 
     /*Relacionamentos (inverso) (1 para muitos) */
     public function user()
@@ -94,7 +97,7 @@ class Produto extends Model
 
     public function getMeusProdutos()
     {
-        $meusProdutos = $this->where('user_id',Auth::user()->id)->orderBy('status', 'DESC')->orderBy('created_at', 'DESC')->get();
+        $meusProdutos = $this->withTrashed()->where('user_id',Auth::user()->id)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
 
         return $meusProdutos;
     }

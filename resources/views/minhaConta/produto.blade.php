@@ -14,7 +14,7 @@
         @else
             @foreach ($meusProdutos as $produto)
                 <div class="col-md-3 col-xs-12 div-meus-produtos" align="center">
-                    @if ($produto->status == 0)
+                    @if ($produto->deleted_at)
                         <p><span class="label label-danger">Produto exclu&iacute;do</span></p>
                     @elseif ($produto->status == 1)
                         <p><span class="label label-success">Data de cadastro: <b>{{ $produto->dataExibicao }}</b></span></p>

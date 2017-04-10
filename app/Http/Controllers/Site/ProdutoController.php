@@ -224,11 +224,11 @@ class ProdutoController extends Controller
         $produto = $this->model->find($id);
         $retorno = 0;
         if (Auth::user()->id == $produto->user_id) {
-            $produto->status = 0;
-
-            if ($produto->save()) {
-                $retorno = 1;
-            }
+            $retorno = $produto->delete();
+            // $produto->status = 0;
+            // if ($produto->save()) {
+                // $retorno = 1;
+            // }
         }
         echo $retorno;
         die();
@@ -237,7 +237,7 @@ class ProdutoController extends Controller
     public function getProducts($quantity1=false,$quantity2=false)
     {
         if ($quantity1) {
-            $products = $this->model->getProdutos($quantity1,$quantity2,$params);
+            $products = $this->model->getProdutos($quantity1,$quantity2);
         }else{
             $products = $this->model->getProdutos();
         }
