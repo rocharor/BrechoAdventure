@@ -19,6 +19,7 @@ class CreateFavoritosTable extends Migration
             $table->integer('produto_id')->unsigned();
             $table->integer('status');
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')
             ->onUpdate('cascade')

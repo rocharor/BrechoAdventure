@@ -11,6 +11,7 @@ use App\Models\Categoria;
 class Produto extends Model
 {
     protected $table = 'produtos';
+    protected $softDelete = true;
 
     /*Relacionamentos (inverso) (1 para muitos) */
     public function user()

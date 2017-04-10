@@ -21,6 +21,7 @@ class CreateMensagensTable extends Migration
             $table->text('mensagem')->nullable();
             $table->integer('lido')->default(0);
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

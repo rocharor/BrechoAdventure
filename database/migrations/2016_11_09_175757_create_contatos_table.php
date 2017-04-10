@@ -21,6 +21,7 @@ class CreateContatosTable extends Migration
             $table->text('mensagem');
             $table->integer('status_resposta')->nullable()->default(0);;
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -19,6 +19,7 @@ class CreateConversasTable extends Migration
             $table->integer('user_id_destino')->nullable();
             $table->integer('produto_id')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

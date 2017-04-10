@@ -25,6 +25,7 @@ class CreateProdutosTable extends Migration
             $table->integer('qtd_favorito')->default(0);
             $table->integer('status')->default(2);
             $table->timestamps();
+            $table->softDeletes();
 
             $table->foreign('user_id')->references('id')->on('users')
             ->onUpdate('cascade')

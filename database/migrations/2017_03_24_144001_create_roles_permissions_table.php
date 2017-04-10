@@ -18,6 +18,7 @@ class CreateRolesPermissionsTable extends Migration
             $table->string('name');
             $table->string('label')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('permissions', function(Blueprint $table){
@@ -25,6 +26,7 @@ class CreateRolesPermissionsTable extends Migration
             $table->string('name');
             $table->string('label')->nullable();
             $table->timestamps();
+            $table->softDeletes();
         });
 
         Schema::create('permission_role', function(Blueprint $table){
