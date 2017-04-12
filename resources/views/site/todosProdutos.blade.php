@@ -73,7 +73,7 @@
     		 @endif
     	</li>
 
-    	@for($i = 1; $i <= $totalProdutos; $i++)
+    	@for($i = 1; $i <= $numberPages; $i++)
     		@if($i == $pg)
     			<li class="active"><a>{{ $i }}</a></li>
     		@else
@@ -81,7 +81,7 @@
     		@endif
     	@endfor
     	 <li>
-    		 @if($pg == $totalProdutos)
+    		 @if($pg == $numberPages)
     			<span aria-label="Previous"><span aria-hidden="true">&raquo;</span></span>
     		 @else
     			<a href="/produto/todosProdutos/{{ $pg + 1 }}" aria-label="Next"><span aria-hidden="true">&raquo;</span></a>

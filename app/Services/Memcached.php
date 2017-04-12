@@ -39,8 +39,7 @@ class Memcached
         // $this->setCache('products', $products);
 
         //Cria array com o filtro lateral
-        $products = $this->produto->getProducts();
-        $dataFilter = $this->produto->mountDataFilter($products);
+        $dataFilter = $this->produto->mountDataFilter();
         $dataFilter = response()->json($dataFilter)->content();
         $this->setCache('filter', $dataFilter);
     }
