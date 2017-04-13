@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Site\Contato as ContatoModel;
-use App\Services\Email;
+// use App\Services\Email;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BrechoMail;
 
 class ContatoController extends Controller
 {
@@ -45,6 +47,7 @@ class ContatoController extends Controller
         $retorno = $this->model->setMensagem($dados);
         if($retorno){
             // $email->respAutomaticaContato($dados['nome'],$dados['email']);
+            Mail::to(Auth::user())->send(new BrechoMail(1, Auth::user()));
             return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
         }else{
             return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');

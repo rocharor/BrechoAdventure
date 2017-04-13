@@ -26,6 +26,8 @@ class ProdutoController extends Controller
 
     public function index(Favorito $favorito)
     {
+        return view('email.adminProduto');
+        die();
         // $produtos = $this->model->getProdutos($this->totalPagina);
         $produtos = $this->getProducts($this->totalPagina);
 
