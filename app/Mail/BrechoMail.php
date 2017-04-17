@@ -34,7 +34,7 @@ class BrechoMail extends Mailable
     {
         switch ($this->tipo) {
             case 1:
-                return $this->respAutomaticaContato();
+                return $this->replyAutomatic();
                 break;
             case 2:
                 # code...
@@ -45,18 +45,16 @@ class BrechoMail extends Mailable
         }
     }
 
-    public function respAutomaticaContato()
+    public function replyAutomatic()
     {
-        $data = [
-            'nome'=>$this->param->name
-        ];
-
         return $this
         ->subject('Resposta automática')
-        ->view('email.respAutomatica',$data);
-
-        // $this->avisoNovaMensagem();
-        // return $return;
+        ->view('email.respAutomatica')
+        ->with([
+            'name'=>$this->param['nome'],
+            'category'=>$this->param['categoria'],
+            'mensage'=>$this->param['mensagem']
+        ]);
     }
 
     /**
@@ -64,27 +62,32 @@ class BrechoMail extends Mailable
      * @param unknown $email
      * @return boolean
      */
-    public function produtoAprovado($email)
+    public function produtoAprovado()
     {
         return $this
         ->subject('Parabéns seu produto foi aprovado')
-        ->view('email.produtoAprovado',$data);
+        ->view('email.produtoAprovado')
+        ->with([
+            'name'=>$this->param->name,
+            'title'=>$this->param->titulo
+        ]);
     }
-
-    /**
-     * Informa o Admin que existem produtos pendentes
-     */
-    public function avisoNovoProduto()
-    {
-        return $this
-        ->subject('Novo Produto Site')
-        ->view('email.adminProduto',$data);
-    }
-
-    public function avisoNovaMensagem()
-    {
-        return $this
-        ->subject('Nova Mensagem Site')
-        ->view('email.adminMensagem');
-    }
+    //
+    // /**
+    //  * Informa o Admin que existem produtos pendentes
+    //  */
+    // public function avisoNovoProduto()
+    // {
+    //     return $this
+    //     ->subject('Novo Produto Site')
+    //     ->to('rocharor@gmail.com')
+    //     ->view('email.adminProduto',$data);
+    // }
+    //
+    // public function avisoNovaMensagem()
+    // {
+    //     return $this
+    //     ->subject('Nova Mensagem Site')
+    //     ->view('email.adminMensagem');
+    // }
 }

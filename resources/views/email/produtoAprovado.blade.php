@@ -2,8 +2,10 @@
 @section('content')
     <tr>
         <td class="corpoEmail">
-            <h2>Olá Administrador</h2>
-            <p>Acaba de chegar uma nova mensagem.</p><br>
+            <h2>Olá {{ $name }}</h2>
+            <p>Parabéns seu produto foi aprovado.</p><br>
+            <hr>
+            <p><b>Titulo:</b> {{ $title }}</p>
         </td>
-    </tr>    
+    </tr>
 @endsection

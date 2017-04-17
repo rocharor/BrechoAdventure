@@ -14,6 +14,19 @@
                 background-color: #F3BC55;
                 border: solid 2px;
             }
+            .img_top{
+                float:left;
+                background-image: url("http://brechoadventure.com/imagens/logo.jpg");
+                background-size: cover;
+                width: 100px;
+                height: 60px;
+                display: block;
+            }
+
+            .texto_top{
+                position:absolute;
+                margin-left: 20%;
+            }
             .rodape{
                 background-color: #fedd7a;
             }
@@ -21,10 +34,10 @@
                 border: 0;
                 border-top: solid 1px #cecece;
             }
-            .rodape > td > span > p:nth-child(3){
+            .footer{
                 text-align: center;
             }
-            .rodape > td > span > p > span{
+            .footer > small{
                 color: #444;
             }
             .corpoEmail{
@@ -41,7 +54,8 @@
         <table align='center' cellspacing="0" callpadding="0">
             <tr class='topo'>
                 <td align='center'>
-                    <h3><a href="brechoadventure.com">BRECH&Oacute; ADVENTURE</a><h3>
+                    <div class="img_top"></div>
+                    <div class="texto_top"><h3><a href="brechoadventure.com">BRECH&Oacute; ADVENTURE</a><h3></div>
                 </td>
             </tr>
 
@@ -52,7 +66,7 @@
                     <span>
                         <p><small>Att,</small><br><b>Brech&oacute; Adventure</b></p>
                         <hr>
-                        <p><span>** Este &eacute; um e-mail autom&aacute;tico. Favor n&atilde;o respond&ecirc;-lo **</span></p>
+                        <p class='footer'><small>** Este &eacute; um e-mail autom&aacute;tico. Favor n&atilde;o respond&ecirc;-lo **</small></p>
                     </span>
                 </td>
             </tr>

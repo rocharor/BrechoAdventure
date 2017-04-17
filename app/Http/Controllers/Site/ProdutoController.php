@@ -10,7 +10,9 @@ use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
 use File;
-use App\Services\Memcached;
+use App\Services\Cache;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BrechoMail;
 
 class ProdutoController extends Controller
 {
@@ -26,9 +28,6 @@ class ProdutoController extends Controller
 
     public function index(Favorito $favorito)
     {
-        return view('email.adminProduto');
-        die();
-        // $produtos = $this->model->getProdutos($this->totalPagina);
         $produtos = $this->getProducts($this->totalPagina);
 
         $favoritos = $favorito->getFavoritos();
@@ -266,7 +265,7 @@ class ProdutoController extends Controller
         return $data;
     }
 
-    public function getCacheFilter(Memcached $cache)
+    public function getCacheFilter(Cache $cache)
     {
         // $cache->deleteCache('products');
         // $cache->updateCacheAll();

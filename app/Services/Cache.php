@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cache as CacheNative;
 use App\Http\Controllers\Site\ProdutoController as Produto;
 
 class Memcached
@@ -17,18 +17,18 @@ class Memcached
 
     public function getCache($key)
     {
-        return  Cache::get($key);
+        return  CacheNative::get($key);
     }
 
     public function setCache($key,$value)
     {
-        // return Cache::put($key, $value, 1);
-        return Cache::forever($key, $value);
+        // return CacheNative::put($key, $value, 1);
+        return CacheNative::forever($key, $value);
     }
 
     public function deleteCache($key)
     {
-        return Cache::pull($key);
+        return CacheNative::pull($key);
     }
 
     public function updateCacheAll()
