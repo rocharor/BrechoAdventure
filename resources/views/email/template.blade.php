@@ -23,10 +23,6 @@
                 display: block;
             }
 
-            .texto_top{
-                position:absolute;
-                margin-left: 20%;
-            }
             .rodape{
                 background-color: #fedd7a;
             }
@@ -54,8 +50,10 @@
         <table align='center' cellspacing="0" callpadding="0">
             <tr class='topo'>
                 <td align='center'>
-                    <div class="img_top"></div>
-                    <div class="texto_top"><h3><a href="brechoadventure.com">BRECH&Oacute; ADVENTURE</a><h3></div>
+                    <a href="http://brechoadventure.com" target='_blank'>
+                        <div class="img_top"></div>
+                        <div><h3>BRECH&Oacute; ADVENTURE<h3></div>
+                    </a>
                 </td>
             </tr>
 

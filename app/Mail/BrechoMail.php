@@ -21,6 +21,7 @@ class BrechoMail extends Mailable
      */
     public function __construct($tipo, $param)
     {
+        $this->mail_admin = 'rocharor@gmail.com';
         $this->tipo = $tipo;
         $this->param = $param;
     }
@@ -37,7 +38,7 @@ class BrechoMail extends Mailable
                 return $this->replyAutomatic();
                 break;
             case 2:
-                # code...
+                return $this->newMensage();
                 break;
             case 3:
                 # code...
@@ -57,21 +58,29 @@ class BrechoMail extends Mailable
         ]);
     }
 
-    /**
-     * Envia o e-mail para usuários que os produtos foram aprovados
-     * @param unknown $email
-     * @return boolean
-     */
-    public function produtoAprovado()
+    public function newMensage()
     {
         return $this
-        ->subject('Parabéns seu produto foi aprovado')
-        ->view('email.produtoAprovado')
-        ->with([
-            'name'=>$this->param->name,
-            'title'=>$this->param->titulo
-        ]);
+        ->to($this->mail_admin)
+        ->subject('Nova Mensagem Site')
+        ->view('email.adminMensagem');
     }
+
+    // /**
+    //  * Envia o e-mail para usuários que os produtos foram aprovados
+    //  * @param unknown $email
+    //  * @return boolean
+    //  */
+    // public function produtoAprovado()
+    // {
+    //     return $this
+    //     ->subject('Parabéns seu produto foi aprovado')
+    //     ->view('email.produtoAprovado')
+    //     ->with([
+    //         'name'=>$this->param->name,
+    //         'title'=>$this->param->titulo
+    //     ]);
+    // }
     //
     // /**
     //  * Informa o Admin que existem produtos pendentes
@@ -84,10 +93,5 @@ class BrechoMail extends Mailable
     //     ->view('email.adminProduto',$data);
     // }
     //
-    // public function avisoNovaMensagem()
-    // {
-    //     return $this
-    //     ->subject('Nova Mensagem Site')
-    //     ->view('email.adminMensagem');
-    // }
+
 }

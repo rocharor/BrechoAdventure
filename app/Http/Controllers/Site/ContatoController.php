@@ -9,6 +9,7 @@ use App\Models\Categoria;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
+use App\Events\sendEmailAdmin;
 
 class ContatoController extends Controller
 {
@@ -25,7 +26,7 @@ class ContatoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         return view('site/contato');
     }
 
@@ -49,6 +50,8 @@ class ContatoController extends Controller
         $retorno = $this->model->setMensagem($dados);
         if($retorno){
             Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
+            //dispara um evento sendEmailAdmin
+            event(new sendEmailAdmin());
             return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
         }else{
             return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
