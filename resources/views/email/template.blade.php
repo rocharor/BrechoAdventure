@@ -3,6 +3,39 @@
     <head>
         <meta charset='UTF-8'>
         <style>
+            table{
+                width: 600px;
+            }
+            a{
+                text-decoration: none;
+                color:#000;
+            }
+            .topo{
+                background-color: #F3BC55;
+                border: solid 2px;
+            }
+            .img_top{
+                float:left;
+                background-image: url("http://brechoadventure.com/imagens/logo.jpg");
+                background-size: cover;
+                width: 100px;
+                height: 60px;
+                display: block;
+            }
+
+            .rodape{
+                background-color: #fedd7a;
+            }
+            .rodape > td > span > hr{
+                border: 0;
+                border-top: solid 1px #cecece;
+            }
+            .footer{
+                text-align: center;
+            }
+            .footer > small{
+                color: #444;
+            }
             .corpoEmail{
                 background-color: #fedd7a;
                 font-family: Arial, Helvetica, sans-serif;
@@ -11,28 +44,27 @@
                 padding: 20px;
                 line-height: 15px;
             }
-            .rodape{
-                background-color: #fedd7a;
-                border: solid 2px;
-            }
         </style>
     </head>
     <body>
-        <table align='center' style='width: 600px;' cellspacing="0" callpadding="0">
-            <tr>
-                <td style='background-color: #F3BC55;' align='center'>
-                    <h3>BRECHÓ ADVENTURE<h3>
+        <table align='center' cellspacing="0" callpadding="0">
+            <tr class='topo'>
+                <td align='center'>
+                    <a href="http://brechoadventure.com" target='_blank'>
+                        <div class="img_top"></div>
+                        <div><h3>BRECH&Oacute; ADVENTURE<h3></div>
+                    </a>
                 </td>
             </tr>
 
             @yield('content')
 
-            <tr class="rodape" style="">
+            <tr class="rodape">
                 <td>
                     <span>
                         <p><small>Att,</small><br><b>Brech&oacute; Adventure</b></p>
-                        <hr style='border: 0; border-top: 1px solid #cecece;'>
-                        <p style='text-align: center; color: #777;'><small>** Este &eacute; um e-mail autom&aacute;tico. Favor n&atilde;o respond&ecirc;-lo **</small></p>
+                        <hr>
+                        <p class='footer'><small>** Este &eacute; um e-mail autom&aacute;tico. Favor n&atilde;o respond&ecirc;-lo **</small></p>
                     </span>
                 </td>
             </tr>

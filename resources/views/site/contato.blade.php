@@ -32,7 +32,6 @@
 	        	<textarea class="form-control" name="mensagem" rows="5" placeholder="Mensagem" required="required"></textarea><br>
 	        </div>
 			<div class="form-group">
-	        	{{-- <input type="button" value="Enviar" class="btn btn-success btn-contato btn-enviar"> --}}
 				<input type="submit" value="Enviar" class="btn btn-success">
 	        	<img src="/imagens/ajax-loader.gif" class="hide carregando" />
 	        </div>

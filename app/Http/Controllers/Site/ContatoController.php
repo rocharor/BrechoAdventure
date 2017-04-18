@@ -5,7 +5,11 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Site\Contato as ContatoModel;
-use App\Services\Email;
+use App\Models\Categoria;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\BrechoMail;
+use App\Events\sendEmailAdmin;
 
 class ContatoController extends Controller
 {
@@ -22,7 +26,7 @@ class ContatoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    {        
         return view('site/contato');
     }
 
@@ -32,7 +36,7 @@ class ContatoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request, Email $email)
+    public function store(Request $request)
     {
         $this->validate($request, [
             'nome' => 'required|max:255',
@@ -42,9 +46,12 @@ class ContatoController extends Controller
         ]);
 
         $dados = $request->all();
+        $dados['categoria'] = Categoria::find($dados['tipo'])->categoria;
         $retorno = $this->model->setMensagem($dados);
         if($retorno){
-            // $email->respAutomaticaContato($dados['nome'],$dados['email']);
+            Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
+            //dispara um evento sendEmailAdmin
+            event(new sendEmailAdmin());
             return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
         }else{
             return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
