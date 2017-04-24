@@ -15,6 +15,9 @@ class Produto extends Model
 
     protected $table = 'produtos';
     protected $dates = ['deleted_at'];
+    public $limit = false;
+    public $limitAux = false;
+
 
     /*Relacionamentos (inverso) (1 para muitos) */
     public function user()
@@ -38,19 +41,19 @@ class Produto extends Model
         // Retorno: O usuário que este produto pertence (id=1) coluna "id" da tabela "users"
     }
 
-    public function getProdutos($limit=false, $limitAux=false)
+    public function getProdutos($limit=false)
     {
         if($limit){
-            if($limitAux){
-                $produtos = $this->where('status',1)->limit($limit)->offset($limitAux)->orderBy('id', 'DESC')->get();
+            if($this->limitAux){
+                $produtos = $this->where('status',1)->limit($this->limit)->offset($this->limitAux)->orderBy('id', 'DESC')->get();
             }else{
-                $produtos = $this->where('status',1)->limit($limit)->orderBy('id', 'DESC')->get();
+                $produtos = $this->where('status',1)->limit($this->limit)->orderBy('id', 'DESC')->get();
             }
         }else{
             $produtos = $this->where('status',1)->orderBy('id', 'DESC')->get();
 
         }
-
+dd($produtos);
         $categorias = Categoria::all();
         foreach ($produtos as $produto) {
             $categoria = $categorias->find($produto->categoria_id)->categoria;
@@ -95,9 +98,19 @@ class Produto extends Model
     }
 
 
-    public function getMeusProdutos()
+    public function getMeusProdutos($limit=false)
     {
-        $meusProdutos = $this->withTrashed()->where('user_id',Auth::user()->id)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
+        if($limit){
+            if($this->limitAux){
+                $meusProdutos =  $this->withTrashed()->where('user_id',Auth::user()->id)->limit($this->limit)->offset($this->limitAux)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
+            }else{
+                $meusProdutos =  $this->withTrashed()->where('user_id',Auth::user()->id)->limit($this->limit)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
+
+            }
+        }else{
+            $meusProdutos =  $this->withTrashed()->where('user_id',Auth::user()->id)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
+
+        }
 
         return $meusProdutos;
     }

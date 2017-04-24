@@ -50,6 +50,9 @@
         @endif
     </div>
 
+    <!--PAGINAÇÃO-->
+	@include('paginacao')
+
     <script type="text/javascript" src="/js/site/produto.js"></script>
 
 @endsection

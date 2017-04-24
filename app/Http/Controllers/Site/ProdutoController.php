@@ -48,7 +48,9 @@ class ProdutoController extends Controller
     public function todosProdutos($pg, Favorito $favorito, Request $request)
     {
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
-        $produtos = $this->getProducts($limit['inicio'],$limit['fim']);
+        $this->model->limit = $limit['inicio'];
+        $this->model->limitAux = $limit['fim'];
+        $produtos = $this->getProducts(true);
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
@@ -69,13 +71,18 @@ class ProdutoController extends Controller
         return view('site/todosProdutos',[
             'produtos'=>$produtos,
             'pg'=>$pg,
-            'numberPages'=>$numberPages
+            'numberPages'=>$numberPages,
+            'link'=>'/produto/todosProdutos/'
         ]);
     }
 
-    public function meusProdutos()
+    public function meusProdutos($pg=1)
     {
-        $meusProdutos = $this->model->getMeusProdutos();
+
+        $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
+        $this->model->limit = $limit['inicio'];
+        $this->model->limitAux = $limit['fim'];
+        $meusProdutos = $this->model->getMeusProdutos(true);
 
         foreach($meusProdutos as $produto){
             $arrImg = explode('|',$produto->nm_imagem);
@@ -83,7 +90,15 @@ class ProdutoController extends Controller
             $produto->dataExibicao = Util::formataDataExibicao($produto->created_at);
         }
 
-        return view('minhaConta/produto',['meusProdutos'=>$meusProdutos]);
+        $totalProdutos = count($this->model->getMeusProdutos());
+        $numberPages = (int)ceil($totalProdutos / $this->totalPagina);
+
+        return view('minhaConta/produto',[
+            'meusProdutos'=>$meusProdutos,
+            'pg'=>$pg,
+            'numberPages'=>$numberPages,
+            'link'=>'/minha-conta/produto/'
+        ]);
     }
 
     public function create(Categoria $categoria)
@@ -236,23 +251,23 @@ class ProdutoController extends Controller
         die();
     }
 
-    // public function getProducts($quantity1=false,$quantity2=false)
-    // {
-    //     if ($quantity1) {
-    //         $products = $this->model->getProdutos($quantity1,$quantity2);
-    //     }else{
-    //         $products = $this->model->getProdutos();
-    //     }
-    //
-    //     return $products;
-    // }
-
-    public function getProducts($parametros=[])
+    public function getProducts($quantity1=false,$quantity2=false)
     {
-        $products = $this->model->getProdutos($parametros);
+        if ($quantity1) {
+            $products = $this->model->getProdutos($quantity1,$quantity2);
+        }else{
+            $products = $this->model->getProdutos();
+        }
 
         return $products;
     }
+
+    // public function getProducts($parametros=[])
+    // {
+        // $products = $this->model->getProdutos($parametros);
+//
+        // return $products;
+    // }
 
     public function mountDataFilter()
     {
