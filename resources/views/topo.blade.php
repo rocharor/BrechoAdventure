@@ -4,7 +4,7 @@
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo'>
         <div class="links">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
-            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
+            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos') }}">Todos Produtos</a>
             <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
         </div>
     </div>

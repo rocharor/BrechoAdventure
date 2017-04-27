@@ -80,9 +80,9 @@ class PerfilController extends Controller
         $retorno =  $r->update($dados);
 
         if($retorno){
-            return redirect()->route('minha-conta.mcperfil')->with('sucesso','Dados salvos com sucesso.');
+            return redirect()->route('minha-conta.perfil')->with('sucesso','Dados salvos com sucesso.');
         }else{
-            return redirect()->route('minha-conta.mcperfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+            return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
         }
 
         // echo response()->json($retorno)->content();
@@ -120,11 +120,11 @@ class PerfilController extends Controller
             $r = $user->find(Auth::user()->id);
             $ret =  $r->update(['nome_imagem'=>$foto_nome]);
                 if ($ret) {
-                    return redirect()->route('minha-conta.mcperfil')->with('sucesso','Foto alterada com sucesso.');
+                    return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
                 }
         }
 
-        return redirect()->route('minha-conta.mcperfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+        return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
         // return redirect()->action('MinhaConta\PerfilController@index', $retorno);
     }
 }

@@ -28,7 +28,8 @@ class ProdutoController extends Controller
 
     public function index(Favorito $favorito)
     {
-        $produtos = $this->getProducts($this->totalPagina);
+        $this->model->limit = $this->totalPagina;
+        $produtos = $this->model->getProdutos(true);
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
@@ -45,12 +46,12 @@ class ProdutoController extends Controller
         return view('site/produto',['produtos'=>$produtos]);
     }
 
-    public function todosProdutos($pg, Favorito $favorito, Request $request)
+    public function todosProdutos($pg=1, Favorito $favorito, Request $request)
     {
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
         $this->model->limit = $limit['inicio'];
         $this->model->limitAux = $limit['fim'];
-        $produtos = $this->getProducts(true);
+        $produtos = $this->model->getProdutos(true);
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
@@ -65,7 +66,7 @@ class ProdutoController extends Controller
             }
         }
 
-        $totalProdutos = count($this->getProducts());
+        $totalProdutos = count($this->model->getProdutos());
         $numberPages = (int)ceil($totalProdutos / $this->totalPagina);
 
         return view('site/todosProdutos',[
@@ -251,16 +252,17 @@ class ProdutoController extends Controller
         die();
     }
 
-    public function getProducts($quantity1=false,$quantity2=false)
-    {
-        if ($quantity1) {
-            $products = $this->model->getProdutos($quantity1,$quantity2);
-        }else{
-            $products = $this->model->getProdutos();
-        }
-
-        return $products;
-    }
+    // public function getProducts($quantity1=false,$quantity2=false)
+    // {
+    //
+    //     if ($quantity1) {
+    //         $products = $this->model->getProdutos($quantity1,$quantity2);
+    //     }else{
+    //         $products = $this->model->getProdutos();
+    //     }
+    //
+    //     return $products;
+    // }
 
     // public function getProducts($parametros=[])
     // {
@@ -272,12 +274,12 @@ class ProdutoController extends Controller
     public function mountDataFilter()
     {
         $data = [];
-        $products = $this->getProducts();
+        $products = $this->model->getProdutos(true);
         foreach ($products as $key=>$product) {
-            $data['Categoria']['itens'][$product['categoria_nome']] = [
+            $data['Categoria']['itens'][$product['categoria']] = [
                 'id'=>$product['categoria_id'],
-                'rotulo'=>$product['categoria_nome'],
-                'qtd' => isset($data['Categoria']['itens'][$product['categoria_nome']]) ? count($data['Categoria']['itens'][$product['categoria_nome']]) : 1
+                'rotulo'=>$product['categoria'],
+                'qtd' => isset($data['Categoria']['itens'][$product['categoria']]) ? count($data['Categoria']['itens'][$product['categoria']]) : 1
             ];
 
             $data['Estado']['itens'][$product['estado']] = [

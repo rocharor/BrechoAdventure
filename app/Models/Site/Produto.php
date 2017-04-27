@@ -41,30 +41,86 @@ class Produto extends Model
         // Retorno: O usuário que este produto pertence (id=1) coluna "id" da tabela "users"
     }
 
+    /**
+     * [getProdutos description]
+     * @param  boolean $limit [description]
+     * @return [type]         [description]
+     */
     public function getProdutos($limit=false)
     {
         if($limit){
             if($this->limitAux){
-                $produtos = $this->where('status',1)->limit($this->limit)->offset($this->limitAux)->orderBy('id', 'DESC')->get();
+                $produtos = $this->where('status',1)
+                ->join('categorias as c','produtos.categoria_id','c.id')
+                ->select('produtos.*','c.categoria')
+                ->limit($this->limit)
+                ->offset($this->limitAux)
+                ->orderBy('produtos.id', 'DESC')
+                ->get();
             }else{
-                $produtos = $this->where('status',1)->limit($this->limit)->orderBy('id', 'DESC')->get();
+                $produtos = $this->where('status',1)
+                ->join('categorias as c','produtos.categoria_id','c.id')
+                ->select('produtos.*','c.categoria')
+                ->limit($this->limit)
+                ->orderBy('produtos.id', 'DESC')
+                ->get();
             }
         }else{
-            $produtos = $this->where('status',1)->orderBy('id', 'DESC')->get();
+            $produtos = $this->where('status',1)
+            ->join('categorias as c','produtos.categoria_id','c.id')
+            ->select('produtos.*','c.categoria')
+            ->orderBy('produtos.id', 'DESC')
+            ->get();
+        }
 
-        }
-dd($produtos);
-        $categorias = Categoria::all();
-        foreach ($produtos as $produto) {
-            $categoria = $categorias->find($produto->categoria_id)->categoria;
-            $produto->categoria_nome = $categoria;
-        }
+        // $categorias = Categoria::all();
+        // foreach ($produtos as $produto) {
+        //     $categoria = $categorias->find($produto->categoria_id)->categoria;
+        //     $produto->categoria_nome = $categoria;
+        // }
 
         return $produtos;
     }
 
     /**
+     * [getMeusProdutos description]
+     * @param  boolean $limit [description]
+     * @return [type]         [description]
+     */
+    public function getMeusProdutos($limit=false)
+    {
+        if($limit){
+            if($this->limitAux){
+                $meusProdutos =  $this->withTrashed()
+                ->where('user_id',Auth::user()->id)
+                ->limit($this->limit)
+                ->offset($this->limitAux)
+                ->orderBy('status', 'DESC')
+                ->orderBy('deleted_at', 'ASC')
+                ->get();
+            }else{
+                $meusProdutos =  $this->withTrashed()
+                ->where('user_id',Auth::user()->id)
+                ->limit($this->limit)
+                ->orderBy('status', 'DESC')
+                ->orderBy('deleted_at', 'ASC')
+                ->get();
+            }
+        }else{
+            $meusProdutos =  $this->withTrashed()
+            ->where('user_id',Auth::user()->id)
+            ->orderBy('status', 'DESC')
+            ->orderBy('deleted_at', 'ASC')
+            ->get();
+        }
+
+        return $meusProdutos;
+    }
+
+    /**
      * Traz dados de um produto
+     * @param  [type] $produto_id [description]
+     * @return [type]             [description]
      */
     public function getDescricaoProduto($produto_id)
     {
@@ -95,23 +151,5 @@ dd($produtos);
         //             ->get();
 
         return $arrProduto;
-    }
-
-
-    public function getMeusProdutos($limit=false)
-    {
-        if($limit){
-            if($this->limitAux){
-                $meusProdutos =  $this->withTrashed()->where('user_id',Auth::user()->id)->limit($this->limit)->offset($this->limitAux)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
-            }else{
-                $meusProdutos =  $this->withTrashed()->where('user_id',Auth::user()->id)->limit($this->limit)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
-
-            }
-        }else{
-            $meusProdutos =  $this->withTrashed()->where('user_id',Auth::user()->id)->orderBy('status', 'DESC')->orderBy('deleted_at', 'ASC')->get();
-
-        }
-
-        return $meusProdutos;
     }
 }
