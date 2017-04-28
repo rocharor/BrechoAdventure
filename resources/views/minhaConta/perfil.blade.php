@@ -72,7 +72,7 @@
                     <td>
                         <select class="form-control" id='uf_upd' name='uf' style="width: 100px;">
                             @foreach($estados as $sigla=>$desc)
-                                <option value="{{$sigla}}">{{$desc}}</option>
+                                <option value="{{$sigla}}" @if( Auth::user()->uf == $sigla) selected @endif>{{$desc}}</option>
                             @endforeach
                         </select>
                     </td>

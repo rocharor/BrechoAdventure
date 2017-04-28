@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    protected $table = 'roles';
+    protected $dates = ['deleted_at'];
+
     /**
      * Relation Permissions
      * @return object

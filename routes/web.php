@@ -17,7 +17,7 @@ Route::post('/cache/getFilter',['as'=>'getFilter','uses'=>'Site\ProdutoControlle
 // Rotas do site
 // Menus
 Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
-Route::get('/produto/todosProdutos/{pg}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
+Route::get('/produto/todosProdutos/{pg?}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
 Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
 // Açoes
@@ -25,12 +25,12 @@ Route::post('/contato/store',['as'=>'contatoPost','uses'=>'Site\ContatoControlle
 Route::post('/produto/descricao-produto',['as'=>'descProduto','uses'=>'Site\ProdutoController@show']);
 
 // Rotas da area Minha Conta
-Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => 'auth'], function () {
+Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' => ['auth'] ], function () {
     // Menus
     Route::get('/perfil',['as'=>'perfil','uses'=>'Site\PerfilController@index']);
     Route::get('/favorito',['as'=>'meusFavorito','uses'=>'Site\FavoritoController@index']);
     Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
-    Route::get('/produto',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
+    Route::get('/produto/{pg?}',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
     Route::get('/produto/create',['as'=>'createProduto','uses'=>'Site\ProdutoController@create']);
     Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
 
@@ -54,7 +54,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
 });
 
 // Rotas da area Admin
-Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth', 'middleware' => ['can:admin'] ], function () {
+Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','can:admin'] ], function () {
     //Links
     Route::get('/home',['as'=>'home','uses'=>'Admin\AdminController@index']);
 });

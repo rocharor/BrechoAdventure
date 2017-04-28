@@ -51,3 +51,11 @@ $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $fake
 $factory->define(App\Models\User::class, function (Faker\Generator $faker) {
     return [];
 });
+
+$factory->define(App\Models\Acl\Role::class, function (Faker\Generator $faker) {
+    return [];
+});
+
+$factory->define(App\Models\Acl\Permission::class, function (Faker\Generator $faker) {
+    return [];
+});

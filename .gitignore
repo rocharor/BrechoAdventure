@@ -11,4 +11,3 @@ composer.lock
 /.idea
 Homestead.json
 Homestead.yaml
-.env
