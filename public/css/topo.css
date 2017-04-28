@@ -49,6 +49,7 @@ a {
 }
 .menu .topo_esquerdo .links .active {
   color: #eee;
+  font-style: italic;
 }
 .menu .topo_direito {
   float: right;
@@ -103,6 +104,13 @@ a {
 }
 .menu .topo_direito .btn-group .menu_logado li a:hover {
   background-color: #cc8f00;
+  font-weight: bold;
+}
+.menu .topo_direito .btn-group .menu_logado li .active {
+  background-color: #cc8f00;
+  color: #eee;
+  font-weight: bold;
+  font-style: italic;
 }
 .menu-mobile {
   background-color: #282c34;
@@ -162,11 +170,17 @@ a {
 .menu-mobile .topo_direito .btn-group .menu_logado {
   margin: 2px -100px 0;
 }
+.menu-mobile .topo_direito .btn-group li .active {
+  background-color: #cc8f00;
+  color: #eee;
+  font-weight: bold;
+  font-style: italic;
+}
 /*CAMPO BUSCAR*/
 .campo-buscar {
   position: absolute;
   width: 20%;
+  z-index: 999;
   top: 80px;
   right: 10px;
-  z-index: 999;
 }

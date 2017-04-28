@@ -22,7 +22,7 @@
 
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
 
-        <title>Brechó Adventure</title>
+        <title>{{ config('app.name', 'Brechó Adventure') }}</title>
 
         <!-- BOOTSTRAP CSS-->
         <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css" />

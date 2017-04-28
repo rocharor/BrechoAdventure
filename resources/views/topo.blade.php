@@ -5,7 +5,7 @@
         <div class="links">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
-            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
+            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
         </div>
     </div>
 
@@ -22,15 +22,25 @@
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
-                    <li><a href="{{ Route('minha-conta.createProduto') }}">Inserir Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a></li>
-                    <li><a href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a></li>
-                    <li><a href="{{ Route('minha-conta.mensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a></li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.createProduto' ? 'class=active' : '' }} href="{{ Route('minha-conta.createProduto') }}">Inserir Produtos</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.perfil' ? 'class=active' : '' }} href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.meusProduto' ? 'class=active' : '' }} href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.meusFavorito' ? 'class=active' : '' }} href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.mensagem' ? 'class=active' : '' }} href="{{ Route('minha-conta.mensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a>
+                    </li>
                     @can('admin')
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
                     @endcan
-                    <li><a href='/logout'>Sair</a></li>
+                    <li><a href='/logout' style="font-weight:bold;color:#CD3333;">Sair</a></li>
                 </ul>
             </span>
         @endif
@@ -43,7 +53,7 @@
         <div class="links" style="font-size:7px">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
-            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
+            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
         </div>
     </div>
 
@@ -65,15 +75,25 @@
                     <div class="img-circle" align='center'></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
-                    <li><a href="{{ Route('minha-conta.createProduto') }}">Inserir Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a></li>
-                    <li><a href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a></li>
-                    <li><a href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a></li>
-                    <li><a style='display:inline' href="{{ Route('minha-conta.mensagem') }}">Mensagens</a><span class='qtdMsg'>0</span></li>
-                    @if(Auth::user()->id == 1)
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.createProduto' ? 'class=active' : '' }} href="{{ Route('minha-conta.createProduto') }}">Inserir Produtos</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.perfil' ? 'class=active' : '' }} href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.meusProduto' ? 'class=active' : '' }} href="{{ Route('minha-conta.meusProduto') }}">Meus Produtos</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.meusFavorito' ? 'class=active' : '' }} href="{{ Route('minha-conta.meusFavorito') }}">Meus Favoritos</a>
+                    </li>
+                    <li>
+                        <a {{ Request::route()->getName() == 'minha-conta.mensagem' ? 'class=active' : '' }} href="{{ Route('minha-conta.mensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a>
+                    </li>
+                    @can('admin')
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
-                    @endif
-                    <li><a href='/logout'>Sair</a></li>
+                    @endcan
+                    <li><a href='/logout' style="font-weight:bold;color:#CD3333;">Sair</a></li>
                 </ul>
             </span>
         @endif
@@ -81,12 +101,39 @@
 </div>
 
 <!-- IMAGEM FUNDO -->
-<div class="img_fundo">
-    <img src="/imagens/banner.jpg" width="100%" />
-</div>
+@if(Request::route()->getName() == 'home')
+    {{-- <div class="img_fundo"> --}}
+        {{-- <img src="/imagens/banner.jpg" width="100%" /> --}}
+    {{-- </div> --}}
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+        </ol>
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <img src="/imagens/banner.jpg" alt="Brechó Adventure" width="100%">
+            </div>
+            <div class="item">
+                <img src="/imagens/banner.jpg" alt="Brechó Adventure" width="100%">
+            </div>
+        </div>
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+@endif
 
 <!-- BUSCA -->
-<div class='campo-buscar'>
+{{-- <div class='campo-buscar'>
     <div class="input-group hidden-xs">
     	<input type="text" class="form-control busca" placeholder="Buscar">
     	<div class="btn-group input-group-btn">
@@ -94,7 +141,7 @@
     		</button>
     	</div>
     </div>
-</div>
+</div> --}}
 
 <br style="clear:both;"/><br>
 

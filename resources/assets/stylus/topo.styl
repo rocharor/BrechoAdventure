@@ -23,6 +23,7 @@
                 color:$color6;
             .active
                 color: $color7;
+                font-style:italic;
     .topo_direito
         float:right;
         padding-right: 5px;
@@ -69,6 +70,12 @@
                 li
                     a:hover
                         background-color: $color4;
+                        font-weight:bold;
+                    .active
+                        background-color: $color4;
+                        color:$color7;
+                        font-weight:bold;
+                        font-style:italic;
 
 .menu-mobile
     background-color: $color1;
@@ -116,11 +123,17 @@
                     margin-top: -5px;
             .menu_logado
                 margin: 2px -100px 0;
+            li
+                .active
+                    background-color: $color4;
+                    color:$color7;
+                    font-weight:bold;
+                    font-style:italic;
 
 /*CAMPO BUSCAR*/
 .campo-buscar
 	position: absolute;
 	width: 20%;
+	z-index: 999;
 	top:80px;
 	right:10px;
-    z-index: 999;

@@ -11,9 +11,8 @@
 	@else
 		<div class="row" >
 			<div class="col-xs-12 col-sm-10 el-produtos hide">
-				<h1 class="text-success" align="center">Novidades</h1>
-				<p>Confira os novos produtos adicionados recentemente em nosso site.</p>
-				<p>Fique sempre atento em nossa promoções :)</p>
+				<h1 align="center">Bem vindo ao Brechó Adventure</h1>
+				<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>				
 				@foreach($produtos as $produto)
 					<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
 						<div class="div-produtos" align="center">
