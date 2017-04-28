@@ -12,7 +12,7 @@
 		<div class="row" >
 			<div class="col-xs-12 col-sm-10 el-produtos hide">
 				<h1 align="center">Bem vindo ao Brechó Adventure</h1>
-				<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>				
+				<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>
 				@foreach($produtos as $produto)
 					<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
 						<div class="div-produtos" align="center">
@@ -41,7 +41,8 @@
 
 							<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
 							<div>
-								<button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button>
+								{{-- <button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button> --}}
+								<a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class='btn btn-warning'><b>Ver detalhes</b></a>
 								@if(Auth::check() != 0)
 									<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
 								@endif
@@ -67,7 +68,7 @@
 		</div>
 		<br><br>
 		<div align="center">
-			<a href="/produto/todosProdutos/1" class="btn btn-primary" style="width: 50%">VER TODOS</a>
+			<a href="/produto/todosProdutos" class="btn btn-primary" style="width: 50%">VER TODOS</a>
 		</div>
 	@endif
 

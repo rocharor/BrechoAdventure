@@ -18,6 +18,7 @@ Route::post('/cache/getFilter',['as'=>'getFilter','uses'=>'Site\ProdutoControlle
 // Menus
 Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
 Route::get('/produto/todosProdutos/{pg?}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
+Route::get('/produto/visualizarProduto/{produto_id}',['as'=>'visualizarProduto','uses'=>'Site\ProdutoController@show']);
 Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
 // Açoes

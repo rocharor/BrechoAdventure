@@ -33,6 +33,7 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
+            $produto->idCodificado = base64_encode($produto->id);            
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
             $produto->favorito = false;
@@ -44,9 +45,10 @@ class ProdutoController extends Controller
         }
 
         return view('site/produto',['produtos'=>$produtos]);
+
     }
 
-    public function todosProdutos($pg=1, Favorito $favorito, Request $request)
+    public function todosProdutos(Favorito $favorito, Request $request,$pg=1)
     {
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
         $this->model->limit = $limit['inicio'];
@@ -146,14 +148,21 @@ class ProdutoController extends Controller
 
     }
 
-    public function show(Request $request)
+    // public function show(Request $request)
+    // {
+    //     $produto_id = $request->get('produto_id');
+    //     $produtos = $this->model->getDescricaoProduto($produto_id);
+    //
+    //     //echo response($produtos)->content();
+    //     echo response()->json($produtos)->content();
+    //     die();
+    // }
+    public function show($produto_id)
     {
-        $produto_id = $request->get('produto_id');
-        $produtos = $this->model->getDescricaoProduto($produto_id);
+        $produto_id = base64_decode($produto_id);
+        $produto = $this->model->getDescricaoProduto($produto_id);
 
-        //echo response($produtos)->content();
-        echo response()->json($produtos)->content();
-        die();
+        return view('site/visualizarProduto',['produto'=>$produto]);
     }
 
     public function edit($id, Categoria $categoria)

@@ -125,31 +125,32 @@ class Produto extends Model
     public function getDescricaoProduto($produto_id)
     {
         $produto_id = (int) $produto_id;
-        $dadosProduto = Produto::find($produto_id);
-        $dadosUser = $dadosProduto->user;
+        $dadosProduto = $this->where('produtos.id',$produto_id)
+        ->join('categorias as c','produtos.categoria_id','c.id')
+        ->join('users as u', 'produtos.user_id', 'u.id')
+        ->select('produtos.*','u.*','c.categoria')
+        ->get();
 
-        $arrProduto = '';
-        if($dadosUser != '' && $dadosProduto != ''){
-            $arrProduto = [
-                'titulo'=>$dadosProduto->titulo,
-                'categoria_id'=>$dadosProduto->categoria_id,
-                'descricao'=>$dadosProduto->descricao,
-                'valor'=>$dadosProduto->valor,
-                'estado'=>$dadosProduto->estado,
-                'nm_imagem'=>$dadosProduto->nm_imagem,
-                'name'=>$dadosUser->name,
-                'email'=>$dadosUser->email,
-                'fixo'=>$dadosUser->telefone_fixo,
-                'cel'=>$dadosUser->telefone_cel
-            ];
-        }
+        return $dadosProduto[0];
 
-        // $arrProduto = DB::table('produtos as p')
-        //             ->join('users as u','p.user_id','=','u.id')
-        //             ->select('p.categoria_id','p.titulo','p.descricao','p.valor','p.estado','p.nm_imagem','u.name','u.email','u.telefone_fixo as fixo','u.telefone_cel as cel')
-        //             ->where('p.id','=',$produto_id)
-        //             ->get();
+        // $dadosUser = $dadosProduto->user;
+        //
+        // $arrProduto = '';
+        // if($dadosUser != '' && $dadosProduto != ''){
+        //     $arrProduto = [
+        //         'titulo'=>$dadosProduto->titulo,
+        //         'categoria_id'=>$dadosProduto->categoria_id,
+        //         'descricao'=>$dadosProduto->descricao,
+        //         'valor'=>$dadosProduto->valor,
+        //         'estado'=>$dadosProduto->estado,
+        //         'nm_imagem'=>$dadosProduto->nm_imagem,
+        //         'name'=>$dadosUser->name,
+        //         'email'=>$dadosUser->email,
+        //         'fixo'=>$dadosUser->telefone_fixo,
+        //         'cel'=>$dadosUser->telefone_cel
+        //     ];
+        // }
 
-        return $arrProduto;
+        // return $arrProduto;
     }
 }
