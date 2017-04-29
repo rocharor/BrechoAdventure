@@ -33,7 +33,7 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
-            $produto->idCodificado = base64_encode($produto->id);            
+            $produto->idCodificado = base64_encode($produto->id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
             $produto->favorito = false;
@@ -57,6 +57,7 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
+            $produto->idCodificado = base64_encode($produto->id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
 
@@ -88,6 +89,7 @@ class ProdutoController extends Controller
         $meusProdutos = $this->model->getMeusProdutos(true);
 
         foreach($meusProdutos as $produto){
+            $produto->idCodificado = base64_encode($produto->id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
             $produto->dataExibicao = Util::formataDataExibicao($produto->created_at);
@@ -148,19 +150,17 @@ class ProdutoController extends Controller
 
     }
 
-    // public function show(Request $request)
-    // {
-    //     $produto_id = $request->get('produto_id');
-    //     $produtos = $this->model->getDescricaoProduto($produto_id);
-    //
-    //     //echo response($produtos)->content();
-    //     echo response()->json($produtos)->content();
-    //     die();
-    // }
     public function show($produto_id)
     {
         $produto_id = base64_decode($produto_id);
         $produto = $this->model->getDescricaoProduto($produto_id);
+
+        $imagens = [];
+        if ($produto->nm_imagem != '') {
+            $imagens = explode('|',$produto->nm_imagem);
+        }
+
+        $produto->imagens = $imagens;
 
         return view('site/visualizarProduto',['produto'=>$produto]);
     }
@@ -168,6 +168,7 @@ class ProdutoController extends Controller
     public function edit($id, Categoria $categoria)
     {
         $produto = $this->model->find($id);
+        $produto->idCodificado = base64_encode($id);
         $categorias = $categoria->all();
 
         $imagens = [];
@@ -309,5 +310,15 @@ class ProdutoController extends Controller
         echo $cache->getCache('filter');
         die();
     }
+
+    // public function show(Request $request)
+    // {
+    //     $produto_id = $request->get('produto_id');
+    //     $produtos = $this->model->getDescricaoProduto($produto_id);
+    //
+    //     //echo response($produtos)->content();
+    //     echo response()->json($produtos)->content();
+    //     die();
+    // }
 
 }

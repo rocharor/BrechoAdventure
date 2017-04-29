@@ -4,8 +4,8 @@
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo'>
         <div class="links">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
-            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos') }}">Todos Produtos</a>
-            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Contato</a>
+            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos') }}">Produtos</a>
+            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
         </div>
     </div>
 
@@ -52,7 +52,7 @@
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         <div class="links" style="font-size:7px">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
-            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Todos Produtos</a>
+            <a {{ Request::route()->getName() == 'todosProdutos' ? 'class=active' : '' }} href="{{ Route('todosProdutos',1) }}">Produtos</a>
             <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
         </div>
     </div>

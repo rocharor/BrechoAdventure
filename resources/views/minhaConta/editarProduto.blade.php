@@ -79,7 +79,8 @@
             @endif
 
         	<br />
-            <input type="submit" class="btn btn-primary" value="Salvar alteração" />
+            <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info" target='_blank'>Visualizar</a>
+            <input type="submit" class="btn btn-success" value="Salvar alteração" />
          </form>
      </div>
     <script type="text/javascript" src="/js/site/produto.js"></script>

@@ -31,9 +31,9 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/perfil',['as'=>'perfil','uses'=>'Site\PerfilController@index']);
     Route::get('/favorito',['as'=>'meusFavorito','uses'=>'Site\FavoritoController@index']);
     Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
-    Route::get('/produto/{pg?}',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
     Route::get('/produto/create',['as'=>'createProduto','uses'=>'Site\ProdutoController@create']);
     Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
+    Route::get('/produto/{pg?}',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
 
     // Ações
     Route::post('/favorito/storeFavorito',['as'=>'storeFavorito','uses'=>'Site\FavoritoController@store']);
