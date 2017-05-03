@@ -98,13 +98,47 @@ class PerfilController extends Controller
      */
     public function updateFoto(User $user, Request $request)
     {
+        if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid()){
+            $foto_salva = 0;
+            $ext = $request->imagemCrop->extension();
+            if($this->validaExtImagem($ext)){
+                $targ_w = $request->w;
+                $targ_h = $request->h;
+                $jpeg_quality = 90;
+
+                $src = $request->imagemCrop->getPathName();
+                $img_r = imagecreatefromjpeg($src);
+                $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
+                imagecopyresampled($dst_r,$img_r,0,0,$request->x,$request->y,$targ_w,$targ_h,$request->w,$request->h);
+                $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
+                $foto_salva = imagejpeg($dst_r, 'imagens/cadastro/'.$foto_nome);
+            }
+
+            if ($foto_salva) {
+                $imagemAntiga = Auth::user()->nome_imagem;
+                if($imagemAntiga != 'padrao.jpg'){
+                    $filename = public_path("imagens\cadastro\\" . $imagemAntiga);
+                    File::delete($filename);
+                }
+
+                $r = $user->find(Auth::user()->id);
+                $ret =  $r->update(['nome_imagem'=>$foto_nome]);
+                    if ($ret) {
+                        return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
+                    }
+            }
+            return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+        }
+        
+
+        /*
         // $arquivo_file = $request->file('imagemPerfil');
         $foto_salva = false;
         if ($request->hasFile('imagemPerfil') && $request->file('imagemPerfil')->isValid()){
             $ext = $request->imagemPerfil->extension();
             if($this->validaExtImagem($ext)){
-                // $path = $request->imagemPerfil->store('imagens/cadastro'); /* envia as imagens para a pasta Storage/app*/
-                // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome); /*mesma coisa só que pode setar o nome*/
+                // $path = $request->imagemPerfil->store('imagens/cadastro'); //envia as imagens para a pasta Storage/app
+                // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome); // mesma coisa só que pode setar o nome
                 $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
                 $foto_salva = $request->imagemPerfil->move(public_path("imagens/cadastro"), $foto_nome);
             }
@@ -126,5 +160,6 @@ class PerfilController extends Controller
 
         return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
         // return redirect()->action('MinhaConta\PerfilController@index', $retorno);
+        */
     }
 }

@@ -12,26 +12,16 @@ var PerfilClass = (function() {
         },
         actions: function() {
 			var self = this;
-            $('#foto_upd').on('change',function(e){
-                e.preventDefault();
-                var $file = $('#foto_upd')[0];
-                self.altera_imagem($file);
-            })
-
-            $('.act-alter-foto').on('click',function(e){
-                e.preventDefault();
-                $('#foto_upd').trigger('click');
-            });
-
-            $('#btnCancelarFoto').on('click',function(e){
-                e.preventDefault();
-                $('.act-alter-foto').removeClass('hide');
-                $('#btnEnviaFoto').addClass('hide');
-                $('#btnCancelarFoto').addClass('hide');
-                $('.img_nova').addClass('hide');
-
-                $('.nm_imagem').html('');
-            });
+            // $("#foto_upd").on('change',function(e){
+            //     e.preventDefault();
+            //     var $file = $('#foto_upd')[0];
+            //     self.altera_imagem($file);
+            // })
+            //
+            // $('.alterar-foto').on('click',function(e){
+            //     e.preventDefault();
+            //     $('#foto_upd').trigger('click');
+            // });
 
             $('.act-update').on('click',function(e){
 
@@ -65,16 +55,6 @@ var PerfilClass = (function() {
          	// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
          	// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
          	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
-        },
-        altera_imagem: function($file){
-            carregarMiniatura($file,'img_nova');
-
-            $('.act-alter-foto').addClass('hide');
-            $('#btnEnviaFoto').removeClass('hide');
-            $('#btnCancelarFoto').removeClass('hide');
-            $('.img_nova').removeClass('hide');
-
-            $('.nm_imagem').append($file.files[0].name);
         },
         validaPerfil: function(){
             var nome = $('#nome_upd').val();
@@ -117,7 +97,16 @@ var PerfilClass = (function() {
             }
 
             $('#formPerfil').submit();
-        }
+        },
+        // altera_imagem: function($file){
+        //     carregarMiniatura($file,'img_nova');
+        //     $('.alterar-foto').addClass('hide');
+        //     $('#btnEnviaFoto').removeClass('hide');
+        //     $('#btnCancelarFoto').removeClass('hide');
+        //     $('.img_nova').removeClass('hide');
+        //
+        //     $('.nm_imagem').append($file.files[0].name);
+        // }
 
     };
 
@@ -163,3 +152,77 @@ function limpaEndereco(){
     $("#cidade_upd").val('');
     $("#uf_upd").val('');
 }
+
+$("#select_image").on('change',function(){
+
+    // var $file = $("#select_image")[0];
+    var $file = $(this)[0];
+    if ($file.files && $file.files[0]) {
+        var reader = new FileReader;
+        reader.onload = function() {
+            var img = new Image;
+            img.onload = function() {
+                if (img.width > 600 || img.height > 400) {
+                    $(this).next().append('Imagem tem dimensões maiores que o permitido.')
+                    return false;
+                }
+                if ($file['files'][0]['size'] > 1000000) {
+                    $(this).next().append('Imagem ultrapassa o tamanho permitido.')
+                    return false;
+                }
+                $('#visualizacao_imagem').attr('src', '');
+                // $('#visualizacao_imagem').attr('src', reader.target.result);
+                $('#visualizacao_imagem').attr('src', reader.result);
+                $('.div_visualizacao').removeClass('hide');
+                $(".div_imagem").addClass('hide');
+
+                $('#visualizacao_imagem').Jcrop({
+                    aspectRatio: 0,
+                    onSelect: atualizaCoordenadas,
+                    onChange: atualizaCoordenadas
+                });
+
+            }
+            img.src = reader.result;
+        }
+        reader.readAsDataURL($file.files[0]);
+    }
+    // $('#visualizacao_imagem').attr('src', '');
+    // var $file = $('#select_image')[0];
+    // if ($file.files && $file.files[0]) {
+    //     var reader = new FileReader();
+    //
+    //     reader.onload = function (e) {
+    //         $('#visualizacao_imagem').attr('src', e.target.result);
+    //         $('.div_visualizacao').removeClass('hide');
+    //         $("#select_image").addClass('hide');
+    //
+    //         $('#visualizacao_imagem').Jcrop({
+    //             aspectRatio: 0,
+    //             onSelect: atualizaCoordenadas,
+    //             onChange: atualizaCoordenadas
+    //         });
+    //     }
+    //     reader.readAsDataURL($file.files[0]);
+    // }
+});
+
+function atualizaCoordenadas(c){
+    $('#x').val(c.x);
+    $('#y').val(c.y);
+    $('#w').val(c.w);
+    $('#h').val(c.h);
+}
+
+function checkCoords(){
+    if (parseInt($('#w').val()))
+        return true;
+    alert('Selecione a área para recorte.');
+    return false;
+}
+
+$('#btnCancelarFoto').on('click',function(e){
+    e.preventDefault();
+    $('.div_visualizacao').addClass('hide');
+    $(".div_imagem").removeClass('hide');
+});

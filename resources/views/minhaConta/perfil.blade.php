@@ -5,26 +5,54 @@
       <li class="active">Perfil</li>
     </ol>
 
+    <link rel="stylesheet" href="/libs/jcrop/css/jquery.Jcrop.css" type="text/css" />
     <link type="text/css" rel="stylesheet" href="/css/minhaConta.css" />
 
     <h1 class="text-danger">PERFIL</h1>
     <div>
         <div align="left">
-            <form action='/minha-conta/perfil/updateFoto' name='formFotoPerfil' method='POST' enctype="multipart/form-data">
-                {{ csrf_field() }}
+            <div class="visible-xs">
+                {{-- <form action='/minha-conta/perfil/updateFoto' name='formFotoPerfil' method='POST' enctype="multipart/form-data">
+                    {{ csrf_field() }}
 
-                <div>
-                    <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" />
-                    <img src="" alt="brechoAdventure" class="img_perfil img_nova hide" /><br>
-                </div>
-                <small><a class="act-alter-foto">Alterar foto de perfil</a></small>
-                <br>
-                <button type='submit' id='btnEnviaFoto' class="btn btn-success hide">Salvar foto</button>&nbsp;&nbsp;
-                <button id='btnCancelarFoto' class="btn btn-danger hide"><span class="glyphicon glyphicon-trash"></span></button>&nbsp;&nbsp;
-                <b><small class='nm_imagem'></small></b>
+                    <div>
+                        <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" />
+                        <img src="" alt="brechoAdventure" class="img_perfil img_nova hide" /><br>
+                    </div>
+                    <small><a class="alterar-foto">Alterar foto de perfil</a></small>
+                    <br>
+                    <button type='submit' id='btnEnviaFoto' class="btn btn-success hide">Salvar foto</button>&nbsp;&nbsp;
+                    <button id='btnCancelarFoto' class="btn btn-danger hide"><span class="glyphicon glyphicon-trash"></span></button>&nbsp;&nbsp;
+                    <b><small class='nm_imagem'></small></b>
 
-                <input type="file" class="hide" id='foto_upd' name='imagemPerfil' {{--onchange="altera_imagem()"--}}>
-            </form>
+                    <input type="file" class="hide" id='foto_upd' name='imagemPerfil'>
+                </form> --}}
+            </div>
+            <div class="hidden-xs">
+                <form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checkCoords();">
+                    {{ csrf_field() }}
+                    <input type="hidden" id="x" name="x" />
+                    <input type="hidden" id="y" name="y" />
+                    <input type="hidden" id="w" name="w" />
+                    <input type="hidden" id="h" name="h" />
+
+                    <div class='div_imagem'>
+                        <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" />
+                        <small class='text-danger'>A imagem deve ter dimensções entre w600px x h400px e tamanho max de 1Mb </small>
+                        <input type="file" id='select_image' name='imagemCrop'>
+                        <span class='error'></span>
+                    </div>
+
+                    <div class="div_visualizacao hide">
+                        <p class='text-danger'>Selecione onde quer cortar a imagem</p>
+                        <img src="" id="visualizacao_imagem" />
+                        <br />
+                        <input type="submit" id="recortar" class='btn btn-primary' value="Recortar Imagem" />
+                        <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
+                    </div>
+                </form>
+            </div>
+
         </div>
         <br>
 
@@ -92,5 +120,7 @@
         </form>
     </div>
 
+    <script type="text/javascript" src="/libs/jcrop/js/jquery.Jcrop.js"></script>
     <script type="text/javascript" src="/js/site/perfil.js"></script>
+
 @endsection
