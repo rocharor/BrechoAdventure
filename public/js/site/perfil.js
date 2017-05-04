@@ -10,26 +10,44 @@ var PerfilClass = (function() {
           this.actions();
           this.mask();
         },
+        
         actions: function() {
 			var self = this;
+
+            $('.alterar-foto').on('mouseover',function(e){
+                $('.instrucao').removeClass('hide');
+            });
+
+            $('.alterar-foto').on('click',function(e){
+                e.preventDefault();
+                $('#select_image').trigger('click');
+            });
+
+            $("#select_image").on('change',function(e){
+                e.preventDefault();
+                var $file = $(this)[0];
+                self.altera_imagem_perfil($file);
+            });
+
+            $('#btnCancelarFoto').on('click',function(e){
+                e.preventDefault();
+                $('.div_visualizacao').addClass('hide');
+                $(".div_imagem").removeClass('hide');
+            });
+
+            $('.act-update').on('click',function(e){
+                e.preventDefault();
+                self.validaPerfil();
+            });
+
             // $("#foto_upd").on('change',function(e){
             //     e.preventDefault();
             //     var $file = $('#foto_upd')[0];
             //     self.altera_imagem($file);
             // })
             //
-            // $('.alterar-foto').on('click',function(e){
-            //     e.preventDefault();
-            //     $('#foto_upd').trigger('click');
-            // });
-
-            $('.act-update').on('click',function(e){
-
-                e.preventDefault();
-
-                self.validaPerfil();
-            });
         },
+
         mask: function(){
             VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
             VMasker(document.getElementById("cep_upd")).maskPattern('99999-999');
@@ -56,6 +74,7 @@ var PerfilClass = (function() {
          	// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
          	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
         },
+
         validaPerfil: function(){
             var nome = $('#nome_upd').val();
             var email = $('#email_upd').val();
@@ -98,6 +117,86 @@ var PerfilClass = (function() {
 
             $('#formPerfil').submit();
         },
+
+        altera_imagem_perfil: function($file){
+            $("#select_image").next().html('');
+            var reader = new FileReader;
+            reader.onload = function() {
+                var img = new Image;
+                img.onload = function() {
+                    if (img.width > 600 || img.height > 400) {
+                        $("#select_image").next().html('Imagem tem dimensões maiores que o permitido.')
+                        return false;
+                    }
+                    if ($file['files'][0]['size'] > 1000000) {
+                        $("#select_image").next().html('Imagem ultrapassa o tamanho permitido.')
+                        return false;
+                    }
+
+                    if ($file['files'][0]['type'] != 'image/png' && $file['files'][0]['type'] != 'image/jpeg') {
+                        $("#select_image").next().html('Extensão da imagem não é permitida.')
+                        return false;
+                    }
+
+                    var html = '<img src="'+reader.result+'" id="target" alt="Foto perfil" />'
+                    $('#div_imagem').html(html);
+                    var html_preview = '<div id="preview-pane"><div class="preview-container"><img src="'+reader.result+'" class="jcrop-preview" alt="Foto perfil Preview" /></div></div>'
+                    $('.preview').html(html_preview);
+                    $('.div_visualizacao').removeClass('hide');
+                    $('.div_imagem').addClass('hide');
+
+                    var jcrop_api,
+                        boundx,
+                        boundy,
+                        $preview = $('#preview-pane'),
+                        $pcnt = $('#preview-pane .preview-container'),
+                        $pimg = $('#preview-pane .preview-container img'),
+                        xsize = $pcnt.width(),
+                        ysize = $pcnt.height();
+
+                    $('#target').Jcrop({
+                        onChange: updatePreview,
+                        onSelect: updatePreview,
+                        aspectRatio: 0,
+                        setSelect: [ 0, 0, 0, 0 ],
+                        maxSize: [ 400, 400 ]
+                        // minSize: [ 80, 80 ],
+                        // bgFade:     true,
+                        // bgOpacity: .2,
+                        // bgColor:'#F0B207'
+                    //   aspectRatio: xsize / ysize
+                    },function(){
+                        var bounds = this.getBounds();
+                        boundx = bounds[0];
+                        boundy = bounds[1];
+                        jcrop_api = this;
+                        $preview.appendTo(jcrop_api.ui.holder);
+                    });
+
+                    function updatePreview(c){
+                        if (parseInt(c.w) > 0) {
+                            var rx = xsize / c.w;
+                            var ry = ysize / c.h;
+
+                            $pimg.css({
+                                width: Math.round(rx * boundx) + 'px',
+                                height: Math.round(ry * boundy) + 'px',
+                                marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                                marginTop: '-' + Math.round(ry * c.y) + 'px'
+                            });
+                        }
+                        $('#x').val(c.x);
+                        $('#y').val(c.y);
+                        $('#w').val(c.w);
+                        $('#h').val(c.h);
+                    };
+                }
+                img.src = reader.result;
+            }
+            reader.readAsDataURL($file.files[0]);
+
+        },
+
         // altera_imagem: function($file){
         //     carregarMiniatura($file,'img_nova');
         //     $('.alterar-foto').addClass('hide');
@@ -115,16 +214,23 @@ var PerfilClass = (function() {
 
 new PerfilClass().init();
 
+// FUNÇÕES DIVERSAS
+function checkCoords(){
+    if (parseInt($('#w').val()))
+        return true;
+    alertaPagina('Selecione a área para recorte.','danger');
+    return false;
+}
 
 function buscaCEP(cep){
     var cep = cep.replace(/\D/g, '');
     if (cep != "") {
         var validacep = /^[0-9]{8}$/;
-        if(validacep.test(cep)) {
-            $("#endereco_upd").val("...");
-            $("#bairro_upd").val("...");
-            $("#cidade_upd").val("...");
-            $("#uf_upd").val("...");
+        if (validacep.test(cep)) {
+            $("#endereco_upd").val(".....");
+            $("#bairro_upd").val(".....");
+            $("#cidade_upd").val(".....");
+            $("#uf_upd").val(".....");
 
             $.getJSON("//viacep.com.br/ws/"+ cep +"/json/?callback=?", function(dados) {
                 if (!("erro" in dados)) {
@@ -132,16 +238,16 @@ function buscaCEP(cep){
                     $("#bairro_upd").val(dados.bairro);
                     $("#cidade_upd").val(dados.localidade);
                     $("#uf_upd").val(dados.uf);
-                }else {
+                } else {
                     limpaEndereco();
                     alert("CEP não encontrado.");
                 }
             });
-        }else {
+        } else {
             limpaEndereco();
             alert("Formato de CEP inválido.");
         }
-    }else {
+    } else {
         limpaEndereco();
     }
 }
@@ -153,77 +259,6 @@ function limpaEndereco(){
     $("#uf_upd").val('');
 }
 
-$("#select_image").on('change',function(){
-    var $file = $(this)[0];
-    var reader = new FileReader;
-        reader.onload = function() {
-            var img = new Image;
-            img.onload = function() {
-                var html = '<img src="'+reader.result+'" id="target" alt="Foto perfil" />'
-                $('#div_imagem').html(html);
-                var html_preview = '<img src="'+reader.result+'" class="jcrop-preview" alt="Foto perfil Preview" />'
-                console.log(html_preview)
-                $('.preview-container').html(html_preview);
-                $('.div_visualizacao').removeClass('hide');
-
-                var jcrop_api,
-                    boundx,
-                    boundy,
-                    $preview = $('#preview-pane'),
-                    $pcnt = $('#preview-pane .preview-container'),
-                    $pimg = $('#preview-pane .preview-container img'),
-                    xsize = $pcnt.width(),
-                    ysize = $pcnt.height();
-
-                $('#target').Jcrop({
-                    onChange: updatePreview,
-                    onSelect: updatePreview,
-                    aspectRatio: 0,
-                //   aspectRatio: xsize / ysize
-                },function(){
-                    var bounds = this.getBounds();
-                    boundx = bounds[0];
-                    boundy = bounds[1];
-                    jcrop_api = this;
-
-                    $preview.appendTo(jcrop_api.ui.holder);
-                });
-
-                function updatePreview(c){
-                    if (parseInt(c.w) > 0) {
-                        var rx = xsize / c.w;
-                        var ry = ysize / c.h;
-
-                        $pimg.css({
-                            width: Math.round(rx * boundx) + 'px',
-                            height: Math.round(ry * boundy) + 'px',
-                            marginLeft: '-' + Math.round(rx * c.x) + 'px',
-                            marginTop: '-' + Math.round(ry * c.y) + 'px'
-                        });
-                    }
-                    $('#x').val(c.x);
-                    $('#y').val(c.y);
-                    $('#w').val(c.w);
-                    $('#h').val(c.h);
-                };
-            }
-            img.src = reader.result;
-        }
-        reader.readAsDataURL($file.files[0]);
-});
-
-function checkCoords(){
-    if (parseInt($('#w').val()))
-        return true;
-    alert('Selecione a área para recorte.');
-    return false;
-}
-
-$('#btnCancelarFoto').on('click',function(e){
-    e.preventDefault();
-    $('.div_visualizacao').addClass('hide');
-    $(".div_imagem").removeClass('hide');
-});
 
 // $("#select_image").on('change',function(){
     // var $file = $(this)[0];
