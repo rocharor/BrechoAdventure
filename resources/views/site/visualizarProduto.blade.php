@@ -4,9 +4,6 @@
 	<script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
 	<link type="text/css" rel="stylesheet" href="/libs/xZoom/dist/xzoom.css" />
 	<script src="/libs/xZoom/dist/xzoom.min.js"></script>
-	{{-- <script src="/libs/jquery/dist/jquery.js"></script> --}}
-	{{-- <script src='https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/js/xzoom.min.js'></script> --}}
-	{{-- <link rel="stylesheet" href="https://www.jqueryscript.net/demo/Feature-rich-Product-Gallery-With-Image-Zoom-xZoom/css/xzoom.css"> --}}
 
 	<ol class="breadcrumb">
 		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>

@@ -154,65 +154,63 @@ function limpaEndereco(){
 }
 
 $("#select_image").on('change',function(){
-
-    // var $file = $("#select_image")[0];
     var $file = $(this)[0];
-    if ($file.files && $file.files[0]) {
-        var reader = new FileReader;
+    var reader = new FileReader;
         reader.onload = function() {
             var img = new Image;
             img.onload = function() {
-                if (img.width > 600 || img.height > 400) {
-                    $(this).next().append('Imagem tem dimensões maiores que o permitido.')
-                    return false;
-                }
-                if ($file['files'][0]['size'] > 1000000) {
-                    $(this).next().append('Imagem ultrapassa o tamanho permitido.')
-                    return false;
-                }
-                $('#visualizacao_imagem').attr('src', '');
-                // $('#visualizacao_imagem').attr('src', reader.target.result);
-                $('#visualizacao_imagem').attr('src', reader.result);
+                var html = '<img src="'+reader.result+'" id="target" alt="Foto perfil" />'
+                $('#div_imagem').html(html);
+                var html_preview = '<img src="'+reader.result+'" class="jcrop-preview" alt="Foto perfil Preview" />'
+                console.log(html_preview)
+                $('.preview-container').html(html_preview);
                 $('.div_visualizacao').removeClass('hide');
-                $(".div_imagem").addClass('hide');
 
-                $('#visualizacao_imagem').Jcrop({
+                var jcrop_api,
+                    boundx,
+                    boundy,
+                    $preview = $('#preview-pane'),
+                    $pcnt = $('#preview-pane .preview-container'),
+                    $pimg = $('#preview-pane .preview-container img'),
+                    xsize = $pcnt.width(),
+                    ysize = $pcnt.height();
+
+                $('#target').Jcrop({
+                    onChange: updatePreview,
+                    onSelect: updatePreview,
                     aspectRatio: 0,
-                    onSelect: atualizaCoordenadas,
-                    onChange: atualizaCoordenadas
+                //   aspectRatio: xsize / ysize
+                },function(){
+                    var bounds = this.getBounds();
+                    boundx = bounds[0];
+                    boundy = bounds[1];
+                    jcrop_api = this;
+
+                    $preview.appendTo(jcrop_api.ui.holder);
                 });
 
+                function updatePreview(c){
+                    if (parseInt(c.w) > 0) {
+                        var rx = xsize / c.w;
+                        var ry = ysize / c.h;
+
+                        $pimg.css({
+                            width: Math.round(rx * boundx) + 'px',
+                            height: Math.round(ry * boundy) + 'px',
+                            marginLeft: '-' + Math.round(rx * c.x) + 'px',
+                            marginTop: '-' + Math.round(ry * c.y) + 'px'
+                        });
+                    }
+                    $('#x').val(c.x);
+                    $('#y').val(c.y);
+                    $('#w').val(c.w);
+                    $('#h').val(c.h);
+                };
             }
             img.src = reader.result;
         }
         reader.readAsDataURL($file.files[0]);
-    }
-    // $('#visualizacao_imagem').attr('src', '');
-    // var $file = $('#select_image')[0];
-    // if ($file.files && $file.files[0]) {
-    //     var reader = new FileReader();
-    //
-    //     reader.onload = function (e) {
-    //         $('#visualizacao_imagem').attr('src', e.target.result);
-    //         $('.div_visualizacao').removeClass('hide');
-    //         $("#select_image").addClass('hide');
-    //
-    //         $('#visualizacao_imagem').Jcrop({
-    //             aspectRatio: 0,
-    //             onSelect: atualizaCoordenadas,
-    //             onChange: atualizaCoordenadas
-    //         });
-    //     }
-    //     reader.readAsDataURL($file.files[0]);
-    // }
 });
-
-function atualizaCoordenadas(c){
-    $('#x').val(c.x);
-    $('#y').val(c.y);
-    $('#w').val(c.w);
-    $('#h').val(c.h);
-}
 
 function checkCoords(){
     if (parseInt($('#w').val()))
@@ -226,3 +224,42 @@ $('#btnCancelarFoto').on('click',function(e){
     $('.div_visualizacao').addClass('hide');
     $(".div_imagem").removeClass('hide');
 });
+
+// $("#select_image").on('change',function(){
+    // var $file = $(this)[0];
+    // if ($file.files && $file.files[0]) {
+    //     var reader = new FileReader;
+    //     reader.onload = function() {
+    //         var img = new Image;
+    //         img.onload = function() {
+    //             if (img.width > 600 || img.height > 400) {
+    //                 $("#select_image").next().html('Imagem tem dimensões maiores que o permitido.')
+    //                 return false;
+    //             }
+    //             if ($file['files'][0]['size'] > 1000000) {
+    //                 $("#select_image").next().html('Imagem ultrapassa o tamanho permitido.')
+    //                 return false;
+    //             }
+    //             var html = '<img src="'+reader.result+'" id="visualizacao_imagem" />'
+    //             $('#visualizacao_imagem').html(html);
+    //             $('.div_visualizacao').removeClass('hide');
+    //             $(".div_imagem").addClass('hide');
+    //
+    //             $('#visualizacao_imagem').Jcrop({
+    //                 aspectRatio: 0,
+    //                 onSelect: atualizaCoordenadas,
+    //                 onChange: atualizaCoordenadas
+    //             });
+    //         }
+    //         img.src = reader.result;
+    //     }
+    //     reader.readAsDataURL($file.files[0]);
+    // }
+// });
+
+// function atualizaCoordenadas(c){
+//     $('#x').val(c.x);
+//     $('#y').val(c.y);
+//     $('#w').val(c.w);
+//     $('#h').val(c.h);
+// }

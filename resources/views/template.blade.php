@@ -27,7 +27,6 @@
         <!-- BOOTSTRAP CSS-->
         <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="/libs/animate.css/animate.css" />
-		<link type="text/css" rel="stylesheet" href="/libs/jquery-ui-autocomplete/jquery-ui.min.css" />
 
 		{{-- <link type="text/css" rel="stylesheet" href="/css/global.css" /> --}}
 		<link type="text/css" rel="stylesheet" href="/css/topo.css" />
@@ -39,7 +38,6 @@
 		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
 		<script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
 		<script src="/libs/vue2/dist/vue.min.js"></script>
-		<script src="/libs/jquery-ui-autocomplete/jquery-ui.min.js"></script>
 		<script src="/js/global.js"></script>
     </head>
     <body>

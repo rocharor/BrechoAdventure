@@ -8,6 +8,33 @@
     <link rel="stylesheet" href="/libs/jcrop/css/jquery.Jcrop.css" type="text/css" />
     <link type="text/css" rel="stylesheet" href="/css/minhaConta.css" />
 
+    <style type="text/css">
+        .jcrop-holder #preview-pane {
+            display: block;
+            position: absolute;
+            z-index: 2000;
+            top: 10px;
+            right: -280px;
+            padding: 6px;
+            border: 1px rgba(0,0,0,.4) solid;
+            background-color: white;
+
+            -webkit-border-radius: 6px;
+            -moz-border-radius: 6px;
+            border-radius: 6px;
+
+            -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+            -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+            box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        #preview-pane .preview-container {
+            width: 250px;
+            height: 170px;
+            overflow: hidden;
+        }
+    </style>
+
     <h1 class="text-danger">PERFIL</h1>
     <div>
         <div align="left">
@@ -30,7 +57,7 @@
             </div>
             <div class="hidden-xs">
                 <form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checkCoords();">
-                    {{ csrf_field() }}
+                     {{ csrf_field() }}
                     <input type="hidden" id="x" name="x" />
                     <input type="hidden" id="y" name="y" />
                     <input type="hidden" id="w" name="w" />
@@ -38,18 +65,31 @@
 
                     <div class='div_imagem'>
                         <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" />
-                        <small class='text-danger'>A imagem deve ter dimensções entre w600px x h400px e tamanho max de 1Mb </small>
+                        <br />
+                        <small class='text-danger'>A imagem deve ter dimensções de até 600px x 400px e tamanho max de 1Mb </small>
                         <input type="file" id='select_image' name='imagemCrop'>
-                        <span class='error'></span>
+                        <span class='text-danger'></span>
                     </div>
+                    {{--
+                    <div class="div_visualizacao hide">
+                        <p class='text-danger'>Selecione onde quer cortar a imagem</p>
+                        <div id="visualizacao_imagem"></div>
+                        <br />
+                        <input type="submit" id="recortar" class='btn btn-primary' value="Recortar Imagem" />
+                        <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
+                    </div> --}}
 
                     <div class="div_visualizacao hide">
                         <p class='text-danger'>Selecione onde quer cortar a imagem</p>
-                        <img src="" id="visualizacao_imagem" />
+                        <div id="div_imagem">{{-- IMAGEM GRANDE --}}</div>
+                        <div id="preview-pane">
+                            <div class="preview-container">{{-- IMAGEM PREVIEW --}}</div>
+                        </div>
                         <br />
                         <input type="submit" id="recortar" class='btn btn-primary' value="Recortar Imagem" />
                         <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
                     </div>
+
                 </form>
             </div>
 
