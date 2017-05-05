@@ -31,7 +31,7 @@ perfil.js
     }
 </style>
 
-<form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checkCoords();">
+<form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">
     <div class="visible-xs">
         {{-- <form action='/minha-conta/perfil/updateFoto' name='formFotoPerfil' method='POST' enctype="multipart/form-data">
             {{ csrf_field() }}
@@ -72,7 +72,7 @@ perfil.js
             <div id="div_imagem">{{-- IMAGEM GRANDE --}}</div>
             <div class="preview">{{-- IMAGEM PREVIEW --}}</div>
             <br />
-            <input type="submit" id="recortar" class='btn btn-primary' value="Recortar Imagem" />
+            <input type="submit" id="recortar" class='btn btn-success' value="Recortar Imagem" />
             <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
         </div>
 

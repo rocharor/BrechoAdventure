@@ -3,101 +3,97 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
+use Auth;
+use File;
 
-class Upload
+trait Upload
 {
+// class Upload
     private $arquivo;
-    private $altura;
-    private $largura;
-    private $pasta;
+    private $h;
+    private $w;
+    private $x;
+    private $y;
+    private $destino;
+    private $extencoes_imagem = [
+        'jpeg',
+        'jpg',
+        'png'
+    ];
 
-    function __construct($arquivo, $altura, $largura, $pasta){
-        $this->arquivo = $arquivo;
-        $this->altura  = $altura;
-        $this->largura = $largura;
-        $this->pasta   = $pasta;
-    }
 
-    //retorna a extensao da imagem
-    private function getExtensao(){
-        return $extensao = strtolower(end(explode('.', $this->arquivo['name'])));
-    }
+    /**
+     * Redimensiona imagem conforme parametros passados no "salvaCrop"
+     * @param  [type] $extensao [Extensão do arquivo]
+     * @return [type]           [Nome da nova imagem ou False]
+     */
+    private function redimensionar($extensao)
+    {
+        $novaImagem = imagecreatetruecolor($this->w, $this->h);
+        $novoNome = Auth::user()->id . '-' . date('d-m-Y_h_i_s') . '.' . $extensao;
+        $img_localizacao = $this->destino . $novoNome;
+        $fotoSalva = false;
 
-    private function ehImagem($extensao){
-        // extensoes permitidas
-        $extensoes = array('gif', 'jpeg', 'jpg', 'png');
-        if (in_array($extensao, $extensoes))
-            return true;
-    }
-
-    //largura, altura, tipo, localizacao da imagem original
-    //descobrir novo tamanho sem perder a proporcao
-    private function redimensionar($imgLarg, $imgAlt, $tipo, $img_localizacao){
-        if ( $imgLarg > $imgAlt ){
-            $novaLarg = $this->largura;
-            $novaAlt = round( ($novaLarg / $imgLarg) * $imgAlt );
-        }
-        elseif ( $imgAlt > $imgLarg ){
-            $novaAlt = $this->altura;
-            $novaLarg = round( ($novaAlt / $imgAlt) * $imgLarg );
-        }
-        else // altura == largura
-            $novaAltura = $novaLargura = max($this->largura, $this->altura);
-
-        //redimencionar a imagem
-        //cria uma nova imagem com o novo tamanho
-        $novaimagem = imagecreatetruecolor($novaLarg, $novaAlt);
-
-        switch ($tipo){
-            case 1:	// gif
-                $origem = imagecreatefromgif($img_localizacao);
-                imagecopyresampled($novaimagem, $origem, 0, 0, 0, 0,
-                $novaLarg, $novaAlt, $imgLarg, $imgAlt);
-                imagegif($novaimagem, $img_localizacao);
+        switch ($extensao){
+            case 'jpg':
+            case 'jpeg':
+                $origem = imagecreatefromjpeg($this->arquivo->path());
+                imagecopyresampled($novaImagem, $origem, 0, 0, $this->x, $this->y,$this->w, $this->h, $this->w, $this->h);
+                imagejpeg($novaImagem, $img_localizacao);
                 break;
-            case 2:	// jpg
-                $origem = imagecreatefromjpeg($img_localizacao);
-                imagecopyresampled($novaimagem, $origem, 0, 0, 0, 0,
-                $novaLarg, $novaAlt, $imgLarg, $imgAlt);
-                imagejpeg($novaimagem, $img_localizacao);
-                break;
-            case 3:	// png
-                $origem = imagecreatefrompng($img_localizacao);
-                imagecopyresampled($novaimagem, $origem, 0, 0, 0, 0,
-                $novaLarg, $novaAlt, $imgLarg, $imgAlt);
-                imagepng($novaimagem, $img_localizacao);
+            case 'png':
+                $origem = imagecreatefrompng($this->arquivo->path());
+                imagecopyresampled($novaImagem, $origem, 0, 0, $this->x, $this->y,$this->w, $this->h, $this->w, $this->h);
+                imagepng($novaImagem, $img_localizacao);
                 break;
         }
 
-        //destroi as imagens criadas
-        imagedestroy($novaimagem);
+        imagedestroy($novaImagem);
         imagedestroy($origem);
+
+        if (File::exists($img_localizacao)) {
+            return $novoNome;
+        }
+        return false;
     }
 
-    public function salvar(){
-        $extensao = $this->getExtensao();
-
-        //gera um nome unico para a imagem em funcao do tempo
-        $novo_nome = time() . '.' . $extensao;
-        //localizacao do arquivo
-        $destino = $this->pasta . $novo_nome;
-
-        //move o arquivo
-        if (! move_uploaded_file($this->arquivo['tmp_name'], $destino)){
-            if ($this->arquivo['error'] == 1)
-                return "Tamanho excede o permitido";
-            else
-                return "Erro " . $this->arquivo['error'];
-        }
-
-        if ($this->ehImagem($extensao)){
-            //pega a largura, altura, tipo e atributo da imagem
-            list($largura, $altura, $tipo, $atributo) = getimagesize($destino);
-
-            // testa se é preciso redimensionar a imagem
-            if(($largura > $this->largura) || ($altura > $this->altura))
-                $this->redimensionar($largura, $altura, $tipo, $destino);
-        }
-        return "Sucesso";
+    private function validaExtImagem($extensao){
+        return  in_array(strtolower($extensao), $this->extencoes_imagem);
     }
+
+    /**
+     * Recebe os parametros para redimensinoar a foto
+     * @param  [type] $arquivo [Objeto UploadedFile Laravel]
+     * @param  [type] $destino [Caminho do arquivo]
+     * @param  [type] $h       [Altura do arquivo]
+     * @param  [type] $w       [Largura do arquivo]
+     * @param  [type] $x       [Posição x inicial]
+     * @param  [type] $y       [Posição y inicial]
+     * @return [type]          [Nome da nova imagem ou False]
+     */
+    public function salvarCrop($arquivo, $destino, $h, $w, $x, $y)
+    {
+        $this->arquivo = $arquivo;
+        $this->destino = $destino;
+        $this->h = $h;
+        $this->w = $w;
+        $this->x = $x;
+        $this->y = $y;
+
+        $extensao = $this->arquivo->extension();
+
+        if ($this->validaExtImagem($extensao)) {
+            $novoNome = $this->redimensionar($extensao);
+            if ($novoNome){
+                return $novoNome;
+            }
+        }
+        return false;
+
+    }
+
+    public function salvarInteira($arquivo, $destino, $h, $w)
+    {
+    }
+
 }

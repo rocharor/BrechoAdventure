@@ -10,7 +10,7 @@ var PerfilClass = (function() {
           this.actions();
           this.mask();
         },
-        
+
         actions: function() {
 			var self = this;
 
@@ -49,10 +49,10 @@ var PerfilClass = (function() {
         },
 
         mask: function(){
-            VMasker(document.getElementById("dt_nascimento_upd")).maskPattern('99/99/9999');
-            VMasker(document.getElementById("cep_upd")).maskPattern('99999-999');
-            VMasker(document.getElementById("tel_upd")).maskPattern('(99) 9999-9999');
-            VMasker(document.getElementById("cel_upd")).maskPattern('(99) 99999-9999');
+            VMasker(document.getElementById("dt_nascimento")).maskPattern('99/99/9999');
+            VMasker(document.getElementById("cep")).maskPattern('99999-999');
+            VMasker(document.getElementById("telefone_fixo")).maskPattern('(99) 9999-9999');
+            VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999');
 
          	// #maskMoney
          	// VMasker(document.getElementById("default")).maskMoney();
@@ -75,54 +75,54 @@ var PerfilClass = (function() {
          	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
         },
 
-        validaPerfil: function(){
-            var nome = $('#nome_upd').val();
-            var email = $('#email_upd').val();
-            var dt_nascimento = $('#dt_nascimento_upd').val();
-            var telefone_fixo = $('#tel_upd').val();
-            var telefone_cel = $('#cel_upd').val();
-
-            var erro = false;
-
-            $('input').parent().removeClass('has-error');
-
-            if(nome == ''){
-                $('#nome_upd').parent().addClass('has-error');
-                alertaPagina('Campo "nome" é obrigatório','danger');
-                erro = true;
-                return false;
-            }
-
-            if(email == ''){
-                $('#email_upd').parent().addClass('has-error');
-                alertaPagina('Campo "email" é obrigatório','danger');
-                erro = true;
-                return false;
-            }
-
-            if(dt_nascimento == ''){
-                $('#dt_nascimento_upd').parent().addClass('has-error');
-                alertaPagina('Campo "Data de nascimento" é obrigatório','danger');
-                erro = true;
-                return false;
-            }
-
-            if(telefone_fixo == '' && telefone_cel == ''){
-                $('#tel_upd').parent().addClass('has-error');
-                $('#cel_upd').parent().addClass('has-error');
-                alertaPagina('Necessário pelo menos 1 número de telefone','danger');
-                erro = true;
-                return false;
-            }
-
-            $('#formPerfil').submit();
-        },
-
+        // validaPerfil: function(){
+        //     var nome = $('#nome_upd').val();
+        //     var email = $('#email_upd').val();
+        //     var dt_nascimento = $('#dt_nascimento_upd').val();
+        //     var telefone_fixo = $('#tel_upd').val();
+        //     var telefone_cel = $('#cel_upd').val();
+        //
+        //     var erro = false;
+        //
+        //     $('input').parent().removeClass('has-error');
+        //
+        //     if(nome == ''){
+        //         $('#nome_upd').parent().addClass('has-error');
+        //         alertaPagina('Campo "nome" é obrigatório','danger');
+        //         erro = true;
+        //         return false;
+        //     }
+        //
+        //     if(email == ''){
+        //         $('#email_upd').parent().addClass('has-error');
+        //         alertaPagina('Campo "email" é obrigatório','danger');
+        //         erro = true;
+        //         return false;
+        //     }
+        //
+        //     if(dt_nascimento == ''){
+        //         $('#dt_nascimento_upd').parent().addClass('has-error');
+        //         alertaPagina('Campo "Data de nascimento" é obrigatório','danger');
+        //         erro = true;
+        //         return false;
+        //     }
+        //
+        //     if(telefone_fixo == '' && telefone_cel == ''){
+        //         $('#tel_upd').parent().addClass('has-error');
+        //         $('#cel_upd').parent().addClass('has-error');
+        //         alertaPagina('Necessário pelo menos 1 número de telefone','danger');
+        //         erro = true;
+        //         return false;
+        //     }
+        //
+        //     $('#formPerfil').submit();
+        // },
         altera_imagem_perfil: function($file){
             $("#select_image").next().html('');
             var reader = new FileReader;
             reader.onload = function() {
                 var img = new Image;
+                img.src = reader.result;
                 img.onload = function() {
                     if (img.width > 600 || img.height > 400) {
                         $("#select_image").next().html('Imagem tem dimensões maiores que o permitido.')
@@ -132,7 +132,6 @@ var PerfilClass = (function() {
                         $("#select_image").next().html('Imagem ultrapassa o tamanho permitido.')
                         return false;
                     }
-
                     if ($file['files'][0]['type'] != 'image/png' && $file['files'][0]['type'] != 'image/jpeg') {
                         $("#select_image").next().html('Extensão da imagem não é permitida.')
                         return false;
@@ -158,9 +157,9 @@ var PerfilClass = (function() {
                         onChange: updatePreview,
                         onSelect: updatePreview,
                         aspectRatio: 0,
-                        setSelect: [ 0, 0, 0, 0 ],
-                        maxSize: [ 400, 400 ]
-                        // minSize: [ 80, 80 ],
+                        // setSelect: [ 0, 0, 0, 0 ],
+                        // maxSize: [ 600, 400 ],
+                        // minSize: [ 100, 100 ],
                         // bgFade:     true,
                         // bgOpacity: .2,
                         // bgColor:'#F0B207'
@@ -191,7 +190,6 @@ var PerfilClass = (function() {
                         $('#h').val(c.h);
                     };
                 }
-                img.src = reader.result;
             }
             reader.readAsDataURL($file.files[0]);
 
@@ -215,7 +213,7 @@ var PerfilClass = (function() {
 new PerfilClass().init();
 
 // FUNÇÕES DIVERSAS
-function checkCoords(){
+function checarSelecao(){
     if (parseInt($('#w').val()))
         return true;
     alertaPagina('Selecione a área para recorte.','danger');
