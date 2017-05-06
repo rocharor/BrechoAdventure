@@ -123,7 +123,7 @@ class ProdutoController extends Controller
         $foto_salva = false;
         $nome_imagem = [];
 
-        foreach($request->foto as $key=>$foto){
+        foreach($request->foto as $key=>$foto){            
             $ext = $foto->extension();
             if($this->validaExtImagem($ext)){
                 $user_id = Auth::user()->id;

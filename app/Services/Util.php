@@ -19,21 +19,20 @@ trait Util
         return $producao;
     }
 
-    public static function validaExtImagem($ext)
-    {
-        $extencoes = array(
-            'jpg',
-            'jpeg',
-            'png',
-            'gif'
-        );
-
-        if(in_array($ext,$extencoes)){
-            return true;
-        }else{
-            return false;
-        }
-    }
+    // public static function validaExtImagem($ext)
+    // {
+    //     $extencoes = array(
+    //         'jpg',
+    //         'jpeg',
+    //         'png'
+    //     );
+    //
+    //     if(in_array($ext,$extencoes)){
+    //         return true;
+    //     }else{
+    //         return false;
+    //     }
+    // }
 
     public static function escapeSql($value)
     {
@@ -207,12 +206,15 @@ trait Util
         return date("d/m/Y H:m:s",strtotime($data));;
     }
 
-    public static function formataDataBD($data)
+    public static function formataDataBD($data,$hora=true)
     {
         $arrDataHora = explode(' ',$data);
         $arrData = explode('/',$arrDataHora[0]);
         $arrDataHora[0] = implode('-',array_reverse($arrData));
         $data = implode(' ',$arrDataHora);
+        if (!$hora) {
+            return date("Y-m-d",strtotime($data));;
+        }
 
         return date("Y-m-d H:m:s",strtotime($data));;
     }
