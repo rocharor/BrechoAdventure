@@ -27,6 +27,7 @@ class FavoritoController extends Controller
         foreach($favoritos as $key=>$favorito){
             $arrImg = explode('|',$favorito->produto->nm_imagem);
             $favorito->produto->imgPrincipal = $arrImg[0];
+            $favorito->produto->idCodificado = base64_encode($favorito->id);
         }
 
         return view('minhaConta/favorito',['favoritos'=>$favoritos]);

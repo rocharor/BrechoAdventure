@@ -21,7 +21,8 @@
     	            <td>{{ $favorito->produto->descricao }}</td>
                     <td><img src="/imagens/produtos/{{ $favorito->produto->imgPrincipal }}" width="60px" height="60px"/></td>
                     <td>R$ {{ $favorito->produto->valor }}</td>
-    	            <td><button class="btn btn-success act-ver-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-eye-open"></span></button></td>
+
+    	            <td><a  href='/produto/visualizarProduto/{{ $favorito->produto->idCodificado }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
     	            <td><button class="btn btn-danger act-excluir-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-trash"></span></button></td>
     	            <td><button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button></td>
 
@@ -32,7 +33,7 @@
 
     <!--Modal descricao-->
     <div class="modal fade" id='modal_descricao_favorito'>
-        @include('modalDescricao')        
+        @include('modalDescricao')
     </div>
 
     <script type="text/javascript" src="/js/site/favorito.js"></script>

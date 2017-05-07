@@ -29,27 +29,11 @@ perfil.js
         height: 170px;
         overflow: hidden;
     }
+    
 </style>
 
-<form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">
-    <div class="visible-xs">
-        {{-- <form action='/minha-conta/perfil/updateFoto' name='formFotoPerfil' method='POST' enctype="multipart/form-data">
-            {{ csrf_field() }}
-
-            <div>
-                <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" />
-                <img src="" alt="brechoAdventure" class="img_perfil img_nova hide" /><br>
-            </div>
-            <small><a class="alterar-foto">Alterar foto de perfil</a></small>
-            <br>
-            <button type='submit' id='btnEnviaFoto' class="btn btn-success hide">Salvar foto</button>&nbsp;&nbsp;
-            <button id='btnCancelarFoto' class="btn btn-danger hide"><span class="glyphicon glyphicon-trash"></span></button>&nbsp;&nbsp;
-            <b><small class='nm_imagem'></small></b>
-
-            <input type="file" class="hide" id='foto_upd' name='imagemPerfil'>
-        </form> --}}
-    </div>
-    <div class="hidden-xs">
+<div class="div_alterar_foto">
+    <form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">
         {{ csrf_field() }}
         <input type="hidden" id="x" name="x" />
         <input type="hidden" id="y" name="y" />
@@ -61,28 +45,18 @@ perfil.js
             <br />
             <small><a class="alterar-foto">Alterar foto de perfil</a></small>
             <br />
-            <small class='text-danger instrucao hide'>Extenção permitida (jpg, png), dimenção permitida de até (600 x 400) e tamanho permitido de até 1Mb </small>
             <input type="file" id='select_image' name='imagemCrop' class='hide'>
-            <br />
-            <span class='text-danger'></span>
+            <span class="label label-danger hide"></span>
         </div>
 
         <div class="div_visualizacao hide">
-            <p class='text-danger'>Selecione onde quer cortar a imagem</p>
-            <div id="div_imagem">{{-- IMAGEM GRANDE --}}</div>
+            <p><span class="label label-warning"><b class='text-danger'>Selecione onde quer cortar a imagem.</b></span></p>
+            <div id="div_imagem_alteracao">{{-- IMAGEM GRANDE --}}</div>
             <div class="preview">{{-- IMAGEM PREVIEW --}}</div>
             <br />
             <input type="submit" id="recortar" class='btn btn-success' value="Recortar Imagem" />
             <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
         </div>
-
-        {{--
-        <div class="div_visualizacao hide">
-            <p class='text-danger'>Selecione onde quer cortar a imagem</p>
-            <div id="visualizacao_imagem"></div>
-            <br />
-            <input type="submit" id="recortar" class='btn btn-primary' value="Recortar Imagem" />
-            <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
-        </div> --}}
-    </div>
-</form>
+        <span class="label label-warning instrucao hide"><b class='text-danger'>Extenções permitidas ( jpg, png ), dimenção permitida de até (600 x 400) e tamanho permitido de até 1Mb </b></span>
+    </form>
+</div>

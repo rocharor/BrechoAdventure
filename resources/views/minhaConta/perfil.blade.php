@@ -17,25 +17,26 @@
         <br>
         {{-- FORMULARIO PERFIL --}}
         <div class="form_perfil">
+            @include('exibeErro')
             <form action='/minha-conta/perfil/update' name='formPerfil' id='formPerfil'  method="POST">
                 {{ csrf_field() }}
 
                 <table class="table table-striped" style="width: 800px;">
                     <tr>
-                        <td><label>Nome: <span class='text-danger'>*</span></label> </td>
-                        <td><input type="text" name='nome' class="form-control" value="{{ Auth::user()->name }}" /></td>
+                        <td style="width: 200px;"><label>Nome: <span class='text-danger'>*</span></label> </td>
+                        <td><input type="text" name='nome' class="form-control" value="{{ Auth::user()->name }}" required /></td>
                     </tr>
                     <tr>
                         <td> <label>Email: <span class='text-danger'>*</span></label> </td>
-                        <td><input type="text" name='email' class="form-control" value="{{ Auth::user()->email }}" /></td>
+                        <td><input type="text" name='email' class="form-control" value="{{ Auth::user()->email }}" required /></td>
                     </tr>
                     <tr>
                         <td> <label>Data de nascimeto: <span class='text-danger'>*</span></label> </td>
-                        <td><input type="text" id='dt_nascimento' name='dt_nascimento' class="form-control" value="{{ Auth::user()->dt_nascimento }}" /></td>
+                        <td><input type="text" id='dt_nascimento' name='dt_nascimento' class="form-control" style="width: 150px;" value="{{ Auth::user()->dt_nascimento }}" required /></td>
                     </tr>
                     <tr>
                         <td><label>CEP: </label> </td>
-                        <td><input type="text" id='cep' name='cep' class="form-control" value="{{ Auth::user()->cep }}" onblur="buscaCEP(this.value)"/></td>
+                        <td><input type="text" id='cep' name='cep' class="form-control" style="width: 150px;" value="{{ Auth::user()->cep }}" onblur="buscaCEP(this.value)"/></td>
                     </tr>
                     <tr>
                         <td><label>Endere&ccedil;o: </label> </td>
@@ -43,7 +44,7 @@
                     </tr>
                     <tr>
                         <td><label>Numero: </label> </td>
-                        <td><input type="text" name='numero' class="form-control" value="{{ Auth::user()->numero }}" /></td>
+                        <td><input type="text" name='numero' class="form-control" style="width: 150px;" value="{{ Auth::user()->numero }}" /></td>
                     </tr>
                     <tr>
                         <td><label>Complemento: </label> </td>
@@ -60,7 +61,7 @@
                     <tr>
                         <td><label>UF: </label> </td>
                         <td>
-                            <select class="form-control" name='uf'>
+                            <select class="form-control" name='uf' style="width: 150px;">
                                 @foreach($estados as $sigla=>$desc)
                                     <option value="{{$sigla}}" @if( Auth::user()->uf == $sigla) selected @endif>{{$desc}}</option>
                                 @endforeach
@@ -68,12 +69,12 @@
                         </td>
                     </tr>
                     <tr>
-                        <td><label>Telefone Cel: <span class='text-danger'>*</span></label> </td>
-                        <td><input type="text" id='telefone_cel' name='telefone_cel' class="form-control" value="{{ Auth::user()->telefone_cel }}" /></td>
+                        <td><label>Telefone Cel: </label> </td>
+                        <td><input type="text" id='telefone_cel' name='telefone_cel' class="form-control" style="width: 150px;" value="{{ Auth::user()->telefone_cel }}" /></td>
                     </tr>
                     <tr>
-                        <td><label>Telefone Fixo: <span class='text-danger'>*</span></label> </td>
-                        <td><input type="text" id='telefone_fixo' name='telefone_fixo' class="form-control" value="{{ Auth::user()->telefone_fixo }}" /></td>
+                        <td><label>Telefone Fixo: </label> </td>
+                        <td><input type="text" id='telefone_fixo' name='telefone_fixo' class="form-control" style="width: 150px;" value="{{ Auth::user()->telefone_fixo }}" /></td>
                     </tr>
                     <tr>
                         <td colspan="2" align="center"><button type="submit" class="btn btn-primary">Salvar</button></td>

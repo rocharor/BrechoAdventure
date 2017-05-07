@@ -43,13 +43,12 @@ class PerfilController extends Controller
      */
     public function update(Request $request)
     {
-        // $this->validate($request, [
-        //     'nome' => 'required|max:255',
-        //     'email' => 'required',
-        //     'dt_nascimento' => 'required',
-        //     'telefone_cel' => 'required'
-        // ]);
-        //
+        $this->validate($request, [
+            'nome' => 'required|max:255',
+            'email' => 'required',
+            'dt_nascimento' => 'required'
+        ]);
+
         Auth::user()->name = $request->nome;
         Auth::user()->email = $request->email;
         Auth::user()->dt_nascimento = Util::formataDataBD($request->dt_nascimento,false);
@@ -82,7 +81,7 @@ class PerfilController extends Controller
     public function updateFoto(Request $request)
     {
         if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid() && $request->h > 0 && $request->w > 0){
-            $novoNome = $this->salvarCrop($request->imagemCrop, 'imagens/cadastro/',  $request->h, $request->w, $request->x, $request->y);
+            $novoNome = $this->salvarFotoRedimensionado($request->imagemCrop, 'imagens/cadastro/',  $request->h, $request->w, $request->x, $request->y);
 
             if ($novoNome) {
                 if (Auth::user()->nome_imagem != 'padrao.jpg') {
@@ -97,52 +96,6 @@ class PerfilController extends Controller
             }
         }
         return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
-
-        // if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid()){
-        //     $retorno = $upload->salvarCrop($request->imagemCrop, 'imagens/cadastro/',  $request->h, $request->w, $request->x, $request->y);
-        //
-        //     $foto_salva = 0;
-        //     $ext = $request->imagemCrop->extension();
-        //     if($this->validaExtImagem($ext)){
-        //         $targ_w = $request->w;
-        //         $targ_h = $request->h;
-        //         $dst_r = ImageCreateTrueColor( $targ_w, $targ_h );
-        //         $jpeg_quality = 90;
-        //         $src = $request->imagemCrop->getPathName();
-        //         $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
-        //
-        //         switch($ext){
-        //             case 'jpg':
-        //             case 'jpeg':
-        //                 $img_r = imagecreatefromjpeg($src);
-        //                 imagecopyresampled($dst_r,$img_r,0,0,$request->x,$request->y,$targ_w,$targ_h,$request->w,$request->h);
-        //                 $foto_salva = imagejpeg($dst_r, 'imagens/cadastro/'.$foto_nome);
-        //             break;
-        //             case 'png':
-        //                 $img_r = imagecreatefrompng($src);
-        //                 imagecopyresampled($dst_r,$img_r,0,0,$request->x,$request->y,$targ_w,$targ_h,$request->w,$request->h);
-        //                 $foto_salva = imagepng($dst_r, 'imagens/cadastro/'.$foto_nome);
-        //             break;
-        //         }
-        //     }
-        //
-        //     if ($foto_salva) {
-        //         $imagemAntiga = Auth::user()->nome_imagem;
-        //         if($imagemAntiga != 'padrao.jpg'){
-        //             $filename = public_path("imagens\cadastro\\" . $imagemAntiga);
-        //             File::delete($filename);
-        //         }
-        //
-        //         $r = $user->find(Auth::user()->id);
-        //         $ret =  $r->update(['nome_imagem'=>$foto_nome]);
-        //             if ($ret) {
-        //                 return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
-        //             }
-        //     }
-        //
-        //     return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
-        // }
-
 
         /*
         // $arquivo_file = $request->file('imagemPerfil');

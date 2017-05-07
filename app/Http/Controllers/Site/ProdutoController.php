@@ -123,7 +123,7 @@ class ProdutoController extends Controller
         $foto_salva = false;
         $nome_imagem = [];
 
-        foreach($request->foto as $key=>$foto){            
+        foreach($request->foto as $key=>$foto){
             $ext = $foto->extension();
             if($this->validaExtImagem($ext)){
                 $user_id = Auth::user()->id;
@@ -204,12 +204,12 @@ class ProdutoController extends Controller
         if (!is_null($request->imagemProduto)) {
             foreach($request->imagemProduto as $key=>$foto){
                 $ext = $foto->extension();
-                if($this->validaExtImagem($ext)){
+                // if($this->validaExtImagem($ext)){
                     $user_id = Auth::user()->id;
                     $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
                     $foto_salva = $foto->move(public_path("imagens/produtos"), $foto_nome);
                     $nome_imagem[] = $foto_nome;
-                }
+                // }
             }
 
             $produto->nm_imagem = implode('|',$nome_imagem);
@@ -235,8 +235,10 @@ class ProdutoController extends Controller
             $produto->nm_imagem = $nm_imagem;
 
             if($produto->save()){
-                $filename = public_path("imagens/produtos/" . $request->get('nm_foto'));
-                File::delete($filename);
+                if ($request->nm_foto != 'padrao.jpg') {
+                    $filename = public_path("imagens/produtos/" . $request->get('nm_foto'));
+                    File::delete($filename);
+                }
                 $retorno = ['sucesso'=>true,'msg'=>'Foto excluída com sucesso'];
             }
 

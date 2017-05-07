@@ -18,9 +18,8 @@ class DatabaseSeeder extends Seeder
         $this->call(CategoriaTableSeeder::class);
         $this->call(ProdutoTableSeeder::class);
         $this->call(UserTableSeeder::class);
-        $this->call(RoleTableSeeder::class);
-        $this->call(PermissionTableSeeder::class);
-        $this->call(FraseTableSeeder::class);
+        $this->call(FraseTableSeeder::class);        
+        $this->call(AclTableSeeder::class);
         $this->call(EstadoTableSeeder::class);
 
         //ativa as chaves estrangeiras

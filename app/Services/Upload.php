@@ -27,10 +27,10 @@ trait Upload
      * @param  [type] $extensao [Extensão do arquivo]
      * @return [type]           [Nome da nova imagem ou False]
      */
-    private function redimensionar($extensao)
+    private function redimensionar($novoNome, $extensao)
     {
         $novaImagem = imagecreatetruecolor($this->w, $this->h);
-        $novoNome = Auth::user()->id . '-' . date('d-m-Y_h_i_s') . '.' . $extensao;
+        // $novoNome = Auth::user()->id . '-' . date('d-m-Y_h_i_s') . '.' . $extensao;
         $img_localizacao = $this->destino . $novoNome;
         $fotoSalva = false;
 
@@ -71,7 +71,7 @@ trait Upload
      * @param  [type] $y       [Posição y inicial]
      * @return [type]          [Nome da nova imagem ou False]
      */
-    public function salvarCrop($arquivo, $destino, $h, $w, $x, $y)
+    public function salvarFotoRedimensionado($arquivo, $destino, $h, $w, $x, $y)
     {
         $this->arquivo = $arquivo;
         $this->destino = $destino;
@@ -81,9 +81,10 @@ trait Upload
         $this->y = $y;
 
         $extensao = $this->arquivo->extension();
+        $novoNome = Auth::user()->id . '-' . date('d-m-Y_h_i_s') . '.' . $extensao;
 
         if ($this->validaExtImagem($extensao)) {
-            $novoNome = $this->redimensionar($extensao);
+            $novoNome = $this->redimensionar($novoNome, $extensao);
             if ($novoNome){
                 return $novoNome;
             }
@@ -92,7 +93,7 @@ trait Upload
 
     }
 
-    public function salvarInteira($arquivo, $destino, $h, $w)
+    public function SalvarFoto($arquivo,$destino)
     {
     }
 

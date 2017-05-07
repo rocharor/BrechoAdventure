@@ -67,6 +67,7 @@
 
             @if(count($produto->imagens) != 3)
                 <div @if (count($produto->imagens) == 0) style="border: solid 1px #f00; padding: 5px" @endif >
+                    <br />
                     <label>Fotos: </label><small>(Obrigatório no mínimo 1 foto)</small>
                     @for ($i = count($produto->imagens); $i < 3; $i++)
                         @if ($i == 0)
@@ -75,6 +76,7 @@
                             <input type="file" name='imagemProduto[]' class="form-control" />
                         @endif
                     @endfor
+                    <p><span class="label label-warning"><b class='text-danger'>Tamanho ideal para fotos ( 1000 x 1000 )</b></span></p>
                 </div>
             @endif
 
