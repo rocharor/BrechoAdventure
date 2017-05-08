@@ -1,5 +1,6 @@
 public/imagens/cadastro/*
-public/imagens/produtos/*
+public/imagens/produtos/200x200/*
+public/imagens/produtos/900x900/*
 !padrao.jpg
 composer.lock
 .project

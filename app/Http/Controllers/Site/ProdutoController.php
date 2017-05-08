@@ -13,10 +13,11 @@ use File;
 use App\Services\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
+use App\Services\UploadImagem;
 
 class ProdutoController extends Controller
 {
-    use Util;
+    use Util, UploadImagem;
 
     public $model;
     public $totalPagina = 8;
@@ -120,20 +121,23 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {
-        $foto_salva = false;
+        // $foto_salva = false;
         $nome_imagem = [];
 
         foreach($request->foto as $key=>$foto){
-            $ext = $foto->extension();
-            if($this->validaExtImagem($ext)){
-                $user_id = Auth::user()->id;
-                $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
-                $foto_salva = $foto->move(public_path("imagens\produtos"), $foto_nome);
-                $nome_imagem[] = $foto_nome;
-            }
+            $novoNome = $this->imagemProduto($foto);
+            $nome_imagem[] = $novoNome;
+            // $ext = $foto->extension();
+            // if($this->validaExtImagem($ext)){
+            //     $user_id = Auth::user()->id;
+            //     $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
+            //     $foto_salva = $foto->move(public_path("imagens\produtos"), $foto_nome);
+            //     $nome_imagem[] = $foto_nome;
+            // }
         }
 
-        if ($foto_salva) {
+        if (count($nome_imagem) > 0) {
+        // if ($foto_salva) {
             $this->model->user_id = $user_id;
             $this->model->categoria_id = $request->get('categoria');
             $this->model->titulo = $request->get('titulo');
@@ -203,13 +207,14 @@ class ProdutoController extends Controller
 
         if (!is_null($request->imagemProduto)) {
             foreach($request->imagemProduto as $key=>$foto){
-                $ext = $foto->extension();
-                // if($this->validaExtImagem($ext)){
-                    $user_id = Auth::user()->id;
-                    $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
-                    $foto_salva = $foto->move(public_path("imagens/produtos"), $foto_nome);
-                    $nome_imagem[] = $foto_nome;
-                // }
+                $novoNome = $this->imagemProduto($foto);
+                $nome_imagem[] = $novoNome;
+                // $ext = $foto->extension();
+                // $user_id = Auth::user()->id;
+                // $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
+                // $foto_salva = $foto->move(public_path("imagens/produtos"), $foto_nome);
+                // $nome_imagem[] = $foto_nome;
+
             }
 
             $produto->nm_imagem = implode('|',$nome_imagem);

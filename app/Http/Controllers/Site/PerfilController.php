@@ -8,12 +8,14 @@ use Illuminate\Support\Facades\Auth;
 use File;
 use App\Models\User;
 use App\Services\Util;
-use App\Services\Upload;
+// use App\Services\Upload;
+use App\Services\UploadImagem;
 use DB;
 
 class PerfilController extends Controller
 {
-    use Util,Upload;
+    // use Util,Upload;
+    use Util,UploadImagem;
 
     public function __construct()
     {
@@ -81,11 +83,16 @@ class PerfilController extends Controller
     public function updateFoto(Request $request)
     {
         if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid() && $request->h > 0 && $request->w > 0){
-            $novoNome = $this->salvarFotoRedimensionado($request->imagemCrop, 'imagens/cadastro/',  $request->h, $request->w, $request->x, $request->y);
+            // $novoNome = $this->salvarFotoRedimensionado($request->imagemCrop, 'imagens/cadastro/',  $request->h, $request->w, $request->x, $request->y);
+            $this->w = $request->w;
+            $this->h = $request->h;
+            $this->x = $request->x;
+            $this->y = $request->y;
+            $novoNome = $this->imagemPerfil($request->imagemCrop);
 
             if ($novoNome) {
                 if (Auth::user()->nome_imagem != 'padrao.jpg') {
-                    $filename = public_path("imagens\cadastro\\" . Auth::user()->nome_imagem);
+                    $filename = public_path($this->pathPerfil . Auth::user()->nome_imagem);
                     File::delete($filename);
                 }
 
