@@ -36,7 +36,7 @@
 								<b>{{$produto->titulo}}</b>
 							</div>
 							<div style="width: 200px; height: 200px;">
-								<img class="img-thumbnail" src="/imagens/produtos/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
+								<img class="img-thumbnail" src="/imagens/produtos/200x200/{{$produto->imgPrincipal}}" alt="" style="width: 100%; height: 100%;">
 							</div>
 
 							<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>

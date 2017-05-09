@@ -43,7 +43,7 @@ $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $fake
         'descricao' => $faker->text,
         'valor' => $faker->randomFloat($nbMaxDecimals = 2, $min = 500, $max = 3000),
         'estado' => 'novo',
-        'nm_imagem' => 'padrao.jpg',
+        'nm_imagem' => 'sem-imagem.gif',
         'status' => 1
     ];
 });

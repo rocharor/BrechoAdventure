@@ -4,6 +4,7 @@ namespace App\Services;
 
 use Illuminate\Http\Request;
 use Image;
+use File;
 
 trait UploadImagem
 {
@@ -54,6 +55,31 @@ trait UploadImagem
 
     public function validaExtImagem($extensao){
         return  in_array(strtolower($extensao), $this->extencoesImagem);
+    }
+
+    public function deleteImagemProduto($nomeImagem)
+    {
+        $filename200 = $this->pathProduto . $nomeImagem;
+        $filename900 = $this->pathProdutoGG . $nomeImagem;
+        return $this->deleteImagem([$filename200, $filename900]);
+    }
+
+    public function deleteImagemPerfil($nomeImagem)
+    {
+        $filename = $this->pathPerfil . $nomeImagem;
+        return $this->deleteImagem($filename);
+    }
+
+    private function deleteImagem($fileName)
+    {
+        if (is_array($fileName)) {
+            foreach ($fileName as $file) {
+                $retorno = File::delete($file);
+            }
+            return $retorno;
+        }
+
+        return File::delete($fileName);
     }
 
 }

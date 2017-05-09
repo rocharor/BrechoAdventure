@@ -1,9 +1,9 @@
 @extends('template')
 @section('content')
 	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
-	{{-- <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script>
+	{{-- <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script> --}}
 	<link type="text/css" rel="stylesheet" href="/libs/xZoom/dist/xzoom.css" />
-	<script src="/libs/xZoom/dist/xzoom.min.js"></script> --}}
+	<script src="/libs/xZoom/dist/xzoom.min.js"></script>
 
 	<ol class="breadcrumb">
 		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
@@ -53,19 +53,19 @@
 				<tr><td colspan=2></td></tr>
 			</table>
 
-			{{-- <div class="row">
+			<div class="row">
 				<div class="col-md-5">
-					<img class="xzoom" src="/imagens/produtos/{{ $produto->imagens[0] }}" style="width:500px; height:400px" xoriginal="/imagens/produtos/{{ $produto->imagens[0] }}"/>
+					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:500px; height:400px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
 
 					<div class="xzoom-thumbs">
 						@foreach($produto->imagens as $imagem)
-							<a href="/imagens/produtos/{{ $imagem }}">
-								<img class="xzoom-gallery" width="80" src="/imagens/produtos/{{ $imagem }}">
+							<a href="/imagens/produtos/900x900/{{ $imagem }}">
+								<img class="xzoom-gallery" width="80" src="/imagens/produtos/200x200/{{ $imagem }}">
 							</a>
 						@endforeach
 					</div>
 				</div>
-			</div> --}}
+			</div>
 
 			<hr>
 
@@ -83,16 +83,13 @@
 			</div>
 		</div>
 	</div>
-
-	<script type="text/javascript">
+	<script>
 		/* calling script */
-		// $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 400, title: true, tint: '#333', Xoffset: 15});
-		// $('.xzoom, .xzoom-gallery').xzoom({position: '#xzoom2-id', tint: '#ffa200'});
-		// $('.xzoom, .xzoom-gallery').xzoom({position: 'lens', lensShape: 'circle', bg:true, sourceClass: 'xzoom-hidden'});
-		// $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
-		// $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
-
+	    $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 400, title: true, tint: '#333', Xoffset: 15});
+	    // $('.xzoom, .xzoom-gallery').xzoom({position: '#xzoom2-id', tint: '#ffa200'});
+	    // $('.xzoom, .xzoom-gallery').xzoom({position: 'lens', lensShape: 'circle', bg:true, sourceClass: 'xzoom-hidden'});
+	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
+	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});		
 	</script>
-
 	<script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

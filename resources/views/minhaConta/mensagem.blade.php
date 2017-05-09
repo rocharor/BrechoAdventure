@@ -100,7 +100,7 @@
                             <b>({{ $conversa['naoLidas'] }})</b>
                         </span>
                         <div class="titulo">{{ $conversa['produto']->titulo }}</div>
-                        <div class="img"><img src='/imagens/produtos/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
+                        <div class="img"><img src='/imagens/produtos/200x200/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
                         <div class="excluir"><button class="btn btn-danger">X</button></div>
                         <div class="responder"><a class='act-abre-conversa' data-status=1 href=""><small>Responder</small></a></div>
 
@@ -144,7 +144,7 @@
                             <b>({{ $conversa['naoLidas'] }})</b>
                         </span>
                         <div class="titulo">{{ $conversa['produto']->titulo }}</div>
-                        <div class="img"><img src='/imagens/produtos/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
+                        <div class="img"><img src='/imagens/produtos/200x200/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></div>
                         <div class="excluir"><button class="btn btn-danger">X</button></div>
                         <div class="responder"><a class='act-abre-conversa' data-status=1 href=""><small>Responder</small></a></div>
 

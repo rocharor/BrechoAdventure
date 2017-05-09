@@ -58,7 +58,9 @@
 
              @foreach($produto->imagens as $key=>$imagem)
         		<div style="width: 150px; height: 150px; display:inline-block;">
-        			<a class="btn btn-danger act-excluir-foto" data-foto="{{ $imagem }}" data-produto-id="{{ $produto->id }}"  style="position: absolute;">X</a>
+                    @if ($imagem != 'sem-imagem.gif')
+                        <a class="btn btn-danger act-excluir-foto" data-foto="{{ $imagem }}" data-produto-id="{{ $produto->id }}"  style="position: absolute;">X</a>
+                    @endif
         			<img class="img-thumbnail" src="/imagens/produtos/200x200/{{ $imagem }}" alt="" style="width: 100%; height: 100%;">
         		</div>
             @endforeach

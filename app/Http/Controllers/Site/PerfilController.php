@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use File;
+// use File;
 use App\Models\User;
 use App\Services\Util;
 // use App\Services\Upload;
@@ -91,9 +91,8 @@ class PerfilController extends Controller
             $novoNome = $this->imagemPerfil($request->imagemCrop);
 
             if ($novoNome) {
-                if (Auth::user()->nome_imagem != 'padrao.jpg') {
-                    $filename = public_path($this->pathPerfil . Auth::user()->nome_imagem);
-                    File::delete($filename);
+                if (Auth::user()->nome_imagem != 'sem-imagem.jpg') {
+                    $this->deleteImagemPerfil(Auth::user()->nome_imagem);
                 }
 
                 $ret =  Auth::user()->update(['nome_imagem'=>$novoNome]);

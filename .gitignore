@@ -1,7 +1,8 @@
 public/imagens/cadastro/*
 public/imagens/produtos/200x200/*
 public/imagens/produtos/900x900/*
-!padrao.jpg
+!sem-imagem.jpg
+!sem-imagem.gif
 composer.lock
 .project
 .buildpath

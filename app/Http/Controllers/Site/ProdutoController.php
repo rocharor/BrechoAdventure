@@ -9,7 +9,7 @@ use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
-use File;
+// use File;
 use App\Services\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
@@ -203,18 +203,17 @@ class ProdutoController extends Controller
         $produto->valor = Util::formataMoedaBD($request->get('valor'));
         $produto->estado = $request->get('estado');
         $produto->status = 2;
-        $nome_imagem[] = $produto->nm_imagem;
+        $nome_imagem = [$produto->nm_imagem];
 
         if (!is_null($request->imagemProduto)) {
             foreach($request->imagemProduto as $key=>$foto){
                 $novoNome = $this->imagemProduto($foto);
                 $nome_imagem[] = $novoNome;
-                // $ext = $foto->extension();
-                // $user_id = Auth::user()->id;
-                // $foto_nome = $key . '_' . $user_id . '_' . date('dmYhis') . '.' . $ext;
                 // $foto_salva = $foto->move(public_path("imagens/produtos"), $foto_nome);
-                // $nome_imagem[] = $foto_nome;
-
+            }
+            if (count($nome_imagem) > 1 && in_array('sem-imagem.gif', $nome_imagem)) {
+                $chave = array_search('sem-imagem.gif', $nome_imagem);
+                unset($nome_imagem[$chave]);
             }
 
             $produto->nm_imagem = implode('|',$nome_imagem);
@@ -231,20 +230,23 @@ class ProdutoController extends Controller
     {
         $produto = $this->model->find($request->get('produto_id'));
 
-        $retorno = ['sucesso'=>false,'msg'=>'Erro ao excluir foto'];
-        if (Auth::user()->id == $produto->user_id) {
+        $retorno = ['sucesso'=>0,'msg'=>'Erro ao excluir foto'];
+        if (Auth::user()->id == $produto->user_id && $produto->nm_imagem != 'sem-imagem.gif') {
             $arrFotos = explode('|',$produto->nm_imagem);
             $key = array_search($request->get('nm_foto'),$arrFotos);
             unset($arrFotos[$key]);
-            $nm_imagem = implode('|',$arrFotos);
+            if (count($arrFotos) > 0) {
+                $nm_imagem = implode('|',$arrFotos);
+            }else{
+                $nm_imagem = 'sem-imagem.gif';
+            }
+
             $produto->nm_imagem = $nm_imagem;
 
             if($produto->save()){
-                if ($request->nm_foto != 'padrao.jpg') {
-                    $filename = public_path("imagens/produtos/" . $request->get('nm_foto'));
-                    File::delete($filename);
+                if ($this->deleteImagemProduto($request->nm_foto)){
+                    $retorno = ['sucesso'=>1,'msg'=>'Foto excluída com sucesso'];
                 }
-                $retorno = ['sucesso'=>true,'msg'=>'Foto excluída com sucesso'];
             }
 
         }

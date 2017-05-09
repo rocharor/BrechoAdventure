@@ -226,5 +226,5 @@ $('.act-excluir-foto').click(function() {
 (function() {
     if (document.getElementById("valor") != null) {
         VMasker(document.getElementById("valor")).maskMoney();
-    }
+    }    
 })();

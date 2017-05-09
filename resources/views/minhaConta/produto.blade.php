@@ -23,16 +23,12 @@
                     @endif
 
                     <div class="titulo"><b>{{$produto->titulo}}</b></div>
-
                     <div class='div_imagem'>
-                        @if ($produto->imgPrincipal == '')
-                            <img src="/imagens/produtos/padrao.gif">
-                        @else
-                            <img src="/imagens/produtos/{{ $produto->imgPrincipal }}">
-                        @endif
+                        <img src="/imagens/produtos/200x200/{{ $produto->imgPrincipal }}">
                     </div>
+
                     <br />
-                    @if ($produto->status == 1)
+                    @if ($produto->status == 1 && $produto->deleted_at == null)
                         <div class='btn_acoes'>
                             <div><a href="/minha-conta/produto/editar-produto/{{ $produto->id }}" class="btn btn-primary" data-produto-id="{$produto.id}"><span class='glyphicon glyphicon-pencil'></span></a></div>
                             <div><button class="btn btn-danger" onclick="excluir_produto({{ $produto->id }})"><span class='glyphicon glyphicon-remove'></span></button></div>
