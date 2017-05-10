@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Permission extends Model
 {
-    protected $table = 'Permissions';
+    protected $table = 'permissions';
     protected $dates = ['deleted_at'];
 
     /**
