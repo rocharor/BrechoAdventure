@@ -128,29 +128,13 @@ class Produto extends Model
         $dadosProduto = $this->where('produtos.id',$produto_id)
         ->join('categorias as c','produtos.categoria_id','c.id')
         ->join('users as u', 'produtos.user_id', 'u.id')
-        ->select('produtos.*','u.*','c.categoria')
+        ->select(
+            'produtos.*',
+            'u.*',
+            'c.categoria'
+        )
         ->get();
 
         return $dadosProduto[0];
-
-        // $dadosUser = $dadosProduto->user;
-        //
-        // $arrProduto = '';
-        // if($dadosUser != '' && $dadosProduto != ''){
-        //     $arrProduto = [
-        //         'titulo'=>$dadosProduto->titulo,
-        //         'categoria_id'=>$dadosProduto->categoria_id,
-        //         'descricao'=>$dadosProduto->descricao,
-        //         'valor'=>$dadosProduto->valor,
-        //         'estado'=>$dadosProduto->estado,
-        //         'nm_imagem'=>$dadosProduto->nm_imagem,
-        //         'name'=>$dadosUser->name,
-        //         'email'=>$dadosUser->email,
-        //         'fixo'=>$dadosUser->telefone_fixo,
-        //         'cel'=>$dadosUser->telefone_cel
-        //     ];
-        // }
-
-        // return $arrProduto;
     }
 }

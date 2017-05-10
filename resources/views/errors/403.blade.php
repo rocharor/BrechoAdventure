@@ -1,47 +1,35 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Manutenção</title>
+@extends('template')
+@section('content')
+    <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <style>
+        .box {
+            text-align: center;
+            font-family: 'Lato', sans-serif;
+            width: 100%;
+        }
+        .content {
+            text-align: center;
+            display: inline-block;
+        }
+        .title {
+            font-size: 72px;
+            margin-bottom: 40px;
+            color:red;
+        }
+    </style>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+    <ol class="breadcrumb">
+      <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
+      <li class="active">N&atilde;o autorizado</li>
+    </ol>
 
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                color: #B0BEC5;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato', sans-serif;
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
-            }
-
-            .content {
-                text-align: center;
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 72px;
-                margin-bottom: 40px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="container">
-            <div class="content">
-                <div class="title" style="color:red"><b>NÃO AUTORIZADO.</b></div>
-            </div>
+    <div class="box">
+        <div class="content">
+            <div class="title"><b>NÃO AUTORIZADO.</b></div>
         </div>
-    </body>
-</html>
+    </div>
+
+    <br />
+    
+    <a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
+@endsection

@@ -18,7 +18,7 @@ Route::post('/cache/getFilter',['as'=>'getFilter','uses'=>'Site\ProdutoControlle
 // Menus
 Route::get('/',['as'=>'home','uses'=>'Site\ProdutoController@index']);
 Route::get('/produto/todosProdutos/{pg?}',['as'=>'todosProdutos','uses'=>'Site\ProdutoController@todosProdutos']);
-Route::get('/produto/visualizarProduto/{produto_id}',['as'=>'visualizarProduto','uses'=>'Site\ProdutoController@show']);
+Route::get('/produto/visualizarProduto/{produto_id}',['as'=>'visualizarProduto', 'middleware' => ['CheckStatusProduct'], 'uses'=>'Site\ProdutoController@show']);
 Route::get('/contato',['as'=>'contato','uses'=>'Site\ContatoController@index']);
 
 // Açoes
@@ -32,7 +32,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/favorito',['as'=>'meusFavorito','uses'=>'Site\FavoritoController@index']);
     Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
     Route::get('/produto/create',['as'=>'createProduto','uses'=>'Site\ProdutoController@create']);
-    Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto','uses'=>'Site\ProdutoController@edit']);
+    Route::get('/produto/editar-produto/{id}',['as'=>'editar-produto', 'middleware' => ['CheckAuthProduct'], 'uses'=>'Site\ProdutoController@edit']);
     Route::get('/produto/{pg?}',['as'=>'meusProduto','uses'=>'Site\ProdutoController@meusProdutos']);
 
     // Ações

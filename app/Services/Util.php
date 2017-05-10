@@ -201,12 +201,16 @@ trait Util
         return $valor;
     }
 
-    public static function formataDataExibicao($data)
+    public static function formataDataExibicao($data, $hora=true)
     {
+        if (!$hora) {
+            return date("d/m/Y",strtotime($data));;
+        }
+
         return date("d/m/Y H:m:s",strtotime($data));;
     }
 
-    public static function formataDataBD($data,$hora=true)
+    public static function formataDataBD($data, $hora=true)
     {
         $arrDataHora = explode(' ',$data);
         $arrData = explode('/',$arrDataHora[0]);

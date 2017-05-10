@@ -7,18 +7,30 @@
 	</ol>
 
     <div  style="width: 460px;">
-
         @include('exibeErro')
 
         <form action="/minha-conta/produto/update/{{ $produto->id }}" method="post" name="formEditarProduto" enctype="multipart/form-data">
             {{ csrf_field() }}
-             <div>
+
+            <br />
+
+            @if ($produto->deleted_at)
+                <p><span class="label label-danger">Produto exclu&iacute;do</span></p>
+            @elseif ($produto->status == 1)
+                <p><span class="label label-success">Data de cadastro: <b>{{ $produto->dataExibicao }}</b></span></p>
+            @else
+                <p><span class="label label-warning"><b>Aguardando aprovação</b></span></p>
+            @endif
+
+            <br />
+
+            <div>
                  <label>Titulo:</label>
                  <input type="text" class="form-control" name='titulo' value="{{ $produto->titulo }}" required="required" />
-             </div>
-             <br>
+            </div>
+            <br />
 
-             <div>
+            <div>
                  <label>Categoria:</label>
                  <select class="form-control" name="categoria" required="required">
                      @foreach ($categorias as $categoria)
@@ -83,8 +95,13 @@
             @endif
 
         	<br />
-            <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info" target='_blank'>Visualizar</a>
-            <input type="submit" class="btn btn-success" value="Salvar alteração" />
+            @if ($produto->status == 1)
+                <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info" target='_blank'>Visualizar</a>
+                <input type="submit" class="btn btn-success" value="Salvar alteração" />
+            @else
+                <button class="btn btn-info" disabled>Visualizar</button>
+                <button class="btn btn-success" disabled>Salvar alteração</button>                
+            @endif
          </form>
      </div>
     <script type="text/javascript" src="/js/site/produto.js"></script>

@@ -9,7 +9,6 @@ use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
-// use File;
 use App\Services\Cache;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
@@ -181,6 +180,7 @@ class ProdutoController extends Controller
         }
 
         $produto->imagens = $imagens;
+        $produto->dataExibicao = Util::formataDataExibicao($produto->created_at, false);
 
         return view('minhaConta/editarProduto',['categorias'=>$categorias,'produto'=>$produto]);
     }
@@ -261,64 +261,41 @@ class ProdutoController extends Controller
         $produto = $this->model->find($id);
         $retorno = 0;
         if (Auth::user()->id == $produto->user_id) {
-            $retorno = $produto->delete();
-            // $produto->status = 0;
-            // if ($produto->save()) {
-                // $retorno = 1;
-            // }
+            $retorno = $produto->delete();            
         }
         echo $retorno;
         die();
     }
 
-    // public function getProducts($quantity1=false,$quantity2=false)
+    // public function mountDataFilter()
     // {
+    //     $data = [];
+    //     $products = $this->model->getProdutos(true);
+    //     foreach ($products as $key=>$product) {
+    //         $data['Categoria']['itens'][$product['categoria']] = [
+    //             'id'=>$product['categoria_id'],
+    //             'rotulo'=>$product['categoria'],
+    //             'qtd' => isset($data['Categoria']['itens'][$product['categoria']]) ? count($data['Categoria']['itens'][$product['categoria']]) : 1
+    //         ];
     //
-    //     if ($quantity1) {
-    //         $products = $this->model->getProdutos($quantity1,$quantity2);
-    //     }else{
-    //         $products = $this->model->getProdutos();
+    //         $data['Estado']['itens'][$product['estado']] = [
+    //             'id'=>$product['estado'],
+    //             'rotulo'=>$product['estado'],
+    //             'qtd' => isset($data['Estado']['itens'][$product['estado']]) ? count($data['Estado']['itens'][$product['estado']]) : 1
+    //         ];
     //     }
-    //
-    //     return $products;
+    //     return $data;
     // }
 
-    // public function getProducts($parametros=[])
+    // public function getCacheFilter(Cache $cache)
     // {
-        // $products = $this->model->getProdutos($parametros);
-//
-        // return $products;
+    //     $cache->deleteCache('products');
+    //     $cache->updateCacheAll();
+    //     $products = collect(json_decode($products,true));
+    //     echo json_decode($cache->getCache('filter'),true);
+    //     echo $cache->getCache('filter');
+    //     die();
     // }
-
-    public function mountDataFilter()
-    {
-        $data = [];
-        $products = $this->model->getProdutos(true);
-        foreach ($products as $key=>$product) {
-            $data['Categoria']['itens'][$product['categoria']] = [
-                'id'=>$product['categoria_id'],
-                'rotulo'=>$product['categoria'],
-                'qtd' => isset($data['Categoria']['itens'][$product['categoria']]) ? count($data['Categoria']['itens'][$product['categoria']]) : 1
-            ];
-
-            $data['Estado']['itens'][$product['estado']] = [
-                'id'=>$product['estado'],
-                'rotulo'=>$product['estado'],
-                'qtd' => isset($data['Estado']['itens'][$product['estado']]) ? count($data['Estado']['itens'][$product['estado']]) : 1
-            ];
-        }
-        return $data;
-    }
-
-    public function getCacheFilter(Cache $cache)
-    {
-        // $cache->deleteCache('products');
-        // $cache->updateCacheAll();
-        // $products = collect(json_decode($products,true));
-        // echo json_decode($cache->getCache('filter'),true);
-        echo $cache->getCache('filter');
-        die();
-    }
 
     // public function show(Request $request)
     // {
