@@ -1,4 +1,4 @@
-@extends('email\template')
+@extends('email/template')
 @section('content')
     <tr>
         <td class="corpoEmail">
