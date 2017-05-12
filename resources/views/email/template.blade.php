@@ -2,6 +2,11 @@
 <html lang='pt-BR'>
     <head>
         <meta charset='UTF-8'>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css" />
+
         <style>
             table{
                 width: 600px;
@@ -43,6 +48,30 @@
                 color: #414042;
                 padding: 20px;
                 line-height: 15px;
+            }
+            .btn{
+                display: inline-block;
+                margin-bottom: 0;
+                font-weight: normal;
+                text-align: center;
+                vertical-align: middle;
+                cursor: pointer;
+                background-image: none;
+                border: 1px solid transparent;
+                white-space: nowrap;
+                padding: 6px 12px;
+                font-size: 14px;
+                line-height: 1.428571429;
+                border-radius: 4px;
+                -webkit-user-select: none;
+                -moz-user-select: none;
+                -ms-user-select: none;
+                user-select: none;
+            }
+            .btn-primary{
+                color: #ffffff;
+                background-color: #0085b1;
+                border-color: #007298;
             }
         </style>
     </head>

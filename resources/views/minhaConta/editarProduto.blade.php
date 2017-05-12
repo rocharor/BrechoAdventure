@@ -9,7 +9,7 @@
     <div  style="width: 460px;">
         @include('exibeErro')
 
-        <form action="/minha-conta/produto/update/{{ $produto->id }}" method="post" name="formEditarProduto" enctype="multipart/form-data">
+        <form action="/minha-conta/produto/update/{{ $produto->idCodificado }}" method="post" name="formEditarProduto" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <br />
@@ -96,12 +96,11 @@
 
         	<br />
             @if ($produto->status == 1)
-                <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info" target='_blank'>Visualizar</a>
-                <input type="submit" class="btn btn-success" value="Salvar alteração" />
+                <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info">Visualizar</a>
             @else
                 <button class="btn btn-info" disabled>Visualizar</button>
-                <button class="btn btn-success" disabled>Salvar alteração</button>                
             @endif
+            <input type="submit" class="btn btn-success" value="Salvar alteração" />
          </form>
      </div>
     <script type="text/javascript" src="/js/site/produto.js"></script>

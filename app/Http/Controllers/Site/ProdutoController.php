@@ -9,8 +9,8 @@ use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
-use App\Services\Cache;
-use Illuminate\Support\Facades\Mail;
+// use App\Services\Cache;
+// use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
 use App\Services\UploadImagem;
 
@@ -33,7 +33,8 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
-            $produto->idCodificado = base64_encode($produto->id);
+            // $produto->idCodificado = base64_encode($produto->id);
+            $produto->idCodificado = Util::cryptCustom($produto->id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
             $produto->favorito = false;
@@ -57,7 +58,8 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
-            $produto->idCodificado = base64_encode($produto->id);
+            // $produto->idCodificado = base64_encode($produto->id);
+            $produto->idCodificado = Util::cryptCustom($produto->id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
 
@@ -89,7 +91,8 @@ class ProdutoController extends Controller
         $meusProdutos = $this->model->getMeusProdutos(true);
 
         foreach($meusProdutos as $produto){
-            $produto->idCodificado = base64_encode($produto->id);
+            // $produto->idCodificado = base64_encode($produto->id);
+            $produto->idCodificado = Util::cryptCustom($produto->id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
             $produto->dataExibicao = Util::formataDataExibicao($produto->created_at);
@@ -153,9 +156,11 @@ class ProdutoController extends Controller
 
     }
 
-    public function show($produto_id)
+    // public function show($produto_id)
+    public function show($hash_produto_id)
     {
-        $produto_id = base64_decode($produto_id);
+        // $produto_id = base64_decode($produto_id);
+        $produto_id = Util::decryptCustom($hash_produto_id);
         $produto = $this->model->getDescricaoProduto($produto_id);
 
         $imagens = [];
@@ -170,8 +175,9 @@ class ProdutoController extends Controller
 
     public function edit($id, Categoria $categoria)
     {
-        $produto = $this->model->find($id);
-        $produto->idCodificado = base64_encode($id);
+        $produto_id = Util::decryptCustom($id);
+        $produto = $this->model->find($produto_id);
+        $produto->idCodificado = $id;
         $categorias = $categoria->all();
 
         $imagens = [];
@@ -186,7 +192,7 @@ class ProdutoController extends Controller
     }
 
     public function update($id, Request $request)
-    {
+    {        
         $this->validate($request, [
             'titulo' => 'required|max:255',
             'categoria' => 'required',
@@ -195,7 +201,7 @@ class ProdutoController extends Controller
             'valor' => 'required'
         ]);
 
-        $produto = $this->model->find($id);
+        $produto = $this->model->find(Util::decryptCustom($id));
 
         $produto->categoria_id = $request->get('categoria');
         $produto->titulo = $request->get('titulo');
@@ -261,7 +267,7 @@ class ProdutoController extends Controller
         $produto = $this->model->find($id);
         $retorno = 0;
         if (Auth::user()->id == $produto->user_id) {
-            $retorno = $produto->delete();            
+            $retorno = $produto->delete();
         }
         echo $retorno;
         die();

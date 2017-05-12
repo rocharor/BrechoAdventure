@@ -30,7 +30,7 @@
                     <br />
                     @if ($produto->status == 1 && $produto->deleted_at == null)
                         <div class='btn_acoes'>
-                            <div><a href="/minha-conta/produto/editar-produto/{{ $produto->id }}" class="btn btn-primary" data-produto-id="{$produto.id}"><span class='glyphicon glyphicon-pencil'></span></a></div>
+                            <div><a href="/minha-conta/produto/editar-produto/{{ $produto->idCodificado }}" class="btn btn-primary" data-produto-id="{$produto.id}"><span class='glyphicon glyphicon-pencil'></span></a></div>
                             <div><button class="btn btn-danger" onclick="excluir_produto({{ $produto->id }})"><span class='glyphicon glyphicon-remove'></span></button></div>
                             <div><a href="/produto/visualizarProduto/{{ $produto->idCodificado }}'" class="btn btn-info"><span class='glyphicon glyphicon-eye-open'></span></a></div>
                             <div><button class="btn  btn-warning favorito"><div class="favorito-ativo"></div> - {{ $produto->qtd_favorito }}</button></div>

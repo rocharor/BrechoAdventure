@@ -5,9 +5,11 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Produto;
+use App\Services\Util;
 
 class CheckAuthProduct
 {
+    use Util;
     /**
      * Handle an incoming request.
      *
@@ -17,7 +19,9 @@ class CheckAuthProduct
      */
     public function handle($request, Closure $next)
     {
-        $retorno = Produto::where('id', $request->route('id'))->where('user_id', Auth::user()->id)->get();
+        // $produto_id = base64_decode($request->route('id'));
+        $produto_id = $this->decryptCustom($request->route('id'));
+        $retorno = Produto::where('id', $produto_id)->where('user_id', Auth::user()->id)->get();
 
         if (count($retorno) == 0) {
             abort(403);
