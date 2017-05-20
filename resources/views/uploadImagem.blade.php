@@ -29,11 +29,11 @@ perfil.js
         height: 170px;
         overflow: hidden;
     }
-    
+
 </style>
 
 <div class="div_alterar_foto">
-    <form action="/minha-conta/perfil/updateFoto" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">
+    <form action="{{ Route('minha-conta.update-foto') }}" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">
         {{ csrf_field() }}
         <input type="hidden" id="x" name="x" />
         <input type="hidden" id="y" name="y" />

@@ -96,7 +96,8 @@
 
         	<br />
             @if ($produto->status == 1)
-                <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info">Visualizar</a>
+                {{-- <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info">Visualizar</a> --}}
+                <a href='{{ Route('visualizarProduto',$produto->idCodificado) }}' class="btn btn-info">Visualizar</a>
             @else
                 <button class="btn btn-info" disabled>Visualizar</button>
             @endif

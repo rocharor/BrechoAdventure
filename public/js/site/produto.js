@@ -201,7 +201,7 @@ $('.act-excluir-foto').click(function() {
         var nm_foto = $(this).attr('data-foto');
 
         $.ajax({
-            url :'/minha-conta/produto/deletePhoto',
+            url :'/minha-conta/produto/delete-foto',
             type : 'post',
             dataType : 'json',
             data : {
@@ -226,5 +226,5 @@ $('.act-excluir-foto').click(function() {
 (function() {
     if (document.getElementById("valor") != null) {
         VMasker(document.getElementById("valor")).maskMoney();
-    }    
+    }
 })();

@@ -41,7 +41,8 @@
             			<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
                         <div>
                             {{-- <button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button> --}}
-                            <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class='btn btn-warning'><b>Ver detalhes</b></a>
+                            {{-- <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class='btn btn-warning'><b>Ver detalhes</b></a> --}}
+                            <a href='{{ Route('visualizarProduto',$produto->idCodificado) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
                             @if(Auth::check() != 0)
                                 <button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
                             @endif

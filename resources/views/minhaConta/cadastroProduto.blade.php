@@ -9,7 +9,7 @@
             @if($autorizado == false)
             	<div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.mcperfil') }}">CLIQUE AQUI</a></div>
             @else
-    	        <form action="{{ Route('minha-conta.storeProduto') }}" method="post" name="form" enctype="multipart/form-data" style="width: 400px;">
+    	        <form action="{{ Route('minha-conta.store-produto') }}" method="post" name="form" enctype="multipart/form-data" style="width: 400px;">
                     {{ csrf_field() }}
     	            <div>
     	                <label>Titulo:</label>

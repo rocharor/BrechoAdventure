@@ -18,7 +18,7 @@
         {{-- FORMULARIO PERFIL --}}
         <div class="form_perfil">
             @include('exibeErro')
-            <form action='/minha-conta/perfil/update' name='formPerfil' id='formPerfil'  method="POST">
+            <form action='{{ Route('minha-conta.update-perfil') }}' name='formPerfil' id='formPerfil'  method="POST">
                 {{ csrf_field() }}
 
                 <table class="table table-striped" style="width: 800px;">

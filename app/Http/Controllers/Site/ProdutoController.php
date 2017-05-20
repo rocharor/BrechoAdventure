@@ -13,10 +13,11 @@ use App\Services\Util;
 // use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
 use App\Services\UploadImagem;
+use App\Services\BreadCrumb;
 
 class ProdutoController extends Controller
 {
-    use Util, UploadImagem;
+    use Util, UploadImagem, BreadCrumb;
 
     public $model;
     public $totalPagina = 8;
@@ -28,6 +29,7 @@ class ProdutoController extends Controller
 
     public function index(Favorito $favorito)
     {
+        $this->getBreadCrumb();
         $this->model->limit = $this->totalPagina;
         $produtos = $this->model->getProdutos(true);
 
@@ -49,8 +51,10 @@ class ProdutoController extends Controller
 
     }
 
-    public function todosProdutos(Favorito $favorito, Request $request,$pg=1)
+    // public function todosProdutos(Favorito $favorito, Request $request,$pg=1)
+    public function produtos(Favorito $favorito, Request $request,$pg=1)
     {
+        $this->getBreadCrumb();
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
         $this->model->limit = $limit['inicio'];
         $this->model->limitAux = $limit['fim'];
@@ -84,7 +88,7 @@ class ProdutoController extends Controller
 
     public function meusProdutos($pg=1)
     {
-
+        $this->getBreadCrumb();
         $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
         $this->model->limit = $limit['inicio'];
         $this->model->limitAux = $limit['fim'];
@@ -148,17 +152,18 @@ class ProdutoController extends Controller
             $this->model->estado = $request->get('tipo');
             $this->model->nm_imagem = implode('|',$nome_imagem);
             if($this->model->save()){
-                return redirect()->route('minha-conta.createProduto')->with('sucesso','Produro inserido com sucesso.');
+                return redirect()->route('minha-conta.create-produto')->with('sucesso','Produro inserido com sucesso.');
             }
         }
 
-        return redirect()->route('minha-conta.createProduto')->with('erro','Erro ao salvar produto, tente novamente!');
+        return redirect()->route('minha-conta.create-produto')->with('erro','Erro ao salvar produto, tente novamente!');
 
     }
 
     // public function show($produto_id)
     public function show($hash_produto_id)
     {
+        $this->getBreadCrumb();
         // $produto_id = base64_decode($produto_id);
         $produto_id = Util::decryptCustom($hash_produto_id);
         $produto = $this->model->getDescricaoProduto($produto_id);
@@ -192,7 +197,7 @@ class ProdutoController extends Controller
     }
 
     public function update($id, Request $request)
-    {        
+    {
         $this->validate($request, [
             'titulo' => 'required|max:255',
             'categoria' => 'required',
