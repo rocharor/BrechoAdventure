@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 trait Util
 {
-    public static function validaServidor()
+    public function validaServidor()
     {
         // error_reporting(E_ALL);
         // ini_set('display_errors', 0);
@@ -19,7 +19,7 @@ trait Util
         return $producao;
     }
 
-    public static function escapeSql($value)
+    public function escapeSql($value)
     {
         $search = array(
             "\\",
@@ -42,7 +42,7 @@ trait Util
         return str_replace($search, $replace, $value);
     }
 
-    public static function removeAcentos($string)
+    public function removeAcentos($string)
     {
         $string = preg_replace(array(
             "/(á|à|ã|â|ä)/",
@@ -71,7 +71,7 @@ trait Util
      *            $url
      * @return bool
      */
-    public static function url_exists($url)
+    public function url_exists($url)
     {
         $ch = curl_init($url);
         curl_setopt($ch, CURLOPT_NOBODY, true);
@@ -88,7 +88,7 @@ trait Util
      * @param unknown $f
      * @return string
      */
-    public static function base64Image($f)
+    public function base64Image($f)
     {
         $image = file_get_contents($f);
         $encrypted = base64_encode($image);
@@ -96,7 +96,7 @@ trait Util
         return $url;
     }
 
-    public static function geraCSV($filename, $emails)
+    public function geraCSV($filename, $emails)
     {
         // desabilitar cache
         $now = gmdate("D, d M Y H:i:s");
@@ -142,7 +142,7 @@ trait Util
      * @param unknown $total_pagina
      * @return string|unknown
      */
-    public static function geraLimitPaginacao($pg, $total_pagina)
+    public function geraLimitPaginacao($pg, $total_pagina)
     {
         if ($pg == 1) {
             $limit['inicio'] = $total_pagina;
@@ -177,7 +177,7 @@ trait Util
 
     }
 
-    public static function formataMoedaBD($valor)
+    public function formataMoedaBD($valor)
     {
         $valor = preg_replace("/[^0-9]/", "", $valor);
         $valor = (int)$valor;
@@ -186,7 +186,7 @@ trait Util
         return $valor;
     }
 
-    public static function formataDataExibicao($data, $hora=true)
+    public function formataDataExibicao($data, $hora=true)
     {
         if (!$hora) {
             return date("d/m/Y",strtotime($data));;
@@ -195,7 +195,7 @@ trait Util
         return date("d/m/Y H:m:s",strtotime($data));;
     }
 
-    public static function formataDataBD($data, $hora=true)
+    public function formataDataBD($data, $hora=true)
     {
         $arrDataHora = explode(' ',$data);
         $arrData = explode('/',$arrDataHora[0]);
@@ -213,7 +213,7 @@ trait Util
      * @param  [type] $id [description]
      * @return [type]     [description]
      */
-    public static function cryptCustom($id)
+    public function cryptCustom($id)
     {
         $id = str_pad($id, 6, "cibb", STR_PAD_LEFT);
     	$hash = md5($id);
@@ -235,7 +235,7 @@ trait Util
      * @param  [type] $hash [description]
      * @return [type]       [description]
      */
-    public static function decryptCustom($hash)
+    public function decryptCustom($hash)
     {
     	$hashAux = str_split($hash);
     	$arry_dividido = array_chunk($hashAux,10);
@@ -248,6 +248,12 @@ trait Util
     	$id = preg_replace('/[^0-9]/','',implode('', $arrId));
 
     	return $id;
+    }
+
+    public function imagemPrincipal($imagem)
+    {
+        $arrImg = explode('|', $imagem);
+        return $arrImg[0];
     }
 
 }

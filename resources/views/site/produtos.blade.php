@@ -2,10 +2,8 @@
 @section('content')
     <link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
-    <ol class="breadcrumb">
-      <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-      <li class="active">Todos produtos</li>
-    </ol>
+    <!--BREADCRUMB-->
+    @include('breadCrumb')
 
     <div class="row" >
         <div class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
@@ -42,7 +40,7 @@
                         <div>
                             {{-- <button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button> --}}
                             {{-- <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class='btn btn-warning'><b>Ver detalhes</b></a> --}}
-                            <a href='{{ Route('visualizarProduto',$produto->idCodificado) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
+                            <a href='{{ Route('visualizar-produto',$produto->idCodificado) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
                             @if(Auth::check() != 0)
                                 <button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
                             @endif
@@ -52,9 +50,9 @@
         	@endforeach
 
             <!--Modal descricao-->
-            <div class="modal fade" id='modal_descricao'>
+            {{-- <div class="modal fade" id='modal_descricao'>
             	@include('modalDescricao')
-            </div>
+            </div> --}}
 
             <!--Modal mensagem-->
             <div class="modal fade" id='modal-mensagem'>

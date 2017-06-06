@@ -1,10 +1,8 @@
 @extends('template')
 @section('content')
-    <ol class="breadcrumb">
-		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-        <li><a href="/minha-conta/produto">Meus Produtos</a></li>
-        <li class="active">Editar Produto</li>
-	</ol>
+
+    <!--BREADCRUMB-->
+	@include('breadCrumb')
 
     <div  style="width: 460px;">
         @include('exibeErro')
@@ -97,7 +95,7 @@
         	<br />
             @if ($produto->status == 1)
                 {{-- <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class="btn btn-info">Visualizar</a> --}}
-                <a href='{{ Route('visualizarProduto',$produto->idCodificado) }}' class="btn btn-info">Visualizar</a>
+                <a href='{{ Route('visualizar-produto',$produto->idCodificado) }}' class="btn btn-info">Visualizar</a>
             @else
                 <button class="btn btn-info" disabled>Visualizar</button>
             @endif

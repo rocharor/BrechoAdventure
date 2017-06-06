@@ -26,8 +26,10 @@ class ContatoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {        
-        return view('site/contato');
+    {
+        return view('site/contato',[
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
     }
 
     /**

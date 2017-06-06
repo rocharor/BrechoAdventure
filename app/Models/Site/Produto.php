@@ -8,15 +8,18 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\User;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
+use App\Services\Util;
 
 class Produto extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Util;
 
     protected $table = 'produtos';
     protected $dates = ['deleted_at'];
-    public $limit = false;
-    public $limitAux = false;
+    public $paginacao = false;
+    public $totalPagina = 8;
+    // public $limit = false;
+    // public $limitAux = false;
 
 
     /*Relacionamentos (inverso) (1 para muitos) */
@@ -46,22 +49,23 @@ class Produto extends Model
      * @param  boolean $limit [description]
      * @return [type]         [description]
      */
-    public function getProdutos($limit=false)
+    public function getProdutos($pagina)
     {
-        if($limit){
-            if($this->limitAux){
+        if($this->paginacao){
+            $limit = $this->geraLimitPaginacao($pagina, $this->totalPagina);
+            if($limit['fim']){
                 $produtos = $this->where('status',1)
                 ->join('categorias as c','produtos.categoria_id','c.id')
                 ->select('produtos.*','c.categoria')
-                ->limit($this->limit)
-                ->offset($this->limitAux)
+                ->limit($limit['inicio'])
+                ->offset($limit['fim'])
                 ->orderBy('produtos.id', 'DESC')
                 ->get();
             }else{
                 $produtos = $this->where('status',1)
                 ->join('categorias as c','produtos.categoria_id','c.id')
                 ->select('produtos.*','c.categoria')
-                ->limit($this->limit)
+                ->limit($limit['inicio'])
                 ->orderBy('produtos.id', 'DESC')
                 ->get();
             }
@@ -73,13 +77,12 @@ class Produto extends Model
             ->get();
         }
 
-        // $categorias = Categoria::all();
-        // foreach ($produtos as $produto) {
-        //     $categoria = $categorias->find($produto->categoria_id)->categoria;
-        //     $produto->categoria_nome = $categoria;
-        // }
+        $retorno = [
+            'itens' => $produtos,
+            'total' => $this->count()
+        ];
 
-        return $produtos;
+        return $retorno;
     }
 
     /**
@@ -137,4 +140,46 @@ class Produto extends Model
 
         return $dadosProduto[0];
     }
+
+    /**
+     * [getProdutos description]
+     * @param  boolean $limit [description]
+     * @return [type]         [description]
+     */
+    // public function getProdutos($limit=false)
+    // {
+    //     if($limit){
+    //         if($this->limitAux){
+    //             $produtos = $this->where('status',1)
+    //             ->join('categorias as c','produtos.categoria_id','c.id')
+    //             ->select('produtos.*','c.categoria')
+    //             ->limit($this->limit)
+    //             ->offset($this->limitAux)
+    //             ->orderBy('produtos.id', 'DESC')
+    //             ->get();
+    //         }else{
+    //             $produtos = $this->where('status',1)
+    //             ->join('categorias as c','produtos.categoria_id','c.id')
+    //             ->select('produtos.*','c.categoria')
+    //             ->limit($this->limit)
+    //             ->orderBy('produtos.id', 'DESC')
+    //             ->get();
+    //         }
+    //     }else{
+    //         $produtos = $this->where('status',1)
+    //         ->join('categorias as c','produtos.categoria_id','c.id')
+    //         ->select('produtos.*','c.categoria')
+    //         ->orderBy('produtos.id', 'DESC')
+    //         ->get();
+    //     }
+    //
+    //     // $categorias = Categoria::all();
+    //     // foreach ($produtos as $produto) {
+    //     //     $categoria = $categorias->find($produto->categoria_id)->categoria;
+    //     //     $produto->categoria_nome = $categoria;
+    //     // }
+    //
+    //     return $produtos;
+    // }
+
 }

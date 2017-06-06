@@ -43,10 +43,10 @@ trait UploadImagem
             $path = public_path($this->pathProduto . $fileName);
             $pathGG = public_path($this->pathProdutoGG . $fileName);
 
-            $this->recortar($file->getRealPath(),$path);
-            $this->recortar($file->getRealPath(),$pathGG);
-            // $retornoGG = Image::make($file->getRealPath())->resize(200, 200)->save($path);
-            // $retorno = Image::make($file->getRealPath())->resize(900, 900)->save($pathGG);
+            // $this->recortar($file->getRealPath(),$path);
+            // $this->recortar($file->getRealPath(),$pathGG);
+            $retorno = Image::make($file->getRealPath())->resize(900, 900)->save($pathGG);
+            $retornoGG = Image::make($file->getRealPath())->resize(200, 200)->save($path);
 
             if ($retorno && $retornoGG) {
                 return $fileName;
@@ -55,11 +55,10 @@ trait UploadImagem
         return false;
     }
 
-    private function recortar($pathOrigem, $pathDestino)
-    {
-        Image::make($pathOrigem)->resize(200, 200)->save($pathDestino);
-
-    }
+    // private function recortar($pathOrigem, $pathDestino)
+    // {
+        // Image::make($pathOrigem)->resize(200, 200)->save($pathDestino);
+    // }
 
     public function validaExtImagem($extensao){
         return  in_array(strtolower($extensao), $this->extencoesImagem);

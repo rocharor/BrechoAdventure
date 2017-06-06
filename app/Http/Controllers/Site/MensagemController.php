@@ -39,6 +39,7 @@ class MensagemController extends Controller
             'conversas_recebidas'=>$conversas_recebidas,
             'qtdConversasEnviadas'=>$qtdConversasEnviadas,
             'qtdConversasRecebidas'=>$qtdConversasRecebidas,
+            'breadCrumb' => $this->getBreadCrumb()
             ]
         );
     }
@@ -124,7 +125,7 @@ class MensagemController extends Controller
         echo response()->json($dados)->content();
         die();
     }
-    
+
     public function buscaNotificacao()
     {
         if (Auth::user()){

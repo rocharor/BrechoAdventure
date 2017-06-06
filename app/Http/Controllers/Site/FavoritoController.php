@@ -6,11 +6,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Favorito as FavoritoModel;
-use App\Services\Util;
 
 class FavoritoController extends Controller
 {
-    use Util;
     private $model;
 
     public function __construct(FavoritoModel $objFavorito)
@@ -27,13 +25,16 @@ class FavoritoController extends Controller
     {
         $favoritos = $this->model->getFavoritos();
         foreach($favoritos as $key=>$favorito){
-            $arrImg = explode('|',$favorito->produto->nm_imagem);
-            $favorito->produto->imgPrincipal = $arrImg[0];
-            // $favorito->produto->idCodificado = base64_encode($favorito->produto_id);
-            $favorito->produto->idCodificado = $produto_id = Util::cryptCustom($favorito->produto_id);;
+            $favorito->produto->idCodificado = $produto_id = $this->cryptCustom($favorito->produto_id);;
+            $favorito->produto->imgPrincipal = $this->imagemPrincipal($favorito->produto->nm_imagem);
+            // $arrImg = explode('|',$favorito->produto->nm_imagem);
+            // $favorito->produto->imgPrincipal = $arrImg[0];
         }
 
-        return view('minhaConta/favorito',['favoritos'=>$favoritos]);
+        return view('minhaConta/favorito',[
+            'favoritos' => $favoritos,
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
     }
 
     /**

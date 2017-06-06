@@ -1,12 +1,10 @@
 @extends('template')
 @section('content')
 
-    <link type="text/css" rel="stylesheet" href="/css/produto.css" />
+    <!--BREADCRUMB-->
+    @include('breadCrumb')
 
-    <ol class="breadcrumb">
-        <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-		<li class="active">Meus Produtos</li>
-	</ol>
+    <link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
     <div class="row el-produtos-minha-conta hide">
         @if (count($meusProdutos) == 0)
@@ -34,7 +32,7 @@
                             <div><a href="{{ Route('minha-conta.editar-produto',$produto->idCodificado) }}" class="btn btn-primary" data-produto-id="{$produto.id}"><span class='glyphicon glyphicon-pencil'></span></a></div>
                             <div><button class="btn btn-danger" onclick="excluir_produto({{ $produto->id }})"><span class='glyphicon glyphicon-remove'></span></button></div>
                             {{-- <div><a href="/produto/visualizarProduto/{{ $produto->idCodificado }}'" class="btn btn-info"><span class='glyphicon glyphicon-eye-open'></span></a></div> --}}
-                            <div><a href="{{ Route('visualizarProduto',$produto->idCodificado) }}" class="btn btn-info"><span class='glyphicon glyphicon-eye-open'></span></a></div>
+                            <div><a href="{{ Route('visualizar-produto',$produto->idCodificado) }}" class="btn btn-info"><span class='glyphicon glyphicon-eye-open'></span></a></div>
                             <div><button class="btn  btn-warning favorito"><div class="favorito-ativo"></div> - {{ $produto->qtd_favorito }}</button></div>
                         </div>
                     @else

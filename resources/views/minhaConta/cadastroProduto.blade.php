@@ -1,9 +1,9 @@
 @extends('template')
 @section('content')
-    <ol class="breadcrumb">
-		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-		<li class="active">Cadastro de Produtos</li>
-	</ol>
+
+    <!--BREADCRUMB-->
+	@include('breadCrumb')
+    
     <div align="center">
         <div align="left" style="width: 500px;">
             @if($autorizado == false)

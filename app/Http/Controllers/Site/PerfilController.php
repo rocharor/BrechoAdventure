@@ -7,15 +7,13 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 // use File;
 use App\Models\User;
-use App\Services\Util;
 // use App\Services\Upload;
 use App\Services\UploadImagem;
 use DB;
 
 class PerfilController extends Controller
 {
-    // use Util,Upload;
-    use Util,UploadImagem;
+    use UploadImagem;
 
     public function __construct()
     {
@@ -33,7 +31,10 @@ class PerfilController extends Controller
 
         Auth::user()->dt_nascimento = preg_replace("/([0-9]*)-([0-9]*)-([0-9]*)/", "$3/$2/$1", Auth::user()->dt_nascimento);
 
-        return view('minhaConta/perfil',['estados'=>$estados]);
+        return view('minhaConta/perfil',[
+            'estados'=>$estados,
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
     }
 
     /**
@@ -53,7 +54,7 @@ class PerfilController extends Controller
 
         Auth::user()->name = $request->nome;
         Auth::user()->email = $request->email;
-        Auth::user()->dt_nascimento = Util::formataDataBD($request->dt_nascimento,false);
+        Auth::user()->dt_nascimento = $this->formataDataBD($request->dt_nascimento,false);
         Auth::user()->cep = $request->cep;
         Auth::user()->endereco = $request->endereco;
         Auth::user()->numero = $request->numero;

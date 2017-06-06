@@ -1,9 +1,9 @@
 @extends('template')
 @section('content')
-    <ol class="breadcrumb">
-		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-		<li class="active">Meus Favoritos</li>
-	</ol>
+
+    <!--BREADCRUMB-->
+	@include('breadCrumb')
+
     @if(count($favoritos) == 0)
          <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui nenhum favorito cadastrados</i></b></div>
     @else
@@ -23,7 +23,7 @@
                     <td>R$ {{ $favorito->produto->valor }}</td>
 
     	            {{-- <td><a  href='/produto/visualizarProduto/{{ $favorito->produto->idCodificado }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td> --}}
-    	            <td><a  href='{{ Route('visualizarProduto',$favorito->produto->idCodificado) }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+    	            <td><a  href='{{ Route('visualizar-produto',$favorito->produto->idCodificado) }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
     	            <td><button class="btn btn-danger act-excluir-favorito" data-produto-id="{{ $favorito->produto_id }}"><span class="glyphicon glyphicon-trash"></span></button></td>
     	            <td><button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button></td>
 
@@ -31,11 +31,6 @@
     	    @endforeach
     	</table>
     @endif
-
-    <!--Modal descricao-->
-    <div class="modal fade" id='modal_descricao_favorito'>
-        @include('modalDescricao')
-    </div>
 
     <script type="text/javascript" src="/js/site/favorito.js"></script>
 @endsection

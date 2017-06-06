@@ -67,8 +67,10 @@
     }
 
     </style>
-    <h1 class="text-danger"><span class="glyphicon glyphicon-envelope"></span> Mensagens</h1>
 
+    <!--BREADCRUMB-->
+    @include('breadCrumb')
+    
     <ul class="nav nav-tabs nav-justified">
       <li role="presentation" class="active act-aba-msgEnviadas">
           <a href="">

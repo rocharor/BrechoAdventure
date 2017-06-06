@@ -1,9 +1,8 @@
 @extends('template')
 @section('content')
-    <ol class="breadcrumb">
-      <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-      <li class="active">Perfil</li>
-    </ol>
+    
+    <!--BREADCRUMB-->
+	@include('breadCrumb')
 
     <link rel="stylesheet" href="/libs/jcrop/css/jquery.Jcrop.css" type="text/css" />
     <link type="text/css" rel="stylesheet" href="/css/minhaConta.css" />

@@ -8,19 +8,17 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
-use App\Services\Util;
 // use App\Services\Cache;
 // use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
 use App\Services\UploadImagem;
-use App\Services\BreadCrumb;
 
 class ProdutoController extends Controller
 {
-    use Util, UploadImagem, BreadCrumb;
+    use UploadImagem;
 
     public $model;
-    public $totalPagina = 8;
+    // public $totalPagina = 8;
 
     public function __construct(Produto $produto)
     {
@@ -35,10 +33,10 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos as $produto){
-            // $produto->idCodificado = base64_encode($produto->id);
-            $produto->idCodificado = Util::cryptCustom($produto->id);
-            $arrImg = explode('|',$produto->nm_imagem);
-            $produto->imgPrincipal = $arrImg[0];
+            $produto->idCodificado = $this->cryptCustom($produto->id);
+            $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
+            // $arrImg = explode('|',$produto->nm_imagem);
+            // $produto->imgPrincipal = $arrImg[0];
             $produto->favorito = false;
             foreach($favoritos as $favorito){
                 if($favorito->produto_id == $produto->id){
@@ -47,25 +45,30 @@ class ProdutoController extends Controller
             }
         }
 
-        return view('site/produto',['produtos'=>$produtos]);
+        return view('site/home',[
+            'produtos'=>$produtos,
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
 
     }
 
-    // public function todosProdutos(Favorito $favorito, Request $request,$pg=1)
-    public function produtos(Favorito $favorito, Request $request,$pg=1)
+    public function produtos(Favorito $favorito, Request $request,$pagina=1)
     {
         $this->getBreadCrumb();
-        $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
-        $this->model->limit = $limit['inicio'];
-        $this->model->limitAux = $limit['fim'];
-        $produtos = $this->model->getProdutos(true);
+        // $limit = $this->geraLimitPaginacao($pg,$this->totalPagina);
+        // $this->model->limit = $limit['inicio'];
+        // $this->model->limitAux = $limit['fim'];
+        // $produtos = $this->model->getProdutos(true);
+        $this->model->paginacao = true;
+        $produtos = $this->model->getProdutos($pagina);
 
         $favoritos = $favorito->getFavoritos();
-        foreach($produtos as $produto){
-            // $produto->idCodificado = base64_encode($produto->id);
-            $produto->idCodificado = Util::cryptCustom($produto->id);
-            $arrImg = explode('|',$produto->nm_imagem);
-            $produto->imgPrincipal = $arrImg[0];
+        // foreach($produtos as $produto){
+        foreach($produtos['itens'] as $produto){
+            $produto->idCodificado = $this->cryptCustom($produto->id);
+            $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
+            // $arrImg = explode('|',$produto->nm_imagem);
+            // $produto->imgPrincipal = $arrImg[0];
 
             $produto->favorito = false;
             foreach($favoritos as $favorito){
@@ -75,31 +78,31 @@ class ProdutoController extends Controller
             }
         }
 
-        $totalProdutos = count($this->model->getProdutos());
-        $numberPages = (int)ceil($totalProdutos / $this->totalPagina);
+        // $totalProdutos = count($this->model->getProdutos());
+        $numberPages = (int)ceil($produtos['total'] / $this->model->totalPagina);
 
-        return view('site/todosProdutos',[
-            'produtos'=>$produtos,
-            'pg'=>$pg,
-            'numberPages'=>$numberPages,
-            'link'=>'/produto/todosProdutos/'
+        return view('site/produtos',[
+            'produtos' => $produtos['itens'],
+            'pg' => $pagina,
+            'numberPages' => $numberPages,
+            'link' => '/produtos/',
+            'breadCrumb' => $this->getBreadCrumb()
         ]);
     }
 
     public function meusProdutos($pg=1)
     {
-        $this->getBreadCrumb();
-        $limit = Util::geraLimitPaginacao($pg,$this->totalPagina);
+        $limit = $this->geraLimitPaginacao($pg,$this->totalPagina);
         $this->model->limit = $limit['inicio'];
         $this->model->limitAux = $limit['fim'];
         $meusProdutos = $this->model->getMeusProdutos(true);
 
         foreach($meusProdutos as $produto){
-            // $produto->idCodificado = base64_encode($produto->id);
-            $produto->idCodificado = Util::cryptCustom($produto->id);
-            $arrImg = explode('|',$produto->nm_imagem);
-            $produto->imgPrincipal = $arrImg[0];
-            $produto->dataExibicao = Util::formataDataExibicao($produto->created_at);
+            $produto->idCodificado = $this->cryptCustom($produto->id);
+            $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
+            // $arrImg = explode('|',$produto->nm_imagem);
+            // $produto->imgPrincipal = $arrImg[0];
+            $produto->dataExibicao = $this->formataDataExibicao($produto->created_at);
         }
 
         $totalProdutos = count($this->model->getMeusProdutos());
@@ -109,7 +112,8 @@ class ProdutoController extends Controller
             'meusProdutos'=>$meusProdutos,
             'pg'=>$pg,
             'numberPages'=>$numberPages,
-            'link'=>'/minha-conta/produto/'
+            'link'=>'/minha-conta/produto/',
+            'breadCrumb' => $this->getBreadCrumb()
         ]);
     }
 
@@ -122,7 +126,11 @@ class ProdutoController extends Controller
 
         $categorias = $categoria->all();
 
-        return view('minhaConta/cadastroProduto',['autorizado'=>$autorizado,'categorias'=>$categorias]);
+        return view('minhaConta/cadastroProduto',[
+            'autorizado'=>$autorizado,
+            'categorias'=>$categorias,
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
     }
 
     public function store(Request $request)
@@ -165,7 +173,7 @@ class ProdutoController extends Controller
     {
         $this->getBreadCrumb();
         // $produto_id = base64_decode($produto_id);
-        $produto_id = Util::decryptCustom($hash_produto_id);
+        $produto_id = $this->decryptCustom($hash_produto_id);
         $produto = $this->model->getDescricaoProduto($produto_id);
 
         $imagens = [];
@@ -175,12 +183,15 @@ class ProdutoController extends Controller
 
         $produto->imagens = $imagens;
 
-        return view('site/visualizarProduto',['produto'=>$produto]);
+        return view('site/visualizarProduto',[
+            'produto'=>$produto,
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
     }
 
     public function edit($id, Categoria $categoria)
     {
-        $produto_id = Util::decryptCustom($id);
+        $produto_id = $this->decryptCustom($id);
         $produto = $this->model->find($produto_id);
         $produto->idCodificado = $id;
         $categorias = $categoria->all();
@@ -191,9 +202,13 @@ class ProdutoController extends Controller
         }
 
         $produto->imagens = $imagens;
-        $produto->dataExibicao = Util::formataDataExibicao($produto->created_at, false);
+        $produto->dataExibicao = $this->formataDataExibicao($produto->created_at, false);
 
-        return view('minhaConta/editarProduto',['categorias'=>$categorias,'produto'=>$produto]);
+        return view('minhaConta/editarProduto',[
+            'categorias'=>$categorias,
+            'produto'=>$produto,
+            'breadCrumb' => $this->getBreadCrumb()
+        ]);
     }
 
     public function update($id, Request $request)
@@ -206,12 +221,12 @@ class ProdutoController extends Controller
             'valor' => 'required'
         ]);
 
-        $produto = $this->model->find(Util::decryptCustom($id));
+        $produto = $this->model->find($this->decryptCustom($id));
 
         $produto->categoria_id = $request->get('categoria');
         $produto->titulo = $request->get('titulo');
         $produto->descricao = $request->get('descricao');
-        $produto->valor = Util::formataMoedaBD($request->get('valor'));
+        $produto->valor = $this->formataMoedaBD($request->get('valor'));
         $produto->estado = $request->get('estado');
         $produto->status = 2;
         $nome_imagem = [$produto->nm_imagem];

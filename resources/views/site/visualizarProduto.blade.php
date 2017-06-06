@@ -5,10 +5,8 @@
 	<link type="text/css" rel="stylesheet" href="/libs/xZoom/dist/xzoom.css" />
 	<script src="/libs/xZoom/dist/xzoom.min.js"></script>
 
-	<ol class="breadcrumb">
-		<li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-		<li class="active">Visualizar produtos</li>
-	</ol>
+	<!--BREADCRUMB-->
+    @include('breadCrumb')
 
 	<div class="row" >
 		<div class="col-xs-12 col-sm-10">
@@ -89,7 +87,7 @@
 	    // $('.xzoom, .xzoom-gallery').xzoom({position: '#xzoom2-id', tint: '#ffa200'});
 	    // $('.xzoom, .xzoom-gallery').xzoom({position: 'lens', lensShape: 'circle', bg:true, sourceClass: 'xzoom-hidden'});
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
-	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});		
+	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	</script>
 	<script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection
