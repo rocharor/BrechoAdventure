@@ -17,6 +17,7 @@ class Produto extends Model
     protected $table = 'produtos';
     protected $dates = ['deleted_at'];
     public $paginacao = false;
+    public $pagina = 1;
     public $totalPagina = 8;
     // public $limit = false;
     // public $limitAux = false;
@@ -49,10 +50,10 @@ class Produto extends Model
      * @param  boolean $limit [description]
      * @return [type]         [description]
      */
-    public function getProdutos($pagina)
+    public function getProdutos()
     {
         if($this->paginacao){
-            $limit = $this->geraLimitPaginacao($pagina, $this->totalPagina);
+            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
             if($limit['fim']){
                 $produtos = $this->where('status',1)
                 ->join('categorias as c','produtos.categoria_id','c.id')

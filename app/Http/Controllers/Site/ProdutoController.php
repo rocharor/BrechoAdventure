@@ -28,11 +28,12 @@ class ProdutoController extends Controller
     public function index(Favorito $favorito)
     {
         $this->getBreadCrumb();
-        $this->model->limit = $this->totalPagina;
-        $produtos = $this->model->getProdutos(true);
+        // $this->model->limit = $this->totalPagina;
+        $this->model->paginacao = true;
+        $produtos = $this->model->getProdutos();
 
         $favoritos = $favorito->getFavoritos();
-        foreach($produtos as $produto){
+        foreach($produtos['itens'] as $produto){
             $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
             // $arrImg = explode('|',$produto->nm_imagem);
@@ -46,7 +47,7 @@ class ProdutoController extends Controller
         }
 
         return view('site/home',[
-            'produtos'=>$produtos,
+            'produtos'=>$produtos['itens'],
             'breadCrumb' => $this->getBreadCrumb()
         ]);
 
@@ -60,7 +61,8 @@ class ProdutoController extends Controller
         // $this->model->limitAux = $limit['fim'];
         // $produtos = $this->model->getProdutos(true);
         $this->model->paginacao = true;
-        $produtos = $this->model->getProdutos($pagina);
+        $this->model->pagina = $pagina;
+        $produtos = $this->model->getProdutos();
 
         $favoritos = $favorito->getFavoritos();
         // foreach($produtos as $produto){
