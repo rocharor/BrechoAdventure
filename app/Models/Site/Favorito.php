@@ -7,14 +7,18 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Site\Produto;
 use App\Models\User;
+use App\Services\Util;
 
 
 class Favorito extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, Util;
 
     protected $table = 'favoritos';
     protected $dates = ['deleted_at'];
+    public $paginacao = false;
+    public $pagina = 1;
+    public $totalPagina = 8;
 
     public function produto()
     {
@@ -32,13 +36,45 @@ class Favorito extends Model
 
     public function getFavoritos()
     {
+        // $favoritos = [];
+        // if(Auth::user()){
+        //     $user_id = Auth::user()->id;
+        //     $favoritos = User::find($user_id)->favorito->where('status',1);
+        // }
+
         $favoritos = [];
-        if(Auth::user()){
-            $user_id = Auth::user()->id;
-            $favoritos = User::find($user_id)->favorito->where('status',1);
+        if($this->paginacao){
+            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
+
+            if($limit['fim']){
+                $favoritos = $this->where('status',1)
+                ->where('user_id',Auth::user()->id)
+                ->limit($limit['inicio'])
+                ->offset($limit['fim'])
+                ->orderBy('created_at', 'DESC')
+                ->get();
+            }else{
+                $favoritos = $this->where('status',1)
+                ->where('user_id',Auth::user()->id)
+                ->limit($limit['inicio'])
+                ->orderBy('created_at', 'DESC')
+                ->get();
+            }
+        }else{
+            if(Auth::user()){
+                $favoritos = $this->where('status',1)
+                ->where('user_id', Auth::user()->id)
+                ->orderBy('created_at', 'DESC')
+                ->get();
+            }
         }
 
-        return $favoritos;
+        $retorno = [
+            'itens' => $favoritos,
+            'total' => $this->count()
+        ];
+
+        return $retorno;
     }
 
 }

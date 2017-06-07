@@ -27,8 +27,6 @@ class ProdutoController extends Controller
 
     public function index(Favorito $favorito)
     {
-        $this->getBreadCrumb();
-        // $this->model->limit = $this->totalPagina;
         $this->model->paginacao = true;
         $produtos = $this->model->getProdutos();
 
@@ -36,10 +34,9 @@ class ProdutoController extends Controller
         foreach($produtos['itens'] as $produto){
             $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
-            // $arrImg = explode('|',$produto->nm_imagem);
-            // $produto->imgPrincipal = $arrImg[0];
+
             $produto->favorito = false;
-            foreach($favoritos as $favorito){
+            foreach($favoritos['itens'] as $favorito){
                 if($favorito->produto_id == $produto->id){
                     $produto->favorito = true;
                 }
@@ -55,33 +52,24 @@ class ProdutoController extends Controller
 
     public function produtos(Favorito $favorito, Request $request,$pagina=1)
     {
-        $this->getBreadCrumb();
-        // $limit = $this->geraLimitPaginacao($pg,$this->totalPagina);
-        // $this->model->limit = $limit['inicio'];
-        // $this->model->limitAux = $limit['fim'];
-        // $produtos = $this->model->getProdutos(true);
         $this->model->paginacao = true;
         $this->model->pagina = $pagina;
         $produtos = $this->model->getProdutos();
+        $numberPages = (int)ceil($produtos['total'] / $this->model->totalPagina);
 
         $favoritos = $favorito->getFavoritos();
-        // foreach($produtos as $produto){
         foreach($produtos['itens'] as $produto){
             $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
-            // $arrImg = explode('|',$produto->nm_imagem);
-            // $produto->imgPrincipal = $arrImg[0];
 
             $produto->favorito = false;
-            foreach($favoritos as $favorito){
+            foreach($favoritos['itens'] as $favorito){
                 if($favorito->produto_id == $produto->id){
                     $produto->favorito = true;
                 }
             }
         }
 
-        // $totalProdutos = count($this->model->getProdutos());
-        $numberPages = (int)ceil($produtos['total'] / $this->model->totalPagina);
 
         return view('site/produtos',[
             'produtos' => $produtos['itens'],
@@ -92,27 +80,22 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function meusProdutos($pg=1)
+    public function meusProdutos($pagina=1)
     {
-        $limit = $this->geraLimitPaginacao($pg,$this->totalPagina);
-        $this->model->limit = $limit['inicio'];
-        $this->model->limitAux = $limit['fim'];
-        $meusProdutos = $this->model->getMeusProdutos(true);
+        $this->model->paginacao = true;
+        $this->model->pagina = $pagina;
+        $meusProdutos = $this->model->getMeusProdutos();
+        $numberPages = (int)ceil($meusProdutos['total'] / $this->model->totalPagina);
 
-        foreach($meusProdutos as $produto){
+        foreach($meusProdutos['itens'] as $produto){
             $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
-            // $arrImg = explode('|',$produto->nm_imagem);
-            // $produto->imgPrincipal = $arrImg[0];
             $produto->dataExibicao = $this->formataDataExibicao($produto->created_at);
         }
 
-        $totalProdutos = count($this->model->getMeusProdutos());
-        $numberPages = (int)ceil($totalProdutos / $this->totalPagina);
-
         return view('minhaConta/produto',[
-            'meusProdutos'=>$meusProdutos,
-            'pg'=>$pg,
+            'meusProdutos'=>$meusProdutos['itens'],
+            'pg'=>$pagina,
             'numberPages'=>$numberPages,
             'link'=>'/minha-conta/produto/',
             'breadCrumb' => $this->getBreadCrumb()
@@ -137,7 +120,6 @@ class ProdutoController extends Controller
 
     public function store(Request $request)
     {
-        // $foto_salva = false;
         $nome_imagem = [];
 
         foreach($request->foto as $key=>$foto){
@@ -174,7 +156,6 @@ class ProdutoController extends Controller
     public function show($hash_produto_id)
     {
         $this->getBreadCrumb();
-        // $produto_id = base64_decode($produto_id);
         $produto_id = $this->decryptCustom($hash_produto_id);
         $produto = $this->model->getDescricaoProduto($produto_id);
 

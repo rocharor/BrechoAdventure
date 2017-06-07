@@ -56,16 +56,12 @@ class Produto extends Model
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
             if($limit['fim']){
                 $produtos = $this->where('status',1)
-                ->join('categorias as c','produtos.categoria_id','c.id')
-                ->select('produtos.*','c.categoria')
                 ->limit($limit['inicio'])
                 ->offset($limit['fim'])
                 ->orderBy('produtos.id', 'DESC')
                 ->get();
             }else{
                 $produtos = $this->where('status',1)
-                ->join('categorias as c','produtos.categoria_id','c.id')
-                ->select('produtos.*','c.categoria')
                 ->limit($limit['inicio'])
                 ->orderBy('produtos.id', 'DESC')
                 ->get();
@@ -91,21 +87,22 @@ class Produto extends Model
      * @param  boolean $limit [description]
      * @return [type]         [description]
      */
-    public function getMeusProdutos($limit=false)
+    public function getMeusProdutos()
     {
-        if($limit){
-            if($this->limitAux){
+        if($this->paginacao){
+            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
+            if($limit['fim']){
                 $meusProdutos =  $this->withTrashed()
                 ->where('user_id',Auth::user()->id)
-                ->limit($this->limit)
-                ->offset($this->limitAux)
+                ->limit($limit['inicio'])
+                ->offset($limit['fim'])
                 ->orderBy('status', 'DESC')
                 ->orderBy('deleted_at', 'ASC')
                 ->get();
             }else{
                 $meusProdutos =  $this->withTrashed()
                 ->where('user_id',Auth::user()->id)
-                ->limit($this->limit)
+                ->limit($limit['inicio'])
                 ->orderBy('status', 'DESC')
                 ->orderBy('deleted_at', 'ASC')
                 ->get();
@@ -118,7 +115,12 @@ class Produto extends Model
             ->get();
         }
 
-        return $meusProdutos;
+        $retorno = [
+            'itens' => $meusProdutos,
+            'total' => $this->count()
+        ];
+
+        return $retorno;
     }
 
     /**
@@ -129,58 +131,9 @@ class Produto extends Model
     public function getDescricaoProduto($produto_id)
     {
         $produto_id = (int) $produto_id;
-        $dadosProduto = $this->where('produtos.id',$produto_id)
-        ->join('categorias as c','produtos.categoria_id','c.id')
-        ->join('users as u', 'produtos.user_id', 'u.id')
-        ->select(
-            'produtos.*',
-            'u.*',
-            'c.categoria'
-        )
-        ->get();
+        $dadosProduto = $this->find($produto_id);
 
-        return $dadosProduto[0];
+        return $dadosProduto;
     }
-
-    /**
-     * [getProdutos description]
-     * @param  boolean $limit [description]
-     * @return [type]         [description]
-     */
-    // public function getProdutos($limit=false)
-    // {
-    //     if($limit){
-    //         if($this->limitAux){
-    //             $produtos = $this->where('status',1)
-    //             ->join('categorias as c','produtos.categoria_id','c.id')
-    //             ->select('produtos.*','c.categoria')
-    //             ->limit($this->limit)
-    //             ->offset($this->limitAux)
-    //             ->orderBy('produtos.id', 'DESC')
-    //             ->get();
-    //         }else{
-    //             $produtos = $this->where('status',1)
-    //             ->join('categorias as c','produtos.categoria_id','c.id')
-    //             ->select('produtos.*','c.categoria')
-    //             ->limit($this->limit)
-    //             ->orderBy('produtos.id', 'DESC')
-    //             ->get();
-    //         }
-    //     }else{
-    //         $produtos = $this->where('status',1)
-    //         ->join('categorias as c','produtos.categoria_id','c.id')
-    //         ->select('produtos.*','c.categoria')
-    //         ->orderBy('produtos.id', 'DESC')
-    //         ->get();
-    //     }
-    //
-    //     // $categorias = Categoria::all();
-    //     // foreach ($produtos as $produto) {
-    //     //     $categoria = $categorias->find($produto->categoria_id)->categoria;
-    //     //     $produto->categoria_nome = $categoria;
-    //     // }
-    //
-    //     return $produtos;
-    // }
 
 }

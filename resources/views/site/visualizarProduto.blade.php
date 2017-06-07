@@ -13,19 +13,20 @@
 			<table class='table table-striped'>
 				<tr>
 					<td><b>Nome:</b></td>
-					<td>{{ $produto->name }} </td>
+					{{-- <td>{{ $produto->name }} </td> --}}
+					<td>{{ $produto->user->name }} </td>
 				</tr>
 				<tr>
 					<td><b>E-mail:</b></td>
-					<td>{{ $produto->email }} </td>
+					<td>{{ $produto->user->email }} </td>
 				</tr>
 				<tr>
 					<td><b>Telefone:</b></td>
-					<td>{{ $produto->telefone_fixo }} </td>
+					<td>{{ $produto->user->telefone_fixo }} </td>
 				</tr>
 				<tr>
 					<td><b>Celular:</b></td>
-					<td>{{ $produto->telefone_cel }} </td>
+					<td>{{ $produto->user->telefone_cel }} </td>
 				</tr>
 				<tr><td colspan=2></td></tr>
 				<tr>
@@ -34,7 +35,7 @@
 				</tr>
 				<tr>
 					<td><b>Categoria:</b></td>
-					<td>{{ $produto->categoria }} </td>
+					<td>{{ $produto->categoria->categoria }} </td>
 				</tr>
 				<tr>
 					<td><b>Estado:</b></td>

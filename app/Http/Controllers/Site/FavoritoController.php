@@ -5,15 +5,15 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Site\Favorito as FavoritoModel;
+use App\Models\Site\Favorito;
 
 class FavoritoController extends Controller
 {
     private $model;
 
-    public function __construct(FavoritoModel $objFavorito)
+    public function __construct(Favorito $favorito)
     {
-        $this->model = $objFavorito;
+        $this->model = $favorito;
     }
 
     /**
@@ -21,19 +21,24 @@ class FavoritoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($pagina=1)
     {
+        $this->model->paginacao = true;
+        $this->model->pagina = $pagina;
         $favoritos = $this->model->getFavoritos();
-        foreach($favoritos as $key=>$favorito){
+        foreach($favoritos['itens'] as $key=>$favorito){
             $favorito->produto->idCodificado = $produto_id = $this->cryptCustom($favorito->produto_id);;
             $favorito->produto->imgPrincipal = $this->imagemPrincipal($favorito->produto->nm_imagem);
-            // $arrImg = explode('|',$favorito->produto->nm_imagem);
-            // $favorito->produto->imgPrincipal = $arrImg[0];
         }
 
+        $numberPages = (int)ceil($favoritos['total'] / $this->model->totalPagina);
+
         return view('minhaConta/favorito',[
-            'favoritos' => $favoritos,
-            'breadCrumb' => $this->getBreadCrumb()
+            'favoritos' => $favoritos['itens'],
+            'breadCrumb' => $this->getBreadCrumb(),
+            'pg' => $pagina,
+            'numberPages' => $numberPages,
+            'link' => '/minha-conta/favorito/'
         ]);
     }
 

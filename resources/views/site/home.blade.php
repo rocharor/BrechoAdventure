@@ -10,10 +10,12 @@
 	@else
 		<div class="row" >
 			<div class="col-xs-12 col-sm-10 el-produtos hide">
-				<h1 align="center">Bem vindo ao Brechó Adventure</h1>
-				<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>
+				<div align="center">
+					<h1 align="center">Bem vindo ao Brechó Adventure</h1>
+					<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>
+				</div>
 				@foreach($produtos as $produto)
-					<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+					<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 0px; padding: 20px 0">
 						<div class="div-produtos" align="center">
 							<div class="div-favorito-{{ $produto->id }}">
 								@if(Auth::check() == 0)
@@ -40,8 +42,6 @@
 
 							<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
 							<div>
-								{{-- <button class='btn btn-warning' @click.prevent="openDescription({{ $produto->id }})"><b>Ver detalhes</b></button> --}}
-								{{-- <a href='/produto/visualizarProduto/{{ $produto->idCodificado }}' class='btn btn-warning'><b>Ver detalhes</b></a> --}}
 								<a href='{{ Route('visualizar-produto',$produto->idCodificado) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
 								@if(Auth::check() != 0)
 									<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
@@ -51,20 +51,20 @@
 					</div>
 				@endforeach
 
+				<div align="center">
+					<a href="{{ Route('produtos') }}" class="btn btn-primary" style="width: 50%">VER TODOS</a>
+				</div>
+
 				<!--Modal mensagem-->
 				<div class="modal fade" id='modal-mensagem'>
 					@include('modalMensagem')
 				</div>
-
 			</div>
 			<div class="col-sm-2 hidden-xs" style="border:solid 0px;">
-				<a class="twitter-timeline" data-height="1000" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets by Adventure__Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+				<a class="twitter-timeline" data-height="800" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets by Adventure__Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</div>
 		</div>
-		<br><br>
-		<div align="center">
-			<a href="{{ Route('produtos') }}" class="btn btn-primary" style="width: 50%">VER TODOS</a>
-		</div>
+
 	@endif
 
 	<script type="text/javascript" src="/js/site/produto.js"></script>

@@ -30,6 +30,10 @@
     	        </tr>
     	    @endforeach
     	</table>
+
+		<!--PAGINAÇÃO-->
+		@include('paginacao')
+		
     @endif
 
     <script type="text/javascript" src="/js/site/favorito.js"></script>
