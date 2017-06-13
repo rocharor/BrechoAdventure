@@ -3,7 +3,7 @@
 
     <!--BREADCRUMB-->
 	@include('breadCrumb')
-    
+
     <div align="center">
         <div align="left" style="width: 500px;">
             @if($autorizado == false)
@@ -55,12 +55,24 @@
     	            <br>
 
     	            <button type="submit" class="btn btn-primary"> Cadastrar </button>
-    	            {{-- <button type="button" class="btn btn-primary act-cadastrar-produto"> Cadastrar </button> --}}
     	        </form>
     		@endif
         </div>
     </div>
 
-    {{-- <script type="text/javascript" src="/libs/jquery/jquery.maskMoney.min.js"></script> --}}
+
     <script type="text/javascript" src="/js/site/cadastroProduto.js"></script>
+	<script>
+		function abreCampoFoto(obj){
+		    $(obj).next().removeClass('hide')
+		}
+
+		// Mascaras
+		(function() {
+		    if (document.getElementById("valor") != null) {
+		        VMasker(document.getElementById("valor")).maskMoney();
+		    }
+		})();
+
+	</script>
 @endsection

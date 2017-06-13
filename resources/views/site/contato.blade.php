@@ -8,7 +8,7 @@
 
     <div class="row">
     	<div class="col-md-6">
-    	    <form action="/contato/store" method="POST" name="form" id="form"  {{--onsubmit="validaForm()"--}}>
+    	    <form action="/contato/store" method="POST" name="form" id="form">
                 {{ csrf_field() }}
 
     	        <div class="form-group">

@@ -54,5 +54,6 @@ class Kernel extends HttpKernel
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'CheckAuthProduct' => \App\Http\Middleware\CheckAuthProduct::class,
         'CheckStatusProduct' => \App\Http\Middleware\CheckStatusProduct::class,
+        'AuthFavorite' => \App\Http\Middleware\AuthFavorite::class,
     ];
 }

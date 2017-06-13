@@ -19,7 +19,6 @@ class CheckAuthProduct
      */
     public function handle($request, Closure $next)
     {
-        // $produto_id = base64_decode($request->route('id'));
         $produto_id = $this->decryptCustom($request->route('id'));
         $retorno = Produto::where('id', $produto_id)->where('user_id', Auth::user()->id)->get();
 

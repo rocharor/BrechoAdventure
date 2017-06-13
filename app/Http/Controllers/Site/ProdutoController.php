@@ -157,7 +157,7 @@ class ProdutoController extends Controller
     {
         $this->getBreadCrumb();
         $produto_id = $this->decryptCustom($hash_produto_id);
-        $produto = $this->model->getDescricaoProduto($produto_id);
+        $produto = $this->model->getProduto($produto_id);
 
         $imagens = [];
         if ($produto->nm_imagem != '') {

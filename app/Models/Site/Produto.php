@@ -52,6 +52,8 @@ class Produto extends Model
      */
     public function getProdutos()
     {
+        $produtos = [];
+        $total = [];
         if($this->paginacao){
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
             if($limit['fim']){
@@ -66,58 +68,19 @@ class Produto extends Model
                 ->orderBy('produtos.id', 'DESC')
                 ->get();
             }
+            $total = $this->where('status',1)->count();
         }else{
             $produtos = $this->where('status',1)
-            ->join('categorias as c','produtos.categoria_id','c.id')
-            ->select('produtos.*','c.categoria')
-            ->orderBy('produtos.id', 'DESC')
+            // ->join('categorias as c','produtos.categoria_id','c.id')
+            // ->select('produtos.*','c.categoria')
+            // ->orderBy('produtos.id', 'DESC')
             ->get();
         }
+
 
         $retorno = [
             'itens' => $produtos,
-            'total' => $this->count()
-        ];
-
-        return $retorno;
-    }
-
-    /**
-     * [getMeusProdutos description]
-     * @param  boolean $limit [description]
-     * @return [type]         [description]
-     */
-    public function getMeusProdutos()
-    {
-        if($this->paginacao){
-            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
-            if($limit['fim']){
-                $meusProdutos =  $this->withTrashed()
-                ->where('user_id',Auth::user()->id)
-                ->limit($limit['inicio'])
-                ->offset($limit['fim'])
-                ->orderBy('status', 'DESC')
-                ->orderBy('deleted_at', 'ASC')
-                ->get();
-            }else{
-                $meusProdutos =  $this->withTrashed()
-                ->where('user_id',Auth::user()->id)
-                ->limit($limit['inicio'])
-                ->orderBy('status', 'DESC')
-                ->orderBy('deleted_at', 'ASC')
-                ->get();
-            }
-        }else{
-            $meusProdutos =  $this->withTrashed()
-            ->where('user_id',Auth::user()->id)
-            ->orderBy('status', 'DESC')
-            ->orderBy('deleted_at', 'ASC')
-            ->get();
-        }
-
-        $retorno = [
-            'itens' => $meusProdutos,
-            'total' => $this->count()
+            'total' => $total
         ];
 
         return $retorno;
@@ -128,7 +91,8 @@ class Produto extends Model
      * @param  [type] $produto_id [description]
      * @return [type]             [description]
      */
-    public function getDescricaoProduto($produto_id)
+    // public function getDescricaoProduto($produto_id)
+    public function getProduto($produto_id)
     {
         $produto_id = (int) $produto_id;
         $dadosProduto = $this->find($produto_id);
@@ -136,4 +100,47 @@ class Produto extends Model
         return $dadosProduto;
     }
 
+    /**
+     * [getMeusProdutos description]
+     * @param  boolean $limit [description]
+     * @return [type]         [description]
+     */
+    public function getMeusProdutos()
+    {
+        $meusProdutos = [];
+        $total = [];
+        if($this->paginacao){
+            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
+            if($limit['fim']){
+                $meusProdutos =  $this->withTrashed()
+                ->where('user_id',Auth::user()->id)
+                ->limit($limit['inicio'])
+                ->offset($limit['fim'])
+                ->orderBy('status', 'DESC')
+                ->orderBy('deleted_at', 'ASC')
+                ->get();
+            }else{
+                $meusProdutos =  $this->withTrashed()
+                ->where('user_id',Auth::user()->id)
+                ->limit($limit['inicio'])
+                ->orderBy('status', 'DESC')
+                ->orderBy('deleted_at', 'ASC')
+                ->get();
+            }
+            $total = $this->where('status',1)->where('user_id',Auth::user()->id)->count();
+        }else{
+            $meusProdutos =  $this->withTrashed()
+            ->where('user_id',Auth::user()->id)
+            ->orderBy('status', 'DESC')
+            ->orderBy('deleted_at', 'ASC')
+            ->get();
+        }
+
+        $retorno = [
+            'itens' => $meusProdutos,
+            'total' => $total
+        ];
+
+        return $retorno;
+    }
 }

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Favorito;
+use App\Models\Robo;
 
 class FavoritoController extends Controller
 {
@@ -23,6 +24,8 @@ class FavoritoController extends Controller
      */
     public function index($pagina=1)
     {
+        $robo = new Robo();
+        $robo->mountFilterCache();
         $this->model->paginacao = true;
         $this->model->pagina = $pagina;
         $favoritos = $this->model->getFavoritos();
@@ -94,5 +97,16 @@ class FavoritoController extends Controller
         $retorno = $produto[0]->save();
 
         return $retorno;
+    }
+
+    public function delete(Request $request)
+    {
+        $favorito_id = $request->id;
+        $favorito = $this->model->find($favorito_id);
+
+        if ($favorito->delete()) {
+            return redirect()->route('minha-conta.meus-favorito',1)->with('sucesso','Favorito excluido com sucesso.');
+        }
+        return redirect()->route('minha-conta.meus-favorito',1)->with('erro','Erro ao excluir favorito.');
     }
 }

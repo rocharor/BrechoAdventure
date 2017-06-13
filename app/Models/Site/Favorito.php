@@ -36,16 +36,10 @@ class Favorito extends Model
 
     public function getFavoritos()
     {
-        // $favoritos = [];
-        // if(Auth::user()){
-        //     $user_id = Auth::user()->id;
-        //     $favoritos = User::find($user_id)->favorito->where('status',1);
-        // }
-
         $favoritos = [];
+        $total = [];
         if($this->paginacao){
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
-
             if($limit['fim']){
                 $favoritos = $this->where('status',1)
                 ->where('user_id',Auth::user()->id)
@@ -60,6 +54,7 @@ class Favorito extends Model
                 ->orderBy('created_at', 'DESC')
                 ->get();
             }
+            $total = $this->where('status',1)->where('user_id',Auth::user()->id)->count();
         }else{
             if(Auth::user()){
                 $favoritos = $this->where('status',1)
@@ -71,7 +66,7 @@ class Favorito extends Model
 
         $retorno = [
             'itens' => $favoritos,
-            'total' => $this->count()
+            'total' => $total
         ];
 
         return $retorno;
