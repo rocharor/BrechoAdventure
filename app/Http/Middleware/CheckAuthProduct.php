@@ -19,8 +19,12 @@ class CheckAuthProduct
      */
     public function handle($request, Closure $next)
     {
-        $produto_id = $this->decryptCustom($request->route('id'));
-        $retorno = Produto::where('id', $produto_id)->where('user_id', Auth::user()->id)->get();
+        $retorno = [];
+        if (is_string($request->route('param'))) {
+            $retorno = Produto::where('slug', $request->route('param'))->where('user_id', Auth::user()->id)->get();
+        }else{
+            $retorno = Produto::where('id', $request->route('param'))->where('user_id', Auth::user()->id)->get();
+        }
 
         if (count($retorno) == 0) {
             abort(403);

@@ -223,20 +223,23 @@ var appVueFiltro = new Vue({
             window.open(url,'_self');
         },
         buscaDadosFiltro:function(){
-            $.ajax({
-                url:'/cache/getFilter',
-                type:'POST',
-                dataType:'json',
-                success:function(retorno){
-                    for (var i in retorno) {
-                        retorno[i]['menuAtivo'] = true
-                    }
-                    appVueFiltro.categorias = retorno;
-                },
-                error:function(){
-
-                }
-            })
+            $.post( "/produto/busca-filtro", function( data ) {
+                appVueFiltro.categorias = $.parseJSON(data);
+            });
+            // $.ajax({
+            //     url:'/cache/getFilter',
+            //     type:'POST',
+            //     dataType:'json',
+            //     success:function(retorno){
+            //         for (var i in retorno) {
+            //             retorno[i]['menuAtivo'] = true
+            //         }
+            //         appVueFiltro.categorias = retorno;
+            //     },
+            //     error:function(){
+            //
+            //     }
+            // })
 
         }
     }

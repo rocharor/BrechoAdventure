@@ -18,11 +18,9 @@ class CheckStatusProduct
      */
     public function handle($request, Closure $next)
     {
-        // $produto = Produto::find(base64_decode($request->route('produto_id')));
-        $produto_id = $this->decryptCustom($request->route('produto_id'));
-        $produto = Produto::find($produto_id);
+        $produto = Produto::where('slug', $request->route('param'))->select('status')->first();
         if ($produto->status != 1) {
-                return redirect()->route('home')->with('erro','Produro não disponível.');
+            return redirect()->route('home')->with('erro','Produto não disponível.');
         }
 
         return $next($request);

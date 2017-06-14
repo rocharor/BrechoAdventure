@@ -8,8 +8,25 @@
 	<!--BREADCRUMB-->
     @include('breadCrumb')
 
+	<h1>{{ $produto->titulo }}</h1>
+
 	<div class="row" >
 		<div class="col-xs-12 col-sm-10">
+
+			<div class="row">
+				<div class="col-md-5">
+					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:500px; height:400px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
+
+					<div class="xzoom-thumbs">
+						@foreach($produto->imagens as $imagem)
+							<a href="/imagens/produtos/900x900/{{ $imagem }}">
+								<img class="xzoom-gallery" width="80" src="/imagens/produtos/200x200/{{ $imagem }}">
+							</a>
+						@endforeach
+					</div>
+				</div>
+			</div>
+			
 			<table class='table table-striped'>
 				<tr>
 					<td><b>Nome:</b></td>
@@ -51,20 +68,6 @@
 				</tr>
 				<tr><td colspan=2></td></tr>
 			</table>
-
-			<div class="row">
-				<div class="col-md-5">
-					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:500px; height:400px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
-
-					<div class="xzoom-thumbs">
-						@foreach($produto->imagens as $imagem)
-							<a href="/imagens/produtos/900x900/{{ $imagem }}">
-								<img class="xzoom-gallery" width="80" src="/imagens/produtos/200x200/{{ $imagem }}">
-							</a>
-						@endforeach
-					</div>
-				</div>
-			</div>
 
 			<hr>
 

@@ -71,9 +71,6 @@ class Produto extends Model
             $total = $this->where('status',1)->count();
         }else{
             $produtos = $this->where('status',1)
-            // ->join('categorias as c','produtos.categoria_id','c.id')
-            // ->select('produtos.*','c.categoria')
-            // ->orderBy('produtos.id', 'DESC')
             ->get();
         }
 
@@ -88,14 +85,19 @@ class Produto extends Model
 
     /**
      * Traz dados de um produto
-     * @param  [type] $produto_id [description]
-     * @return [type]             [description]
+     * @param  [type] $param [pode ser um int ou string]
+     * @return [type]             [Dados do produto]
      */
-    // public function getDescricaoProduto($produto_id)
-    public function getProduto($produto_id)
+    public function getProduto($param)
     {
-        $produto_id = (int) $produto_id;
-        $dadosProduto = $this->find($produto_id);
+        $dadosProduto = [];
+        if (is_string($param)) {
+            $slug = trim($param);
+            $dadosProduto = $this->where('slug', $slug)->first();
+        }else{
+            $produto_id = (int) $param;
+            $dadosProduto = $this->find($produto_id);
+        }
 
         return $dadosProduto;
     }
@@ -142,5 +144,35 @@ class Produto extends Model
         ];
 
         return $retorno;
+    }
+
+    public function mountFilter()
+    {
+        $this->paginacao = false;
+        $products = $this->getProdutos();
+
+        foreach ($products['itens'] as $key=>$product) {
+            if (!isset($data['Categoria']['itens'][$product->categoria->categoria])) {
+                $data['Categoria']['itens'][$product->categoria->categoria] = [
+                    'id'=>$product->categoria_id,
+                    'rotulo'=>$product->categoria->categoria,
+                    'qtd' => 1
+                ];
+            }else{
+                $data['Categoria']['itens'][$product->categoria->categoria]['qtd'] += 1;
+            }
+
+            if (!isset($data['Estado']['itens'][$product->estado])) {
+                $data['Estado']['itens'][$product->estado] = [
+                    'id'=>$product->estado,
+                    'rotulo'=>$product->estado,
+                    'qtd' => 1
+                ];
+            }else{
+                $data['Estado']['itens'][$product->estado]['qtd'] += 1;
+            }
+        }
+
+        return $data;
     }
 }

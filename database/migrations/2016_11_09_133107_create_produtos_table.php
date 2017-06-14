@@ -17,15 +17,18 @@ class CreateProdutosTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('categoria_id')->unsigned()->nullable();
-            $table->string('titulo');
+            $table->string('titulo', 100);
             $table->text('descricao');
             $table->string('valor');
-            $table->string('estado');
+            $table->string('estado', 100);
             $table->string('nm_imagem');
+            $table->string('slug')->unique()->nullable();
             $table->integer('qtd_favorito')->default(0);
             $table->integer('status')->default(2);
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['slug']);
 
             $table->foreign('user_id')->references('id')->on('users')
             ->onUpdate('cascade')

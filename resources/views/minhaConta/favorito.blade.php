@@ -22,7 +22,7 @@
                     <td><img src="/imagens/produtos/200x200/{{ $favorito->produto->imgPrincipal }}" width="60px" height="60px"/></td>
                     <td>R$ {{ $favorito->produto->valor }}</td>
 
-    	            <td><a  href='{{ Route('visualizar-produto',$favorito->produto->idCodificado) }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
+    	            <td><a  href='{{ Route('visualizar-produto',$favorito->produto->slug) }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>
     	            <td><button class="btn btn-danger act-excluir-favorito" data-produto-id="{{ $favorito->id }}"><span class="glyphicon glyphicon-trash"></span></button></td>
     	            <td><button class='btn btn-info act-modal-mensagem'><span class="glyphicon glyphicon-envelope"></span></button></td>
 

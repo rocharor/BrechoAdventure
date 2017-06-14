@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Site\Produto;
-use App\Services\Memcached;
+use App\Models\Robo;
 
 class AdminController extends Controller
 {
@@ -29,8 +29,10 @@ class AdminController extends Controller
         return view('admin/AdminLTE/index');
     }
 
-    public function updateCacheProducts(Memcached $cache)
+    public function updateCacheProducts(Robo $robo)
     {
-        $cache->updateCacheAll();
+        $robo->mountFilterCache();
+
+        return redirect()->route('admin.home')->with('sucesso','Cache atualizado com sucesso.');        
     }
 }

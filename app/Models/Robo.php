@@ -35,20 +35,28 @@ class Robo extends Model
     {
         $products = $this->modelProduto->getProdutos();
         foreach ($products['itens'] as $key=>$product) {
-            dd($product->categoria->categoria);
-            $data['Categoria']['itens'][$product['categoria']] = [
-                'id'=>$product['categoria_id'],
-                'rotulo'=>$product['categoria'],
-                'qtd' => isset($data['Categoria']['itens'][$product['categoria']]) ? count($data['Categoria']['itens'][$product['categoria']]) : 1
-            ];
+            if (!isset($data['Categoria']['itens'][$product->categoria->categoria])) {
+                $data['Categoria']['itens'][$product->categoria->categoria] = [
+                    'id'=>$product->categoria_id,
+                    'rotulo'=>$product->categoria->categoria,
+                    'qtd' => 1
+                ];
+            }else{
+                $data['Categoria']['itens'][$product->categoria->categoria]['qtd'] += 1;
+            }
 
-            // $data['Estado']['itens'][$product['estado']] = [
-                // 'id'=>$product['estado'],
-                // 'rotulo'=>$product['estado'],
-                // 'qtd' => isset($data['Estado']['itens'][$product['estado']]) ? count($data['Estado']['itens'][$product['estado']]) : 1
-            // ];
+            if (!isset($data['Estado']['itens'][$product->estado])) {
+                $data['Estado']['itens'][$product->estado] = [
+                    'id'=>$product->estado,
+                    'rotulo'=>$product->estado,
+                    'qtd' => 1
+                ];
+            }else{
+                $data['Estado']['itens'][$product->estado]['qtd'] += 1;
+            }
         }
-        dd($data);
 
+        Cache::pull('filter');
+        Cache::forever('filter',$data);
     }
 }

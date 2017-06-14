@@ -32,7 +32,6 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos['itens'] as $produto){
-            $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
 
             $produto->favorito = false;
@@ -59,7 +58,6 @@ class ProdutoController extends Controller
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos['itens'] as $produto){
-            $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
 
             $produto->favorito = false;
@@ -70,6 +68,7 @@ class ProdutoController extends Controller
             }
         }
 
+        $dadosFiltro = $this->model->mountFilter();
 
         return view('site/produtos',[
             'produtos' => $produtos['itens'],
@@ -88,7 +87,6 @@ class ProdutoController extends Controller
         $numberPages = (int)ceil($meusProdutos['total'] / $this->model->totalPagina);
 
         foreach($meusProdutos['itens'] as $produto){
-            $produto->idCodificado = $this->cryptCustom($produto->id);
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
             $produto->dataExibicao = $this->formataDataExibicao($produto->created_at);
         }
@@ -152,12 +150,10 @@ class ProdutoController extends Controller
 
     }
 
-    // public function show($produto_id)
-    public function show($hash_produto_id)
+    public function show($param)
     {
         $this->getBreadCrumb();
-        $produto_id = $this->decryptCustom($hash_produto_id);
-        $produto = $this->model->getProduto($produto_id);
+        $produto = $this->model->getProduto($param);
 
         $imagens = [];
         if ($produto->nm_imagem != '') {
@@ -172,11 +168,9 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function edit($id, Categoria $categoria)
+    public function edit($param, Categoria $categoria)
     {
-        $produto_id = $this->decryptCustom($id);
-        $produto = $this->model->find($produto_id);
-        $produto->idCodificado = $id;
+        $produto = $this->model->getProduto($param);
         $categorias = $categoria->all();
 
         $imagens = [];
@@ -273,6 +267,13 @@ class ProdutoController extends Controller
             $retorno = $produto->delete();
         }
         echo $retorno;
+        die();
+    }
+
+    public function getFiltro()
+    {        
+        $retorno = $this->model->mountFilter();
+        echo response()->json($retorno)->content();
         die();
     }
 

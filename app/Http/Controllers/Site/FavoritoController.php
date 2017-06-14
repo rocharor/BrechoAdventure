@@ -23,9 +23,7 @@ class FavoritoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($pagina=1)
-    {
-        $robo = new Robo();
-        $robo->mountFilterCache();
+    {        
         $this->model->paginacao = true;
         $this->model->pagina = $pagina;
         $favoritos = $this->model->getFavoritos();

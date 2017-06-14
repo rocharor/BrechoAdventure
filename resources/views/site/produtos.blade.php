@@ -7,7 +7,7 @@
 
     <div class="row" >
         <div class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
-            {{-- @include('filtroLateral') --}}
+            @include('filtroLateral')
         </div>
         <div class="col-xs-12 col-sm-10 el-produtos hide">
         	@foreach($produtos as $produto)
@@ -37,8 +37,8 @@
             			</div>
 
             			<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
-                        <div>                            
-                            <a href='{{ Route('visualizar-produto',$produto->idCodificado) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
+                        <div>
+                            <a href='{{ Route('visualizar-produto',$produto->slug) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
                             @if(Auth::check() != 0)
                                 <button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
                             @endif

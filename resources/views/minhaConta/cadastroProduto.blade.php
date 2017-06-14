@@ -7,13 +7,13 @@
     <div align="center">
         <div align="left" style="width: 500px;">
             @if($autorizado == false)
-            	<div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.mcperfil') }}">CLIQUE AQUI</a></div>
+            	<div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.perfil') }}">CLIQUE AQUI</a></div>
             @else
     	        <form action="{{ Route('minha-conta.store-produto') }}" method="post" name="form" enctype="multipart/form-data" style="width: 400px;">
                     {{ csrf_field() }}
     	            <div>
     	                <label>Titulo:</label>
-    	                <input type="text" class="form-control" name='titulo' required="required" />
+    	                <input type="text" class="form-control" name='titulo' required="required" maxlength='100' />
     	            </div>
     	            <br>
 
