@@ -29,7 +29,7 @@ trait BreadCrumb
 
     public function getBreadCrumb()
     {
-        $routeName = Route::getCurrentRoute()->getName();        
+        $routeName = Route::getCurrentRoute()->getName();
         return $breadCrumb = isset($this->listBreadCrumb[$routeName]) ? $this->listBreadCrumb[$routeName] : '';
     }
 }

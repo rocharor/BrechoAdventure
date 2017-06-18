@@ -161,6 +161,7 @@ class ProdutoController extends Controller
         }
 
         $produto->imagens = $imagens;
+        $produto->inserido = $this->formataDataExibicao($produto->updated_at);
 
         return view('site/visualizarProduto',[
             'produto'=>$produto,
@@ -271,7 +272,7 @@ class ProdutoController extends Controller
     }
 
     public function getFiltro()
-    {        
+    {
         $retorno = $this->model->mountFilter();
         echo response()->json($retorno)->content();
         die();

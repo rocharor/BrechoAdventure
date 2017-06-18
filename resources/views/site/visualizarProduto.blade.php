@@ -9,13 +9,15 @@
     @include('breadCrumb')
 
 	<h1>{{ $produto->titulo }}</h1>
+	<small style="color:#bbb"><i>Inserido em: {{ $produto->inserido }}</i></small>
+	<br><br>
 
 	<div class="row" >
 		<div class="col-xs-12 col-sm-10">
 
 			<div class="row">
 				<div class="col-md-5">
-					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:500px; height:400px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
+					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:400px; height:300px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
 
 					<div class="xzoom-thumbs">
 						@foreach($produto->imagens as $imagem)
@@ -26,11 +28,17 @@
 					</div>
 				</div>
 			</div>
-			
-			<table class='table table-striped'>
+
+			<h3>Preço: <span style='color:#a00;'>R${{ $produto->valor }}</span></h3>
+
+			<p>{{ $produto->descricao }}</p>
+			<hr>
+			<p><b>Categoria:</b> {{ $produto->categoria->categoria }}</p>
+			<p><b>Estado:</b> {{ $produto->estado }}</p>
+
+			<table class='table table-striped hide'>
 				<tr>
 					<td><b>Nome:</b></td>
-					{{-- <td>{{ $produto->name }} </td> --}}
 					<td>{{ $produto->user->name }} </td>
 				</tr>
 				<tr>
@@ -45,28 +53,6 @@
 					<td><b>Celular:</b></td>
 					<td>{{ $produto->user->telefone_cel }} </td>
 				</tr>
-				<tr><td colspan=2></td></tr>
-				<tr>
-					<td><b>Titulo:</b></td>
-					<td>{{ $produto->titulo }} </td>
-				</tr>
-				<tr>
-					<td><b>Categoria:</b></td>
-					<td>{{ $produto->categoria->categoria }} </td>
-				</tr>
-				<tr>
-					<td><b>Estado:</b></td>
-					<td>{{ $produto->estado }} </td>
-				</tr>
-				<tr>
-					<td><b>Valor:</b></td>
-					<td>{{ $produto->valor }} </td>
-				</tr>
-				<tr>
-					<td><b>Descrição:</b></td>
-					<td>{{ $produto->descricao }} </td>
-				</tr>
-				<tr><td colspan=2></td></tr>
 			</table>
 
 			<hr>

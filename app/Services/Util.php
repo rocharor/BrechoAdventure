@@ -192,7 +192,8 @@ trait Util
             return date("d/m/Y",strtotime($data));;
         }
 
-        return date("d/m/Y H:m:s",strtotime($data));;
+        // return date("d/m/Y H:m:s",strtotime($data));;
+        return date("d/m/Y H:m",strtotime($data));;
     }
 
     public function formataDataBD($data, $hora=true)
