@@ -19,7 +19,8 @@ class CheckStatusProduct
     public function handle($request, Closure $next)
     {
         $produto = Produto::where('slug', $request->route('param'))->select('status')->first();
-        if ($produto->status != 1) {
+
+        if ($produto == null || $produto->status != 1) {
             return redirect()->route('home')->with('erro','Produto não disponível.');
         }
 
