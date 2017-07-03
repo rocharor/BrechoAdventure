@@ -44,7 +44,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/perfil/update-Foto',['as'=>'update-foto','uses'=>'Site\PerfilController@updateFoto']);
     Route::post('/produto/store',['as'=>'store-produto','uses'=>'Site\ProdutoController@store']);
     Route::post('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\ProdutoController@delete']);
-    Route::post('/produto/update/{id}',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
+    Route::post('/produto/update',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
     Route::post('/produto/delete-foto',['as'=>'delete-foto','uses'=>'Site\ProdutoController@deletePhoto']);
     Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MensagemController@create']);
     Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MensagemController@store']);
@@ -58,7 +58,8 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
 *********************/
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','can:admin'] ], function () {
     ### Links ###
-    Route::get('/home',['as'=>'home','uses'=>'Admin\AdminController@index']);
+    // Route::get('/home',['as'=>'home','uses'=>'Admin\AdminController@index']);
+    Route::get('/dashboard',['as'=>'home','uses'=>'Admin\DashboardController@index']);
 });
 
 /************************

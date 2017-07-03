@@ -175,4 +175,20 @@ class Produto extends Model
 
         return $data;
     }
+
+    public function getPendentes()
+    {
+        $pendentes = $this->where('status',2)->get();
+
+        return $pendentes;
+    }
+
+    public function getQuantidades()
+    {
+        $data['ativos'] = $this->where('status',1)->count();
+        $data['pendentes'] = $this->where('status',2)->count();
+        $data['excluidos'] = $this->onlyTrashed()->count();
+
+        return $data;
+    }
 }

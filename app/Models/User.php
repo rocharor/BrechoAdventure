@@ -77,4 +77,12 @@ class User extends Authenticatable
 
         return !! $role->intersect($this->roles)->count();
     }
+
+    public function getQuantidades()
+    {
+        $data['ativos'] = $this->count();
+        $data['excluidos'] = $this->onlyTrashed()->count();
+
+        return $data;
+    }
 }

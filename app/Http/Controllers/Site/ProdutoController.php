@@ -189,7 +189,7 @@ class ProdutoController extends Controller
         ]);
     }
 
-    public function update($id, Request $request)
+    public function update(Request $request)
     {
         $this->validate($request, [
             'titulo' => 'required|max:255',
@@ -199,7 +199,7 @@ class ProdutoController extends Controller
             'valor' => 'required'
         ]);
 
-        $produto = $this->model->find($this->decryptCustom($id));
+        $produto = $this->model->find($request->produto_id);
 
         $produto->categoria_id = $request->get('categoria');
         $produto->titulo = $request->get('titulo');
@@ -224,10 +224,10 @@ class ProdutoController extends Controller
         }
 
         if ($produto->save()) {
-            return redirect()->route('minha-conta.editar-produto',$id)->with('sucesso','Salvo com sucesso!');
+            return redirect()->route('minha-conta.meus-produto',$request->produto_id)->with('sucesso','Salvo com sucesso!');
         };
 
-        return redirect()->route('minha-conta.editar-produto',$id)->with('erro','Erro ao salvar, tente novamente!');
+        return redirect()->route('minha-conta.meus-produto',$request->produto_id)->with('erro','Erro ao salvar, tente novamente!');
     }
 
     public function deletePhoto(Request $request)

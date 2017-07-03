@@ -15,6 +15,7 @@ class Contato extends Model
     protected $fillable = [
         'nome', 'email','tipo','mensagem','status_resposta'
     ];
+
     public function setMensagem($dados)
     {
         unset($dados['_token']);
@@ -24,5 +25,20 @@ class Contato extends Model
         }else{
             return false;
         }
+    }
+
+    public function getPendentes()
+    {
+        $pendentes = $this->where('status_resposta',0)->get();
+
+        return $pendentes;
+    }
+
+    public function getQuantidades()
+    {
+        $data['respondidos'] = $this->where('status_resposta',1)->count();
+        $data['pendentes'] = $this->where('status_resposta',0)->count();
+
+        return $data;    
     }
 }

@@ -7,9 +7,10 @@
     <div  style="width: 460px;">
         @include('exibeErro')
 
-        <form action="/minha-conta/produto/update/{{ $produto->idCodificado }}" method="post" name="formEditarProduto" enctype="multipart/form-data">
+        <form action="/minha-conta/produto/update" method="post" name="formEditarProduto" enctype="multipart/form-data">
             {{ csrf_field() }}
 
+			<input type="hidden" name="produto_id" value="{{ $produto->id }}">
             <br />
 
             @if ($produto->deleted_at)
