@@ -12,27 +12,51 @@ class CategoriaTableSeeder extends Seeder
      */
     public function run()
     {
-        Categoria::truncate();
+        DB::table('categorias')->truncate();
 
-        factory(Categoria::class)->create([
+        DB::table('categorias')->insert([
             'categoria' => 'Aquático'
         ]);
-        factory(Categoria::class)->create([
+
+        DB::table('categorias')->insert([
             'categoria' => 'Camping'
         ]);
-        factory(Categoria::class)->create([
+
+        DB::table('categorias')->insert([
             'categoria' => 'Ciclismo'
         ]);
-        factory(Categoria::class)->create([
+
+        DB::table('categorias')->insert([
             'categoria' => 'Fitnes'
         ]);
-        factory(Categoria::class)->create([
+
+        DB::table('categorias')->insert([
             'categoria' => 'Trilha & Trekking'
         ]);
-        factory(Categoria::class)->create([
+
+        DB::table('categorias')->insert([
             'categoria' => 'Escalada'
         ]);
 
-        //factory(Categoria::class, 15)->create();
+        // Categoria::truncate();
+        //
+        // factory(Categoria::class)->create([
+        //     'categoria' => 'Aquático'
+        // ]);
+        // factory(Categoria::class)->create([
+        //     'categoria' => 'Camping'
+        // ]);
+        // factory(Categoria::class)->create([
+        //     'categoria' => 'Ciclismo'
+        // ]);
+        // factory(Categoria::class)->create([
+        //     'categoria' => 'Fitnes'
+        // ]);
+        // factory(Categoria::class)->create([
+        //     'categoria' => 'Trilha & Trekking'
+        // ]);
+        // factory(Categoria::class)->create([
+        //     'categoria' => 'Escalada'
+        // ]);
     }
 }

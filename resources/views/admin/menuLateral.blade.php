@@ -10,7 +10,7 @@
             </div>
         </div>
 
-      {{-- <!-- search form -->
+       {{-- <!-- search form -->
       <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
           <input type="text" name="q" class="form-control" placeholder="Search...">
@@ -20,10 +20,23 @@
               </span>
         </div>
       </form>
-      <!-- /.search form -->
+      <!-- /.search form --> --}}
+
       <!-- sidebar menu: : style can be found in sidebar.less -->
-      <ul class="sidebar-menu">
-        <li class="header">MAIN NAVIGATION</li>
+        <ul class="sidebar-menu">
+            <li class="header">MENU DE NAVEGAÇÃO</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-pie-chart"></i>
+                    <span>Páginas</span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ Route('admin.product-list') }}"><i class="fa fa-circle-o"></i>Produtos Pendentes</a></li>
+                    <li><a href="{{ Route('home') }}"><i class="fa fa-circle-o"></i>Mensagens Pendentes</a></li>
+                </ul>
+            </li>
+        {{--
         <li class="active treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span> <i class="fa fa-angle-left pull-right"></i>
@@ -158,6 +171,7 @@
         <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
-      </ul> --}}
+        --}}
+    </ul>
     </section>
 </aside>

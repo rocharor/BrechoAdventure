@@ -88,7 +88,7 @@ class ProdutoController extends Controller
 
         foreach($meusProdutos['itens'] as $produto){
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
-            $produto->dataExibicao = $this->formataDataExibicao($produto->created_at);
+            $produto->dataExibicao = $this->formataDataExibicao($produto->updated_at);
         }
 
         return view('minhaConta/produto',[

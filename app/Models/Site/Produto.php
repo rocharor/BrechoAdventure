@@ -176,9 +176,12 @@ class Produto extends Model
         return $data;
     }
 
+    /*******
+    / ADMIN
+    /*******/
     public function getPendentes()
     {
-        $pendentes = $this->where('status',2)->get();
+        $pendentes = $this->where('status',2)->orderBy('updated_at', 'DESC')->get();
 
         return $pendentes;
     }
@@ -190,5 +193,22 @@ class Produto extends Model
         $data['excluidos'] = $this->onlyTrashed()->count();
 
         return $data;
+    }
+
+    public function updateAdmin($id, $param)
+    {
+        $produto = $this->find($id);
+        foreach ($param as $key=>$value) {
+            if ($key == '_token' || $key == 'id') {
+                continue;
+            }
+            $produto->$key = $value;
+        }
+
+        if ($produto->save()) {
+            return true;
+        }
+
+        return false;
     }
 }

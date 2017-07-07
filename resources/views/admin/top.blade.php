@@ -15,6 +15,46 @@
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
 
+                {{-- PRODUTOS --}}
+                <li class="dropdown notifications-menu">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                        <i class="fa fa-bell-o"></i>
+                        <span class="label @if(count($data['produtosPendentes']) > 0) label-danger @else label-success @endif">
+                            {{ count($data['produtosPendentes']) }}
+                        </span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li class="header">
+                            Você tem  {{ count($data['produtosPendentes']) }} produtos pedentes
+                        </li>
+                        <li>
+                            <ul class="menu">
+                                @foreach($data['produtosPendentes'] as $produto)
+                                    <li>
+                                        <a href="{{ Route('admin.product-view', $produto->id) }}">
+                                            <div class="pull-left" style="margin-right:5px">
+                                              <img src="/imagens/produtos/200x200/{{ $produto->imgPrincipal }}" class="img-circle" alt="User Image" style="width: 45px; height: 45px;">
+                                            </div>
+
+                                            <h4>{{ $produto->titulo }}</h4>
+                                            <p>
+                                                @if (strlen($produto->descricao) > 30)
+                                                    {{ substr($produto->descricao,0,30) }} ...
+                                                @else
+                                                    {{ $produto->descricao }}
+                                                @endif
+                                            </p>
+                                        </a>
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </li>
+                        <li class="footer">
+                            <a href="{{ Route('admin.product-list') }}">Ver todos produtos</a>
+                        </li>
+                    </ul>
+                </li>
+
                 {{-- CONTATOS --}}
                 <li class="dropdown messages-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -47,46 +87,6 @@
                         </li>
                         <li class="footer">
                             <a href="#">Ver todas mensagens</a>
-                        </li>
-                    </ul>
-                </li>
-
-                {{-- PRODUTOS --}}
-                <li class="dropdown notifications-menu">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <i class="fa fa-bell-o"></i>
-                        <span class="label @if(count($data['produtosPendentes']) > 0) label-danger @else label-success @endif">
-                            {{ count($data['produtosPendentes']) }}
-                        </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">
-                            Você tem  {{ count($data['produtosPendentes']) }} produtos pedentes
-                        </li>
-                        <li>
-                            <ul class="menu">
-                                @foreach($data['produtosPendentes'] as $produto)
-                                    <li>
-                                        <a href="#">
-                                            <div class="pull-left" style="margin-right:5px">
-                                              <img src="/imagens/produtos/200x200/{{ $produto->imgPrincipal }}" class="img-circle" alt="User Image" style="width: 45px; height: 45px;">
-                                            </div>
-
-                                            <h4>{{ $produto->titulo }}</h4>
-                                            <p>
-                                                @if (strlen($produto->descricao) > 30)
-                                                    {{ substr($produto->descricao,0,30) }} ...
-                                                @else
-                                                    {{ $produto->descricao }}
-                                                @endif
-                                            </p>
-                                        </a>
-                                    </li>
-                                @endforeach
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="#">Ver todos produtos</a>
                         </li>
                     </ul>
                 </li>

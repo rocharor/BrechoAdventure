@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
 use App\Models\Admin\Dashboard;
 
 class DashboardController extends Controller
@@ -15,21 +15,24 @@ class DashboardController extends Controller
         $this->model = $dashboard;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
-        $data = $this->model->dashboard();
+        $data = $this->dashboard();
+
+        return view('admin/contents/index', [
+            'data' => $data
+        ]);
+    }
+
+    public function dashboard()
+    {
+        $data = $this->model->getDatadashboard();
 
         foreach ($data['produtosPendentes'] as $produto) {
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
+            $produto->updated_exibica = $this->formataDataExibicao($produto->updated_at);
         }
 
-        return view('admin/index', [
-            'data' => $data
-        ]);
+        return $data;
     }
 }

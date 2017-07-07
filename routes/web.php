@@ -58,8 +58,11 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
 *********************/
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','can:admin'] ], function () {
     ### Links ###
-    // Route::get('/home',['as'=>'home','uses'=>'Admin\AdminController@index']);
     Route::get('/dashboard',['as'=>'home','uses'=>'Admin\DashboardController@index']);
+    Route::get('/produto/list',['as'=>'product-list','uses'=>'Admin\ProductController@index']);
+    Route::get('/produto/view/{id}',['as'=>'product-view','uses'=>'Admin\ProductController@show']);
+    ### Ações ###
+    Route::post('/produto/alter-status',['as'=>'product-status','uses'=>'Admin\ProductController@update']);
 });
 
 /************************

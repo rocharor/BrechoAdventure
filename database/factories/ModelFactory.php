@@ -22,10 +22,6 @@
 //     ];
 // });
 
-$factory->define(App\Models\Categoria::class, function (Faker\Generator $faker) {
-    return [];
-});
-
 $factory->define(App\Models\Frase::class, function (Faker\Generator $faker) {
     $faker->addProvider(new Faker\Provider\pt_BR\Person($faker));
     return [
@@ -48,16 +44,4 @@ $factory->define(App\Models\Site\Produto::class, function (Faker\Generator $fake
         'slug' => str_slug($titulo . ' ' . time()),
         'status' => 1
     ];
-});
-
-$factory->define(App\Models\User::class, function (Faker\Generator $faker) {
-    return [];
-});
-
-$factory->define(App\Models\Acl\Role::class, function (Faker\Generator $faker) {
-    return [];
-});
-
-$factory->define(App\Models\Acl\Permission::class, function (Faker\Generator $faker) {
-    return [];
 });

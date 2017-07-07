@@ -193,7 +193,7 @@ trait Util
         }
 
         // return date("d/m/Y H:m:s",strtotime($data));;
-        return date("d/m/Y H:m",strtotime($data));;
+        return date("d/m/Y H:i",strtotime($data));;
     }
 
     public function formataDataBD($data, $hora=true)
@@ -206,7 +206,7 @@ trait Util
             return date("Y-m-d",strtotime($data));;
         }
 
-        return date("Y-m-d H:m:s",strtotime($data));;
+        return date("Y-m-d H:i:s",strtotime($data));;
     }
 
     /**

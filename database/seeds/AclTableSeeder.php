@@ -13,21 +13,22 @@ class AclTableSeeder extends Seeder
      */
     public function run()
     {
-        Permission::truncate();
-        factory(Permission::class)->create([
+        DB::table('permissions')->truncate();
+        DB::table('permissions')->insert([
             'name' => 'admin',
             'label' => 'Acesso ao admin do site'
         ]);
 
-        Role::truncate();
-        factory(Role::class)->create([
+        DB::table('roles')->truncate();
+        DB::table('roles')->insert([
             'name' => 'administrador',
             'label' => 'Administrador do sistema'
         ]);
-        factory(Role::class)->create([
+        DB::table('roles')->insert([
             'name' => 'usuario',
             'label' => 'Usuário comum'
         ]);
+
 
         DB::table('role_user')->truncate();
         DB::table('role_user')->insert([
@@ -40,5 +41,21 @@ class AclTableSeeder extends Seeder
             'role_id' => 1,
             'permission_id' => 1
         ]);
+
+        // Permission::truncate();
+        // factory(Permission::class)->create([
+        //     'name' => 'admin',
+        //     'label' => 'Acesso ao admin do site'
+        // ]);
+        //
+        // Role::truncate();
+        // factory(Role::class)->create([
+        //     'name' => 'administrador',
+        //     'label' => 'Administrador do sistema'
+        // ]);
+        // factory(Role::class)->create([
+        //     'name' => 'usuario',
+        //     'label' => 'Usuário comum'
+        // ]);
     }
 }

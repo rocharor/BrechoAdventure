@@ -20,7 +20,7 @@ class Dashboard extends Model
         $this->modelUser = $user;
     }
 
-    public function dashboard()
+    public function getDatadashboard()
     {
         $data['produtosPendentes'] = $this->modelProduto->getPendentes();
         $data['contatosPendentes'] = $this->modelContato->getPendentes();
@@ -28,7 +28,7 @@ class Dashboard extends Model
         $data['produtosTotal'] = $this->modelProduto->getQuantidades();
         $data['contatosTotal'] = $this->modelContato->getQuantidades();
         $data['usuariosTotal'] = $this->modelUser->getQuantidades();
-// dd($data);
+
         return $data;
     }
 }
