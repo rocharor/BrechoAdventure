@@ -15,7 +15,7 @@
 					<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>
 				</div>
 				@foreach($produtos as $produto)
-					<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 0px; padding: 20px 0">
+					<div class="col-md-3 col-sm-6 col-xs-12" align="center" style="border-bottom: solid 0px; padding: 20px 0">
 						<div class="div-produtos" align="center">
 							<div class="div-favorito-{{ $produto->id }}">
 								@if(Auth::check() == 0)

@@ -61,8 +61,11 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','ca
     Route::get('/dashboard',['as'=>'home','uses'=>'Admin\DashboardController@index']);
     Route::get('/produto/list',['as'=>'product-list','uses'=>'Admin\ProductController@index']);
     Route::get('/produto/view/{id}',['as'=>'product-view','uses'=>'Admin\ProductController@show']);
+    Route::get('/contato/list',['as'=>'contact-list','uses'=>'Admin\ContactController@index']);
+    Route::get('/contato/view/{id}',['as'=>'contact-view','uses'=>'Admin\ContactController@show']);
     ### Ações ###
     Route::post('/produto/alter-status',['as'=>'product-status','uses'=>'Admin\ProductController@update']);
+    Route::post('/contato/resposta',['as'=>'contact-resposta','uses'=>'Admin\ContactController@update']);
 });
 
 /************************

@@ -19,29 +19,6 @@ trait Util
         return $producao;
     }
 
-    public function escapeSql($value)
-    {
-        $search = array(
-            "\\",
-            "\x00",
-            "\n",
-            "\r",
-            "'",
-            '"',
-            "\x1a"
-        );
-        $replace = array(
-            "\\\\",
-            "\\0",
-            "\\n",
-            "\\r",
-            "\'",
-            '\"',
-            "\\Z"
-        );
-        return str_replace($search, $replace, $value);
-    }
-
     public function removeAcentos($string)
     {
         $string = preg_replace(array(
@@ -255,6 +232,22 @@ trait Util
     {
         $arrImg = explode('|', $imagem);
         return $arrImg[0];
+    }
+
+    public function getTipoContato($id=0)
+    {
+        $tipos = [
+            '1' => 'Dúvidas',
+            '2' => 'Reclamações',
+            '3' => 'Sugestões',
+            '4' => 'Elogios'
+        ];
+
+        if ($id > 0) {
+            return $tipos[$id];
+        }
+
+        return $tipos;
     }
 
 }

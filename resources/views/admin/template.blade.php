@@ -6,7 +6,7 @@
         <title>Brecho Adventure | Dashboard</title>
 
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
-        
+
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.6 -->
@@ -35,8 +35,14 @@
 
         <!-- jQuery 2.2.0 -->
         <script src="/AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js"></script>
+
+        <link rel="stylesheet" href="/libs/animate.css/animate.css" />
+        <script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
+        @if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
+	    @if (session('erro')) <script>alertaPagina('{{ session('erro') }}', 'danger');</script> @endif
+
         <div class="wrapper">
         	@include('admin/top')
 

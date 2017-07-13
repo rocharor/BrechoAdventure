@@ -71,7 +71,7 @@
                             <ul class="menu">
                                 @foreach($data['contatosPendentes'] as $contato)
                                     <li>
-                                        <a href="#" style="margin: 0 -30px">
+                                        <a href="{{ Route('admin.contact-view', $contato->id) }}" style="margin: 0 -30px">
                                             <h4>{{ $contato->tipo }}</h4>
                                             <p>
                                                 @if (strlen($contato->mensagem) > 40)
@@ -86,7 +86,7 @@
                             </ul>
                         </li>
                         <li class="footer">
-                            <a href="#">Ver todas mensagens</a>
+                            <a href="{{ Route('admin.contact-list') }}">Ver todas mensagens</a>
                         </li>
                     </ul>
                 </li>

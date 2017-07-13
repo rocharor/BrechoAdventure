@@ -27,13 +27,13 @@
             <li class="header">MENU DE NAVEGAÇÃO</li>
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-pie-chart"></i>
+                    <i class="fa fa-files-o"></i>
                     <span>Páginas</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
                 <ul class="treeview-menu">
                     <li><a href="{{ Route('admin.product-list') }}"><i class="fa fa-circle-o"></i>Produtos Pendentes</a></li>
-                    <li><a href="{{ Route('home') }}"><i class="fa fa-circle-o"></i>Mensagens Pendentes</a></li>
+                    <li><a href="{{ Route('admin.contact-list') }}"><i class="fa fa-circle-o"></i>Mensagens Pendentes</a></li>
                 </ul>
             </li>
         {{--

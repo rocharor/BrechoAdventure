@@ -41,7 +41,7 @@ class BrechoMail extends Mailable
                 return $this->newMensage();
                 break;
             case 3:
-                # code...
+                return $this->replyContact();
                 break;
         }
     }
@@ -53,7 +53,7 @@ class BrechoMail extends Mailable
         ->view('email.respAutomatica')
         ->with([
             'name'=>$this->param['nome'],
-            'category'=>$this->param['categoria'],
+            'type'=>$this->param['tipo'],
             'mensage'=>$this->param['mensagem']
         ]);
     }
@@ -64,6 +64,20 @@ class BrechoMail extends Mailable
         ->to($this->mail_admin)
         ->subject('Nova Mensagem Site')
         ->view('email.adminMensagem');
+    }
+
+    public function replyContact()
+    {
+        return $this
+        ->to($this->param['email'])
+        ->subject($this->param['assunto'])
+        ->view('email.respContato')
+        ->with([
+            'name' => $this->param['nome'],
+            'mensage' => $this->param['mensagem'],
+            'reply' => $this->param['resposta']
+
+        ]);
     }
 
     // /**

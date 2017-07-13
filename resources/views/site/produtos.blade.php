@@ -12,7 +12,7 @@
         </div>
         <div class="col-xs-12 col-sm-10 el-produtos hide">
         	@foreach($produtos as $produto)
-        		<div class="col-md-3 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+        		<div class="col-md-3 col-sm-6 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
             		<div class="div-produtos" align="center">
             			<div class="div-favorito-{{ $produto->id }}">
             				@if(Auth::check() == 0)

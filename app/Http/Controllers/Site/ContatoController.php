@@ -4,10 +4,10 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Auth;
+use Mail;
 use App\Models\Site\Contato as ContatoModel;
 use App\Models\Categoria;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
 use App\Events\sendEmailAdmin;
 
@@ -20,24 +20,16 @@ class ContatoController extends Controller
         $this->model = $contato;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $data['tipos'] = $this->getTipoContato();
+
         return view('site/contato',[
-            'breadCrumb' => $this->getBreadCrumb()
+            'breadCrumb' => $this->getBreadCrumb(),
+            'data' => $data
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -48,8 +40,11 @@ class ContatoController extends Controller
         ]);
 
         $dados = $request->all();
-        $dados['categoria'] = Categoria::find($dados['tipo'])->categoria;
+
+        $dados['tipo'] = $this->getTipoContato($dados['tipo']);
+
         $retorno = $this->model->setMensagem($dados);
+
         if($retorno){
             Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
             //dispara um evento sendEmailAdmin
