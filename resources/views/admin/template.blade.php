@@ -36,6 +36,8 @@
         <!-- jQuery 2.2.0 -->
         <script src="/AdminLTE/plugins/jQuery/jQuery-2.2.0.min.js"></script>
 
+        <script src="/js/global.js"></script>
+        
         <link rel="stylesheet" href="/libs/animate.css/animate.css" />
         <script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
     </head>

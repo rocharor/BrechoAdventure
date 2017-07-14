@@ -13,20 +13,29 @@ class AclTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('permissions')->truncate();
-        DB::table('permissions')->insert([
-            'name' => 'admin',
-            'label' => 'Acesso ao admin do site'
-        ]);
-
         DB::table('roles')->truncate();
         DB::table('roles')->insert([
+            'name' => 'administrador-master',
+            'label' => 'Administrador master do sistema'
+        ]);
+        DB::table('roles')->insert([
             'name' => 'administrador',
-            'label' => 'Administrador do sistema'
+            'label' => 'Administrador restrito do sistema'
         ]);
         DB::table('roles')->insert([
             'name' => 'usuario',
             'label' => 'Usuário comum'
+        ]);
+
+
+        DB::table('permissions')->truncate();
+        DB::table('permissions')->insert([
+            'name' => 'admin-master',
+            'label' => 'Acesso total ao admin do site'
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'admin',
+            'label' => 'Acesso restrito ao admin do site'
         ]);
 
 
@@ -41,21 +50,9 @@ class AclTableSeeder extends Seeder
             'role_id' => 1,
             'permission_id' => 1
         ]);
-
-        // Permission::truncate();
-        // factory(Permission::class)->create([
-        //     'name' => 'admin',
-        //     'label' => 'Acesso ao admin do site'
-        // ]);
-        //
-        // Role::truncate();
-        // factory(Role::class)->create([
-        //     'name' => 'administrador',
-        //     'label' => 'Administrador do sistema'
-        // ]);
-        // factory(Role::class)->create([
-        //     'name' => 'usuario',
-        //     'label' => 'Usuário comum'
-        // ]);
+        DB::table('permission_role')->insert([
+            'role_id' => 2,
+            'permission_id' => 2
+        ]);
     }
 }

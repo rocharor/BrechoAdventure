@@ -37,7 +37,7 @@
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.mensagem' ? 'class=active' : '' }} href="{{ Route('minha-conta.mensagem') }}">Mensagens - <span class='qtdMsg'>0</span></a>
                     </li>
-                    @can('admin')
+                    @can('admin-master')
                         <li><a href="{{ Route('admin.home') }}">Admin</a></li>
                     @endcan
                     <li><a href='/logout' style="font-weight:bold;color:#CD3333;">Sair</a></li>
