@@ -25,19 +25,19 @@
         <title>{{ config('app.name', 'Brechó Adventure') }}</title>
 
         <!-- BOOTSTRAP CSS-->
-        <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css" />
-        <link rel="stylesheet" href="/libs/animate.css/animate.css" />
+        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css" />
 
 		{{-- <link type="text/css" rel="stylesheet" href="/css/global.css" /> --}}
 		<link type="text/css" rel="stylesheet" href="/css/topo.css" />
 		<link type="text/css" rel="stylesheet" href="/css/rodape.css" />
 
 
-		<script src="/libs/jquery/dist/jquery.js"></script>
-        <script src="/libs/bootstrap/dist/js/bootstrap.js"></script>
-		<script src="/libs/vanilla-masker-master/vanilla-masker.min.js"></script>
-		<script src="/libs/bootstrap-notify/bootstrap-notify.js"></script>
-		<script src="/libs/vue2/dist/vue.min.js"></script>
+		<script src="/node_modules/jquery/dist/jquery.min.js"></script>
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/node_modules/vanilla-masker/build/vanilla-masker.min.js"></script>
+		<script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
+		<script src="/node_modules/vue/dist/vue.min.js"></script>
 		<script src="/js/global.js"></script>
     </head>
     <body>

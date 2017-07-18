@@ -1,9 +1,9 @@
 @extends('template')
 @section('content')
 	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
-	{{-- <script src='https://code.jquery.com/jquery-1.12.4.min.js'></script> --}}
-	<link type="text/css" rel="stylesheet" href="/libs/xZoom/dist/xzoom.css" />
-	<script src="/libs/xZoom/dist/xzoom.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/node_modules/xzoom/dist/xzoom.css" />
+
+	<script src="/node_modules/xzoom/dist/xzoom.min.js"></script>
 
 	<!--BREADCRUMB-->
     @include('breadCrumb')
@@ -79,5 +79,6 @@
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	</script>
+	
 	<script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

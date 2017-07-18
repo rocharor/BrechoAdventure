@@ -1,11 +1,11 @@
 @extends('template')
 @section('content')
-    
+
     <!--BREADCRUMB-->
 	@include('breadCrumb')
 
-    <link rel="stylesheet" href="/libs/jcrop/css/jquery.Jcrop.css" type="text/css" />
-    <link type="text/css" rel="stylesheet" href="/css/minhaConta.css" />
+    <link rel="stylesheet" href="/node_modules/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
+    <link rel="stylesheet" href="/css/minhaConta.css" type="text/css"/>
 
     <h1 class="text-danger">PERFIL</h1>
     <div>
@@ -146,7 +146,7 @@
         </div>
     </div>
 
-    <script type="text/javascript" src="/libs/jcrop/js/jquery.Jcrop.js"></script>
+    <script type="text/javascript" src="/node_modules/jquery-jcrop/js/jquery.Jcrop.min.js"></script>
     <script type="text/javascript" src="/js/site/perfil.js"></script>
 
 @endsection

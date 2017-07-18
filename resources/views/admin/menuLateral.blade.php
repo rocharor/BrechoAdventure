@@ -37,9 +37,13 @@
                 </ul>
             </li>
 
+            <li>
+                <a href="{{ Route('admin.user') }}"><i class="fa fa-users"></i> <span>Usuários</span></a>
+            </li>
+
             <li class="treeview">
                 <a href="#">
-                    <i class="fa fa-users"></i>
+                    <i class="fa fa-unlock-alt"></i>
                     <span>ACL</span>
                     <i class="fa fa-angle-left pull-right"></i>
                 </a>
@@ -47,8 +51,6 @@
                     <li><a href="{{ Route('admin.acl-roles-list') }}"><i class="fa fa-circle-o"></i>Roles</a></li>
                     <li><a href="{{ Route('admin.acl-permissions-list') }}"><i class="fa fa-circle-o"></i>Permissions</a></li>
                     <li><a href="{{ Route('admin.acl-role-permissions-list') }}"><i class="fa fa-circle-o"></i>Roles - Permission</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Roles Users</a></li>
-                    <li><a href="#"><i class="fa fa-circle-o"></i>Permissão de usuário</a></li>
                 </ul>
             </li>
         {{--

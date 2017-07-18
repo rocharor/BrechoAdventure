@@ -66,6 +66,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','ca
     Route::get('/acl/roles/list',['as'=>'acl-roles-list','uses'=>'Admin\AclController@listRoles']);
     Route::get('/acl/permissions/list',['as'=>'acl-permissions-list','uses'=>'Admin\AclController@listPermissions']);
     Route::get('/acl/role-permissions/list',['as'=>'acl-role-permissions-list','uses'=>'Admin\AclController@listRolePermissions']);
+    Route::get('/user',['as'=>'user','uses'=>'Admin\UserController@index']);
     ### Ações ###
     Route::post('/produto/alter-status',['as'=>'product-status','uses'=>'Admin\ProductController@update']);
     Route::post('/contato/resposta',['as'=>'contact-resposta','uses'=>'Admin\ContactController@update']);
@@ -73,6 +74,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','ca
     Route::get('/acl/roles/destroy/{id}',['as'=>'acl-destroy-role','uses'=>'Admin\AclController@destroyRole']);
     Route::post('/acl/permissions/store',['as'=>'acl-store-permission','uses'=>'Admin\AclController@storePermission']);
     Route::get('/acl/permissions/destroy/{id}',['as'=>'acl-destroy-permission','uses'=>'Admin\AclController@destroyPermission']);
+    Route::post('/acl/role-permissions/update',['as'=>'acl-update-role-permission','uses'=>'Admin\AclController@updateRolePermission']);
 });
 
 /************************

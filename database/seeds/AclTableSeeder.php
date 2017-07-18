@@ -36,7 +36,7 @@ class AclTableSeeder extends Seeder
         DB::table('permissions')->insert([
             'name' => 'admin',
             'label' => 'Acesso restrito ao admin do site'
-        ]);
+        ]);       
 
 
         DB::table('role_user')->truncate();
