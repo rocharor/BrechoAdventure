@@ -1,6 +1,9 @@
 @extends('admin/template')
 @section('content')
 
+    <!-- bootstrap wysihtml5 - text editor -->
+    <link rel="stylesheet" href="/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
+
     <section class="content-header">
         <h1>
             Dashboard
@@ -77,9 +80,13 @@
     		</div>
     	</div>
     </section>
-<script>
-    $(function () {
-      $("#compose-textarea").wysihtml5();
-    });
-</script>
+
+    <!-- Bootstrap WYSIHTML5 -->
+    <script src="/AdminLTE/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+
+    <script>
+        $(function () {
+          $("#compose-textarea").wysihtml5();
+        });
+    </script>
 @endsection

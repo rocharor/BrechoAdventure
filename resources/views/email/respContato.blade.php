@@ -6,7 +6,7 @@
             <p>{{ $reply }}</p><br>
             <hr>
             <p><b>Sua mensagem:</b></p>
-            <p>{{ $mensage }}</p>
+            <p>{{ htmlspecialchars($mensage) }}</p>
         </td>
     </tr>
 @endsection

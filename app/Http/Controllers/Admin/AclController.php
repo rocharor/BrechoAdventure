@@ -40,21 +40,21 @@ class AclController extends Controller
         $this->modelRole->label = $request->descricao;
 
         if ($this->modelRole->save()) {
-            return redirect()->route('admin.acl-roles-list')->with('sucesso','Role criada com sucesso.');
+            return redirect()->route('admin.master.acl-roles-list')->with('sucesso','Role criada com sucesso.');
         }
 
-        return redirect()->route('admin.acl-roles-list')->with('erro','Erro ao criar role.');
+        return redirect()->route('admin.master.acl-roles-list')->with('erro','Erro ao criar role.');
     }
 
-    public function destroyRole($id)
+    public function deleteRole($id)
     {
         $retorno = $this->modelRole->find($id)->delete();
 
         if ($retorno) {
-            return redirect()->route('admin.acl-roles-list')->with('sucesso','Role excluida com sucesso.');
+            return redirect()->route('admin.master.acl-roles-list')->with('sucesso','Role excluida com sucesso.');
         }
 
-        return redirect()->route('admin.acl-roles-list')->with('erro','Erro ao excluir role.');
+        return redirect()->route('admin.master.acl-roles-list')->with('erro','Erro ao excluir role.');
     }
 
 
@@ -76,21 +76,21 @@ class AclController extends Controller
         $this->modelPermission->label = $request->descricao;
 
         if ($this->modelPermission->save()) {
-            return redirect()->route('admin.acl-permissions-list')->with('sucesso','Permission criada com sucesso.');
+            return redirect()->route('admin.master.acl-permissions-list')->with('sucesso','Permission criada com sucesso.');
         }
 
-        return redirect()->route('admin.acl-permissions-list')->with('erro','Erro ao criar permission.');
+        return redirect()->route('admin.master.acl-permissions-list')->with('erro','Erro ao criar permission.');
     }
 
-    public function destroyPermission($id)
+    public function deletePermission($id)
     {
         $retorno = $this->modelPermission->find($id)->delete();
 
         if ($retorno) {
-            return redirect()->route('admin.acl-permissions-list')->with('sucesso','Permission excluida com sucesso.');
+            return redirect()->route('admin.master.acl-permissions-list')->with('sucesso','Permission excluida com sucesso.');
         }
 
-        return redirect()->route('admin.acl-permissions-list')->with('erro','Erro ao excluir permission.');
+        return redirect()->route('admin.master.acl-permissions-list')->with('erro','Erro ao excluir permission.');
     }
 
     // ROLE PERMISSION
@@ -138,7 +138,29 @@ class AclController extends Controller
             ]);
         }
 
-        return redirect()->route('admin.acl-role-permissions-list')->with('sucesso','Alterado com sucesso.');
+        return redirect()->route('admin.master.acl-role-permissions-list')->with('sucesso','Alterado com sucesso.');
+    }
+
+    public function updateRoleUser(Request $request)
+    {
+        try {
+            DB::table('role_user')->where('user_id', $request->user_id)->delete();
+
+            if ($request->ckecks) {
+                foreach ($request->ckecks as $value) {
+                    DB::table('role_user')->insert([
+                        'role_id' => $value,
+                        'user_id' => $request->user_id
+                    ]);
+                }
+            }
+
+            return redirect()->route('admin.user-edit', $request->user_id)->with('sucesso','Dados salvos com sucesso.');
+
+        } catch (Exception $e) {
+
+            return redirect()->route('admin.user-edit', $request->user_id)->with('erro','Erro ao salvar.');
+        }
     }
 
 }

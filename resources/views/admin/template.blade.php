@@ -25,6 +25,7 @@
         <script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
         <script src="/js/global.js"></script>
 
+
         @if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
 	    @if (session('erro')) <script>alertaPagina('{{ session('erro') }}', 'danger');</script> @endif
 
@@ -43,6 +44,6 @@
 
         <!-- Bootstrap 3.3.6 -->
         <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/AdminLTE/dist/js/app.min.js"></script>
+        <script src="/AdminLTE/dist/js/app.min.js"></script>        
     </body>
 </html>

@@ -27,6 +27,7 @@
                                 <tr>
                                     <th>Id</th>
                                     <th>Usuário</th>
+                                    <th>E-mail</th>
                                     <th>Ações</th>
                                 </tr>
                             </thead>
@@ -35,8 +36,11 @@
                                     <tr>
                                         <td>{{ $value->id }}</td>
                                         <td>{{ $value->name }}</td>
-                                        <td style="width:50px"><a href='#' class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a></td>
-                        	            <td style="width:50px"><a href='{{ Route('admin.acl-destroy-permission', $value->id) }}' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                                        <td>{{ $value->email }}</td>
+                                        <td style="width:100px">
+                                            <a href='{{ Route('admin.user-edit', $value->id) }}' class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            <a href='{{ Route('admin.user-delete', $value->id) }}' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
@@ -56,12 +60,12 @@
     <script>
         $(function () {
             $('#table-user').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": true,
-                "ordering": true,
-                "info": false,
-                "autoWidth": false
+                // "paging": true,
+                // "lengthChange": false,
+                // "searching": true,
+                // "ordering": true,
+                // "info": false,
+                // "autoWidth": false
             });
         });
     </script>

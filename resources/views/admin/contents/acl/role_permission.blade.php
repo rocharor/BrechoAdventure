@@ -23,7 +23,7 @@
                         <h3 class="box-title">Roles</h3>
                     </div>
                     <div class="box-body">
-                        <form action="/admin/acl/role-permissions/update" method="post">
+                        <form action="{{ Route('admin.master.acl-update-role-permission') }}" method="post">
                             {{ csrf_field() }}
 
                             <table id="table-roles" class="table table-bordered table-striped">
