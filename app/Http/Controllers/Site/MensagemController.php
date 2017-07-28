@@ -19,11 +19,6 @@ class MensagemController extends Controller
         $this->model = $mensagem;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $conversas_enviadas = $this->model->buscaConversasEnviadas();
@@ -44,28 +39,18 @@ class MensagemController extends Controller
         );
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create(Request $request,Produto $produto)
     {
-        $produto_id = $request->get('produto_id');
+        $produto_id = (int)$request->get('produto_id');
 
-        $dados = $produto->getDescricaoProduto($produto_id);
+        $dados = $produto->getProduto($produto_id);
+        $dados['name'] = $dados->user->name;
         $dados['nome_remet'] = Auth::user()->name;
 
         echo response()->json($dados)->content();
         die();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request, Produto $produto, Conversa $conversa)
     {
 
@@ -93,13 +78,6 @@ class MensagemController extends Controller
         echo response()->json($retorno)->content();
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request,Conversa $conversa)
     {
         $user = Auth::user();

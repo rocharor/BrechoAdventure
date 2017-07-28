@@ -112,48 +112,6 @@ var appProdutosSite = new Vue({
                 }
             });
         }
-        // openDescription:function(produto_id){
-        //
-        //     $.ajax({
-        //         url: '/produto/descricao-produto',
-        //         dataType: 'json',
-        //         type: 'POST',
-        //         data: {'produto_id': produto_id},
-        //         success: function(retorno){
-        //             if(retorno){
-        //                 var fotos = retorno.nm_imagem.split('|');
-        //                 $('.produto_fotos').html('');
-        //                 $('.indicadores').html('');
-        //                 for(var i in fotos){
-        //                     if(i == 0){
-        //                         $('.produto_fotos').append("<div class='item active '><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>");
-        //                         $('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class='active'></li>");
-        //                     }else{
-        //                         $('.produto_fotos').append("<div class='item'><img src=/imagens/produtos/" + fotos[i] + " alt='' style='width:100%; height:400px'></div>");
-        //                         $('.indicadores').append("<li data-target='#carousel-example-generic' data-slide-to='" + i + "' class=''></li>");
-        //                     }
-        //                 }
-        //
-        //                 appProdutosSite.dataDescription.titulo = retorno.titulo;
-        //                 appProdutosSite.dataDescription.descricao = retorno.descricao;
-        //                 appProdutosSite.dataDescription.estado = retorno.estado;
-        //                 appProdutosSite.dataDescription.valor = retorno.valor;
-        //                 appProdutosSite.dataDescription.name = retorno.name;
-        //                 appProdutosSite.dataDescription.email = retorno.email;
-        //                 appProdutosSite.dataDescription.fixo = retorno.fixo;
-        //                 appProdutosSite.dataDescription.cel = retorno.cel;
-        //
-        //                 $('#modal_descricao').modal();
-        //             }else{
-        //                 alertaPagina('Erro ao buscar descrição do produto.','danger');
-        //             }
-        //
-        //         },
-        //         error: function(retorno){
-        //             alertaPagina('Erro no sistema! cod-02','danger');
-        //         }
-        //     })
-        // }
     },
     created:function () {
         $('.el-produtos').removeClass('hide');

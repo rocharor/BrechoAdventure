@@ -15,27 +15,33 @@ class CategoriaTableSeeder extends Seeder
         DB::table('categorias')->truncate();
 
         DB::table('categorias')->insert([
-            'categoria' => 'Aquático'
+            'categoria' => 'Aquático',
+            'slug' => str_slug('Aquático')
         ]);
 
         DB::table('categorias')->insert([
-            'categoria' => 'Camping'
+            'categoria' => 'Camping',
+            'slug' => str_slug('Camping')
         ]);
 
         DB::table('categorias')->insert([
-            'categoria' => 'Ciclismo'
+            'categoria' => 'Ciclismo',
+            'slug' => str_slug('Ciclismo')
         ]);
 
         DB::table('categorias')->insert([
-            'categoria' => 'Fitnes'
+            'categoria' => 'Fitnes',
+            'slug' => str_slug('Fitnes')
         ]);
 
         DB::table('categorias')->insert([
-            'categoria' => 'Trilha & Trekking'
+            'categoria' => 'Trilha & Trekking',
+            'slug' => str_slug('Trilha & Trekking')
         ]);
 
         DB::table('categorias')->insert([
-            'categoria' => 'Escalada'
+            'categoria' => 'Escalada',
+            'slug' => str_slug('Escalada')
         ]);
 
         // Categoria::truncate();

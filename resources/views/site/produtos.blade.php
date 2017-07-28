@@ -48,21 +48,19 @@
         		</div>
         	@endforeach
 
-            <!--Modal descricao-->
-            {{-- <div class="modal fade" id='modal_descricao'>
-            	@include('modalDescricao')
-            </div> --}}
+            <!--PAGINAÇÃO-->
+            <br style="clear:both">
+            <div align='center'>
+                @include('paginacao')
+            </div>
 
             <!--Modal mensagem-->
             <div class="modal fade" id='modal-mensagem'>
                 @include('modalMensagem')
             </div>
-
         </div>
     </div>
 
-    <!--PAGINAÇÃO-->
-    @include('paginacao')
 
     <script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

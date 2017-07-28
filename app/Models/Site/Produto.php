@@ -19,6 +19,7 @@ class Produto extends Model
     public $paginacao = false;
     public $pagina = 1;
     public $totalPagina = 8;
+    public $parametros = [];
     // public $limit = false;
     // public $limitAux = false;
 
@@ -57,23 +58,45 @@ class Produto extends Model
         if($this->paginacao){
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
             if($limit['fim']){
-                $produtos = $this->where('status',1)
+                $produtos = $this
+                ->join('categorias','categorias.id', 'produtos.categoria_id')
+                ->select('produtos.*', 'categorias.slug as categoria_slug')
+                ->where('status',1)
                 ->limit($limit['inicio'])
                 ->offset($limit['fim'])
-                ->orderBy('produtos.id', 'DESC')
-                ->get();
+                ->orderBy('produtos.id', 'DESC');
             }else{
-                $produtos = $this->where('status',1)
+                $produtos = $this
+                ->join('categorias','categorias.id', 'produtos.categoria_id')
+                ->select('produtos.*', 'categorias.slug as categoria_slug')
+                ->where('status', 1)
                 ->limit($limit['inicio'])
-                ->orderBy('produtos.id', 'DESC')
-                ->get();
+                ->orderBy('produtos.id', 'DESC');
             }
             $total = $this->where('status',1)->count();
         }else{
-            $produtos = $this->where('status',1)
-            ->get();
+            $produtos = $this
+            ->join('categorias','categorias.id', 'produtos.categoria_id')
+            ->select('produtos.*', 'categorias.slug as categoria_slug')
+            ->where('status',1);
         }
 
+        if (count($this->parametros) > 0) {
+            if (isset($this->parametros['categoria'])) {
+                $produtos = $produtos
+                ->whereIn('categorias.slug', $this->parametros['categoria']);
+            }
+
+            if (isset($this->parametros['estado'])) {
+                $produtos = $produtos
+                ->whereIn('produtos.estado', $this->parametros['estado']);
+            }
+            $produtos = $produtos->get();
+
+            $total = count($produtos);
+        }else{
+            $produtos = $produtos->get();
+        }
 
         $retorno = [
             'itens' => $produtos,
@@ -102,11 +125,6 @@ class Produto extends Model
         return $dadosProduto;
     }
 
-    /**
-     * [getMeusProdutos description]
-     * @param  boolean $limit [description]
-     * @return [type]         [description]
-     */
     public function getMeusProdutos()
     {
         $meusProdutos = [];
@@ -150,26 +168,28 @@ class Produto extends Model
     {
         $this->paginacao = false;
         $products = $this->getProdutos();
-
+        $data = [];
         foreach ($products['itens'] as $key=>$product) {
-            if (!isset($data['Categoria']['itens'][$product->categoria->categoria])) {
-                $data['Categoria']['itens'][$product->categoria->categoria] = [
-                    'id'=>$product->categoria_id,
+            if (!isset($data['Categoria']['itens'][str_slug($product->categoria->categoria)])) {
+                $data['Categoria']['itens'][str_slug($product->categoria->categoria)] = [
+                    'slug'=>str_slug($product->categoria->categoria),
                     'rotulo'=>$product->categoria->categoria,
-                    'qtd' => 1
+                    'qtd' => 1,
+                    'checked' => false
                 ];
             }else{
-                $data['Categoria']['itens'][$product->categoria->categoria]['qtd'] += 1;
+                $data['Categoria']['itens'][str_slug($product->categoria->categoria)]['qtd'] += 1;
             }
 
-            if (!isset($data['Estado']['itens'][$product->estado])) {
-                $data['Estado']['itens'][$product->estado] = [
-                    'id'=>$product->estado,
+            if (!isset($data['Estado']['itens'][str_slug($product->estado)])) {
+                $data['Estado']['itens'][str_slug($product->estado)] = [
+                    'slug' => str_slug($product->estado),
                     'rotulo'=>$product->estado,
-                    'qtd' => 1
+                    'qtd' => 1,
+                    'checked' => false
                 ];
             }else{
-                $data['Estado']['itens'][$product->estado]['qtd'] += 1;
+                $data['Estado']['itens'][str_slug($product->estado)]['qtd'] += 1;
             }
         }
 

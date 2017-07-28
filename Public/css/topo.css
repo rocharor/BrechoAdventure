@@ -1,0 +1,186 @@
+@font-face {
+  font-family: "Adventure";
+  src: url("fonts/Adventure.otf") format("truetype");
+}
+html,
+body {
+  height: 100%;
+  font-family: arial;
+  margin: 0;
+  padding: 0;
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.modal-body {
+  background-color: #f3b300;
+}
+.modal-header,
+.modal-footer {
+  background-color: #ffca4c;
+}
+.menu {
+  background-color: #7f6526;
+  width: 100%;
+  height: 70px;
+  padding: 3px;
+  position: relative;
+}
+.menu .topo_esquerdo {
+  float: left;
+}
+.menu .topo_esquerdo .img_logo {
+  width: 150px;
+  max-height: 65px;
+  min-height: 65px;
+}
+.menu .topo_esquerdo .links {
+  display: inline;
+}
+.menu .topo_esquerdo .links a {
+  margin: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #f3b300;
+}
+.menu .topo_esquerdo .links a:hover {
+  color: #ffca4c;
+}
+.menu .topo_esquerdo .links .active {
+  color: #eee;
+  font-style: italic;
+}
+.menu .topo_direito {
+  float: right;
+  padding-right: 5px;
+  margin-top: 15px;
+/*MENU LOGADO (FOTO) */
+}
+.menu .topo_direito .btn-login,
+.menu .topo_direito .btn-cadastro {
+  background-color: #f3b300;
+  color: #282c34;
+  border: 0px;
+}
+.menu .topo_direito .btn-login:hover,
+.menu .topo_direito .btn-cadastro:hover {
+  background-color: #ffca4c;
+  color: #282c34;
+}
+.menu .topo_direito .btn-group .box {
+  position: relative;
+  display: block;
+}
+.menu .topo_direito .btn-group .box .imagem_login {
+  width: 80px;
+  max-height: 65px;
+  min-height: 65px;
+  cursor: pointer;
+  margin-top: -15px;
+}
+.menu .topo_direito .btn-group .box .mask {
+  transition: ease all 0.5s;
+  opacity: 0;
+  background-color: #e8a84e;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 65px;
+  padding-top: 15px;
+  margin-top: -15px;
+}
+.menu .topo_direito .btn-group .box .mask span {
+  color: #f00;
+  font-weight: bold;
+  font-size: 12px;
+  cursor: pointer;
+}
+.menu .topo_direito .btn-group .box:hover .mask {
+  opacity: 0.9;
+}
+.menu .topo_direito .btn-group .menu_logado {
+  margin: 2px -100px 0;
+}
+.menu .topo_direito .btn-group .menu_logado li a:hover {
+  background-color: #cc8f00;
+  font-weight: bold;
+}
+.menu .topo_direito .btn-group .menu_logado li .active {
+  background-color: #cc8f00;
+  color: #eee;
+  font-weight: bold;
+  font-style: italic;
+}
+.menu-mobile {
+  background-color: #282c34;
+  width: 100%;
+  height: 50px;
+  padding: 3px;
+  position: relative;
+}
+.menu-mobile .topo_esquerdo {
+  float: left;
+}
+.menu-mobile .topo_esquerdo .img_logo_mobile {
+  width: 80px;
+  max-height: 45px;
+  min-height: 45px;
+}
+.menu-mobile .topo_esquerdo .links {
+  display: inline;
+}
+.menu-mobile .topo_esquerdo .links a {
+  margin: 10px;
+  font-weight: bold;
+  text-decoration: none;
+  color: #f3b300;
+}
+.menu-mobile .topo_esquerdo .links a:hover {
+  color: #ffca4c;
+}
+.menu-mobile .topo_esquerdo .links .active {
+  color: #eee;
+}
+.menu-mobile .topo_direito {
+  float: right;
+  padding-right: 5px;
+  margin-top: 5px;
+/*MENU LOGADO (FOTO) */
+}
+.menu-mobile .topo_direito .dropdown {
+  background-color: #ffca4c;
+  text-align: center;
+}
+.menu-mobile .topo_direito .dropdown button {
+  background-color: #f3b300;
+  color: #282c34;
+  border: 0px;
+}
+.menu-mobile .topo_direito .btn-group .box {
+  position: relative;
+  display: block;
+}
+.menu-mobile .topo_direito .btn-group .box .imagem_login {
+  width: 45px;
+  max-height: 40px;
+  min-height: 40px;
+  margin-top: -5px;
+}
+.menu-mobile .topo_direito .btn-group .menu_logado {
+  margin: 2px -100px 0;
+}
+.menu-mobile .topo_direito .btn-group li .active {
+  background-color: #cc8f00;
+  color: #eee;
+  font-weight: bold;
+  font-style: italic;
+}
+/*CAMPO BUSCAR*/
+.campo-buscar {
+  position: absolute;
+  width: 20%;
+  z-index: 999;
+  top: 80px;
+  right: 10px;
+}

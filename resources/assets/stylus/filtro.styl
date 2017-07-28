@@ -1,0 +1,89 @@
+#filtro_lateral
+    background-color:#ffca4c;
+    border:solid 2px  #F3B300;
+    width:100%;
+    color:#7f5900;
+    .categoria
+        margin:3px;
+        .titulo
+            background-color:#F3B300;
+            padding:4px;
+            font-weight:bold;
+            span
+                float:right;
+                font-size:20px;
+                margin-top:-5px;
+        .conteudo
+            background-color:#ffca4c;
+            margin-top:5px;
+            label
+                display:inline-block;
+                width:100%;
+                font-weight:normal;
+                small
+                    float:right;
+                    width:35px;
+                    color: #4D4D4D;
+                    font-weight:bold;
+                    font-size:11px;
+                    border:solid 2px #F3B300;
+                    border-radius:10px;
+            label:hover
+                cursor:pointer;
+            label:hover span
+                text-decoration: underline;
+            label:hover small
+                color: #fff;
+                background-color: #F3B300;
+/*INICIO Checkbox*/
+input[type="checkbox"]:before
+    padding: 7px;
+    position: absolute;
+    content: '';
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px #333;
+
+input[type="checkbox"]:checked:before
+    padding: 7px;
+    position: absolute;
+    content: '';
+    background: #fff;
+    border-radius: 3px;
+    box-shadow: 1px 1px 2px #333;
+    background-size:cover;
+    background-image: url('/imagens/checked.jpg');
+/*FIM Checkbox*/
+
+/*INICIO Campo palavra-chave*/
+.palavra-chave
+    width:100%;
+    border: solid 0;
+    margin:5px 0 10px 0;
+    .input-group
+        input:hover
+            border: solid #4D4D4D;
+        .btn-group
+            button
+                background-color: #999999
+                span
+                    color:#fff;
+    div
+        .escolhas
+            display:inline-block;
+            border:solid #CC2929;
+            border-radius:15px;
+            padding:2px 15px;
+            margin-top:3px;
+            position:relative;
+            color:#CC2929;
+            font-weight:bold;
+        .escolhas:hover
+            background-color:#CC2929;
+            color:#fff;
+            cursor:pointer
+/*FIM Campo palavra-chave*/
+
+.item-view
+    border:1px solid;
+    height:200px;

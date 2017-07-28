@@ -1,17 +1,5 @@
 <?php
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| by your application. Just tell Laravel the URIs it should respond
-| This file is where you may define all of the routes that are handled
-| to using a Closure or controller method. Build something great!
-|
-*/
-
-Route::get('/cache/atualizar',['as'=>'cache','uses'=>'Admin\AdminController@updateCacheProducts']);
+// Route::get('/cache/atualizar',['as'=>'cache','uses'=>'Admin\AdminController@updateCacheProducts']);
 // Route::post('/cache/getFilter',['as'=>'getFilter','uses'=>'Site\ProdutoController@getCacheFilter']);
 
 /***************

@@ -8,8 +8,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Produto;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
-// use App\Services\Cache;
-// use Illuminate\Support\Facades\Mail;
 use App\Mail\BrechoMail;
 use App\Services\UploadImagem;
 
@@ -49,8 +47,15 @@ class ProdutoController extends Controller
 
     }
 
-    public function produtos(Favorito $favorito, Request $request,$pagina=1)
+    public function produtos(Favorito $favorito, Request $request, $pagina=1)
     {
+        if (count($request->all()) > 0) {
+            foreach ($request->all() as $key => $value) {
+                $parametros[$key] = explode(',',$value);
+            }
+            $this->model->parametros = $parametros;
+        }
+
         $this->model->paginacao = true;
         $this->model->pagina = $pagina;
         $produtos = $this->model->getProdutos();
@@ -67,8 +72,6 @@ class ProdutoController extends Controller
                 }
             }
         }
-
-        $dadosFiltro = $this->model->mountFilter();
 
         return view('site/produtos',[
             'produtos' => $produtos['itens'],
@@ -224,10 +227,10 @@ class ProdutoController extends Controller
         }
 
         if ($produto->save()) {
-            return redirect()->route('minha-conta.meus-produto',$request->produto_id)->with('sucesso','Salvo com sucesso!');
+            return redirect()->route('minha-conta.meus-produto')->with('sucesso','Salvo com sucesso!');
         };
 
-        return redirect()->route('minha-conta.meus-produto',$request->produto_id)->with('erro','Erro ao salvar, tente novamente!');
+        return redirect()->route('minha-conta.meus-produto')->with('erro','Erro ao salvar, tente novamente!');
     }
 
     public function deletePhoto(Request $request)
@@ -260,7 +263,7 @@ class ProdutoController extends Controller
 
     }
 
-    public function destroy($id)
+    public function delete($id)
     {
         $produto = $this->model->find($id);
         $retorno = 0;
@@ -271,32 +274,21 @@ class ProdutoController extends Controller
         die();
     }
 
-    public function getFiltro()
+    public function getFiltro(Request $request)
     {
+
+        if (count($request->parametro) > 0) {
+            foreach ($request->parametro as $key => $value) {
+                $parametros[$key] = explode(',',$value);
+            }
+            $this->model->parametros = $parametros;
+        }
+
         $retorno = $this->model->mountFilter();
+
         echo response()->json($retorno)->content();
         die();
     }
-
-    // public function mountDataFilter()
-    // {
-    //     $data = [];
-    //     $products = $this->model->getProdutos(true);
-    //     foreach ($products as $key=>$product) {
-    //         $data['Categoria']['itens'][$product['categoria']] = [
-    //             'id'=>$product['categoria_id'],
-    //             'rotulo'=>$product['categoria'],
-    //             'qtd' => isset($data['Categoria']['itens'][$product['categoria']]) ? count($data['Categoria']['itens'][$product['categoria']]) : 1
-    //         ];
-    //
-    //         $data['Estado']['itens'][$product['estado']] = [
-    //             'id'=>$product['estado'],
-    //             'rotulo'=>$product['estado'],
-    //             'qtd' => isset($data['Estado']['itens'][$product['estado']]) ? count($data['Estado']['itens'][$product['estado']]) : 1
-    //         ];
-    //     }
-    //     return $data;
-    // }
 
     // public function getCacheFilter(Cache $cache)
     // {
@@ -306,16 +298,6 @@ class ProdutoController extends Controller
     //     echo json_decode($cache->getCache('filter'),true);
     //     echo $cache->getCache('filter');
     //     die();
-    // }
-
-    // public function show(Request $request)
-    // {
-    //     $produto_id = $request->get('produto_id');
-    //     $produtos = $this->model->getDescricaoProduto($produto_id);
-    //
-    //     //echo response($produtos)->content();
-    //     echo response()->json($produtos)->content();
-    //     die();
-    // }
+    // }   
 
 }

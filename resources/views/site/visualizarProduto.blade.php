@@ -63,12 +63,13 @@
 				@if(Auth::check() != 0)
 					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Envia mensagem</button>
 				@endif
+				
+				<!--Modal mensagem-->
+				<div class="modal fade" id='modal-mensagem'>
+					@include('modalMensagem')
+				</div>
 			</div>
 
-			<!--Modal mensagem-->
-			<div class="modal fade" id='modal-mensagem'>
-				@include('modalMensagem')
-			</div>
 		</div>
 	</div>
 	<script>
@@ -79,6 +80,6 @@
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	</script>
-	
+
 	<script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

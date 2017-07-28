@@ -20,15 +20,12 @@ a {
 .modal-footer {
   background-color: #ffca4c;
 }
-.rodape {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: #7f5900;
+#app .navbar-static-top {
+  background-color: #f3b300;
+}
+.row .col-md-offset-2 .panel .panel-heading {
+  background-color: #f3b300;
+}
+.row .col-md-offset-2 .panel .panel-body {
   background-color: #ffca4c;
-  font-family: colibri;
-  font-size: 10px;
-  padding: 8px;
-  text-align: center;
-  z-index: 10;
 }

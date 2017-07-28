@@ -2,6 +2,7 @@
   font-family: "Adventure";
   src: url("fonts/Adventure.otf") format("truetype");
 }
+/*Seleção 1*/
 html,
 body {
   height: 100%;
@@ -19,16 +20,4 @@ a {
 .modal-header,
 .modal-footer {
   background-color: #ffca4c;
-}
-.rodape {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  color: #7f5900;
-  background-color: #ffca4c;
-  font-family: colibri;
-  font-size: 10px;
-  padding: 8px;
-  text-align: center;
-  z-index: 10;
 }
