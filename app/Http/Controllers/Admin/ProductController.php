@@ -81,20 +81,9 @@ class ProductController extends Controller
         $retorno = $this->model->updateAdmin($request->id, $param);
 
         if ($retorno) {
-            return redirect()->route('admin.product-list')->with('sucesso','Status do produto alterado com sucesso.');
+            return redirect()->route('admin.usuario.product-list')->with('sucesso','Status do produto alterado com sucesso.');
         }
 
-        return redirect()->route('admin.product-list')->with('erro','Erro ao atualizar status.');
-    }
-
-
-    /**
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        return redirect()->route('admin.usuario.product-list')->with('erro','Erro ao atualizar status.');
     }
 }

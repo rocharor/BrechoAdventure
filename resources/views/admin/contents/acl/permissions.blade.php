@@ -19,7 +19,7 @@
                 <div style="margin-bottom:20px; width:300px">
                     <button class='btn btn-primary act-mostra-form'>Novo</button>
 
-                    <form class="form-role hide" action="{{ Route('admin.master.acl-store-permission') }}" method="post">
+                    <form class="form-role hide" action="{{ Route('admin.acl.store-permission') }}" method="post">
                         {{ csrf_field() }}
 
                         <input type="text" class='form-control' name="nome" placeholder='Nome da permission'>
@@ -51,7 +51,7 @@
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->label }}</td>
                                         <td style="width:50px"><a href='#' class="btn btn-primary" disabled><span class="glyphicon glyphicon-pencil"></span></a></td>
-                        	            <td style="width:50px"><a href='{{ Route('admin.master.acl-delete-permission', $value->id) }}' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
+                        	            <td style="width:50px"><a href='{{ Route('admin.acl.delete-permission', $value->id) }}' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a></td>
                                     </tr>
                                 @endforeach
                             </tbody>

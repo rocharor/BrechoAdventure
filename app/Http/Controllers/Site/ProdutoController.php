@@ -298,6 +298,6 @@ class ProdutoController extends Controller
     //     echo json_decode($cache->getCache('filter'),true);
     //     echo $cache->getCache('filter');
     //     die();
-    // }   
+    // }
 
 }

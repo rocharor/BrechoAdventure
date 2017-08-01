@@ -30,12 +30,20 @@ class AclTableSeeder extends Seeder
 
         DB::table('permissions')->truncate();
         DB::table('permissions')->insert([
-            'name' => 'admin-master',
-            'label' => 'Acesso total ao admin do site'
+            'name' => 'pg-admin',
+            'label' => 'Acesso ao admin do site'
         ]);
         DB::table('permissions')->insert([
-            'name' => 'admin',
-            'label' => 'Acesso restrito ao admin do site'
+            'name' => 'admin-acl',
+            'label' => 'Acesso ao sistema de ACL'
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'admin-pendente',
+            'label' => 'Acesso ao produtos e mensagens pendentes'
+        ]);
+        DB::table('permissions')->insert([
+            'name' => 'admin-usuario',
+            'label' => 'Acesso ao cadastro dos usuários'
         ]);
 
 
@@ -53,6 +61,14 @@ class AclTableSeeder extends Seeder
         DB::table('permission_role')->insert([
             'role_id' => 1,
             'permission_id' => 2
+        ]);
+        DB::table('permission_role')->insert([
+            'role_id' => 1,
+            'permission_id' => 3
+        ]);
+        DB::table('permission_role')->insert([
+            'role_id' => 1,
+            'permission_id' => 4
         ]);
     }
 }

@@ -74,10 +74,10 @@ class UserController extends Controller
         $retorno = $user->save();
 
         if($retorno){
-            return redirect()->route('admin.user-edit', $request->id)->with('sucesso','Dados salvos com sucesso.');
+            return redirect()->route('admin.usuario.user-edit', $request->id)->with('sucesso','Dados salvos com sucesso.');
         }
 
-        return redirect()->route('admin.user-edit', $request->id)->with('erro','Erro ao salvar.');
+        return redirect()->route('admin.usuario.user-edit', $request->id)->with('erro','Erro ao salvar.');
     }
 
     public function delete($id)
@@ -85,9 +85,9 @@ class UserController extends Controller
         $user = $this->modelUser->find($id);
 
         if ($user->delete()) {
-            return redirect()->route('admin.user')->with('sucesso','Usuário excluído com sucesso.');
+            return redirect()->route('admin.usuario.user')->with('sucesso','Usuário excluído com sucesso.');
         }
 
-        return redirect()->route('admin.user')->with('erro','Erro ao excluir.');
+        return redirect()->route('admin.usuario.user')->with('erro','Erro ao excluir.');
     }
 }

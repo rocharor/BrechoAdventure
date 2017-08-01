@@ -38,8 +38,8 @@
                                         <td>{{ $value->name }}</td>
                                         <td>{{ $value->email }}</td>
                                         <td style="width:100px">
-                                            <a href='{{ Route('admin.user-edit', $value->id) }}' class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
-                                            <a href='{{ Route('admin.user-delete', $value->id) }}' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
+                                            <a href='{{ Route('admin.usuario.user-edit', $value->id) }}' class="btn btn-primary"><span class="glyphicon glyphicon-pencil"></span></a>
+                                            <a href='{{ Route('admin.usuario.user-delete', $value->id) }}' class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></a>
                                         </td>
                                     </tr>
                                 @endforeach

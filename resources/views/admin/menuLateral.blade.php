@@ -14,21 +14,6 @@
         <ul class="sidebar-menu">
             <li class="header">MENU DE NAVEGAÇÃO</li>
 
-            {{-- <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-files-o"></i>
-                    <span>Pendentes</span>
-                    <i class="fa fa-angle-left pull-right"></i>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="{{ Route('admin.product-list') }}"><i class="fa fa-circle-o"></i>Produtos Pendentes</a></li>
-                    <li><a href="{{ Route('admin.contact-list') }}"><i class="fa fa-circle-o"></i>Mensagens Pendentes</a></li>
-                </ul>
-            </li> --}}
-            <li>
-                <a href="{{ Route('admin.user') }}"><i class="fa fa-users"></i> <span>Usuários</span></a>
-            </li>
-
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-object-group"></i>
@@ -42,9 +27,29 @@
                     <li><a href="#"><i class="fa fa-circle-o"></i>Notificação (geral usuarios)</a></li>
                 </ul>
             </li>
-            
-            @can('admin-master')
 
+            @can('admin-pendente')
+                <li class="treeview">
+                    <a href="#">
+                        <i class="fa fa-files-o"></i>
+                        <span>Pendentes</span>
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </a>
+                    <ul class="treeview-menu">
+                        <li><a href="{{ Route('admin.pendente.product-list') }}"><i class="fa fa-circle-o"></i>Produtos Pendentes</a></li>
+                        <li><a href="{{ Route('admin.pendente.contact-list') }}"><i class="fa fa-circle-o"></i>Mensagens Pendentes</a></li>
+                    </ul>
+                </li>
+            @endcan
+
+            @can('admin-usuario')
+                <li>
+                    <a href="{{ Route('admin.usuario.user') }}"><i class="fa fa-users"></i> <span>Usuários</span></a>
+                </li>
+            @endcan
+
+
+            @can('admin-acl')
                 <li class="treeview">
                     <a href="#">
                         <i class="fa fa-unlock-alt"></i>
@@ -52,9 +57,9 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </a>
                     <ul class="treeview-menu">
-                        <li><a href="{{ Route('admin.master.acl-roles-list') }}"><i class="fa fa-circle-o"></i>Roles</a></li>
-                        <li><a href="{{ Route('admin.master.acl-permissions-list') }}"><i class="fa fa-circle-o"></i>Permissions</a></li>
-                        <li><a href="{{ Route('admin.master.acl-role-permissions-list') }}"><i class="fa fa-circle-o"></i>Roles - Permission</a></li>
+                        <li><a href="{{ Route('admin.acl.roles-list') }}"><i class="fa fa-circle-o"></i>Roles</a></li>
+                        <li><a href="{{ Route('admin.acl.permissions-list') }}"><i class="fa fa-circle-o"></i>Permissions</a></li>
+                        <li><a href="{{ Route('admin.acl.role-permissions-list') }}"><i class="fa fa-circle-o"></i>Roles - Permission</a></li>
                     </ul>
                 </li>
             @endcan

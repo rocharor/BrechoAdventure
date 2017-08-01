@@ -1,5 +1,7 @@
 var MensagemClass = (function() {
-    
+    function Mensagem() {
+    }
+
     Mensagem.prototype = {
         init: function() {
           this.actions();
@@ -29,6 +31,7 @@ var MensagemClass = (function() {
 				e.preventDefault();
 				var conversa_id = $(this).parent().attr('data-conversa-id') ;
 				var mensagem = $('#resposta_'+conversa_id).val();
+                /**/console.log(mensagem)
 				var tipo = $(this).attr('data-tipo');
 				self.enviarResposta(conversa_id,mensagem,tipo);
 			})

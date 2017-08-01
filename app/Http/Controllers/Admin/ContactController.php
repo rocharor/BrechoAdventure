@@ -76,10 +76,10 @@ class ContactController extends Controller
         if ($retorno) {
             Mail::send(new BrechoMail(3, $param));
 
-            return redirect()->route('admin.contact-list')->with('sucesso','Mensagem enviada com sucesso.');
+            return redirect()->route('admin.pendente.contact-list')->with('sucesso','Mensagem enviada com sucesso.');
         }
 
-        return redirect()->route('admin.contact-list')->with('erro','Erro ao enviar a mensagem.');
+        return redirect()->route('admin.pendente.contact-list')->with('erro','Erro ao enviar a mensagem.');
 
 
         // $retorno = $this->model->updateAdmin($request->id, $param);

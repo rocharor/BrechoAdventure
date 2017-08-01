@@ -58,12 +58,12 @@
 			<hr>
 
 			<div class="el-produtos">
-				<a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
-
+					{{-- <a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>				 --}}
+					<a href="{{Route('produtos')}}" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
 				@if(Auth::check() != 0)
 					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Envia mensagem</button>
 				@endif
-				
+
 				<!--Modal mensagem-->
 				<div class="modal fade" id='modal-mensagem'>
 					@include('modalMensagem')
@@ -74,8 +74,8 @@
 	</div>
 	<script>
 		/* calling script */
-	    $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 400, title: true, tint: '#333', Xoffset: 15});
-	    // $('.xzoom, .xzoom-gallery').xzoom({position: '#xzoom2-id', tint: '#ffa200'});
+	    // $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 400, title: true, tint: '#333', Xoffset: 15});
+	    $('.xzoom, .xzoom-gallery').xzoom({position: '#xzoom2-id', tint: '#ffa200', scroll: false});
 	    // $('.xzoom, .xzoom-gallery').xzoom({position: 'lens', lensShape: 'circle', bg:true, sourceClass: 'xzoom-hidden'});
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});

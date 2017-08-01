@@ -20,9 +20,6 @@ class Produto extends Model
     public $pagina = 1;
     public $totalPagina = 8;
     public $parametros = [];
-    // public $limit = false;
-    // public $limitAux = false;
-
 
     /*Relacionamentos (inverso) (1 para muitos) */
     public function user()
@@ -46,11 +43,6 @@ class Produto extends Model
         // Retorno: O usuário que este produto pertence (id=1) coluna "id" da tabela "users"
     }
 
-    /**
-     * [getProdutos description]
-     * @param  boolean $limit [description]
-     * @return [type]         [description]
-     */
     public function getProdutos()
     {
         $produtos = [];

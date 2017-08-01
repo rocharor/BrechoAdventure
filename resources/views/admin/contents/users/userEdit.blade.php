@@ -18,7 +18,7 @@
         </h1>
         <ol class="breadcrumb">
             <li><a href="{{ Route('admin.home') }}"><i class="fa fa-dashboard"></i> Home</a></li>
-            <li><a href="{{ Route('admin.user') }}"></i> Users</a></li>
+            <li><a href="{{ Route('admin.usuario.user') }}"></i> Users</a></li>
             <li class="active">Roles - Permissions</li>
         </ol>
     </section>
@@ -31,7 +31,7 @@
                         <h3 class="box-title">Editar Usuário <b>{{ $data['user']->name }}</b></h3>
                     </div>
                     <div class="box-body">
-                        <form action='{{ Route('admin.user-update') }}' name='formPerfil' id='formPerfil'  method="POST">
+                        <form action='{{ Route('admin.usuario.user-update') }}' name='formPerfil' id='formPerfil'  method="POST">
                             {{ csrf_field() }}
 
                             <input type="hidden" name="id" value="{{ $data['user']->id }}">
@@ -97,10 +97,10 @@
                             </table>
                         </form>
 
-                        @can('admin-master')
+                        @can('admin-acl')
                             <div class="permissoes">
                                 <h1>Roles</h1>
-                                <form action="{{ Route('admin.master.acl-update-role-user') }}" method="post">
+                                <form action="{{ Route('admin.acl.update-role-user') }}" method="post">
                                     {{ csrf_field() }}
 
                                     <input type="hidden" name="user_id" value="{{ $data['user']->id }}">

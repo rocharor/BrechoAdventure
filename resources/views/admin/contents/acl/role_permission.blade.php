@@ -23,7 +23,7 @@
                         <h3 class="box-title">Roles</h3>
                     </div>
                     <div class="box-body">
-                        <form action="{{ Route('admin.master.acl-update-role-permission') }}" method="post">
+                        <form action="{{ Route('admin.acl.update-role-permission') }}" method="post">
                             {{ csrf_field() }}
 
                             <table id="table-roles" class="table table-bordered table-striped">
@@ -43,15 +43,13 @@
                                                 @foreach($data['permissions'] as $value2)
                                                     <label>
                                                         @if(in_array($value2->id, explode(',',$value->permissions)))
-                                                            {{-- <input type="checkbox" class="minimal-red" data-role="{{ $value->id }}" value="{{ $value2->id }}" checked> --}}
                                                             <input type="checkbox" class="minimal-red" name='ckecks[]' value="{{ $value->id }}-{{ $value2->id }}" checked>
                                                         @else
-                                                            {{-- <input type="checkbox" class="minimal-red" data-role="{{ $value->id }}" value="{{ $value2->id }}"> --}}
                                                             <input type="checkbox" class="minimal-red" name='ckecks[]' value="{{ $value->id }}-{{ $value2->id }}">
                                                         @endif
                                                         &nbsp;{{ $value2->name }}
                                                     </label>
-                                                    &nbsp;&nbsp;
+                                                    <br>
                                                 @endforeach
                                             </td>
                                         </tr>
