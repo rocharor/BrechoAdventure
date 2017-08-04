@@ -18,7 +18,7 @@
 			<div class="row">
 				<div class="col-md-5">
 					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:400px; height:300px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
-
+					<br><br>
 					<div class="xzoom-thumbs">
 						@foreach($produto->imagens as $imagem)
 							<a href="/imagens/produtos/900x900/{{ $imagem }}">
@@ -58,8 +58,8 @@
 			<hr>
 
 			<div class="el-produtos">
-					{{-- <a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>				 --}}
-					<a href="{{Route('produtos')}}" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
+					<a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
+					{{-- <a href="{{Route('produtos')}}" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a> --}}
 				@if(Auth::check() != 0)
 					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Envia mensagem</button>
 				@endif

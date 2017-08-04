@@ -1,27 +1,5 @@
 $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
 
-$('.act-buscar').click(function() {
-
-	var valorBusca = $('.busca').val();
-
-	if(valorBusca.length < 3){
-		alert('Digite pelo menos 3 caracteres');
-		return false;
-	}
-
-	url_busca = '/busca/'+valorBusca+'/';
-
-	window.open(url_busca,'_self');
-});
-
-$('.busca').keypress(function(e){
-	if(e.keyCode == 13){
-		$('.act-buscar').click();
-	}
-});
-
-
-
 var alertaPagina = function(texto,classe){
 
 	if(texto == 'undefined' || classe == 'undefined'){
@@ -142,30 +120,6 @@ function carregarMiniatura(input,modelo) {
     }
 }
 
-/**
- * Busca notificações com intervalo de 5 minutos
- */
-function buscaNotificacao(){
-	$.post(
-		"/minha-conta/mensagem/buscaNotificacao",
-		function( data ) {
-			if (data != '') {
-				$('.qtdMsg').html(data);
-				if (data > 0) {
-					var styles = {"font-weight":"bold","color":"red"};
-				}else{
-					var styles = {"font-weight":"normal","color":"black"};
-				}
-				$('.qtdMsg').css(styles);
-			}
-		}
-	);
-	setTimeout(function(){
-		buscaNotificacao();
-	},300000);
-}
-
-
 function getQueryString(){
 	var query = location.search.slice(1);
 	var partes = query.split('&');
@@ -179,4 +133,50 @@ function getQueryString(){
 	});
 
 	return data;
+}
+
+// $('.act-buscar').click(function() {
+//
+// 	var valorBusca = $('.busca').val();
+//
+// 	if(valorBusca.length < 3){
+// 		alert('Digite pelo menos 3 caracteres');
+// 		return false;
+// 	}
+//
+// 	url_busca = '/busca/'+valorBusca+'/';
+//
+// 	window.open(url_busca,'_self');
+// });
+//
+// $('.busca').keypress(function(e){
+// 	if(e.keyCode == 13){
+// 		$('.act-buscar').click();
+// 	}
+// });
+
+
+
+
+/**
+ * Busca notificações com intervalo de 5 minutos
+ */
+function buscaNotificacao(){
+	// $.post(
+	// 	"/minha-conta/mensagem/buscaNotificacao",
+	// 	function( data ) {
+	// 		if (data != '') {
+	// 			$('.qtdMsg').html(data);
+	// 			if (data > 0) {
+	// 				var styles = {"font-weight":"bold","color":"red"};
+	// 			}else{
+	// 				var styles = {"font-weight":"normal","color":"black"};
+	// 			}
+	// 			$('.qtdMsg').css(styles);
+	// 		}
+	// 	}
+	// );
+	// setTimeout(function(){
+	// 	buscaNotificacao();
+	// },300000);
 }

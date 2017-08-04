@@ -11,7 +11,7 @@
 		<div class="row" >
 			<div class="col-xs-12 col-sm-10 el-produtos hide">
 				<div align="center">
-					<h1 align="center">Bem vindo ao Brechó Adventure</h1>
+					<h1 align="center" class='msgHome'>Bem vindo ao Brechó Adventure</h1>
 					<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>
 				</div>
 				@foreach($produtos as $produto)

@@ -1,6 +1,6 @@
 @font-face
-	font-family: "Adventure";
-	src: url("fonts/Adventure.otf") format("truetype");
+	font-family: "Adventure_";
+	src: url("/fonts/adventure/Adventure.otf") format("truetype");
 
 /*Seleção 1*/
 $color1 = #282c34;
@@ -9,15 +9,18 @@ $color3 = #7f6526;
 $color4 = #cc8f00;
 $color5 = #F3B300;
 $color6 = #ffca4c;
-$color7 = #eee;
+$color7 = #eeeeee;
+$color8 = #007F2A;
+$color9 = #7F0002;
+$color10 = #00707F;
+$color11 = #000E7F;
 
-$font = arial; //Adventure
+$font = 'serif';
+// $font = 'Adventure_';
+// $font = arial;
 
 html, body
-	height: 100%;
 	font-family: $font;
-	margin: 0;
-	padding: 0;
 
 a
 	cursor: pointer;
@@ -28,3 +31,25 @@ a
 
 .modal-header, .modal-footer
 	background-color: $color6;
+
+.btn-success
+	background-color: $color8;
+
+.btn-danger
+	background-color: $color9;
+
+.btn-warning
+	background-color: $color5;
+
+.btn-info
+	background-color: $color10;
+
+.btn-primary
+	background-color: $color11;
+
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-warning:hover
+	background-color: $color2;

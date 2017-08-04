@@ -1,12 +1,15 @@
+@import "global.styl";
+
 #filtro_lateral
-    background-color:#ffca4c;
-    border:solid 2px  #F3B300;
+    font-family: 'Adventure_';
+    background-color:$color6;
+    border:solid 2px  $color5;
     width:100%;
-    color:#7f5900;
+    color:$color2;
     .categoria
         margin:3px;
         .titulo
-            background-color:#F3B300;
+            background-color:$color5;
             padding:4px;
             font-weight:bold;
             span
@@ -14,7 +17,7 @@
                 font-size:20px;
                 margin-top:-5px;
         .conteudo
-            background-color:#ffca4c;
+            background-color:$color6;
             margin-top:5px;
             label
                 display:inline-block;
@@ -23,24 +26,24 @@
                 small
                     float:right;
                     width:35px;
-                    color: #4D4D4D;
+                    color: $color1;
                     font-weight:bold;
                     font-size:11px;
-                    border:solid 2px #F3B300;
+                    border:solid 2px $color5;
                     border-radius:10px;
             label:hover
                 cursor:pointer;
             label:hover span
                 text-decoration: underline;
             label:hover small
-                color: #fff;
-                background-color: #F3B300;
+                color: $color7;
+                background-color: $color5;
 /*INICIO Checkbox*/
 input[type="checkbox"]:before
     padding: 7px;
     position: absolute;
     content: '';
-    background: #fff;
+    background: $color7;
     border-radius: 3px;
     box-shadow: 1px 1px 2px #333;
 
@@ -48,7 +51,7 @@ input[type="checkbox"]:checked:before
     padding: 7px;
     position: absolute;
     content: '';
-    background: #fff;
+    background: $color7;
     border-radius: 3px;
     box-shadow: 1px 1px 2px #333;
     background-size:cover;
@@ -62,25 +65,25 @@ input[type="checkbox"]:checked:before
     margin:5px 0 10px 0;
     .input-group
         input:hover
-            border: solid #4D4D4D;
+            border: solid $color1;
         .btn-group
             button
-                background-color: #999999
+                background-color:  $color7;
                 span
-                    color:#fff;
+                    color:$color7;
     div
         .escolhas
             display:inline-block;
-            border:solid #CC2929;
+            border:solid $color9;
             border-radius:15px;
             padding:2px 15px;
             margin-top:3px;
             position:relative;
-            color:#CC2929;
+            color:$color9;
             font-weight:bold;
         .escolhas:hover
-            background-color:#CC2929;
-            color:#fff;
+            background-color:$color9;
+            color:$color7;
             cursor:pointer
 /*FIM Campo palavra-chave*/
 

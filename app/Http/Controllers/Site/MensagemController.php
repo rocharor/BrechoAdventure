@@ -78,12 +78,12 @@ class MensagemController extends Controller
         echo response()->json($retorno)->content();
     }
 
-    public function update(Request $request,Conversa $conversa)
+    public function update(Request $request, Conversa $conversa)
     {
         $user = Auth::user();
-        $conversa_id = $request->get('conversa_id');
+        $conversa_id = $request->conversa_id;
         $user_id_envio = $user->id;
-        $mensagem = $request->get('mensagem');
+        $mensagem = $request->resposta;
 
         $dados = $conversa->find($conversa_id)->select('user_id_envio','user_id_destino')->get();
         $user_id_destino = ($dados[0]->user_id_envio == $user_id_envio) ? $dados[0]->user_id_destino : $dados[0]->user_id_envio;
@@ -98,9 +98,27 @@ class MensagemController extends Controller
             $dados['nome'] = $user->name;
             $dados['mensagem'] = $this->model->mensagem;
             $dados['data'] = $this->model->created_at;
+            return redirect()->route('minha-conta.mensagem')->with('sucesso','Mensagem enviada com sucesso.');
         }
 
-        echo response()->json($dados)->content();
+        return redirect()->route('minha-conta.mensagem')->with('erro','Erro ao enviar a mensagem!');
+        // echo response()->json($dados)->content();
+        // die();
+    }
+
+    public function delete(Request $request, Conversa $conversa)
+    {
+        $retorno = 0;
+        return ;
+        $conversa_id = (int)$request->conversa_id;
+
+        if ($conversa->find($conversa_id)->delete()){
+            if ($this->model->where('conversa_id',$conversa_id)->delete()){
+                $retorno = 1;
+            }
+        }
+
+        echo  $retorno;
         die();
     }
 

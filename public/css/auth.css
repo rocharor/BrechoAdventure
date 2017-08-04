@@ -1,13 +1,10 @@
 @font-face {
-  font-family: "Adventure";
-  src: url("fonts/Adventure.otf") format("truetype");
+  font-family: "Adventure_";
+  src: url("/fonts/adventure/Adventure.otf") format("truetype");
 }
 html,
 body {
-  height: 100%;
-  font-family: arial;
-  margin: 0;
-  padding: 0;
+  font-family: 'serif';
 }
 a {
   cursor: pointer;
@@ -19,6 +16,28 @@ a {
 .modal-header,
 .modal-footer {
   background-color: #ffca4c;
+}
+.btn-success {
+  background-color: #007f2a;
+}
+.btn-danger {
+  background-color: #7f0002;
+}
+.btn-warning {
+  background-color: #f3b300;
+}
+.btn-info {
+  background-color: #00707f;
+}
+.btn-primary {
+  background-color: #000e7f;
+}
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-warning:hover {
+  background-color: #7f5900;
 }
 #app .navbar-static-top {
   background-color: #f3b300;

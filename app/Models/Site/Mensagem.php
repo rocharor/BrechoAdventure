@@ -13,7 +13,7 @@ use App\Services\Util;
 
 class Mensagem extends Model
 {
-    use SoftDeletes;
+    use Util, SoftDeletes;
 
     public $table = 'mensagens';
     protected $dates = ['deleted_at'];
@@ -63,7 +63,7 @@ class Mensagem extends Model
                         $qtdNotificacaoProduto++;
                     }
                 }
-                $mensagem->data = Util::formataDataExibicao($mensagem->created_at);
+                $mensagem->data = $this->formataDataExibicao($mensagem->created_at);
             }
             $conversas[$key1]['produto'] = $produto;
             $conversas[$key1]['mensagens'] = $mensagens;

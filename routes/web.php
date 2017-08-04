@@ -36,7 +36,8 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/produto/delete-foto',['as'=>'delete-foto','uses'=>'Site\ProdutoController@deletePhoto']);
     Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MensagemController@create']);
     Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MensagemController@store']);
-    Route::post('/mensagem/update',['as'=>'updateMensagem','uses'=>'Site\MensagemController@update']);
+    Route::post('/mensagem/update',['as'=>'update-mensagem','uses'=>'Site\MensagemController@update']);
+    Route::post('/mensagem/delete',['as'=>'delete-mensagem','uses'=>'Site\MensagemController@delete']);
     Route::post('/mensagem/buscaNotificacao',['as'=>'buscaNotificacao','uses'=>'Site\MensagemController@buscaNotificacao']);
     Route::post('/mensagem/updateNotificacao',['as'=>'updateNotificacao','uses'=>'Site\MensagemController@updateNotificacao']);
 });

@@ -18,7 +18,7 @@
         <meta name="copyright" content="Ricardo Rocha"/>
         <meta name="e-mail" content="rocharor@gmail.com"/>
         <meta name="keywords" content="Brecho Adventure"/>
-		<meta name="csrf-token" content="{{ csrf_token() }}" />
+		<meta name="csrf-token" id='token' content="{{ csrf_token() }}" value="{{ csrf_token() }}" />
 
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
 
