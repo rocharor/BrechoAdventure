@@ -55,17 +55,6 @@ class ProductController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -78,12 +67,24 @@ class ProductController extends Controller
             $param[$key] = trim($value);
         }
 
-        $retorno = $this->model->updateAdmin($request->id, $param);
-
-        if ($retorno) {
-            return redirect()->route('admin.usuario.product-list')->with('sucesso','Status do produto alterado com sucesso.');
+        // $retorno = $this->model->updateAdmin($request->id, $param);
+        $produto = $this->model->find($request->id);
+        foreach ($param as $key=>$value) {
+            if ($key == '_token' || $key == 'id') {
+                continue;
+            }
+            $produto->$key = $value;
         }
 
-        return redirect()->route('admin.usuario.product-list')->with('erro','Erro ao atualizar status.');
+        $retorno = false;
+        if ($produto->save()) {
+            $retorno =  true;
+        }
+
+        if ($retorno) {
+            return redirect()->route('admin.pendente.product-list')->with('sucesso','Status do produto alterado com sucesso.');
+        }
+
+        return redirect()->route('admin.pendente.product-list')->with('erro','Erro ao atualizar status.');
     }
 }

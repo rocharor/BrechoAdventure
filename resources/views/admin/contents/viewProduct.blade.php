@@ -46,12 +46,12 @@
 
                 <br>
 
-                <form action="{{ Route('admin.product-status') }}" method="post">
+                <form action="{{ Route('admin.pendente.product-status') }}" method="post">
                     {{ csrf_field() }}
 
                     <input type="hidden" name="id" value="{{ $data['produto']->id }}">
                     <button class='btn btn-success' type="submit" name="status" value='1'>Aprovar</button>
-                    <button class='btn btn-danger' type="submit" name="status" value='0'>Reprovar</button>
+                    <button class='btn btn-danger' type="submit" name="status" value='3'>Reprovar</button>
                 </form>
 
     		</div>

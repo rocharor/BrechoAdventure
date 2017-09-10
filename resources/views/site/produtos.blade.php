@@ -12,7 +12,7 @@
         </div>
         <div class="col-xs-12 col-sm-10 el-produtos hide">
         	@foreach($produtos as $produto)
-        		<div class="col-md-3 col-sm-6 col-xs-12" align="center" style="border-bottom: solid 1px; padding: 20px 0">
+        		<div class="col-md-3 col-sm-6 col-xs-12" align="center" style="padding: 20px 0">
             		<div class="div-produtos" align="center">
             			<div class="div-favorito-{{ $produto->id }}">
             				@if(Auth::check() == 0)
@@ -40,7 +40,11 @@
             			<div><b>Pre&ccedil;o: R$ {{$produto->valor}}</b></div>
                         <div>
                             <a href='{{ Route('visualizar-produto',$produto->slug) }}' class='btn btn-warning'><b>Ver detalhes</b></a>
-                            @if(Auth::check() != 0)
+                            @if(Auth::check() == 0)
+                                <button class='btn btn-info' title='Necessário estar logado' disabled><span class="glyphicon glyphicon-envelope"></span></button>
+                            @elseif(Auth::user()->id == $produto->user->id)
+                                <button class='btn btn-info' title='Este produto é seu' disabled><span class="glyphicon glyphicon-envelope"></span></button>
+                            @else
                                 <button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span></button>
                             @endif
                         </div>

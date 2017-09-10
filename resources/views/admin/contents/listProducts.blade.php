@@ -38,7 +38,7 @@
                                         <td>{{ $produto->titulo }}</td>
                                         <td>{{ $produto->categoria->categoria }}</td>
                                         <td>{{ $produto->updated_exibica }}</td>
-                                        <td><a href='{{ Route('admin.product-view', $produto->id) }}' class='btn btn-primary'><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                        <td><a href='{{ Route('admin.pendente.product-view', $produto->id) }}' class='btn btn-primary'><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                     </tr>
                                 @endforeach
                             </table>

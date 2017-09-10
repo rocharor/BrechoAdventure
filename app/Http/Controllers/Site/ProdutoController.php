@@ -16,7 +16,6 @@ class ProdutoController extends Controller
     use UploadImagem;
 
     public $model;
-    // public $totalPagina = 8;
 
     public function __construct(Produto $produto)
     {
@@ -137,9 +136,10 @@ class ProdutoController extends Controller
 
         if (count($nome_imagem) > 0) {
         // if ($foto_salva) {
-            $this->model->user_id = $user_id;
+            $this->model->user_id = Auth::user()->id;
             $this->model->categoria_id = $request->get('categoria');
             $this->model->titulo = $request->get('titulo');
+            $this->model->slug = str_slug($request->get('titulo') . ' ' . time());
             $this->model->descricao = $request->get('descricao');
             $this->model->valor = $request->get('valor');
             $this->model->estado = $request->get('tipo');
@@ -233,6 +233,30 @@ class ProdutoController extends Controller
         return redirect()->route('minha-conta.meus-produto')->with('erro','Erro ao salvar, tente novamente!');
     }
 
+    public function inactivate($id)
+    {
+        $produto = $this->model->find($id);
+        if (Auth::user()->id == $produto->user_id) {
+            $produto->status = 0;
+            if ($produto->save()) {
+                return redirect()->route('minha-conta.meus-produto')->with('sucesso','Inativado com sucesso!');
+            };
+
+            return redirect()->route('minha-conta.meus-produto')->with('erro','Erro ao inativar, tente novamente!');
+        }
+    }
+
+    public function delete($id)
+    {
+        $produto = $this->model->find($id);
+        if (Auth::user()->id == $produto->user_id) {
+            if ($produto->delete()) {
+                return redirect()->route('minha-conta.meus-produto')->with('sucesso','Excluído com sucesso!');
+            };
+            return redirect()->route('minha-conta.meus-produto')->with('erro','Erro ao excluir, tente novamente!');
+        }
+    }
+
     public function deletePhoto(Request $request)
     {
         $produto = $this->model->find($request->get('produto_id'));
@@ -263,20 +287,8 @@ class ProdutoController extends Controller
 
     }
 
-    public function delete($id)
-    {
-        $produto = $this->model->find($id);
-        $retorno = 0;
-        if (Auth::user()->id == $produto->user_id) {
-            $retorno = $produto->delete();
-        }
-        echo $retorno;
-        die();
-    }
-
     public function getFiltro(Request $request)
     {
-
         if (count($request->parametro) > 0) {
             foreach ($request->parametro as $key => $value) {
                 $parametros[$key] = explode(',',$value);
@@ -289,15 +301,5 @@ class ProdutoController extends Controller
         echo response()->json($retorno)->content();
         die();
     }
-
-    // public function getCacheFilter(Cache $cache)
-    // {
-    //     $cache->deleteCache('products');
-    //     $cache->updateCacheAll();
-    //     $products = collect(json_decode($products,true));
-    //     echo json_decode($cache->getCache('filter'),true);
-    //     echo $cache->getCache('filter');
-    //     die();
-    // }
 
 }

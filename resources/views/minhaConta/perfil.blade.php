@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="/node_modules/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
     <link rel="stylesheet" href="/css/minhaConta.css" type="text/css"/>
 
-    <h1 class="text-danger">PERFIL</h1>
     <div>
         {{-- FOTO PERFIL --}}
         <div align="left">
