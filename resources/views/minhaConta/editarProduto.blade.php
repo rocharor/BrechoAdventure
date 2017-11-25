@@ -13,21 +13,22 @@
 			<input type="hidden" name="produto_id" value="{{ $produto->id }}">
             <br />
 
-            @if ($produto->deleted_at)
-                <p><span class="label label-danger">Produto exclu&iacute;do</span></p>
-            @elseif ($produto->status == 1)
-                <p><span class="label label-success">Data de cadastro: <b>{{ $produto->dataExibicao }}</b></span></p>
-            @else
-                <p><span class="label label-warning"><b>Aguardando aprovação</b></span></p>
-            @endif
-
-            <br />
+			@if ($produto->status == 0)
+				<p><span class="label label-danger">Produto inativo</span></p>
+			@elseif ($produto->status == 1)
+				<p><span class="label label-success">Ativo <b>{{ $produto->dataExibicao }}</b></span></p>
+			@elseif ($produto->status == 2)
+				<p><span class="label label-info"><b>Aguardando aprovação</b></span></p>
+			@elseif ($produto->status == 3)
+				<p><span class="label label-warning">Altera&ccedil;&atilde;o reprovada</b></span></p>
+			@endif
+            <br>
 
             <div>
                  <label>Titulo:</label>
                  <input type="text" class="form-control" name='titulo' value="{{ $produto->titulo }}" required="required" />
             </div>
-            <br />
+			<br>
 
             <div>
                  <label>Categoria:</label>
@@ -75,8 +76,7 @@
         			<img class="img-thumbnail" src="/imagens/produtos/200x200/{{ $imagem }}" alt="" style="width: 100%; height: 100%;">
         		</div>
             @endforeach
-
-            <br />
+            <br>
 
             @if(count($produto->imagens) != 3)
                 <div @if (count($produto->imagens) == 0) style="border: solid 1px #f00; padding: 5px" @endif >
@@ -92,8 +92,8 @@
                     <p><span class="label label-warning"><b class='text-danger'>Tamanho ideal para fotos ( 1000 x 1000 )</b></span></p>
                 </div>
             @endif
+        	<br>
 
-        	<br />
             @if ($produto->status == 1)
                 <a href='{{ Route('visualizar-produto',$produto->slug) }}' class="btn btn-info">Visualizar</a>
             @else
@@ -102,5 +102,6 @@
             <input type="submit" class="btn btn-success" value="Salvar alteração" />
          </form>
      </div>
+	 
     <script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

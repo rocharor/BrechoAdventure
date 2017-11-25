@@ -133,26 +133,26 @@ var appProdutosMinhaConta = new Vue({
     }
 });
 
-var excluir_produto = function(produto_id){
-    if (confirm('Deseja realmente excluir este produto?')) {
-
-        $.ajax({
-            url : '/minha-conta/produto/delete/' + produto_id,
-            type : 'POST',
-            dataType : 'json',
-            success : function(retorno) {
-                if (retorno) {
-                    window.location.reload();
-                } else {
-                    alertaPagina('Erro ao excluir', 'danger');
-                }
-            },
-            error : function() {
-                alertaPagina('Erro no sistema!', 'danger');
-            }
-        })
-    }
-}
+// var excluir_produto = function(produto_id){
+//     if (confirm('Deseja realmente excluir este produto?')) {
+//
+//         $.ajax({
+//             url : '/minha-conta/produto/delete/' + produto_id,
+//             type : 'POST',
+//             dataType : 'json',
+//             success : function(retorno) {
+//                 if (retorno) {
+//                     window.location.reload();
+//                 } else {
+//                     alertaPagina('Erro ao excluir', 'danger');
+//                 }
+//             },
+//             error : function() {
+//                 alertaPagina('Erro no sistema!', 'danger');
+//             }
+//         })
+//     }
+// }
 
 $('.act-excluir-foto').click(function() {
 

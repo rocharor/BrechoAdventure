@@ -31,8 +31,9 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/perfil/update',['as'=>'update-perfil','uses'=>'Site\PerfilController@update']);
     Route::post('/perfil/update-Foto',['as'=>'update-foto','uses'=>'Site\PerfilController@updateFoto']);
     Route::post('/perfil/update-password',['as'=>'update-password','uses'=>'Site\PerfilController@updatePassword']);
+    Route::get('/produto/inativar/{id}',['as'=>'inativar-produto','uses'=>'Site\ProdutoController@inactivate']);
+    Route::get('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\ProdutoController@delete']);
     Route::post('/produto/store',['as'=>'store-produto','uses'=>'Site\ProdutoController@store']);
-    Route::post('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\ProdutoController@delete']);
     Route::post('/produto/update',['as'=>'update-produto','uses'=>'Site\ProdutoController@update']);
     Route::post('/produto/delete-foto',['as'=>'delete-foto','uses'=>'Site\ProdutoController@deletePhoto']);
     Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MensagemController@create']);
@@ -79,16 +80,16 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => ['auth','ca
     *********************/
     Route::group(['prefix' => 'acl', 'as' => 'acl.', 'middleware' => ['can:admin-acl'] ], function () {
         ### Links ###
-        Route::get('/acl/roles/list',['as'=>'roles-list', 'uses'=>'Admin\AclController@listRoles']);
-        Route::get('/acl/permissions/list',['as'=>'permissions-list', 'uses'=>'Admin\AclController@listPermissions']);
-        Route::get('/acl/role-permissions/list',['as'=>'role-permissions-list', 'uses'=>'Admin\AclController@listRolePermissions']);
+        Route::get('/roles/list',['as'=>'roles-list', 'uses'=>'Admin\AclController@listRoles']);
+        Route::get('/permissions/list',['as'=>'permissions-list', 'uses'=>'Admin\AclController@listPermissions']);
+        Route::get('/role-permissions/list',['as'=>'role-permissions-list', 'uses'=>'Admin\AclController@listRolePermissions']);
         ### Ações ###
-        Route::post('/acl/roles/store',['as'=>'store-role','uses'=>'Admin\AclController@storeRole']);
-        Route::get('/acl/roles/delete/{id}',['as'=>'delete-role','uses'=>'Admin\AclController@deleteRole']);
-        Route::post('/acl/permissions/store',['as'=>'store-permission','uses'=>'Admin\AclController@storePermission']);
-        Route::get('/acl/permissions/delete/{id}',['as'=>'delete-permission','uses'=>'Admin\AclController@deletePermission']);
-        Route::post('/acl/role-permissions/update',['as'=>'update-role-permission','uses'=>'Admin\AclController@updateRolePermission']);
-        Route::post('/acl/role-user/update',['as'=>'update-role-user','uses'=>'Admin\AclController@updateRoleUser']);
+        Route::post('/roles/store',['as'=>'store-role','uses'=>'Admin\AclController@storeRole']);
+        Route::get('/roles/delete/{id}',['as'=>'delete-role','uses'=>'Admin\AclController@deleteRole']);
+        Route::post('/permissions/store',['as'=>'store-permission','uses'=>'Admin\AclController@storePermission']);
+        Route::get('/permissions/delete/{id}',['as'=>'delete-permission','uses'=>'Admin\AclController@deletePermission']);
+        Route::post('/role-permissions/update',['as'=>'update-role-permission','uses'=>'Admin\AclController@updateRolePermission']);
+        Route::post('/role-user/update',['as'=>'update-role-user','uses'=>'Admin\AclController@updateRoleUser']);
     });
 });
 

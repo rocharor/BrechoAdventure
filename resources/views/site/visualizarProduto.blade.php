@@ -58,10 +58,13 @@
 			<hr>
 
 			<div class="el-produtos">
-					<a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
-					{{-- <a href="{{Route('produtos')}}" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a> --}}
-				@if(Auth::check() != 0)
-					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Envia mensagem</button>
+				<a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
+				@if(Auth::check() == 0)
+					<button class='btn btn-info' title='Necessário estar logado' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
+				@elseif(Auth::user()->id == $produto->user->id)
+					<button class='btn btn-info' title='Este produto é seu' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
+				@else
+					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@endif
 
 				<!--Modal mensagem-->
