@@ -36,7 +36,7 @@
                                         <td>{{ $contato->id }}</td>
                                         <td>{{ $contato->tipo }}</td>
                                         <td>{{ $contato->created_at }}</td>
-                                        <td><a href='{{ Route('admin.contact-view', $contato->id) }}' class='btn btn-primary'><span class="glyphicon glyphicon-eye-open"></span></a></td>
+                                        <td><a href='{{ Route('admin.pendente.contact-view', $contato->id) }}' class='btn btn-primary'><span class="glyphicon glyphicon-eye-open"></span></a></td>
                                     </tr>
                                 @endforeach
                             </table>

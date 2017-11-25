@@ -35,17 +35,17 @@ perfil.js
 <div class="div_alterar_foto">
     <form action="{{ Route('minha-conta.update-foto') }}" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">
         {{ csrf_field() }}
-        <input type="hidden" id="x" name="x" />
-        <input type="hidden" id="y" name="y" />
-        <input type="hidden" id="w" name="w" />
-        <input type="hidden" id="h" name="h" />
+        <input type="hidden" id="x" name="x">
+        <input type="hidden" id="y" name="y">
+        <input type="hidden" id="w" name="w">
+        <input type="hidden" id="h" name="h">
 
         <div class='div_imagem'>
-            <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil" />
+            <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil">
             <br />
-            <small><a class="alterar-foto">Alterar foto de perfil</a></small>
+            <small><a @click.prevent='alterarFoto()'>Alterar foto de perfil</a></small>
             <br />
-            <input type="file" id='select_image' name='imagemCrop' class='hide'>
+            <input type="file" id='select_image' name='imagemCrop' class='hide' @change.prevent='selecionarFoto()'>
             <span class="label label-danger hide"></span>
         </div>
 
@@ -54,9 +54,9 @@ perfil.js
             <div id="div_imagem_alteracao">{{-- IMAGEM GRANDE --}}</div>
             <div class="preview">{{-- IMAGEM PREVIEW --}}</div>
             <br />
-            <input type="submit" id="recortar" class='btn btn-success' value="Recortar Imagem" />
-            <input type='button' id='btnCancelarFoto' class="btn btn-danger" value='Cancelar' />
+            <input type='submit' class='btn btn-success' value='Recortar Imagem'>
+            <input type='button' class='btn btn-danger' value='Cancelar' @click.prevent='cancelarFoto()'>
         </div>
-        <span class="label label-warning instrucao hide"><b class='text-danger'>Extenções permitidas ( jpg, png ), dimenção permitida de até (600 x 400) e tamanho permitido de até 1Mb </b></span>
+        <span class='label label-warning instrucao' :class='{hide: hide.instrucao == true}'><b class='text-danger'>Extenções permitidas ( jpg, png ), dimenção permitida de até (600 x 400) e tamanho permitido de até 1Mb </b></span>
     </form>
 </div>
