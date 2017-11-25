@@ -1,71 +1,28 @@
 $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
-var PerfilClass = (function() {
+Vue.config.devtools = true;
 
-    function Perfil() {
-    }
-
-    Perfil.prototype = {
-        init: function() {
-          this.actions();
-          this.mask();
+var appVuePerfil = new Vue({
+    el:'#el-form',
+    data:{
+        hide:{
+            content:true,
+            instrucao:true,
         },
-
-        actions: function() {
-			var self = this;
-
-            $('.alterar-foto').on('click',function(e){
-                e.preventDefault();
-                $('#select_image').trigger('click');
-                $('.instrucao').removeClass('hide');
-            });
-
-            $("#select_image").on('change',function(e){
-                e.preventDefault();
-                var $file = $(this)[0];
-                self.altera_imagem_perfil($file);
-            });
-
-            $('#btnCancelarFoto').on('click',function(e){
-                e.preventDefault();
-                $('.div_visualizacao').addClass('hide');
-                $(".div_imagem").removeClass('hide');
-            });
-
-            $('.act-update').on('click',function(e){
-                e.preventDefault();
-                self.validaPerfil();
-            });
+        btnForm: true,
+        divAlterPassword:false,
+    },
+    methods:{
+        alterarFoto: function(){
+            $('#select_image').trigger('click');            
+            this.hide.instrucao = false;
         },
-
-        mask: function(){
-            VMasker(document.getElementById("dt_nascimento")).maskPattern('99/99/9999');
-            VMasker(document.getElementById("cep")).maskPattern('99999-999');
-            VMasker(document.getElementById("telefone_fixo")).maskPattern('(99) 9999-9999');
-            VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999');
-
-         	// #maskMoney
-         	// VMasker(document.getElementById("default")).maskMoney();
-         	// VMasker(document.getElementById("defaultValues")).maskMoney();
-         	// VMasker(document.getElementById("zeroCents")).maskMoney({zeroCents: true});
-         	// VMasker(document.getElementById("unit")).maskMoney({unit: 'R$'});
-         	// VMasker(document.getElementById("suffixUnit")).maskMoney({suffixUnit: 'R$'});
-         	// VMasker(document.getElementById("delimiter")).maskMoney({delimiter: ','});
-            // VMasker(document.getElementById("separator")).maskMoney({separator: '.'});
-
-         	// #maskNumber
-         	// VMasker(document.getElementById("numbers")).maskNumber();
-
-         	// #maskPattern
-         	// VMasker(document.getElementById("phone")).maskPattern('(99) 9999-9999');
-         	// VMasker(document.getElementById("phoneValues")).maskPattern('(99) 9999-9999');
-         	// VMasker(document.getElementById("date")).maskPattern('99/99/9999');
-         	// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
-         	// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
-         	// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
+        selecionarFoto: function(){
+            // var $file = $(this)[0];
+            var $file = $('#select_image')[0];
+            this.alteraImagemPerfil($file);            
         },
-
-        altera_imagem_perfil: function($file){
+        alteraImagemPerfil: function($file){
             $("#select_image").next().html('');
             var reader = new FileReader;
             reader.onload = function() {
@@ -147,60 +104,49 @@ var PerfilClass = (function() {
                 }
             }
             reader.readAsDataURL($file.files[0]);
-
+        },
+        cancelarFoto: function(){
+            $('.div_visualizacao').addClass('hide');
+            $(".div_imagem").removeClass('hide');
+        },
+        openAlterPassword: function(){
+            this.btnForm = false;
+            this.divAlterPassword = true;            
+        },
+        closeAlterPassword: function(){
+            this.btnForm = true;
+            this.divAlterPassword = false;            
         }
+    },
+    created: function () {        
+        this.hide.content = false;         
+    }
+})
 
-        // validaPerfil: function(){
-        //     var nome = $('#nome_upd').val();
-        //     var email = $('#email_upd').val();
-        //     var dt_nascimento = $('#dt_nascimento_upd').val();
-        //     var telefone_fixo = $('#tel_upd').val();
-        //     var telefone_cel = $('#cel_upd').val();
-        //
-        //     var erro = false;
-        //
-        //     $('input').parent().removeClass('has-error');
-        //
-        //     if(nome == ''){
-        //         $('#nome_upd').parent().addClass('has-error');
-        //         alertaPagina('Campo "nome" é obrigatório','danger');
-        //         erro = true;
-        //         return false;
-        //     }
-        //
-        //     if(email == ''){
-        //         $('#email_upd').parent().addClass('has-error');
-        //         alertaPagina('Campo "email" é obrigatório','danger');
-        //         erro = true;
-        //         return false;
-        //     }
-        //
-        //     if(dt_nascimento == ''){
-        //         $('#dt_nascimento_upd').parent().addClass('has-error');
-        //         alertaPagina('Campo "Data de nascimento" é obrigatório','danger');
-        //         erro = true;
-        //         return false;
-        //     }
-        //
-        //     if(telefone_fixo == '' && telefone_cel == ''){
-        //         $('#tel_upd').parent().addClass('has-error');
-        //         $('#cel_upd').parent().addClass('has-error');
-        //         alertaPagina('Necessário pelo menos 1 número de telefone','danger');
-        //         erro = true;
-        //         return false;
-        //     }
-        //
-        //     $('#formPerfil').submit();
-        // },
-    };
-
-    return Perfil;
-})();
-
-new PerfilClass().init();
+VMasker(document.getElementById("dt_nascimento")).maskPattern('99/99/9999');
+VMasker(document.getElementById("cep")).maskPattern('99999-999');
+VMasker(document.getElementById("telefone_fixo")).maskPattern('(99) 9999-9999');
+VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999');
+// #maskMoney
+// VMasker(document.getElementById("default")).maskMoney();
+// VMasker(document.getElementById("defaultValues")).maskMoney();
+// VMasker(document.getElementById("zeroCents")).maskMoney({zeroCents: true});
+// VMasker(document.getElementById("unit")).maskMoney({unit: 'R$'});
+// VMasker(document.getElementById("suffixUnit")).maskMoney({suffixUnit: 'R$'});
+// VMasker(document.getElementById("delimiter")).maskMoney({delimiter: ','});
+// VMasker(document.getElementById("separator")).maskMoney({separator: '.'});
+// #maskNumber
+// VMasker(document.getElementById("numbers")).maskNumber();
+// #maskPattern
+// VMasker(document.getElementById("phone")).maskPattern('(99) 9999-9999');
+// VMasker(document.getElementById("phoneValues")).maskPattern('(99) 9999-9999');
+// VMasker(document.getElementById("date")).maskPattern('99/99/9999');
+// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
+// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
+// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
 
 // FUNÇÕES DIVERSAS
-function checarSelecao(){
+function checarSelecao(){    
     if (parseInt($('#w').val())){
         return true
     }
@@ -243,3 +189,4 @@ function limpaEndereco(){
     $("input[name='cidade']").val("");
     $("input[name='uf']").val("");
 }
+

@@ -30,6 +30,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/favorito/delete/{id}',['as'=>'delete-favorito','middleware' => ['CheckAuthFavorite'], 'uses'=>'Site\FavoritoController@delete']);
     Route::post('/perfil/update',['as'=>'update-perfil','uses'=>'Site\PerfilController@update']);
     Route::post('/perfil/update-Foto',['as'=>'update-foto','uses'=>'Site\PerfilController@updateFoto']);
+    Route::post('/perfil/update-password',['as'=>'update-password','uses'=>'Site\PerfilController@updatePassword']);
     Route::get('/produto/inativar/{id}',['as'=>'inativar-produto','uses'=>'Site\ProdutoController@inactivate']);
     Route::get('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\ProdutoController@delete']);
     Route::post('/produto/store',['as'=>'store-produto','uses'=>'Site\ProdutoController@store']);

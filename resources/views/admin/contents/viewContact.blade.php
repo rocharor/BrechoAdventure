@@ -41,7 +41,7 @@
 
                 <div class="col-md-9">
                     <div class="box box-primary">
-                        <form action="{{ Route('admin.contact-resposta') }}" method="post">
+                        <form action="{{ Route('admin.pendente.contact-resposta') }}" method="post">
                             {{ csrf_field() }}
 
                             <input type='hidden' name='nome' value='{{ $data['contato']->nome }}'>
