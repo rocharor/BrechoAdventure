@@ -5,11 +5,10 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-// use File;
 use App\Models\User;
-// use App\Services\Upload;
 use App\Services\UploadImagem;
 use DB;
+use Illuminate\Support\Facades\Hash;
 
 class PerfilController extends Controller
 {
@@ -38,7 +37,7 @@ class PerfilController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza dados do usuário
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -75,7 +74,7 @@ class PerfilController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Atualiza foto do perfil do usuário
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -134,5 +133,30 @@ class PerfilController extends Controller
         return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
         // return redirect()->action('MinhaConta\PerfilController@index', $retorno);
         */
+    }
+
+    /**     
+     *Método para alterar a senha do susuário 
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updatePassword(Request $request)
+    {
+        
+        if (Hash::check($request->old_password, Auth::user()->password)){
+            if ($request->new_password === $request->confirm_password) {
+                Auth::user()->fill([
+                    'password' => Hash::make($request->new_password)
+                ])->save();
+
+                return redirect()->route('minha-conta.perfil')->with('sucesso','Senha alterada com sucesso.');
+            }else{
+                 return redirect()->route('minha-conta.perfil')->with('erro','As senhas novas não conferem.');
+            }
+            
+        }else{
+             return redirect()->route('minha-conta.perfil')->with('erro','Senha atual incorreta.');
+        }
     }
 }
