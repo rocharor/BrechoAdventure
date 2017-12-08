@@ -18,7 +18,7 @@ class Produto extends Model
     protected $dates = ['deleted_at'];
     public $paginacao = false;
     public $pagina = 1;
-    public $totalPagina = 8;
+    public $totalPagina = 12;
     public $parametros = [];
 
     /*Relacionamentos (inverso) (1 para muitos) */
@@ -43,61 +43,6 @@ class Produto extends Model
         // Retorno: O usuário que este produto pertence (id=1) coluna "id" da tabela "users"
     }
 
-    public function getProdutos()
-    {
-        $produtos = [];
-        $total = [];
-        if($this->paginacao){
-            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
-            if($limit['fim']){
-                $produtos = $this
-                ->join('categorias','categorias.id', 'produtos.categoria_id')
-                ->select('produtos.*', 'categorias.slug as categoria_slug')
-                ->where('status',1)
-                ->limit($limit['inicio'])
-                ->offset($limit['fim'])
-                ->orderBy('produtos.id', 'DESC');
-            }else{
-                $produtos = $this
-                ->join('categorias','categorias.id', 'produtos.categoria_id')
-                ->select('produtos.*', 'categorias.slug as categoria_slug')
-                ->where('status', 1)
-                ->limit($limit['inicio'])
-                ->orderBy('produtos.id', 'DESC');
-            }
-            $total = $this->where('status',1)->count();
-        }else{
-            $produtos = $this
-            ->join('categorias','categorias.id', 'produtos.categoria_id')
-            ->select('produtos.*', 'categorias.slug as categoria_slug')
-            ->where('status',1);
-        }
-
-        if (count($this->parametros) > 0) {
-            if (isset($this->parametros['categoria'])) {
-                $produtos = $produtos
-                ->whereIn('categorias.slug', $this->parametros['categoria']);
-            }
-
-            if (isset($this->parametros['estado'])) {
-                $produtos = $produtos
-                ->whereIn('produtos.estado', $this->parametros['estado']);
-            }
-            $produtos = $produtos->get();
-
-            $total = count($produtos);
-        }else{
-            $produtos = $produtos->get();
-        }
-
-        $retorno = [
-            'itens' => $produtos,
-            'total' => $total
-        ];
-
-        return $retorno;
-    }
-
     /**
      * Traz dados de um produto
      * @param  [type] $param [pode ser um int ou string]
@@ -117,6 +62,63 @@ class Produto extends Model
         return $dadosProduto;
     }
 
+    public function getProdutos()
+    {
+        $objProdutos = [];
+        $total = [];
+        if($this->paginacao){
+            $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
+            if($limit['fim']){
+                $objProdutos = $this
+                ->join('categorias','categorias.id', 'produtos.categoria_id')
+                ->select('produtos.*', 'categorias.slug as categoria_slug')
+                ->where('status',1)
+                ->limit($limit['inicio'])
+                ->offset($limit['fim'])
+                ->orderBy('produtos.id', 'DESC');
+            }else{
+                $objProdutos = $this
+                ->join('categorias','categorias.id', 'produtos.categoria_id')
+                ->select('produtos.*', 'categorias.slug as categoria_slug')
+                ->where('status', 1)
+                ->limit($limit['inicio'])
+                ->orderBy('produtos.id', 'DESC');
+            }
+            $total = $this->where('status',1)->count();
+        }else{
+            $objProdutos = $this
+            ->join('categorias','categorias.id', 'produtos.categoria_id')
+            ->select('produtos.*', 'categorias.slug as categoria_slug')
+            ->where('status',1);
+        }
+
+        // Para montar o filtro lateral
+        if (count($this->parametros) > 0) {
+
+            if (isset($this->parametros['categoria'])) {
+                $objProdutos = $objProdutos
+                ->whereIn('categorias.slug', $this->parametros['categoria']);
+            }
+
+            if (isset($this->parametros['estado'])) {
+                $objProdutos = $objProdutos
+                ->whereIn('produtos.estado', $this->parametros['estado']);
+            }
+            $produtos = $objProdutos->get();
+
+            $total = count($produtos);
+        }else{
+            $produtos = $objProdutos->get();
+        }
+
+        $retorno = [
+            'itens' => $produtos,
+            'total' => $total
+        ];
+
+        return $retorno;
+    }
+
     public function getMeusProdutos()
     {
         $meusProdutos = [];
@@ -124,16 +126,14 @@ class Produto extends Model
         if($this->paginacao){
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
             if($limit['fim']){
-                $meusProdutos =  $this->withTrashed()
-                ->where('user_id',Auth::user()->id)
+                $meusProdutos =  $this->where('user_id',Auth::user()->id)
                 ->limit($limit['inicio'])
                 ->offset($limit['fim'])
                 ->orderBy('status', 'DESC')
                 ->orderBy('deleted_at', 'ASC')
                 ->get();
             }else{
-                $meusProdutos =  $this->withTrashed()
-                ->where('user_id',Auth::user()->id)
+                $meusProdutos =  $this->where('user_id',Auth::user()->id)
                 ->limit($limit['inicio'])
                 ->orderBy('status', 'DESC')
                 ->orderBy('deleted_at', 'ASC')
@@ -141,8 +141,7 @@ class Produto extends Model
             }
             $total = $this->where('status',1)->where('user_id',Auth::user()->id)->count();
         }else{
-            $meusProdutos =  $this->withTrashed()
-            ->where('user_id',Auth::user()->id)
+            $meusProdutos =  $this->where('user_id',Auth::user()->id)
             ->orderBy('status', 'DESC')
             ->orderBy('deleted_at', 'ASC')
             ->get();
@@ -205,22 +204,5 @@ class Produto extends Model
         $data['excluidos'] = $this->onlyTrashed()->count();
 
         return $data;
-    }
-
-    public function updateAdmin($id, $param)
-    {
-        $produto = $this->find($id);
-        foreach ($param as $key=>$value) {
-            if ($key == '_token' || $key == 'id') {
-                continue;
-            }
-            $produto->$key = $value;
-        }
-
-        if ($produto->save()) {
-            return true;
-        }
-
-        return false;
     }
 }

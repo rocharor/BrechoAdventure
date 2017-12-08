@@ -23,12 +23,11 @@ class FavoritoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index($pagina=1)
-    {        
+    {
         $this->model->paginacao = true;
         $this->model->pagina = $pagina;
         $favoritos = $this->model->getFavoritos();
         foreach($favoritos['itens'] as $key=>$favorito){
-            $favorito->produto->idCodificado = $produto_id = $this->cryptCustom($favorito->produto_id);;
             $favorito->produto->imgPrincipal = $this->imagemPrincipal($favorito->produto->nm_imagem);
         }
 

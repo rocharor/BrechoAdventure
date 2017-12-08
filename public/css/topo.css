@@ -19,18 +19,23 @@ a {
 }
 .btn-success {
   background-color: #007f2a;
+  border-color: #282c34;
 }
 .btn-danger {
   background-color: #7f0002;
+  border-color: #282c34;
 }
 .btn-warning {
   background-color: #f3b300;
+  border-color: #282c34;
 }
 .btn-info {
   background-color: #00707f;
+  border-color: #282c34;
 }
 .btn-primary {
   background-color: #000e7f;
+  border-color: #282c34;
 }
 .btn-success:hover,
 .btn-danger:hover,
