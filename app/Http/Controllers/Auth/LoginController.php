@@ -34,10 +34,10 @@ class LoginController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('guest', ['except' => 'logout']);
+        $this->middleware('guest')->except('logout');
     }
 
-    /**
+	/**
     * Criado para fazer redirecionamento para a pagina atual onde o usuário estava
     * @return [type] [description]
     */
