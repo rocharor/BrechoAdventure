@@ -28,6 +28,7 @@
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css" />
 
+		{{-- <link type="text/css" rel="stylesheet" href="/css/site/site.min.css" /> --}}
 		{{-- <link type="text/css" rel="stylesheet" href="/css/global.css" /> --}}
 		<link type="text/css" rel="stylesheet" href="/css/topo.css" />
 		<link type="text/css" rel="stylesheet" href="/css/rodape.css" />
