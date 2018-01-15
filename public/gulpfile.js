@@ -23,3 +23,18 @@ gulp.task('stylus', function () {
 gulp.task( 'default', function() {
     gulp.watch('../resources/assets/stylus/*.styl', ['stylus']);
 });
+
+// //Cria os arquivos css e minify em apenas 1 arquivo
+// gulp.task('stylus', function () {
+//   gulp.src('../resources/assets/stylus/site/*.styl')
+//     .pipe(stylus({
+//       compress: true
+//     }))
+//     .pipe(concat('css.min.css'))
+//     .pipe(gulp.dest('css/site/'));
+// });
+
+// //Roda watch no stylus
+// gulp.task( 'default', function() {
+//     gulp.watch('../resources/assets/stylus/site/*.styl', ['stylus']);
+// });
