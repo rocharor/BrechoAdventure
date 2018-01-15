@@ -1,0 +1,58 @@
+@font-face {
+  font-family: "Adventure_";
+  src: url("/fonts/adventure/Adventure.otf") format("truetype");
+}
+html,
+body {
+  font-family: 'Adventure_';
+}
+a {
+  cursor: pointer;
+  text-decoration: none;
+}
+.modal-body {
+  background-color: #f3b300;
+}
+.modal-header,
+.modal-footer {
+  background-color: #ffca4c;
+}
+.btn-success {
+  background-color: #007f2a;
+  border-color: #282c34;
+}
+.btn-danger {
+  background-color: #7f0002;
+  border-color: #282c34;
+}
+.btn-warning {
+  background-color: #f3b300;
+  border-color: #282c34;
+}
+.btn-info {
+  background-color: #00707f;
+  border-color: #282c34;
+}
+.btn-primary {
+  background-color: #000e7f;
+  border-color: #282c34;
+}
+.btn-success:hover,
+.btn-danger:hover,
+.btn-info:hover,
+.btn-primary:hover,
+.btn-warning:hover {
+  background-color: #7f5900;
+}
+.rodape {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  color: #7f5900;
+  background-color: #ffca4c;
+  font-family: colibri;
+  font-size: 10px;
+  padding: 8px;
+  text-align: center;
+  z-index: 10;
+}
