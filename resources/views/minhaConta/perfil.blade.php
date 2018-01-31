@@ -93,12 +93,29 @@
             <div :class='{hide: divAlterPassword == false}' >
                 <form class="form-horizontal" role="form" method="POST" action="{{ Route('minha-conta.update-password') }}">
                     {{ csrf_field() }}
-                    <label>Senha Atual</label> <input type='password' name='old_password' class="form-control" style="width: 200px; display:inline-block; margin-left:50px"> <br>
-                    <label>Nova Senha</label><input type='password' name='new_password' class="form-control" style="width: 200px; display:inline-block; margin-left:56px"><br>
-                    <label>Confirme a Senha</label> &nbsp;<input type='password' name='confirm_password' class="form-control" style="width: 200px; display:inline-block;"><br>
-                    <br>
-                    <button type="submit" class="btn btn-success">Salvar</button>
-                    <button type="submit" class="btn btn-danger" @click.prevent='closeAlterPassword()'>Cancelar</button>
+					<table>
+						<tr>
+							<td><label>Senha Atual: </label></td>
+							<td><input type='password' name='old_password' class="form-control"/></td>
+						</tr>
+						<tr>
+							<td><label>Nova Senha: </label></td>
+							<td><input type='password' name='new_password' class="form-control"/></td>
+						</tr>
+						<tr>
+							<td><label>Confirme a Senha: &nbsp;</label></td>
+							<td><input type='password' name='confirm_password' class="form-control"/></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan='2' align='center'>
+								<button type="submit" class="btn btn-success">Salvar</button>
+								<button type="submit" class="btn btn-danger" @click.prevent='closeAlterPassword()'>Cancelar</button>
+							</td>
+						</tr>
+					</table>
                 </form>
             </div>
         </div>
