@@ -18,6 +18,7 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="/AdminLTE/dist/css/skins/_all-skins.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/admin.min.css" />
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <!-- jQuery, Notify, Global-->
@@ -44,6 +45,6 @@
 
         <!-- Bootstrap 3.3.6 -->
         <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/AdminLTE/dist/js/app.min.js"></script>        
+        <script src="/AdminLTE/dist/js/app.min.js"></script>
     </body>
 </html>

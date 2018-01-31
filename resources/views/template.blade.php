@@ -20,26 +20,16 @@
         <meta name="keywords" content="Brecho Adventure"/>
 		<meta name="csrf-token" id='token' content="{{ csrf_token() }}" value="{{ csrf_token() }}" />
 
-        <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
 
         <title>{{ config('app.name', 'Brechó Adventure') }}</title>
 
         <!-- BOOTSTRAP CSS-->
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css" />
-
-		{{-- <link type="text/css" rel="stylesheet" href="/css/site/site.min.css" /> --}}
-		{{-- <link type="text/css" rel="stylesheet" href="/css/global.css" /> --}}
-		<link type="text/css" rel="stylesheet" href="/css/topo.css" />
-		<link type="text/css" rel="stylesheet" href="/css/rodape.css" />
-
-
+		<link rel="stylesheet" href="/css/site.min.css" />
+		
 		<script src="/node_modules/jquery/dist/jquery.min.js"></script>
-        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-		<script src="/node_modules/vanilla-masker/build/vanilla-masker.min.js"></script>
-		<script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
-		<script src="/node_modules/vue/dist/vue.min.js"></script>
-		<script src="/js/global.js"></script>
     </head>
     <body>
 		@if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
@@ -59,6 +49,11 @@
         	@include('rodape')
         </div>
 
+        <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="/node_modules/vanilla-masker/build/vanilla-masker.min.js"></script>
+		<script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
+		<script src="/node_modules/vue/dist/vue.min.js"></script>
+		<script src="/js/site.min.js"></script>
 		<script>
 			(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 			(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

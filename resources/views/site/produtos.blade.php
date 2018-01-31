@@ -1,6 +1,5 @@
 @extends('template')
 @section('content')
-    <link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
     <!--BREADCRUMB-->
     @include('breadCrumb')
@@ -65,6 +64,9 @@
         </div>
     </div>
 
-
-    <script type="text/javascript" src="/js/site/produto.js"></script>
+    <script>
+        $(function(){
+            appVueFiltro.buscaDadosFiltro();            
+        })
+    </script>
 @endsection

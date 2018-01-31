@@ -22,11 +22,7 @@
     		            <option value=''>--- Escolha uma categoria ---</option>
                         @foreach($data['tipos'] as $key => $value)
                             <option value='{{ $key }}'>{{ $value }}</option>
-                        @endforeach
-    		            {{-- <option value='1'>Dúvidas</option>
-    		            <option value='2'>Reclamações</option>
-    		            <option value='3'>Sugestões</option>
-    		            <option value='4'>Elogios</option> --}}
+                        @endforeach    		          
     		        </select>
     	        </div>
     	        <div class="form-group">

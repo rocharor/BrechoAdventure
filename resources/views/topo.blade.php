@@ -145,7 +145,7 @@
 
 <br style="clear:both;"/><br>
 
-<script type="text/javascript" src="/js/site/topo.js"></script>
+{{-- <script type="text/javascript" src="/js/site/topo.js"></script> --}}
 
 <script type="text/javascript">
     // if (!empty({{ Auth::check() }})) {buscaNotificacao();}

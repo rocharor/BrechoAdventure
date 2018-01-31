@@ -113,7 +113,7 @@ var appProdutosSite = new Vue({
             });
         }
     },
-    created:function () {
+    created:function () {        
         $('.el-produtos').removeClass('hide');
     }
 });

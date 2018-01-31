@@ -4,8 +4,6 @@
     <!--BREADCRUMB-->
     @include('breadCrumb')
 
-    <link type="text/css" rel="stylesheet" href="/css/produto.css" />
-
     <div class="row el-produtos-minha-conta hide">
         @if (count($meusProdutos) == 0)
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>

@@ -1,8 +1,6 @@
 @extends('template')
 @section('content')
-	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
 	<link type="text/css" rel="stylesheet" href="/node_modules/xzoom/dist/xzoom.css" />
-
 	<script src="/node_modules/xzoom/dist/xzoom.min.js"></script>
 
 	<!--BREADCRUMB-->

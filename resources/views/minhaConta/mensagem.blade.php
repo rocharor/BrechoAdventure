@@ -1,8 +1,6 @@
 @extends('template')
 @section('content')
 
-    <link rel="stylesheet" href="/css/mensagem.css" />
-
     <!--BREADCRUMB-->
     @include('breadCrumb')
 

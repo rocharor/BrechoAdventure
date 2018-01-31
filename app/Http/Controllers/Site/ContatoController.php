@@ -45,8 +45,8 @@ class ContatoController extends Controller
 
         $retorno = $this->model->setMensagem($dados);
 
-        if($retorno){
-            Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
+        if($retorno){            
+            // Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
             //dispara um evento sendEmailAdmin
             event(new sendEmailAdmin());
             return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');

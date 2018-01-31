@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="/css/filtro.css" />
-
 <div id="filtro_lateral">
     <!-- INICIO Campo palavra-chave -->
     {{-- <div class='palavra-chave'>
@@ -33,5 +31,3 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript" src="/js/site/filtro.js"></script>

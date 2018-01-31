@@ -1,6 +1,5 @@
 @extends('template')
 @section('content')
-	<link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
 	@if(count($produtos) == 0)
 		<div class="well" align="center"><b><i>N&atilde;o existe nenhum produto cadastrado</i></b></div>
@@ -65,9 +64,5 @@
 				<a class="twitter-timeline" data-height="800" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets by Adventure__Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
 			</div>
 		</div>
-
 	@endif
-
-	<script type="text/javascript" src="/js/site/produto.js"></script>
-	<script type="text/javascript" src="/js/site/mensagem.js"></script>
 @endsection
