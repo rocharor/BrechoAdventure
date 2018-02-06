@@ -14,13 +14,13 @@ var appVuePerfil = new Vue({
     },
     methods:{
         alterarFoto: function(){
-            $('#select_image').trigger('click');            
+            $('#select_image').trigger('click');
             this.hide.instrucao = false;
         },
         selecionarFoto: function(){
             // var $file = $(this)[0];
             var $file = $('#select_image')[0];
-            this.alteraImagemPerfil($file);            
+            this.alteraImagemPerfil($file);
         },
         alteraImagemPerfil: function($file){
             $("#select_image").next().html('');
@@ -111,42 +111,20 @@ var appVuePerfil = new Vue({
         },
         openAlterPassword: function(){
             this.btnForm = false;
-            this.divAlterPassword = true;            
+            this.divAlterPassword = true;
         },
         closeAlterPassword: function(){
             this.btnForm = true;
-            this.divAlterPassword = false;            
+            this.divAlterPassword = false;
         }
     },
-    created: function () {        
-        this.hide.content = false;         
+    created: function () {
+        this.hide.content = false;
     }
 })
 
-VMasker(document.getElementById("dt_nascimento")).maskPattern('99/99/9999');
-VMasker(document.getElementById("cep")).maskPattern('99999-999');
-VMasker(document.getElementById("telefone_fixo")).maskPattern('(99) 9999-9999');
-VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999');
-// #maskMoney
-// VMasker(document.getElementById("default")).maskMoney();
-// VMasker(document.getElementById("defaultValues")).maskMoney();
-// VMasker(document.getElementById("zeroCents")).maskMoney({zeroCents: true});
-// VMasker(document.getElementById("unit")).maskMoney({unit: 'R$'});
-// VMasker(document.getElementById("suffixUnit")).maskMoney({suffixUnit: 'R$'});
-// VMasker(document.getElementById("delimiter")).maskMoney({delimiter: ','});
-// VMasker(document.getElementById("separator")).maskMoney({separator: '.'});
-// #maskNumber
-// VMasker(document.getElementById("numbers")).maskNumber();
-// #maskPattern
-// VMasker(document.getElementById("phone")).maskPattern('(99) 9999-9999');
-// VMasker(document.getElementById("phoneValues")).maskPattern('(99) 9999-9999');
-// VMasker(document.getElementById("date")).maskPattern('99/99/9999');
-// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
-// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
-// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
-
 // FUNÇÕES DIVERSAS
-function checarSelecao(){    
+function checarSelecao(){
     if (parseInt($('#w').val())){
         return true
     }
@@ -189,4 +167,3 @@ function limpaEndereco(){
     $("input[name='cidade']").val("");
     $("input[name='uf']").val("");
 }
-

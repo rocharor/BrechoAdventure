@@ -130,12 +130,14 @@ class Produto extends Model
                 ->limit($limit['inicio'])
                 ->offset($limit['fim'])
                 ->orderBy('status', 'DESC')
+                ->orderBy('updated_at', 'DESC')
                 ->orderBy('deleted_at', 'ASC')
                 ->get();
             }else{
                 $meusProdutos =  $this->where('user_id',Auth::user()->id)
                 ->limit($limit['inicio'])
                 ->orderBy('status', 'DESC')
+                ->orderBy('updated_at', 'DESC')
                 ->orderBy('deleted_at', 'ASC')
                 ->get();
             }
@@ -143,6 +145,7 @@ class Produto extends Model
         }else{
             $meusProdutos =  $this->where('user_id',Auth::user()->id)
             ->orderBy('status', 'DESC')
+            ->orderBy('updated_at', 'DESC')
             ->orderBy('deleted_at', 'ASC')
             ->get();
         }

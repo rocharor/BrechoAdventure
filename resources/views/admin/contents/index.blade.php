@@ -178,7 +178,7 @@
                     value: {{ $data['contatosTotal']['respondidos'] }},
                     color: "#00a65a",
                     highlight: "#00a65a",
-                    label: "Ativos"
+                    label: "Respondidos"
                 },
                 {
                     value: {{ $data['contatosTotal']['pendentes'] }},

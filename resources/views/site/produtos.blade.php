@@ -1,16 +1,14 @@
 @extends('template')
 @section('content')
-    <link type="text/css" rel="stylesheet" href="/css/produto.css" />
 
     <!--BREADCRUMB-->
-    @include('breadCrumb')
+    @include('complements/breadCrumb')
 
     <div class="row" >
-        <div class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
-            @include('filtroLateral')
-            {{-- <iframe width="200" height="260" frameborder="0" scrolling="no" src="http://www.webcid.com.br/widgets/meu-calendario-online.php"></iframe>             --}}
-        </div>
-        <div class="col-xs-12 col-sm-10 el-produtos hide">
+        <aside class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
+            @include('complements/filtroLateral')
+        </aside>
+        <div class="col-xs-12 col-sm-10 hide" id='el-produtos'>
         	@foreach($produtos as $produto)
         		<div class="col-md-3 col-sm-6 col-xs-12" align="center" style="padding: 20px 0">
             		<div class="div-produtos" align="center">
@@ -55,16 +53,19 @@
             <!--PAGINAÇÃO-->
             <br style="clear:both">
             <div align='center'>
-                @include('paginacao')
+                @include('complements/paginacao')
             </div>
 
             <!--Modal mensagem-->
             <div class="modal fade" id='modal-mensagem'>
-                @include('modalMensagem')
+                @include('complements/modalMensagem')
             </div>
         </div>
     </div>
 
-
-    <script type="text/javascript" src="/js/site/produto.js"></script>
+    <script>
+        $(function(){
+            appVueFiltro.buscaDadosFiltro();
+        })
+    </script>
 @endsection

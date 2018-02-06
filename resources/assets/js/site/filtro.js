@@ -106,5 +106,3 @@ var appVueFiltro = new Vue({
         }
     }
 });
-
-appVueFiltro.buscaDadosFiltro();

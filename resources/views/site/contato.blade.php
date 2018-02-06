@@ -2,9 +2,9 @@
 @section('content')
 
     <!--BREADCRUMB-->
-    @include('breadCrumb')
+    @include('complements/breadCrumb')
 
-    @include('exibeErro')
+    @include('complements/exibeErro')
 
     <div class="row">
     	<div class="col-md-6">
@@ -12,10 +12,14 @@
                 {{ csrf_field() }}
 
     	        <div class="form-group">
-    	        	<input class="form-control" type="text" name="nome" placeholder="Nome" required="required">
+                    @if (Auth::check() == 0)
+        	        	<input class="form-control" type="text" name="nome" placeholder="Nome" required="required">
+                    @else
+                        <input class="form-control" type="text" name="nome" placeholder="Nome" required="required" value='{{ Auth::user()->name }}'>
+                    @endif
     	        </div>
     	        <div class="form-group">
-    	        	<input class="form-control" type="text" name="email" placeholder="E-mail" required="required">
+    	        	<input class="form-control" type="email" name="email" placeholder="E-mail" required="required">
     	        </div>
     	        <div class="form-group">
     		        <select class="form-control" name="tipo" required="required">
@@ -23,10 +27,6 @@
                         @foreach($data['tipos'] as $key => $value)
                             <option value='{{ $key }}'>{{ $value }}</option>
                         @endforeach
-    		            {{-- <option value='1'>Dúvidas</option>
-    		            <option value='2'>Reclamações</option>
-    		            <option value='3'>Sugestões</option>
-    		            <option value='4'>Elogios</option> --}}
     		        </select>
     	        </div>
     	        <div class="form-group">
@@ -39,7 +39,4 @@
     	    </form>
         </div>
     </div>
-
-
-    <script type="text/javascript" src="/js/site/contato.js"></script>
 @endsection

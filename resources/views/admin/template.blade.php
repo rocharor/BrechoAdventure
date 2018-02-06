@@ -9,6 +9,7 @@
 
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
         {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
+        <meta name="csrf-token" id='token' content="{{ csrf_token() }}" value="{{ csrf_token() }}" />
 
         <!-- Bootstrap , Animate-->
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
@@ -18,12 +19,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="/AdminLTE/dist/css/skins/_all-skins.min.css">
+        <link type="text/css" rel="stylesheet" href="/css/admin.min.css" />
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <!-- jQuery, Notify, Global-->
         <script src="/node_modules/jquery/dist/jquery.min.js"></script>
         <script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
-        <script src="/js/global.js"></script>
+        <script src="/node_modules/vue/dist/vue.min.js"></script>
+        <script src="/js/admin.min.js"></script>
 
 
         @if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
@@ -44,6 +47,6 @@
 
         <!-- Bootstrap 3.3.6 -->
         <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-        <script src="/AdminLTE/dist/js/app.min.js"></script>        
+        <script src="/AdminLTE/dist/js/app.min.js"></script>
     </body>
 </html>

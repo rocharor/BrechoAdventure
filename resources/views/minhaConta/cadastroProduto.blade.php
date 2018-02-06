@@ -2,7 +2,7 @@
 @section('content')
 
     <!--BREADCRUMB-->
-	@include('breadCrumb')
+	@include('complements/breadCrumb')
 
     <div>
         <div align="left" style="width: 500px;">
@@ -61,8 +61,6 @@
         </div>
     </div>
 
-
-    <script type="text/javascript" src="/js/site/cadastroProduto.js"></script>
 	<script>
 		function abreCampoFoto(obj){
 		    $(obj).next().removeClass('hide')
