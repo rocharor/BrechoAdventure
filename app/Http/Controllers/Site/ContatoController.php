@@ -34,24 +34,22 @@ class ContatoController extends Controller
     {
         $this->validate($request, [
             'nome' => 'required|max:255',
-            'email' => 'required',
+            'email' => 'required|email',
             'tipo' => 'required',
-            //unique:contatos
         ]);
 
         $dados = $request->all();
 
         $dados['tipo'] = $this->getTipoContato($dados['tipo']);
-
         $retorno = $this->model->setMensagem($dados);
 
-        if($retorno){            
-            // Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
-            //dispara um evento sendEmailAdmin
+        if($retorno){
+            Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
             event(new sendEmailAdmin());
-            return redirect()->route('contato')->with('sucesso','Salvo com sucesso!');
+
+            return redirect()->route('contato')->with('sucesso','Enviado com sucesso!');
         }else{
-            return redirect()->route('contato')->with('erro','Erro ao salvar, tente novamente!');
+            return redirect()->route('contato')->with('erro','Erro ao enviar, tente novamente!');
         }
     }
 }

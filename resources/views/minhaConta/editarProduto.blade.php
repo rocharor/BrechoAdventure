@@ -4,7 +4,7 @@
     <!--BREADCRUMB-->
 	@include('breadCrumb')
 
-    <div  style="width: 460px;">
+    <div class='hide' id='el-produtos-minha-conta' style="width: 460px;">		
         @include('exibeErro')
 
         <form action="/minha-conta/produto/update" method="post" name="formEditarProduto" enctype="multipart/form-data">
@@ -71,7 +71,7 @@
              @foreach($produto->imagens as $key=>$imagem)
         		<div style="width: 150px; height: 150px; display:inline-block;">
                     @if ($imagem != 'sem-imagem.gif')
-                        <a class="btn btn-danger act-excluir-foto" data-foto="{{ $imagem }}" data-produto-id="{{ $produto->id }}"  style="position: absolute;">X</a>
+                        <button class="btn btn-danger" @click.prevent="deletePhoto('{{ $imagem }}', {{ $produto->id }})" style="position: absolute;">X</button>
                     @endif
         			<img class="img-thumbnail" src="/imagens/produtos/200x200/{{ $imagem }}" alt="" style="width: 100%; height: 100%;">
         		</div>
@@ -102,6 +102,4 @@
             <input type="submit" class="btn btn-success" value="Salvar alteração" />
          </form>
      </div>
-	 
-    <script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

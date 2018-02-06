@@ -61,7 +61,8 @@
 				</div>
 			</div>
 			<div class="col-sm-2 hidden-xs" style="border:solid 0px;">
-				<a class="twitter-timeline" data-height="800" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets by Adventure__Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+				<a class="twitter-timeline" data-height="800" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets Adventure Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
+				<iframe width="200" height="260" frameborder="0" scrolling="no" src="http://www.webcid.com.br/widgets/meu-calendario-online.php"></iframe>
 			</div>
 		</div>
 	@endif

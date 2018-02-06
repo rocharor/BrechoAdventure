@@ -113,72 +113,51 @@ var appProdutosSite = new Vue({
             });
         }
     },
-    created:function () {        
+    created:function () {
         $('.el-produtos').removeClass('hide');
     }
 });
 
 var appProdutosMinhaConta = new Vue({
-    el:'.el-produtos-minha-conta',
+    el:'#el-produtos-minha-conta',
     data:{},
     methods:{
-        deleteProduct:function(id){
-            if (confirm('Deseja realmente excluir este produto?')) {
-                // window.open('/minha-conta/produto/delete/' + id, '_self');
+        inactiveProduct:function(id){
+            if (confirm('Deseja realmente inativar este produto?')) {
+                window.open('/minha-conta/produto/inativar/' + id, '_self');
             }
-        }
+        },
+        deleteProduct:function(id){
+            if (confirm('Deseja realmente excluir definitivamente este produto?')) {
+                window.open('/minha-conta/produto/delete/' + id, '_self');
+            }
+        },
+        deletePhoto:function(nm_photo, product_id){
+            if (confirm('Deseja realmente excluir esta foto?')) {
+                $.ajax({
+                    url :'/minha-conta/produto/delete-foto',
+                    type : 'post',
+                    dataType : 'json',
+                    data : {
+                        'nm_foto' : nm_photo,
+                        'produto_id' : product_id
+                    },
+                    success : function(retorno) {
+                        if (retorno.sucesso = true) {
+                            window.location.reload();
+                        } else {
+                            alertaPagina(retorno.msg, 'danger');
+                        }
+                    },
+                    error : function() {
+                        alertaPagina('Erro no sistema!', 'danger');;
+                    }
+                });
+            }
+        },
     },
     created:function () {
-        $('.el-produtos-minha-conta').removeClass('hide');
-    }
-});
-
-// var excluir_produto = function(produto_id){
-//     if (confirm('Deseja realmente excluir este produto?')) {
-//
-//         $.ajax({
-//             url : '/minha-conta/produto/delete/' + produto_id,
-//             type : 'POST',
-//             dataType : 'json',
-//             success : function(retorno) {
-//                 if (retorno) {
-//                     window.location.reload();
-//                 } else {
-//                     alertaPagina('Erro ao excluir', 'danger');
-//                 }
-//             },
-//             error : function() {
-//                 alertaPagina('Erro no sistema!', 'danger');
-//             }
-//         })
-//     }
-// }
-
-$('.act-excluir-foto').click(function() {
-
-    if (confirm('Deseja realmente excluir esta foto?')) {
-        var produto_id = $('.act-excluir-foto').attr('data-produto-id');
-        var nm_foto = $(this).attr('data-foto');
-
-        $.ajax({
-            url :'/minha-conta/produto/delete-foto',
-            type : 'post',
-            dataType : 'json',
-            data : {
-                'nm_foto' : nm_foto,
-                'produto_id' : produto_id
-            },
-            success : function(retorno) {
-                if (retorno.sucesso = true) {
-                    window.location.reload();
-                } else {
-                    alertaPagina(retorno.msg, 'danger');
-                }
-            },
-            error : function() {
-                alertaPagina('Erro no sistema!', 'danger');;
-            }
-        });
+        document.getElementById("el-produtos-minha-conta").classList.remove("hide");
     }
 });
 

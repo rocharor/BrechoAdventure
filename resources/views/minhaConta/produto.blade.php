@@ -4,7 +4,7 @@
     <!--BREADCRUMB-->
     @include('breadCrumb')
 
-    <div class="row el-produtos-minha-conta hide">
+    <div class="row hide" id='el-produtos-minha-conta'>
         @if (count($meusProdutos) == 0)
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>
         @else
@@ -29,7 +29,7 @@
                         <br />
                         <div class='btn_acoes'>
                             <div><a href="{{ Route('minha-conta.editar-produto',$produto->slug) }}" class="btn btn-primary">Republicar</a></div>
-                            <div><a href='{{ Route('minha-conta.delete-produto',$produto->id)}}' class="btn btn-danger" title='Excluir definitivamente'><span class='glyphicon glyphicon-remove'></span></a></div>
+                            <div><button class="btn btn-danger" title='Excluir definitivamente' @click.prevent="deleteProduct({{ $produto->id }})"><span class='glyphicon glyphicon-remove'></span></button></div>
                         </div>
                     {{-- Produto pendente --}}
                     @elseif ($produto->status == 2)
@@ -45,7 +45,7 @@
                         <br />
                         <div class='btn_acoes'>
                             <div><a href="{{ Route('minha-conta.editar-produto',$produto->slug) }}" class="btn btn-primary" title='Editar produto'><span class='glyphicon glyphicon-pencil'></span></a></div>
-                            <div><a href='{{ Route('minha-conta.inativar-produto',$produto->id)}}' class="btn btn-danger" title='Inativar produto'><span class='glyphicon glyphicon-trash'></span></a></div>
+                            <div><button class="btn btn-danger" title='Inativar produto' @click.prevent="inactiveProduct({{ $produto->id }})"><span class='glyphicon glyphicon-trash'></span></button></div>
                         </div>
                     {{-- Produto ativo --}}
                     @else
@@ -54,7 +54,7 @@
                         <div class='btn_acoes'>
                             <div><a href="{{ Route('minha-conta.editar-produto',$produto->slug) }}" class="btn btn-primary" title='Editar produto'><span class='glyphicon glyphicon-pencil'></span></a></div>
                             <div><a href="{{ Route('visualizar-produto',$produto->slug) }}" class="btn btn-success" title='Visualizar produto'><span class='glyphicon glyphicon-eye-open'></span></a></div>
-                            <div><a href='{{ Route('minha-conta.inativar-produto',$produto->id)}}' class="btn btn-danger" title='Inativar produto'><span class='glyphicon glyphicon-trash'></span></a></div>
+                            <div><button class="btn btn-danger" title='Inativar produto' @click.prevent="inactiveProduct({{ $produto->id }})"><span class='glyphicon glyphicon-trash'></span></button></div>
                             {{-- <div><button class="btn  btn-warning favorito"><div class="favorito-ativo"></div> - {{ $produto->qtd_favorito }}</button></div> --}}
                         </div>
                     @endif

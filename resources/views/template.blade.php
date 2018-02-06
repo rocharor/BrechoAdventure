@@ -28,7 +28,7 @@
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css" />
 		<link rel="stylesheet" href="/css/site.min.css" />
-		
+
 		<script src="/node_modules/jquery/dist/jquery.min.js"></script>
     </head>
     <body>

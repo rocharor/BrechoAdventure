@@ -6,8 +6,7 @@
 
     <div class="row" >
         <div class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
-            @include('filtroLateral')
-            {{-- <iframe width="200" height="260" frameborder="0" scrolling="no" src="http://www.webcid.com.br/widgets/meu-calendario-online.php"></iframe>             --}}
+            @include('filtroLateral')            
         </div>
         <div class="col-xs-12 col-sm-10 el-produtos hide">
         	@foreach($produtos as $produto)
@@ -66,7 +65,7 @@
 
     <script>
         $(function(){
-            appVueFiltro.buscaDadosFiltro();            
+            appVueFiltro.buscaDadosFiltro();
         })
     </script>
 @endsection
