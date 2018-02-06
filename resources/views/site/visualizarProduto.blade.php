@@ -4,7 +4,7 @@
 	<script src="/node_modules/xzoom/dist/xzoom.min.js"></script>
 
 	<!--BREADCRUMB-->
-    @include('breadCrumb')
+    @include('complements/breadCrumb')
 
 	<h1>{{ $produto->titulo }}</h1>
 	<small style="color:#bbb"><i>Inserido em: {{ $produto->inserido }}</i></small>
@@ -55,8 +55,7 @@
 
 			<hr>
 
-			<div class="el-produtos">
-				<a href="javascript:window.history.go(-1)" class='btn btn-primary'><span class="glyphicon glyphicon-menu-left"> Voltar</a>
+			<div class="el-produtos">				
 				@if(Auth::check() == 0)
 					<button class='btn btn-info' title='Necessário estar logado' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@elseif(Auth::user()->id == $produto->user->id)
@@ -67,7 +66,7 @@
 
 				<!--Modal mensagem-->
 				<div class="modal fade" id='modal-mensagem'>
-					@include('modalMensagem')
+					@include('complements/modalMensagem')
 				</div>
 			</div>
 
@@ -81,6 +80,4 @@
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
 	</script>
-
-	<script type="text/javascript" src="/js/site/produto.js"></script>
 @endsection

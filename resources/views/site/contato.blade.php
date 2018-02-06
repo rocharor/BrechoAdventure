@@ -2,9 +2,9 @@
 @section('content')
 
     <!--BREADCRUMB-->
-    @include('breadCrumb')
+    @include('complements/breadCrumb')
 
-    @include('exibeErro')
+    @include('complements/exibeErro')
 
     <div class="row">
     	<div class="col-md-6">
@@ -39,7 +39,4 @@
     	    </form>
         </div>
     </div>
-
-
-    <script type="text/javascript" src="/js/site/contato.js"></script>
 @endsection

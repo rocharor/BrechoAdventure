@@ -2,7 +2,7 @@
 @section('content')
 
     <!--BREADCRUMB-->
-    @include('breadCrumb')
+    @include('complements/breadCrumb')
 
     <div id='el-mensagem'>
         <ul class="nav nav-tabs nav-justified">
@@ -133,6 +133,5 @@
         </div>
 
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
-        <script type="text/javascript" src="/js/site/mensagem.js"></script>
     </div>
 @endsection

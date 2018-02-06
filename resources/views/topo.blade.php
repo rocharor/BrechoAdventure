@@ -2,11 +2,11 @@
 <div class="menu hidden-xs">
     <div class='topo_esquerdo '>
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo'>
-        <div class="links">
+        <nav class="links">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('produtos') }}">Produtos</a>
             <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
-        </div>
+        </nav>
     </div>
 
     <div class="topo_direito">
@@ -16,7 +16,7 @@
                 <a href='/cadastre-se' class="btn btn-cadastro">Cadastre-se</a>
             </div>
         @else
-            <span class="btn-group">
+            <nav class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
@@ -42,7 +42,7 @@
                     @endcan
                     <li><a href='/logout' style="font-weight:bold;color:#CD3333;">Sair</a></li>
                 </ul>
-            </span>
+            </nav>
         @endif
     </div>
 </div>
@@ -50,11 +50,11 @@
 <div class="menu-mobile hidden-sm hidden-md hidden-lg">
     <div class='topo_esquerdo '>
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
-        <div class="links" style="font-size:7px">
+        <nav class="links" style="font-size:7px">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('produtos',1) }}">Produtos</a>
             <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
-        </div>
+        </nav>
     </div>
 
     <div class="topo_direito">
@@ -69,7 +69,7 @@
             	</ul>
             </div>
         @else
-            <span class="btn-group">
+            <nav class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="img-circle" align='center'></div>
@@ -95,29 +95,30 @@
                     @endcan
                     <li><a href='/logout' style="font-weight:bold;color:#CD3333;">Sair</a></li>
                 </ul>
-            </span>
+            </nav>
         @endif
     </div>
 </div>
 
 <!-- IMAGEM FUNDO -->
 @if(Request::route()->getName() == 'home')
-    {{-- <div class="img_fundo"> --}}
-        {{-- <img src="/imagens/banner.jpg" width="100%" /> --}}
-    {{-- </div> --}}
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
             <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
         </ol>
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img src="/imagens/banner.jpg" alt="Brechó Adventure" width="100%">
+            <div class="item active" style="width: 100%; height: 300px;">
+                <img src="/imagens/banner.jpg" alt="Brechó Adventure" style="width: 100%; height: 100%;">
             </div>
-            <div class="item">
-                <img src="/imagens/banner.jpg" alt="Brechó Adventure" width="100%">
+            <div class="item" style="width: 100%; height: 300px;">
+                <img src="/imagens/banner2.jpg" alt="Brechó Adventure" style="width: 100%; height: 100%;">
+            </div>
+            <div class="item" style="width: 100%; height: 300px;">
+                <img src="/imagens/banner3.jpg" alt="Brechó Adventure" style="width: 100%; height: 100%;">
             </div>
         </div>
         <!-- Controls -->

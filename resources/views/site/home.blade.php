@@ -5,7 +5,7 @@
 		<div class="well" align="center"><b><i>N&atilde;o existe nenhum produto cadastrado</i></b></div>
 	@else
 		<div class="row" >
-			<div class="col-xs-12 col-sm-10 el-produtos hide">
+			<div class="col-xs-12 col-sm-10 hide" id='el-produtos'>
 				<div align="center">
 					<h1 align="center" class='msgHome'>Bem vindo ao Brechó Adventure</h1>
 					<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>
@@ -57,13 +57,13 @@
 
 				<!--Modal mensagem-->
 				<div class="modal fade" id='modal-mensagem'>
-					@include('modalMensagem')
+					@include('complements/modalMensagem')
 				</div>
 			</div>
-			<div class="col-sm-2 hidden-xs" style="border:solid 0px;">
+			<aside class="col-sm-2 hidden-xs" style="border:solid 0px;">
 				<a class="twitter-timeline" data-height="800" data-theme="dark" href="https://twitter.com/Adventure__Club">Tweets Adventure Club</a> <script async src="//platform.twitter.com/widgets.js" charset="utf-8"></script>
-				<iframe width="200" height="260" frameborder="0" scrolling="no" src="http://www.webcid.com.br/widgets/meu-calendario-online.php"></iframe>
-			</div>
+				{{-- <iframe width="200" height="260" frameborder="0" scrolling="no" src="http://www.webcid.com.br/widgets/meu-calendario-online.php"></iframe> --}}
+			</aside>
 		</div>
 	@endif
 @endsection

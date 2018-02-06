@@ -2,10 +2,10 @@
 @section('content')
 
     <!--BREADCRUMB-->
-	@include('breadCrumb')
+	@include('complements/breadCrumb')
 
-    <div class='hide' id='el-produtos-minha-conta' style="width: 460px;">		
-        @include('exibeErro')
+    <div class='hide' id='el-produtos-minha-conta' style="width: 460px;">
+        @include('complements/exibeErro')
 
         <form action="/minha-conta/produto/update" method="post" name="formEditarProduto" enctype="multipart/form-data">
             {{ csrf_field() }}

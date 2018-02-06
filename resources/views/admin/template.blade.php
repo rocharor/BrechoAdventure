@@ -9,6 +9,7 @@
 
         <link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
         {{-- <meta name="csrf-token" content="{{ csrf_token() }}" /> --}}
+        <meta name="csrf-token" id='token' content="{{ csrf_token() }}" value="{{ csrf_token() }}" />
 
         <!-- Bootstrap , Animate-->
         <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
@@ -24,7 +25,8 @@
         <!-- jQuery, Notify, Global-->
         <script src="/node_modules/jquery/dist/jquery.min.js"></script>
         <script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
-        <script src="/js/global.js"></script>
+        <script src="/node_modules/vue/dist/vue.min.js"></script>
+        <script src="/js/admin.min.js"></script>
 
 
         @if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif

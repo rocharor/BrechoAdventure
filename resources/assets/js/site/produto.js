@@ -113,8 +113,11 @@ var appProdutosSite = new Vue({
             });
         }
     },
-    created:function () {
-        $('.el-produtos').removeClass('hide');
+    created:function () {        
+        var elemento = document.getElementById("el-produtos");
+        if (elemento != null) {
+            elemento.classList.remove("hide");
+        }
     }
 });
 
@@ -157,7 +160,10 @@ var appProdutosMinhaConta = new Vue({
         },
     },
     created:function () {
-        document.getElementById("el-produtos-minha-conta").classList.remove("hide");
+        var elemento = document.getElementById("el-produtos-minha-conta");
+        if (elemento != null) {
+            elemento.classList.remove("hide");
+        }
     }
 });
 

@@ -3,7 +3,7 @@
 @section('content')
 
     <!--BREADCRUMB-->
-	@include('breadCrumb')
+	@include('complements/breadCrumb')
 
     <link rel="stylesheet" href="/node_modules/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
 
@@ -11,12 +11,12 @@
     <div id='el-form'>
         {{-- FOTO PERFIL --}}
         <div align="left">
-            @include('uploadImagem')
+            @include('complements/uploadImagem')
         </div>
         <br>
         {{-- FORMULARIO PERFIL --}}
         <div class="form_perfil" :class='{hide: hide.content == true}'>
-            @include('exibeErro')
+            @include('complements/exibeErro')
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
