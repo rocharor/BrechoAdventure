@@ -32,24 +32,26 @@
 		<script src="/node_modules/jquery/dist/jquery.min.js"></script>
     </head>
     <body>
-        <header>
-        	@include('topo')
-        </header>
+		<main>
+			<header>
+	        	@include('topo')
+	        </header>
 
-        <main class="container">
-            @yield('content')
-        </main>
+	        <section class="container">
+	            @yield('content')
+	        </section>
 
-		<br /><br />
-
-        <footer class="rodape">
-        	@include('rodape')
-        </footer>
+	        <footer>
+	        	@include('rodape')
+	        </footer>
+		</main>
 
         <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="/node_modules/vanilla-masker/build/vanilla-masker.min.js"></script>
 		<script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
 		<script src="/node_modules/vue/dist/vue.min.js"></script>
+		<script src="/node_modules/vue-resource/dist/vue-resource.min.js"></script>
+		<script src="/node_modules/axios/dist/axios.min.js"></script>
 		<script src="/js/site.min.js"></script>
 
 		@if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif

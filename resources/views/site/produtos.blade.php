@@ -5,12 +5,12 @@
     @include('complements/breadCrumb')
 
     <div class="row" >
-        <aside class="col-sm-2 hidden-xs" style="border:solid 0px; padding:0">
+        <aside class="col-lg-3 col-md-3 col-sm-4 hidden-xs" style="border:solid 0px; padding:0">
             @include('complements/filtroLateral')
         </aside>
-        <div class="col-xs-12 col-sm-10 hide" id='el-produtos'>
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 hide" id='el-produtos'>
         	@foreach($produtos as $produto)
-        		<div class="col-md-3 col-sm-6 col-xs-12" align="center" style="padding: 20px 0">
+        		<div class="col-lg-3 col-md-4 col-sm-6 col-xs-12" align="center" style="padding: 20px 0">
             		<div class="div-produtos" align="center">
             			<div class="div-favorito-{{ $produto->id }}">
             				@if(Auth::check() == 0)

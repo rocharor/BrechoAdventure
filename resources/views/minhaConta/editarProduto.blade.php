@@ -4,7 +4,7 @@
     <!--BREADCRUMB-->
 	@include('complements/breadCrumb')
 
-    <div class='hide' id='el-produtos-minha-conta' style="width: 460px;">
+    <div class='formulario hide' id='el-produtos-minha-conta'>
         @include('complements/exibeErro')
 
         <form action="/minha-conta/produto/update" method="post" name="formEditarProduto" enctype="multipart/form-data">
@@ -64,7 +64,7 @@
 
              <div>
                  <label>Preço:</label>
-                 <input type="text" class="form-control" name="valor" id='valor' value="{{ $produto->valor }}" maxlength="10" required="required" />
+                 <input type="text" class="form-control" name="valor" id='valor' value="{{ $produto->valor }}" maxlength="10" required="required" style="width:150px" />
              </div>
              <br>
 

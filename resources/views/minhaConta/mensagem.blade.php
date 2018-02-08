@@ -130,8 +130,6 @@
                     @endforeach
                 @endif
             </div>
-        </div>
-
-        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/vue-resource/1.3.4/vue-resource.min.js"></script>
+        </div>        
     </div>
 @endsection

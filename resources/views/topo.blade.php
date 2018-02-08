@@ -1,4 +1,4 @@
-<!-- BARRA TOPO -->
+{{-- WEB --}}
 <div class="menu hidden-xs">
     <div class='topo_esquerdo '>
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo'>
@@ -47,6 +47,7 @@
     </div>
 </div>
 
+{{-- MOBILE --}}
 <div class="menu-mobile hidden-sm hidden-md hidden-lg">
     <div class='topo_esquerdo '>
         <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
@@ -100,38 +101,72 @@
     </div>
 </div>
 
-<!-- IMAGEM FUNDO -->
+
+<!-- BANNER -->
 @if(Request::route()->getName() == 'home')
-    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active" style="width: 100%; height: 300px;">
-                <img src="/imagens/banner.jpg" alt="Brechó Adventure" style="width: 100%; height: 100%;">
+    {{-- Banner Web --}}
+    <div class="banner-web">
+        <div id="carousel-example-generic" class="carousel slide hidden-xs" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="/imagens/banner.jpg" alt="Brechó Adventure">
+                </div>
+                <div class="item">
+                    <img src="/imagens/banner2.jpg" alt="Brechó Adventure">
+                </div>
+                <div class="item">
+                    <img src="/imagens/banner3.jpg" alt="Brechó Adventure">
+                </div>
             </div>
-            <div class="item" style="width: 100%; height: 300px;">
-                <img src="/imagens/banner2.jpg" alt="Brechó Adventure" style="width: 100%; height: 100%;">
-            </div>
-            <div class="item" style="width: 100%; height: 300px;">
-                <img src="/imagens/banner3.jpg" alt="Brechó Adventure" style="width: 100%; height: 100%;">
-            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
         </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+    </div>
+
+    {{-- Banner Mobile --}}
+    <div class="banner-mobile">
+        <div id="carousel-example-generic" class="carousel slide hidden-sm hidden-md hidden-lg" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active">
+                    <img src="/imagens/banner.jpg" alt="Brechó Adventure">
+                </div>
+                <div class="item">
+                    <img src="/imagens/banner2.jpg" alt="Brechó Adventure">
+                </div>
+                <div class="item">
+                    <img src="/imagens/banner3.jpg" alt="Brechó Adventure">
+                </div>
+            </div>
+            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
     </div>
 @endif
+
+
+
 
 <!-- BUSCA -->
 {{-- <div class='campo-buscar'>
@@ -143,10 +178,6 @@
     	</div>
     </div>
 </div> --}}
-
-<br style="clear:both;"/><br>
-
-{{-- <script type="text/javascript" src="/js/site/topo.js"></script> --}}
 
 <script type="text/javascript">
     // if (!empty({{ Auth::check() }})) {buscaNotificacao();}

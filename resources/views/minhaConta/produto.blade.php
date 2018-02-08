@@ -9,7 +9,7 @@
             <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui produtos cadastrados</i></b></div>
         @else
             @foreach ($meusProdutos as $produto)
-                <div class="col-md-3 col-xs-12 div-meus-produtos" align="center">
+                <div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 div-meus-produtos" align="center">
 
                     @if ($produto->status == 0)
                         <p><span class="label label-danger">Produto inativo</span></p>
@@ -21,7 +21,7 @@
                         <p><span class="label label-warning">Altera&ccedil;&atilde;o reprovada</b></span></p>
                     @endif
 
-                    <div class="titulo"><b>{{$produto->titulo}}</b></div>
+                    <div class="titulo"><b>{{ $produto->titulo }}</b></div>
 
                     {{-- Produto inativado --}}
                     @if ($produto->status == 0)
@@ -60,8 +60,9 @@
                 </div>
             @endforeach
 
-            <!--PAGINAÇÃO-->
             <br style="clear:both">
+
+            <!--PAGINAÇÃO-->
             <div align='center'>
                 @include('complements/paginacao')
             </div>
