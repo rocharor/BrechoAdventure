@@ -1,7 +1,7 @@
 $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
 var appProdutosSite = new Vue({
-    el:'.el-produtos',
+    el:'#el-produtos',
     data:{
         dataDescription:{
             titulo:'',
@@ -23,8 +23,7 @@ var appProdutosSite = new Vue({
 
     },
     methods:{
-        setFavorite:function(produto_id){
-
+        setFavorite:function(produto_id, teste){
             if (produto_id == 0) {
                 alertaPagina('Necessário estar logado para favoritar.','danger');
                 return false;
@@ -38,21 +37,12 @@ var appProdutosSite = new Vue({
                     'produto_id':produto_id
                 },
                 success: function(retorno){
-                    var statusFavorito = window.sessionStorage.getItem('favorite-product-' + produto_id);
-                    if (statusFavorito == null) {
-                        window.sessionStorage.setItem('favorite-product-' + produto_id, retorno.status);
-                    }else{
-                        window.sessionStorage.setItem('favorite-product-' + produto_id, retorno.status);
-                    }
-                    statusFavorito = window.sessionStorage.getItem('favorite-product-' + produto_id);
-
                     if(retorno.success){
-                        if(statusFavorito == 0){
-                            var div_imagem = $('.produto-' + produto_id).find('.img-ativo');
-                            div_imagem.addClass('img-inativo').removeClass('img-ativo');
-                        }else{
-                            var div_imagem = $('.produto-' + produto_id).find('.img-inativo');
-                            div_imagem.addClass('img-ativo').removeClass('img-inativo');
+                        var star = $('.star-' + produto_id);
+                        if (star.hasClass('inactive')) {
+                            star.removeClass('inactive').addClass('active');
+                        } else {
+                            star.removeClass('active').addClass('inactive');
                         }
                     }else{
                         alertaPagina('Erro ao salvar favorito.','danger');

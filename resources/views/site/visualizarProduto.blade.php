@@ -55,7 +55,7 @@
 
 			<hr>
 
-			<div class="el-produtos">				
+			<div class="el-produtos">
 				@if(Auth::check() == 0)
 					<button class='btn btn-info' title='Necessário estar logado' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@elseif(Auth::user()->id == $produto->user->id)
