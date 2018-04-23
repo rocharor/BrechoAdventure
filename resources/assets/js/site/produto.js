@@ -1,9 +1,16 @@
-// $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
-
 import Vue from 'vue'
 import axios from 'axios'
+import VMasker from 'vanilla-masker'
+import notify from 'bootstrap-notify'
 
-const {  alertaPagina } = require('./global.js');
+// import InputSearch from '../components/InputSearch.vue'
+
+// new Vue({
+//     el: '.teste',
+//     components: {
+//         InputSearch,
+//     }
+// });
 
 var appProdutosSite = new Vue({
     el:'#el-produtos',
@@ -124,25 +131,22 @@ var appProdutosMinhaConta = new Vue({
         },
         deletePhoto:function(nm_photo, product_id){
             if (confirm('Deseja realmente excluir esta foto?')) {
-                $.ajax({
-                    url :'/minha-conta/produto/delete-foto',
-                    type : 'post',
-                    dataType : 'json',
-                    data : {
-                        'nm_foto' : nm_photo,
-                        'produto_id' : product_id
-                    },
-                    success : function(retorno) {
-                        if (retorno.sucesso = true) {
-                            window.location.reload();
-                        } else {
-                            alertaPagina(retorno.msg, 'danger');
-                        }
-                    },
-                    error : function() {
-                        alertaPagina('Erro no sistema!', 'danger');;
+
+                axios.post('/minha-conta/produto/delete-foto', {
+                    nm_foto: nm_photo,
+                    produto_id: product_id
+                })
+                .then(retorno => {
+                    if (retorno.data.sucesso = true) {
+                        window.location.reload();
+                    } else {
+                        alertaPagina(retorno.data.msg, 'danger');
                     }
-                });
+                })
+                .catch(error => {
+                    alertaPagina('Erro no sistema!', 'danger');;
+                    console.log(error)
+                })
             }
         },
     },

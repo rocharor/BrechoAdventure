@@ -1,34 +1,14 @@
-<!--
+{{--  
 dependencies
 jquery.Jcrop.css
 jquery.Jcrop.js
 perfil.js
- -->
+--}}
+
+<link rel="stylesheet" href="/node_modules/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
+
 <style type="text/css">
-    .jcrop-holder #preview-pane {
-        display: block;
-        position: absolute;
-        /*z-index: 2000;*/
-        /*top: 10px;*/
-        right: -280px;
-        padding: 6px;
-        border: 1px rgba(0,0,0,.4) solid;
-        background-color: white;
 
-        -webkit-border-radius: 6px;
-        -moz-border-radius: 6px;
-        border-radius: 6px;
-
-        -webkit-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-        -moz-box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-        box-shadow: 1px 1px 5px 2px rgba(0, 0, 0, 0.2);
-    }
-
-    #preview-pane .preview-container {
-        width: 250px;
-        height: 170px;
-        overflow: hidden;
-    }
 
 </style>
 

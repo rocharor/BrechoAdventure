@@ -1,9 +1,8 @@
 @extends('template')
 @section('content')
 	<link type="text/css" rel="stylesheet" href="/node_modules/xzoom/dist/xzoom.css" />
-	<script src="/node_modules/xzoom/dist/xzoom.min.js"></script>
 
-	<!--BREADCRUMB-->
+	{{--  BREADCRUMB  --}}
     @include('complements/breadCrumb')
 
 	<h1>{{ $produto->titulo }}</h1>
@@ -64,7 +63,7 @@
 					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@endif
 
-				<!--Modal mensagem-->
+				{{--  Modal mensagem  --}}
 				<div class="modal fade" id='modal-mensagem'>
 					@include('complements/modalMensagem')
 				</div>
@@ -72,12 +71,4 @@
 
 		</div>
 	</div>
-	<script>
-		/* calling script */
-	    // $('.xzoom, .xzoom-gallery').xzoom({zoomWidth: 400, title: true, tint: '#333', Xoffset: 15});
-	    $('.xzoom, .xzoom-gallery').xzoom({position: '#xzoom2-id', tint: '#ffa200', scroll: false});
-	    // $('.xzoom, .xzoom-gallery').xzoom({position: 'lens', lensShape: 'circle', bg:true, sourceClass: 'xzoom-hidden'});
-	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
-	    // $('.xzoom, .xzoom-gallery').xzoom({tint: '#006699', Xoffset: 15});
-	</script>
 @endsection

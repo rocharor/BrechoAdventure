@@ -1,4 +1,5 @@
-$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+// $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+import bootstrap from 'bootstrap'
 
 var alertaPagina = function(texto,classe){
 
@@ -74,36 +75,6 @@ var alertaComponente = function(id_componente,texto,classe,posicao){
 }
 
 /**
- * Método JS que verifica se var esta vazia
- * @param  {[type]} mixedVar [description]
- * @return {[type]}          [description]
- */
-function empty (mixedVar) {
-    var undef
-    var key
-    var i
-    var len
-    var emptyValues = [undef, null, false, 0, '', '0']
-
-    for (i = 0, len = emptyValues.length; i < len; i++) {
-        if (mixedVar === emptyValues[i]) {
-            return true
-        }
-    }
-
-    if (typeof mixedVar === 'object') {
-        for (key in mixedVar) {
-            if (mixedVar.hasOwnProperty(key)) {
-            return false
-            }
-        }
-        return true
-    }
-
-    return false
-}
-
-/**
  * Carrega uma miniatuda dentro de um IMG
  * @param  {[type]} input  inputFile
  * @param  {[type]} modelo classe da IMG
@@ -134,29 +105,6 @@ function getQueryString(){
 
 	return data;
 }
-
-// $('.act-buscar').click(function() {
-//
-// 	var valorBusca = $('.busca').val();
-//
-// 	if(valorBusca.length < 3){
-// 		alert('Digite pelo menos 3 caracteres');
-// 		return false;
-// 	}
-//
-// 	url_busca = '/busca/'+valorBusca+'/';
-//
-// 	window.open(url_busca,'_self');
-// });
-//
-// $('.busca').keypress(function(e){
-// 	if(e.keyCode == 13){
-// 		$('.act-buscar').click();
-// 	}
-// });
-
-
-
 
 /**
  * Busca notificações com intervalo de 5 minutos

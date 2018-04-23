@@ -1,6 +1,8 @@
-$.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
+// $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
 
-Vue.config.devtools = true;
+import Vue from 'vue'
+import VMasker from 'vanilla-masker'
+import Jcrop from 'jquery-jcrop'
 
 var appVuePerfil = new Vue({
     el:'#el-form',
@@ -167,3 +169,18 @@ function limpaEndereco(){
     $("input[name='cidade']").val("");
     $("input[name='uf']").val("");
 }
+
+$(function () {
+    if (document.getElementById("dt_nascimento") != null) {
+        VMasker(document.getElementById("dt_nascimento")).maskPattern('99/99/9999');
+    }
+    if (document.getElementById("cep") != null) {
+        VMasker(document.getElementById("cep")).maskPattern('99999-999');
+    }
+    if (document.getElementById("telefone_fixo") != null) {
+        VMasker(document.getElementById("telefone_fixo")).maskPattern('(99) 9999-9999');
+    }
+    if (document.getElementById("telefone_cel") != null) {
+        VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999');
+    }
+})

@@ -2,126 +2,34 @@
 
 @section('content')
 
-    <!--BREADCRUMB-->
+    {{--  BREADCRUMB  --}}
 	@include('complements/breadCrumb')
 
-    <link rel="stylesheet" href="/node_modules/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
-
     <h1 class="text-danger">PERFIL</h1>
+
     <div id='el-form'>
+
         {{-- FOTO PERFIL --}}
         <div align="left">
             @include('complements/uploadImagem')
         </div>
+
         <br>
+
         {{-- FORMULARIO PERFIL --}}
-        {{-- <div class="form_perfil" :class='{hide: hide.content == true}'> --}}
         <div class="formulario">
             @include('complements/exibeErro')
+
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
             @endif
+
             <form action='{{ Route('minha-conta.update-perfil') }}' name='formPerfil' id='formPerfil'  method="POST">
                 {{ csrf_field() }}
 
-				<div class="form-group">
-			    	<label for="nome" class="col-sm-2 control-label">
-						Nome <span class='text-danger'>*</span>
-					</label>
-				    <div class="col-sm-10">
-					  <input type="text" name='nome' class="form-control" placeholder="Nome" required  value="{{ Auth::user()->name }}"/>
-				    </div>
-			  	</div>
-
-				<div class="form-group">
-			    	<label for="email" class="col-sm-2 control-label">
-						Email <span class='text-danger'>*</span>
-					</label>
-				    <div class="col-sm-10">
-					  <input type="email" name='email' class="form-control" placeholder="Email" required  value="{{ Auth::user()->email }}"/>
-				    </div>
-			  	</div>
-
-				<div class="form-group">
-			    	<label for="data-nascimento" class="col-sm-3 control-label">
-						Nascimento <span class='text-danger'>*</span>
-					</label>
-				    <div class="col-sm-9u RG ">
-					  <input type="text" name='data-nascimento' class="form-control" placeholder="Data de Nascimento" required  value="{{ Auth::user()->dt_nascimento }}"/>
-				    </div>
-			  	</div>
-
-							<p><label>Data de nascimeto: <span class='text-danger'>*</span></label></p>
-                        	<input type="text" id='dt_nascimento' name='dt_nascimento' class="form-control" style="width: 150px;" value="{{ Auth::user()->dt_nascimento }}" required />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>CEP: </label></p>
-                        	<input type="text" id='cep' name='cep' class="form-control" style="width: 150px;" value="{{ Auth::user()->cep }}" onblur="buscaCEP(this.value)"/>
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Endere&ccedil;o: </label></p>
-                        	<input type="text" name='endereco' class="form-control" value="{{ Auth::user()->endereco }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Numero: </label></p>
-                        	<input type="text" name='numero' class="form-control" style="width: 150px;" value="{{ Auth::user()->numero }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Complemento: </label></p>
-                        	<input type="text" name='complemento' class="form-control" value="{{ Auth::user()->complemento }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Bairro: </label></p>
-                        	<input type="text" name='bairro' class="form-control" value="{{ Auth::user()->bairro }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Cidade: </label></p>
-                        	<input type="text" name='cidade' class="form-control" value="{{ Auth::user()->cidade }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>UF: </label></p>
-                            <select class="form-control" name='uf' style="width: 150px;">
-                                @foreach($estados as $sigla=>$desc)
-                                    <option value="{{$sigla}}" @if( Auth::user()->uf == $sigla) selected @endif>{{$desc}}</option>
-                                @endforeach
-                            </select>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Telefone Cel: </label></p>
-                        	<input type="text" id='telefone_cel' name='telefone_cel' class="form-control" style="width: 150px;" value="{{ Auth::user()->telefone_cel }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td>
-							<p><label>Telefone Fixo: </label></p>
-                        	<input type="text" id='telefone_fixo' name='telefone_fixo' class="form-control" style="width: 150px;" value="{{ Auth::user()->telefone_fixo }}" />
-						</td>
-                    </tr>
-                    <tr>
-                        <td align="center"><button type="submit" class="btn btn-success">Salvar</button></td>
-                    </tr>
-                </table>
-
-
-                {{-- <table class="table table-striped">
+                <table class="table table-striped">
                     <tr>
                         <td style="width: 200px;"><label>Nome: <span class='text-danger'>*</span></label> </td>
                         <td><input type="text" name='nome' class="form-control" value="{{ Auth::user()->name }}" required /></td>
@@ -179,7 +87,7 @@
                     <tr>
                         <td colspan="2" align="center"><button type="submit" class="btn btn-success">Salvar</button></td>
                     </tr>
-                </table> --}}
+                </table>
             </form>
 
             <hr>
@@ -216,33 +124,4 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" src="/node_modules/jquery-jcrop/js/jquery.Jcrop.min.js"></script>
-	<script>
-		$(function(){
-			VMasker(document.getElementById("dt_nascimento")).maskPattern('99/99/9999');
-			VMasker	(document.getElementById("cep")).maskPattern('99999-999');
-			VMasker(document.getElementById("telefone_fixo")).maskPattern('(99) 9999-9999');
-			VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999');
-
-			// #maskMoney
-			// VMasker(document.getElementById("default")).maskMoney();
-			// VMasker(document.getElementById("defaultValues")).maskMoney();
-			// VMasker(document.getElementById("zeroCents")).maskMoney({zeroCents: true});
-			// VMasker(document.getElementById("unit")).maskMoney({unit: 'R$'});
-			// VMasker(document.getElementById("suffixUnit")).maskMoney({suffixUnit: 'R$'});
-			// VMasker(document.getElementById("delimiter")).maskMoney({delimiter: ','});
-			// VMasker(document.getElementById("separator")).maskMoney({separator: '.'});
-			// #maskNumber
-			// VMasker(document.getElementById("numbers")).maskNumber();
-			// #maskPattern
-			// VMasker(document.getElementById("phone")).maskPattern('(99) 9999-9999');
-			// VMasker(document.getElementById("phoneValues")).maskPattern('(99) 9999-9999');
-			// VMasker(document.getElementById("date")).maskPattern('99/99/9999');
-			// VMasker(document.getElementById("doc")).maskPattern('999.999.999-99');
-			// VMasker(document.getElementById("carPlate")).maskPattern('AAA-9999');
-			// VMasker(document.getElementById("vin")).maskPattern('SS.SS.SSSSS.S.S.SSSSSS');
-		})
-	</script>
-
 @endsection
