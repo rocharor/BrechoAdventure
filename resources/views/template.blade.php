@@ -49,10 +49,11 @@
         <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 		<script src="/node_modules/vanilla-masker/build/vanilla-masker.min.js"></script>
 		<script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
-		<script src="/node_modules/vue/dist/vue.min.js"></script>
-		<script src="/node_modules/vue-resource/dist/vue-resource.min.js"></script>
-		<script src="/node_modules/axios/dist/axios.min.js"></script>
-		<script src="/js/site.min.js"></script>
+		{{-- <script src="/node_modules/vue/dist/vue.min.js"></script> --}}
+		{{-- <script src="/node_modules/vue-resource/dist/vue-resource.min.js"></script> --}}
+		{{-- <script src="/node_modules/axios/dist/axios.min.js"></script> --}}
+		<script src="/dist/build.js"></script>
+		{{-- <script src="/js/site.min.js"></script> --}}
 
 		@if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
 	    @if (session('erro')) <script>alertaPagina('{{ session('erro') }}', 'danger');</script> @endif

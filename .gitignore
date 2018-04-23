@@ -8,6 +8,7 @@ composer.lock
 .buildpath
 .settings/
 /public/node_modules
+node_modules/
 /public/storage
 /vendor
 /.idea
