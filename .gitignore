@@ -7,9 +7,9 @@ composer.lock
 .project
 .buildpath
 .settings/
-/public/node_modules
+/public/dist/
+/public/node_modules/
 node_modules/
-/public/storage
 /vendor
 /.idea
 Homestead.json

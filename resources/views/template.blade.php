@@ -25,8 +25,8 @@
         <title>{{ config('app.name', 'Brechó Adventure') }}</title>
 
         <!-- BOOTSTRAP CSS-->
-        <link rel="stylesheet" href="/node_modules/bootstrap/dist/css/bootstrap.min.css" />
-        <link rel="stylesheet" href="/node_modules/animate.css/animate.min.css" />
+        <link rel="stylesheet" href="/dist/bootstrap/dist/css/bootstrap.min.css" />
+        <link rel="stylesheet" href="/dist/animate/animate.min.css" />
 		<link rel="stylesheet" href="/css/site.min.css" />
     </head>
     <body>
