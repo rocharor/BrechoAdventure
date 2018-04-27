@@ -6,6 +6,9 @@
 	@else
 		<div class="row" >
 			<div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 hide" id='el-produtos'>
+				<div class="teste">
+					<example/>
+				</div>
 				<div align="center">
 					<h1 align="center" class='msgHome'>Bem vindo ao Brechó Adventure</h1>
 					<h3>Confira os novos produtos adicionados recentemente em nosso site.</h3>

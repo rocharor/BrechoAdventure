@@ -3,14 +3,8 @@ import axios from 'axios'
 import VMasker from 'vanilla-masker'
 import notify from 'bootstrap-notify'
 
-// import InputSearch from '../components/InputSearch.vue'
-
-// new Vue({
-//     el: '.teste',
-//     components: {
-//         InputSearch,
-//     }
-// });
+import Example from '../components/Example.vue'
+Vue.component('example', Example);
 
 var appProdutosSite = new Vue({
     el:'#el-produtos',
