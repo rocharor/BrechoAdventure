@@ -39,8 +39,14 @@ class ProdutoController extends Controller
             }
         }
 
+        $produtos['user'] = json_encode([
+            'logged' => Auth::check(),
+            'id' => Auth::check() ? Auth::user()->id : 0,
+        ]);
+
         return view('site/home',[
-            'produtos'=>$produtos['itens'],
+            // 'produtos'=>$produtos['itens'],
+            'produtos'=>$produtos,
             'breadCrumb' => $this->getBreadCrumb()
         ]);
 
@@ -72,8 +78,14 @@ class ProdutoController extends Controller
             }
         }
 
+        $produtos['user'] = json_encode([
+            'logged' => Auth::check(),
+            'id' => Auth::check() ? Auth::user()->id : 0,
+        ]);
+
         return view('site/produtos',[
-            'produtos' => $produtos['itens'],
+            // 'produtos' => $produtos['itens'],
+            'produtos' => $produtos,
             'pg' => $pagina,
             'numberPages' => $numberPages,
             'link' => '/produtos/',

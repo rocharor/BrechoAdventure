@@ -1,8 +1,9 @@
-// $.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
-import bootstrap from 'bootstrap'
-
-var alertaPagina = function(texto,classe){
-
+/**
+ * [Gera um alerta no topo da página]
+ * @param  {[type]} texto  [Texto do alerta]
+ * @param  {[type]} classe [Classe do alerta]
+ */
+var alertaPagina = function(texto,classe) {
 	if(texto == 'undefined' || classe == 'undefined'){
 		return false;
 	}
@@ -45,35 +46,6 @@ var alertaPagina = function(texto,classe){
     });
 }
 
-var alertaComponente = function(id_componente,texto,classe,posicao){
-
-	if (id_componente == 'undefined' || texto == 'undefined' || classe == 'undefined') {
-		return false;
-	}
-
-	if(posicao == 'undefined'){
-		posicao = 'top';
-	}
-
-	$("#"+id_componente).notify(
-			texto,
-            {
-                clickToHide: true,
-                autoHide: true,
-                autoHideDelay: 5000,
-                arrowShow: true,
-                arrowSize: 5,
-                position: posicao,
-                style: 'bootstrap',
-                className: classe,
-                showAnimation: 'slideDown',
-                showDuration: 400,
-                hideAnimation: 'slideUp',
-                hideDuration: 200,
-                gap: 2}
-    );
-}
-
 /**
  * Carrega uma miniatuda dentro de um IMG
  * @param  {[type]} input  inputFile
@@ -91,6 +63,10 @@ function carregarMiniatura(input,modelo) {
     }
 }
 
+/**
+ * [Pega a query string]
+ * @return {[type]} [description]
+ */
 function getQueryString(){
 	var query = location.search.slice(1);
 	var partes = query.split('&');
@@ -107,7 +83,8 @@ function getQueryString(){
 }
 
 /**
- * Busca notificações com intervalo de 5 minutos
+ * [Busca notificações com intervalo de 5 minutos]
+ * @return {[type]} [description]
  */
 function buscaNotificacao(){
 	// $.post(
@@ -127,4 +104,8 @@ function buscaNotificacao(){
 	// setTimeout(function(){
 	// 	buscaNotificacao();
 	// },300000);
+}
+
+module.exports = {
+  alertaPagina
 }

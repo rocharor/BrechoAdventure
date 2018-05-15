@@ -10,9 +10,7 @@
 
 window.$ = window.jQuery = require('jquery')
 
-require('./site/global.js')
 require('./site/produto.js')
 require('./site/visualizarProduto.js')
 require('./site/favorito.js')
 require('./site/perfil.js')
-
