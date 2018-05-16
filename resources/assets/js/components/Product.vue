@@ -19,9 +19,7 @@
         <div class='box-buttons'>
             <a :href="link" class='btn btn-warning'><b>Ver detalhes</b></a>
 
-            <button class='btn btn-info' title='Necessário estar logado' disabled v-if="!dataUser.logged"><span class="glyphicon glyphicon-envelope"></span></button>
-            <button class='btn btn-info' title='Este produto é seu' disabled v-else-if="dataUser.id == dataProduct.user_id"><span class="glyphicon glyphicon-envelope"></span></button>
-            <button class='btn btn-info' @click.prevent="openContact(dataProduct.id)" v-else ><span class="glyphicon glyphicon-envelope"></span></button>
+            <button class='btn btn-info' :title='buttonContact.title' :disabled="buttonContact.disabled == true" @click.prevent="openContact(buttonContact.parameter)"><span class="glyphicon glyphicon-envelope"></span></button>
         </div>
 
         <!-- Modal de contato -->
@@ -65,9 +63,8 @@
 </style>
 
 <script>
-    import axios from 'axios'
-
-    const { alertaPagina } = require('../site/global.js')
+    import axios from 'axios';
+    const { alertaPagina } = require('../site/global.js');
 
     export default {
         props: ['data-product', 'data-user'],
@@ -82,8 +79,8 @@
                 },
                 buttonContact: {
                     title: '',
-                    disable: true,
-                    parameter: '',
+                    disabled: true,
+                    parameter: 0,
                 },
                 dataContact: {
                     remetente: '',
@@ -176,12 +173,28 @@
                     this.favorite.class = 'inactive'
                     this.favorite.parameter = 0
                 }
+            },
+            verifyContact: function() {
+                if (this.dataUser.logged) {
+                    if (this.dataUser.id == this.dataProduct.user_id) {
+                        this.buttonContact.title = 'Este produto é seu';
+                        this.buttonContact.disabled = true;
+                        this.buttonContact.parameter = 0;
+                    } else {
+                        this.buttonContact.title = '';
+                        this.buttonContact.disabled = false;
+                        this.buttonContact.parameter = this.dataProduct.id;
+                    }
+
+                } else {
+                    this.buttonContact.title = 'Necessário estar logado';
+                }
             }
 
         },
         created: function() {
             this.verifyFavorite();
+            this.verifyContact();
         }
     }
-
 </script>
