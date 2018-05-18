@@ -15,7 +15,7 @@
         },
         methods: {
             acao: function(x) {
-                alert(x . this.data.msg)
+                alert(x + ' - ' + this.msg)
             }
         }
     };

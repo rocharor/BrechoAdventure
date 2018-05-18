@@ -11,27 +11,25 @@
         </aside>
         <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 hide" id='el-produtos'>
             <div class="row">
-                @foreach($produtos as $produto)
-                    @include('complements/catalogProducts')
+                @foreach($produtos['itens'] as $produto)
+                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+                        <product :data-product="{{ $produto->toJson() }}" :data-user="{{ $produtos['user'] }}" />
+                    </div>
                 @endforeach
 
-                <!--PAGINAÇÃO-->
                 <br style="clear:both">
+
+                <!--PAGINAÇÃO-->
                 <div align='center'>
                     @include('complements/paginacao')
-                </div>
-
-                <!--Modal mensagem-->
-                <div class="modal fade" id='modal-mensagem'>
-                    @include('complements/modalMensagem')
                 </div>
             </div>
         </div>
     </div>
 
     <script>
-        $(function(){
-            appVueFiltro.buscaDadosFiltro();
-        })
+        // $(function(){
+        //     appVueFiltro.buscaDadosFiltro();
+        // })
     </script>
 @endsection
