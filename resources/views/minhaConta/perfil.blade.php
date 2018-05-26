@@ -2,8 +2,11 @@
 
 @section('content')
 
-    {{--  BREADCRUMB  --}}
-	@include('complements/breadCrumb')
+	<!--BREADCRUMB-->
+    {{-- @include('complements/breadCrumb') --}}
+    <div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
 
     <h1 class="text-danger">PERFIL</h1>
 

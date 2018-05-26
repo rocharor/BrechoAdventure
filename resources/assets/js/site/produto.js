@@ -10,6 +10,13 @@ Vue.component('example', Example);
 import Product from '../components/Product.vue'
 Vue.component('Product', Product);
 
+import Breadcrumb from '../components/Breadcrumb.vue'
+Vue.component('Breadcrumb', Breadcrumb);
+
+var appBreadcrumb = new Vue({
+    el:'#breadcrumb',
+});
+
 var appProdutosSite = new Vue({
     el:'#el-produtos',
     data:{

@@ -2,7 +2,10 @@
 @section('content')
 
     <!--BREADCRUMB-->
-    @include('complements/breadCrumb')
+    {{-- @include('complements/breadCrumb') --}}
+    <div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
 
     <div id='el-mensagem'>
         <ul class="nav nav-tabs nav-justified">
@@ -130,6 +133,6 @@
                     @endforeach
                 @endif
             </div>
-        </div>        
+        </div>
     </div>
 @endsection

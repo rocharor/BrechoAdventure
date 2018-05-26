@@ -2,10 +2,12 @@
 @section('content')
 
     <!--BREADCRUMB-->
-    @include('complements/breadCrumb')
+    {{-- @include('complements/breadCrumb') --}}
+    <div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
 
     <div class="row" >
-
         <aside class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
             @include('complements/filtroLateral')
         </aside>

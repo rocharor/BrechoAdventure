@@ -1,8 +1,11 @@
 @extends('template')
 @section('content')
 
-    <!--BREADCRUMB-->
-	@include('complements/breadCrumb')
+	<!--BREADCRUMB-->
+    {{-- @include('complements/breadCrumb') --}}
+    <div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
 
     <div class='formulario hide' id='el-produtos-minha-conta'>
         @include('complements/exibeErro')

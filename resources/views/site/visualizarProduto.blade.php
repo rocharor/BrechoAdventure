@@ -3,7 +3,10 @@
 	<link type="text/css" rel="stylesheet" href="/node_modules/xzoom/dist/xzoom.css" />
 
 	{{--  BREADCRUMB  --}}
-    @include('complements/breadCrumb')
+    {{-- @include('complements/breadCrumb') --}}
+	<div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
 
 	<h1>{{ $produto->titulo }}</h1>
 	<small style="color:#bbb"><i>Inserido em: {{ $produto->inserido }}</i></small>

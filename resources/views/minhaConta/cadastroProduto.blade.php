@@ -1,8 +1,11 @@
 @extends('template')
 @section('content')
 
-    <!--BREADCRUMB-->
-	@include('complements/breadCrumb')
+	<!--BREADCRUMB-->
+    {{-- @include('complements/breadCrumb') --}}
+    <div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
 
         @if($autorizado == false)
         	<div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.perfil') }}">CLIQUE AQUI</a></div>

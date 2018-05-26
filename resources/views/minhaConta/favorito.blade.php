@@ -1,8 +1,12 @@
 @extends('template')
 @section('content')
 
-    <!--BREADCRUMB-->
-	@include('complements/breadCrumb')
+	<!--BREADCRUMB-->
+    {{-- @include('complements/breadCrumb') --}}
+    <div id='breadcrumb'>
+        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+    </div>
+
 	<div class="hide" id='el-favorito'>
 	    @if(count($favoritos) == 0)
 	         <div class="well" align="center"><b><i>Voc&ecirc; n&atilde;o possui nenhum favorito cadastrados</i></b></div>
