@@ -57,7 +57,7 @@
 
 			<hr>
 
-			<div class="el-produtos">
+			{{-- <div class="el-produtos">
 				@if(Auth::check() == 0)
 					<button class='btn btn-info' title='Necessário estar logado' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@elseif(Auth::user()->id == $produto->user->id)
@@ -65,12 +65,11 @@
 				@else
 					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@endif
-
-				{{--  Modal mensagem  --}}
+								
 				<div class="modal fade" id='modal-mensagem'>
 					@include('complements/modalMensagem')
 				</div>
-			</div>
+			</div> --}}
 
 		</div>
 	</div>
