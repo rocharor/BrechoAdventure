@@ -3,17 +3,9 @@ public/imagens/produtos/200x200/*
 public/imagens/produtos/900x900/*
 !sem-imagem.jpg
 !sem-imagem.gif
-composer.lock
-.project
-.buildpath
-.settings/
 /public/dist/
 /public/node_modules/
 node_modules/
 /vendor
-/.idea
-Homestead.json
-Homestead.yaml
 .env
-/docker-workspace
 public/dist/*
