@@ -11,7 +11,7 @@ use App\Models\Categoria;
 use App\Mail\BrechoMail;
 use App\Events\sendEmailAdmin;
 
-class ContatoController extends Controller
+class ContactController extends Controller
 {
     public $model;
 

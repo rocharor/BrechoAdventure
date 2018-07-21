@@ -3,7 +3,6 @@
 @section('content')
 
 	<!--BREADCRUMB-->
-    {{-- @include('complements/breadCrumb') --}}
     <div id='breadcrumb'>
         <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
     </div>

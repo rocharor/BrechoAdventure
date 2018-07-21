@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\Site\Favorito;
 use App\Models\Robo;
 
-class FavoritoController extends Controller
+class FavoriteController extends Controller
 {
     private $model;
 
@@ -17,11 +17,6 @@ class FavoritoController extends Controller
         $this->model = $favorito;
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index($pagina=1)
     {
         $this->model->paginacao = true;
@@ -42,12 +37,6 @@ class FavoritoController extends Controller
         ]);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         $user_id = Auth::user()->id;
@@ -79,14 +68,6 @@ class FavoritoController extends Controller
         die();
     }
 
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update($produto_id,$status)
     {
         $produto = $this->model->where('produto_id',$produto_id)->get();

@@ -3,97 +3,21 @@
 namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 use App\Models\Site\Produto;
-use App\Models\Site\Favorito;
 use App\Models\Categoria;
-use App\Mail\BrechoMail;
-use App\Services\UploadImagem;
 
-class ProdutoController extends Controller
+class MyProductsController extends Controller
 {
-    use UploadImagem;
-
-    public $model;
+    private $model;
 
     public function __construct(Produto $produto)
     {
         $this->model = $produto;
     }
 
-    public function index(Favorito $favorito)
-    {
-        $this->model->paginacao = true;
-        $produtos = $this->model->getProdutos();
-
-        $favoritos = $favorito->getFavoritos();
-        foreach($produtos['itens'] as $produto){
-            $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
-
-            $produto->favorito = false;
-            foreach($favoritos['itens'] as $favorito){
-                if($favorito->produto_id == $produto->id){
-                    $produto->favorito = true;
-                }
-            }
-        }
-
-        $produtos['user'] = json_encode([
-            'logged' => Auth::check(),
-            'id' => Auth::check() ? Auth::user()->id : 0,
-        ]);
-
-        return view('site/home',[
-            // 'produtos'=>$produtos['itens'],
-            'produtos'=>$produtos,
-            'breadCrumb' => $this->getBreadCrumb()
-        ]);
-
-    }
-
-    public function produtos(Favorito $favorito, Request $request, $pagina=1)
-    {
-        if (count($request->all()) > 0) {
-            foreach ($request->all() as $key => $value) {
-                $parametros[$key] = explode(',',$value);
-            }
-            $this->model->parametros = $parametros;
-        }
-
-        $this->model->paginacao = true;
-        $this->model->pagina = $pagina;
-        $produtos = $this->model->getProdutos();
-        $numberPages = (int)ceil($produtos['total'] / $this->model->totalPagina);
-
-        $favoritos = $favorito->getFavoritos();
-        foreach($produtos['itens'] as $produto){
-            $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
-
-            $produto->favorito = false;
-            foreach($favoritos['itens'] as $favorito){
-                if($favorito->produto_id == $produto->id){
-                    $produto->favorito = true;
-                }
-            }
-        }
-
-        $produtos['user'] = json_encode([
-            'logged' => Auth::check(),
-            'id' => Auth::check() ? Auth::user()->id : 0,
-        ]);
-
-        return view('site/produtos',[
-            // 'produtos' => $produtos['itens'],
-            'produtos' => $produtos,
-            'pg' => $pagina,
-            'numberPages' => $numberPages,
-            'link' => '/produtos/',
-            'breadCrumb' => $this->getBreadCrumb()
-        ]);
-    }
-
-    public function meusProdutos($pagina=1)
+    public function index($pagina=1)
     {
         $this->model->paginacao = true;
         $this->model->pagina = $pagina;
@@ -105,7 +29,7 @@ class ProdutoController extends Controller
             $produto->dataExibicao = $this->formataDataExibicao($produto->updated_at);
         }
 
-        return view('minhaConta/produto',[
+        return view('minhaConta/myProducts',[
             'meusProdutos'=>$meusProdutos['itens'],
             'pg'=>$pagina,
             'numberPages'=>$numberPages,
@@ -163,25 +87,6 @@ class ProdutoController extends Controller
 
         return redirect()->route('minha-conta.create-produto')->with('erro','Erro ao salvar produto, tente novamente!');
 
-    }
-
-    public function show($param)
-    {
-        $this->getBreadCrumb();
-        $produto = $this->model->getProduto($param);
-
-        $imagens = [];
-        if ($produto->nm_imagem != '') {
-            $imagens = explode('|',$produto->nm_imagem);
-        }
-
-        $produto->imagens = $imagens;
-        $produto->inserido = $this->formataDataExibicao($produto->updated_at);
-
-        return view('site/visualizarProduto',[
-            'produto'=>$produto,
-            'breadCrumb' => $this->getBreadCrumb()
-        ]);
     }
 
     public function edit($param, Categoria $categoria)
@@ -296,22 +201,5 @@ class ProdutoController extends Controller
 
         echo json_encode($retorno);
         die();
-
     }
-
-    public function getFiltro(Request $request)
-    {
-        if (count($request->parametro) > 0) {
-            foreach ($request->parametro as $key => $value) {
-                $parametros[$key] = explode(',',$value);
-            }
-            $this->model->parametros = $parametros;
-        }
-
-        $retorno = $this->model->mountFilter();
-
-        echo response()->json($retorno)->content();
-        die();
-    }
-
 }

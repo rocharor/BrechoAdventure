@@ -1,5 +1,3 @@
-// $.ajaxSetup({ headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')} });
-
 import Vue from 'vue'
 import VMasker from 'vanilla-masker'
 import Jcrop from 'jquery-jcrop'
