@@ -16,7 +16,7 @@ class BrechoMail extends Mailable
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($tipo, $param)
     {
         $this->mail_admin = 'rocharor@gmail.com';
         $this->tipo = $tipo;

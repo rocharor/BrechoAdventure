@@ -32,6 +32,7 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
+        die('aki');
         $this->validate($request, [
             'nome' => 'required|max:255',
             'email' => 'required|email',

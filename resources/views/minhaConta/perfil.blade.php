@@ -7,18 +7,15 @@
         <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
     </div>
 
-    <h1 class="text-danger">PERFIL</h1>
+    <div align="center" style="border:solid 0px;">
+        <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil">
+
+        <upload-crop-image />
+    </div>
+
+    <br>
 
     <div id='el-form'>
-
-        {{-- FOTO PERFIL --}}
-        <div align="left">
-            @include('complements/uploadImagem')
-        </div>
-
-        <br>
-
-        {{-- FORMULARIO PERFIL --}}
         <div class="formulario">
             @include('complements/exibeErro')
 
@@ -29,8 +26,6 @@
             @endif
 
             <form action='{{ Route('minha-conta.update-perfil') }}' name='formPerfil' id='formPerfil'  method="POST">
-                {{ csrf_field() }}
-
                 <table class="table table-striped">
                     <tr>
                         <td style="width: 200px;"><label>Nome: <span class='text-danger'>*</span></label> </td>
