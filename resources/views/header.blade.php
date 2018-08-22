@@ -179,6 +179,6 @@
     </div>
 </div> --}}
 
-<script type="text/javascript">
-    // if (!empty({{ Auth::check() }})) {buscaNotificacao();}
-</script>
+{{-- <script type="text/javascript">
+    if (!empty({{ Auth::check() }})) {buscaNotificacao();}
+</script> --}}

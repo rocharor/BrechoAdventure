@@ -10659,29 +10659,6 @@ a {
   margin-left: auto;
   padding: 10px;
 }
-.img_perfil {
-  max-height: 100px;
-  min-height: 100px;
-  max-width: 100px;
-  min-width: 100px;
-  border: solid 1px #ccc;
-}
-.jcrop-holder #preview-pane {
-  display: block;
-  position: absolute;
-  right: -280px;
-  padding: 6px;
-  border: 1px rgba(0,0,0,0.4) solid;
-  background-color: #fff;
-  border-radius: 6px;
-  -webkit-box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.2);
-  box-shadow: 1px 1px 5px 2px rgba(0,0,0,0.2);
-}
-.jcrop-holder #preview-pane .preview-container {
-  width: 250px;
-  height: 170px;
-  overflow: hidden;
-}
 .msgHome {
   font-family: 'Adventure_';
 }

@@ -1,16 +1,4 @@
-{{--  
-dependencies
-jquery.Jcrop.css
-jquery.Jcrop.js
-perfil.js
---}}
-
-<link rel="stylesheet" href="/node_modules/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
-
-<style type="text/css">
-
-
-</style>
+<link rel="stylesheet" href="/plugins/jquery-jcrop/css/jquery.Jcrop.min.css" type="text/css" />
 
 <div class="div_alterar_foto">
     <form action="{{ Route('minha-conta.update-foto') }}" method="post" enctype="multipart/form-data" onsubmit="return checarSelecao();">

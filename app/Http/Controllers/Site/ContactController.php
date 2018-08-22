@@ -11,7 +11,7 @@ use App\Models\Categoria;
 use App\Mail\BrechoMail;
 use App\Events\sendEmailAdmin;
 
-class ContatoController extends Controller
+class ContactController extends Controller
 {
     public $model;
 
@@ -32,6 +32,7 @@ class ContatoController extends Controller
 
     public function store(Request $request)
     {
+        die('aki');
         $this->validate($request, [
             'nome' => 'required|max:255',
             'email' => 'required|email',

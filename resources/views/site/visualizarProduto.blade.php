@@ -11,26 +11,15 @@
 	<small style="color:#bbb"><i>Inserido em: {{ $produto->inserido }}</i></small>
 	<br><br>
 
-	<div class="row" >
+	<div class="row" id='el-view-products'>
 		<div class="col-xs-12 col-sm-10">
 
 			<div class="row">
 				<div class="col-md-5">
-					<img
-						class="xzoom"
-						src="/imagens/produtos/400x400/{{ $produto->imagens[0] }}"
-						xoriginal="/imagens/produtos/600x600/{{ $produto->imagens[0] }}"
-					>
-					<br><br>
-					<div class="xzoom-thumbs">
-						@foreach($produto->imagens as $imagem)
-							<a href="/imagens/produtos/600x600/{{ $imagem }}">
-								<img class="xzoom-gallery" width="80" src="/imagens/produtos/400x400/{{ $imagem }}"  >
-							</a>
-						@endforeach
-					</div>
+					{{-- Component Product Zoom  --}}
+					<product-zoom :images="{{ $produto->imagens_json }}" />
 				</div>
-			</div>		
+			</div>
 
 			<h3>Preço: <span style='color:#a00;'>R${{ $produto->valor }}</span></h3>
 

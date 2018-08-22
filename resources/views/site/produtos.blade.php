@@ -2,16 +2,16 @@
 @section('content')
 
     <!--BREADCRUMB-->
-    {{-- @include('complements/breadCrumb') --}}
     <div id='breadcrumb'>
         <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
     </div>
 
     <div class="row" >
         <aside class="col-lg-3 col-md-3 col-sm-4 hidden-xs">
-            @include('complements/filtroLateral')
+            {{-- @include('complements/filtroLateral') --}}
         </aside>
-        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 hide" id='el-produtos'>
+        {{-- <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12 hide" id='el-produtos'> --}}
+        <div class="col-lg-9 col-md-9 col-sm-8 col-xs-12">
             <div class="row">
                 @foreach($produtos['itens'] as $produto)
                     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
@@ -29,9 +29,9 @@
         </div>
     </div>
 
-    <script>
-        // $(function(){
-        //     appVueFiltro.buscaDadosFiltro();
-        // })
-    </script>
+    {{-- < script>
+        $(function(){
+            appVueFiltro.buscaDadosFiltro();
+        })
+    < /script> --}}
 @endsection
