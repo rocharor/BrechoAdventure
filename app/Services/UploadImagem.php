@@ -9,8 +9,8 @@ use File;
 trait UploadImagem
 {
     public $pathPerfil = 'imagens/cadastro/';
-    public $pathProduto = 'imagens/produtos/200x200/';
-    public $pathProdutoGG = 'imagens/produtos/900x900/';
+    public $pathProduto = 'imagens/produtos/400x400/';
+    public $pathProdutoGG = 'imagens/produtos/600x600/';
     public $w = 0;
     public $h = 0;
     public $x = 0;
@@ -35,6 +35,12 @@ trait UploadImagem
         return false;
     }
 
+    public function deleteImagemPerfil($nomeImagem)
+    {
+        $filename = $this->pathPerfil . $nomeImagem;
+        return $this->deleteImagem($filename);
+    }
+
     public function imagemProduto($file)
     {
         if ($this->validaExtImagem($file->extension())){
@@ -43,10 +49,8 @@ trait UploadImagem
             $path = public_path($this->pathProduto . $fileName);
             $pathGG = public_path($this->pathProdutoGG . $fileName);
 
-            // $this->recortar($file->getRealPath(),$path);
-            // $this->recortar($file->getRealPath(),$pathGG);
-            $retorno = Image::make($file->getRealPath())->resize(900, 900)->save($pathGG);
-            $retornoGG = Image::make($file->getRealPath())->resize(200, 200)->save($path);
+            $retorno = Image::make($file->getRealPath())->resize(400, 400)->save($path);
+            $retornoGG = Image::make($file->getRealPath())->resize(600, 600)->save($pathGG);
 
             if ($retorno && $retornoGG) {
                 return $fileName;
@@ -55,26 +59,11 @@ trait UploadImagem
         return false;
     }
 
-    // private function recortar($pathOrigem, $pathDestino)
-    // {
-        // Image::make($pathOrigem)->resize(200, 200)->save($pathDestino);
-    // }
-
-    public function validaExtImagem($extensao){
-        return  in_array(strtolower($extensao), $this->extencoesImagem);
-    }
-
     public function deleteImagemProduto($nomeImagem)
     {
-        $filename200 = $this->pathProduto . $nomeImagem;
-        $filename900 = $this->pathProdutoGG . $nomeImagem;
-        return $this->deleteImagem([$filename200, $filename900]);
-    }
-
-    public function deleteImagemPerfil($nomeImagem)
-    {
-        $filename = $this->pathPerfil . $nomeImagem;
-        return $this->deleteImagem($filename);
+        $filename400 = $this->pathProduto . $nomeImagem;
+        $filename600 = $this->pathProdutoGG . $nomeImagem;
+        return $this->deleteImagem([$filename400, $filename600]);
     }
 
     private function deleteImagem($fileName)
@@ -87,6 +76,10 @@ trait UploadImagem
         }
 
         return File::delete($fileName);
+    }
+
+    public function validaExtImagem($extensao){
+        return  in_array(strtolower($extensao), $this->extencoesImagem);
     }
 
 }

@@ -46,7 +46,7 @@
 
                 </div>
             </div>
-        </div>        
+        </div>
     </div>
 </template>
 
@@ -71,7 +71,7 @@
         name: 'catalogProducts',
         data() {
             return {
-                imagem: '/imagens/produtos/200x200/' + this.dataProduct.imgPrincipal,
+                imagem: '/imagens/produtos/400x400/' + this.dataProduct.imgPrincipal,
                 link: '/produtos/visualizar-produto/' + this.dataProduct.slug,
                 favorite: {
                     class: '',

@@ -11,9 +11,6 @@ class BrechoMail extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $tipo;
-    public $param;
-
     /**
      * Create a new message instance.
      *
@@ -107,5 +104,4 @@ class BrechoMail extends Mailable
     //     ->view('email.adminProduto',$data);
     // }
     //
-
 }

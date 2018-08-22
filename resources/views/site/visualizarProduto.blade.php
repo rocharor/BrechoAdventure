@@ -1,9 +1,8 @@
 @extends('template')
 @section('content')
-	<link type="text/css" rel="stylesheet" href="/node_modules/xzoom/dist/xzoom.css" />
+	<link type="text/css" rel="stylesheet" href="/plugins/xzoom/dist/xzoom.css" />
 
 	{{--  BREADCRUMB  --}}
-    {{-- @include('complements/breadCrumb') --}}
 	<div id='breadcrumb'>
         <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
     </div>
@@ -12,20 +11,13 @@
 	<small style="color:#bbb"><i>Inserido em: {{ $produto->inserido }}</i></small>
 	<br><br>
 
-	<div class="row" >
+	<div class="row" id='el-view-products'>
 		<div class="col-xs-12 col-sm-10">
 
 			<div class="row">
 				<div class="col-md-5">
-					<img class="xzoom" src="/imagens/produtos/200x200/{{ $produto->imagens[0] }}" style="width:400px; height:300px" xoriginal="/imagens/produtos/900x900/{{ $produto->imagens[0] }}"/>
-					<br><br>
-					<div class="xzoom-thumbs">
-						@foreach($produto->imagens as $imagem)
-							<a href="/imagens/produtos/900x900/{{ $imagem }}">
-								<img class="xzoom-gallery" width="80" src="/imagens/produtos/200x200/{{ $imagem }}">
-							</a>
-						@endforeach
-					</div>
+					{{-- Component Product Zoom  --}}
+					<product-zoom :images="{{ $produto->imagens_json }}" />
 				</div>
 			</div>
 
@@ -65,7 +57,7 @@
 				@else
 					<button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
 				@endif
-								
+
 				<div class="modal fade" id='modal-mensagem'>
 					@include('complements/modalMensagem')
 				</div>

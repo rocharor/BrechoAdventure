@@ -19,14 +19,14 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
         <link rel="stylesheet" href="/AdminLTE/dist/css/AdminLTE.min.css">
         <link rel="stylesheet" href="/AdminLTE/dist/css/skins/_all-skins.min.css">
-        <link type="text/css" rel="stylesheet" href="/css/admin.min.css" />
+        {{-- <link type="text/css" rel="stylesheet" href="/css/admin.min.css" /> --}}
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <!-- jQuery, Notify, Global-->
         <script src="/node_modules/jquery/dist/jquery.min.js"></script>
         <script src="/node_modules/bootstrap-notify/bootstrap-notify.min.js"></script>
         <script src="/node_modules/vue/dist/vue.min.js"></script>
-        <script src="/js/admin.min.js"></script>
+        {{-- <script src="/js/admin.min.js"></script> --}}
 
 
         @if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
