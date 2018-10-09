@@ -26,6 +26,7 @@
             @endif
 
             <form action='{{ Route('minha-conta.update-perfil') }}' name='formPerfil' id='formPerfil'  method="POST">
+                {{ csrf_field() }}
                 <table class="table table-striped">
                     <tr>
                         <td style="width: 200px;"><label>Nome: <span class='text-danger'>*</span></label> </td>
@@ -33,7 +34,7 @@
                     </tr>
                     <tr>
                         <td> <label>Email: <span class='text-danger'>*</span></label> </td>
-                        <td><input type="text" name='email' class="form-control" value="{{ Auth::user()->email }}" disabled /></td>
+                        <td><input type="text" name='email' class="form-control" value="{{ Auth::user()->email }}" readonly /></td>
                     </tr>
                     <tr>
                         <td> <label>Data de nascimeto: <span class='text-danger'>*</span></label> </td>
