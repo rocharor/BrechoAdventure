@@ -32,16 +32,16 @@ class ContactController extends Controller
 
     public function store(Request $request)
     {
-        die('aki');
         $this->validate($request, [
-            'nome' => 'required|max:255',
+            'name' => 'required|max:255',
             'email' => 'required|email',
-            'tipo' => 'required',
+            'category' => 'required',
+            'message' => 'required|max:150',
         ]);
 
         $dados = $request->all();
 
-        $dados['tipo'] = $this->getTipoContato($dados['tipo']);
+        $dados['category'] = $this->getTipoContato($dados['category']);
         $retorno = $this->model->setMensagem($dados);
 
         if($retorno){

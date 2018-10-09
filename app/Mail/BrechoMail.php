@@ -49,9 +49,9 @@ class BrechoMail extends Mailable
         ->subject('Resposta automática')
         ->view('email.respAutomatica')
         ->with([
-            'name'=>$this->param['nome'],
-            'type'=>$this->param['tipo'],
-            'mensage'=>$this->param['mensagem']
+            'name'=>$this->param['name'],
+            'type'=>$this->param['category'],
+            'mensage'=>$this->param['message']
         ]);
     }
 

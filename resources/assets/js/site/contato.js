@@ -1,26 +1,33 @@
-import Vue from 'vue'
-
-var appVueContato = new Vue({
-    el:'#el-contato',
-    data: {
-        teste: '12345',
-        dataContact: {
-            name: 'aa',
-            email: '',
-            category: '',
-            message: '',
+if (document.getElementById("el-contact") != null) {
+    new Vue({
+        el:'#el-contact',
+        data: {
+            dataContact: {
+                name: '',
+                email: '',
+                category: '',
+                message: '',
+            },
+            imgLoader: false,
         },
-        imgLoader: false,
-    },
-    methods:{
-        onSubmit: function(){
-            alert('aki')
+        methods:{
+            onSubmit: function(){
+                if (this.dataContact.name == '' || this.dataContact.email == '' || this.dataContact.category == '' || this.dataContact.message == '') {
+                    alert('Preencha os campos corretamente')
+                    return false
+                }
+                this.imgLoader = true;
+                document.getElementById("myForm").submit();
+            },
         },
-    },
-    created: function(){
-        var elemento = document.getElementById("el-contato");
-        if (elemento != null) {
-            elemento.classList.remove("hide");
+        components: {
+            'Breadcrumb': require('../components/Breadcrumb.vue'),
+        },
+        created: function(){
+            var elemento = document.getElementById("el-contact");
+            if (elemento != null) {
+                elemento.classList.remove("hide");
+            }
         }
-    }
-});
+    });
+}

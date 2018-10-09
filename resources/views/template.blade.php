@@ -19,7 +19,7 @@
 		<link rel="stylesheet" href="/css/app.css">
     </head>
     <body>
-		<main class='hide' id='appMain'>
+		<main>
 			<header>
 	        	@include('header')
 	        </header>

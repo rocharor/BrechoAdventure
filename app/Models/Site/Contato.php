@@ -17,11 +17,14 @@ class Contato extends Model
         'nome', 'email','tipo','mensagem','status_resposta'
     ];
 
-    public function setMensagem($dados)
+    public function setMensagem($data)
     {
-        unset($dados['_token']);
+        $this->nome = $data['name'];
+        $this->email = $data['email'];
+        $this->tipo = $data['category'];
+        $this->mensagem = $data['message'];
 
-        if (Contato::create($dados)){
+        if ($this->save()){
             return true;
         }else{
             return false;
