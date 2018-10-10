@@ -1,4 +1,7 @@
 if (document.getElementById("el-contact") != null) {
+
+    const { alertaPagina } = require('../site/global.js');
+
     new Vue({
         el:'#el-contact',
         data: {
@@ -13,8 +16,8 @@ if (document.getElementById("el-contact") != null) {
         methods:{
             onSubmit: function(){
                 if (this.dataContact.name == '' || this.dataContact.email == '' || this.dataContact.category == '' || this.dataContact.message == '') {
-                    alert('Preencha os campos corretamente')
-                    return false
+                    alertaPagina('Preencha os campos corretamente', 'danger');
+                    // return false
                 }
                 this.imgLoader = true;
                 document.getElementById("myForm").submit();

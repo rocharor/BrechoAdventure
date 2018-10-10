@@ -1,7 +1,7 @@
 @extends('template')
 @section('content')
 
-	<div id='element-product' class='hide'>
+	<div id='el-product' class='hide'>
 		@if(count($produtos) == 0)
 			<div class="well" align="center"><b><i>N&atilde;o existe nenhum produto cadastrado</i></b></div>
 		@else
