@@ -11,7 +11,7 @@
 
 			<form action="/contato/store" method="post" id='myForm' v-on:submit.prevent="onSubmit">
 				{{ csrf_field() }}
-				
+
 				<div class="form-group">
 						<input class="form-control" type="text" name='name' placeholder="Nome" v-model='dataContact.name'>
 				</div>

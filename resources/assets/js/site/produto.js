@@ -1,5 +1,6 @@
-if (document.getElementById("el-product") != null) {
+var elementoProduct = document.getElementById("el-product");
 
+if (elementoProduct != null) {
    new Vue({
         el:'#el-product',
         components: {
@@ -7,10 +8,7 @@ if (document.getElementById("el-product") != null) {
             'Breadcrumb': require('../components/Breadcrumb.vue'),
         },
         created:function () {
-            var elemento = document.getElementById("el-product");
-            if (elemento != null) {
-                elemento.classList.remove("hide");
-            }
+            elementoProduct.classList.remove("hide");
         }
     });
 }

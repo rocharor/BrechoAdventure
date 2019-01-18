@@ -1,4 +1,6 @@
-if (document.getElementById("el-contact") != null) {
+var elementoContact = document.getElementById("el-contact");
+
+if (elementoContact != null) {
 
     const { alertaPagina } = require('../site/global.js');
 
@@ -17,7 +19,7 @@ if (document.getElementById("el-contact") != null) {
             onSubmit: function(){
                 if (this.dataContact.name == '' || this.dataContact.email == '' || this.dataContact.category == '' || this.dataContact.message == '') {
                     alertaPagina('Preencha os campos corretamente', 'danger');
-                    // return false
+                    return false
                 }
                 this.imgLoader = true;
                 document.getElementById("myForm").submit();
@@ -27,10 +29,7 @@ if (document.getElementById("el-contact") != null) {
             'Breadcrumb': require('../components/Breadcrumb.vue'),
         },
         created: function(){
-            var elemento = document.getElementById("el-contact");
-            if (elemento != null) {
-                elemento.classList.remove("hide");
-            }
+            elementoContact.classList.remove("hide");
         }
     });
 }
