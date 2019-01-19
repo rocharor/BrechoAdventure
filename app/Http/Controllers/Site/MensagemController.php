@@ -41,14 +41,17 @@ class MensagemController extends Controller
 
     public function create(Request $request,Produto $produto)
     {
-        $produto_id = (int)$request->get('produto_id');
+        try {
+            $produto_id = (int)$request->get('produto_id');
 
-        $dados = $produto->getProduto($produto_id);
-        $dados['name'] = $dados->user->name;
-        $dados['nome_remet'] = Auth::user()->name;
+            $dados = $produto->getProduto($produto_id);
+            $dados['name'] = $dados->user->name;
+            $dados['nome_remet'] = Auth::user()->name;
 
-        echo response()->json($dados)->content();
-        die();
+            return response($dados, 200);
+        } catch(\Exception $e) {
+            return response($e->getMessage(), $e->getCode());
+        }
     }
 
     public function store(Request $request, Produto $produto, Conversa $conversa)
@@ -63,19 +66,18 @@ class MensagemController extends Controller
         $conversa->user_id_destino = $user_id_destino;
         $conversa->produto_id = $produto_id;
 
-        $retorno = ['success'=>0];
+        $code = 400;
         if($conversa->save()) {
             $this->model->conversa_id = $conversa->id;
             $this->model->user_id_envio = $user_id_envio;
             $this->model->user_id_destino = $user_id_destino;
             $this->model->mensagem = $mensagem;
             if ($this->model->save()) {
-                // return redirect()->route('todosProdutos',1)->with('sucesso','Mensagem enviada com sucesso.');
-                $retorno = ['success'=>1];
+                $code = 201;
             }
         };
-        // return redirect()->route('todosProdutos',1)->with('erro','Erro ao enviar mensagem, tente novamente!');
-        echo response()->json($retorno)->content();
+
+        return response('', $code);
     }
 
     public function update(Request $request, Conversa $conversa)
@@ -102,42 +104,38 @@ class MensagemController extends Controller
         }
 
         return redirect()->route('minha-conta.mensagem')->with('erro','Erro ao enviar a mensagem!');
-        // echo response()->json($dados)->content();
-        // die();
     }
 
     public function delete(Request $request, Conversa $conversa)
     {
-        $retorno = 0;
-        return ;
         $conversa_id = (int)$request->conversa_id;
 
+        $code = 400;
         if ($conversa->find($conversa_id)->delete()){
             if ($this->model->where('conversa_id',$conversa_id)->delete()){
-                $retorno = 1;
+                $code = 200;
             }
         }
 
-        echo  $retorno;
-        die();
+        return response('', $code);
     }
 
-    public function buscaNotificacao()
-    {
-        if (Auth::user()){
-            $user_id = Auth::user()->id;
-            $mensagens = $this->model->where(['lido'=>0,'user_id_destino'=>$user_id])->select('id')->get();
+    // public function buscaNotificacao()
+    // {
+    //     if (Auth::user()){
+    //         $user_id = Auth::user()->id;
+    //         $mensagens = $this->model->where(['lido'=>0,'user_id_destino'=>$user_id])->select('id')->get();
 
-            echo count($mensagens);
-            die();
-        }
-    }
+    //         echo count($mensagens);
+    //         die();
+    //     }
+    // }
 
-    public function updateNotificacao(Request $request)
-    {
-        $user_id = Auth::user()->id;
-        $conversa_id = $request->get('conversa_id');
-        $mensagens = $this->model->where(['conversa_id'=>$conversa_id,'user_id_destino'=>$user_id])->update(['lido'=>1]);
+    // public function updateNotificacao(Request $request)
+    // {
+    //     $user_id = Auth::user()->id;
+    //     $conversa_id = $request->get('conversa_id');
+    //     $mensagens = $this->model->where(['conversa_id'=>$conversa_id,'user_id_destino'=>$user_id])->update(['lido'=>1]);
 
-    }
+    // }
 }

@@ -1,8 +1,8 @@
-var elementoContact = document.getElementById("el-contact");
+var elementContact = document.getElementById("el-contact")
 
-if (elementoContact != null) {
+if (elementContact != null) {
 
-    const { alertaPagina } = require('../site/global.js');
+    const { alertaPagina } = require('../site/global.js')
 
     new Vue({
         el:'#el-contact',
@@ -18,18 +18,18 @@ if (elementoContact != null) {
         methods:{
             onSubmit: function(){
                 if (this.dataContact.name == '' || this.dataContact.email == '' || this.dataContact.category == '' || this.dataContact.message == '') {
-                    alertaPagina('Preencha os campos corretamente', 'danger');
+                    alertaPagina('Preencha os campos corretamente', 'danger')
                     return false
                 }
-                this.imgLoader = true;
-                document.getElementById("myForm").submit();
+                this.imgLoader = true
+                document.getElementById("myForm").submit()
             },
         },
         components: {
             'Breadcrumb': require('../components/Breadcrumb.vue'),
         },
         created: function(){
-            elementoContact.classList.remove("hide");
+            elementContact.classList.remove("hide")
         }
     });
 }

@@ -1,12 +1,14 @@
 require('./bootstrap')
 
 const notify = require('bootstrap-notify')
+const xzoom = require('xzoom')
 // const VMasker = require('vanilla-masker')
-// const xzoom = require('xzoom')
 // const Jcrop = require('jquery-jcrop')
 
 require('./site/produto')
 require('./site/contato.js')
+require('./site/productView.js')
+require('./site/mensagem.js')
 // require('./site/perfil.js')
 // // require('./site/favorito.js')
 

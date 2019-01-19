@@ -98,19 +98,22 @@
                 axios.post('/minha-conta/mensagem/create', {
                     produto_id: produto_id
                 })
-                .then(retorno => {
-                    retorno = retorno.data
-                    this.dataContact.remetente = retorno.nome_remet;
-                    this.dataContact.destinatario = retorno.name;
-                    this.dataContact.titulo = retorno.titulo;
+                .then(response => {
+                    if (response.status != 200) {
+                        throw 'Error';
+                    }
+                    response = response.data
+                    this.dataContact.remetente = response.nome_remet;
+                    this.dataContact.destinatario = response.name;
+                    this.dataContact.titulo = response.titulo;
                     this.dataContact.produto_id = produto_id;
+
+                    $('.modal-mensagem-' + this.dataProduct.id).modal();
                 })
                 .catch(error => {
                     alertaPagina('Erro ao buscar dados.','danger');
                     console.log(error)
                 })
-
-    		    $('.modal-mensagem-' + this.dataProduct.id).modal();
             },
             sendContact: function() {
                 if (this.dataContact.mensagem == '') {
@@ -122,8 +125,8 @@
                     produto_id: this.dataContact.produto_id,
                     mensagem: this.dataContact.mensagem
                 })
-                .then(retorno => {
-                    if (retorno.data.success == 1) {
+                .then(response => {
+                    if (response.status == 201) {
                         alertaPagina('Mensagem enviada com sucesso.','success');
                     }else{
                         alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=1]','danger');

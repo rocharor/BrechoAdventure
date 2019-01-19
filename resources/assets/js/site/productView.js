@@ -1,11 +1,11 @@
-var elementProduct = document.getElementById("el-product")
+var elementProduct = document.getElementById("el-view-products")
 
 if (elementProduct != null) {
    new Vue({
-        el:'#el-product',
+        el:'#el-view-products',
         components: {
-            'Product': require('../components/Product.vue'),
             'Breadcrumb': require('../components/Breadcrumb.vue'),
+            'ProductZoom': require('../components/ProductZoom.vue'),
         },
         created:function () {
             elementProduct.classList.remove("hide")

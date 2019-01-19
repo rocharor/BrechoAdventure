@@ -1,113 +1,82 @@
-// Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
+var elementMessage = document.getElementById("el-message");
 
-var appVueMsg = new Vue({
-    el: '#el-mensagem',
-    data: {
-        aba: {
-            enviada: true,
-            recebida: false
-        }
-    },
-    methods: {
-        buscaDados: function(){
-            var url = '';
-            this.$http.post(url).then(function(response){
+if (elementMessage != null) {
 
-            });
+    const { alertaPagina } = require('../site/global.js')
+
+    var appVueMsg = new Vue({
+        el: '#el-message',
+        components: {
+            'Breadcrumb': require('../components/Breadcrumb.vue'),
         },
-        alteraAba: function(param){
-            if (param == 1) {
-                this.aba.enviada = true;
-                this.aba.recebida = false;
-            }else{
-                this.aba.recebida = true;
-                this.aba.enviada = false;
+        data: {
+            aba: {
+                enviada: true,
+                recebida: false
             }
         },
-        abreConversa: function(conversa_id){
-            var url = '/minha-conta/mensagem/updateNotificacao';
-            var data = {
-                conversa_id:conversa_id
-            }
-            this.$http.post(url,data).then(function(response){
-                // buscaNotificacao();
-            });
+        methods: {
+            // buscaDados: function(){
+            //     var url = '';
+            //     this.$http.post(url).then(function(response){
 
-            $(".conversa").addClass('hide');
-            $("#conversa_" + conversa_id).removeClass('hide');
-        },
-        excluiConversa: function(conversa_id){
-            if (confirm('Deseja realmente apagar esta conversa?')){
-                var url = '/minha-conta/mensagem/delete';
-                var data = {
-                    conversa_id:conversa_id
+            //     });
+            // },
+            alteraAba: function(param){
+                if (param == 1) {
+                    this.aba.enviada = true;
+                    this.aba.recebida = false;
+                }else{
+                    this.aba.recebida = true;
+                    this.aba.enviada = false;
                 }
-                this.$http.post(url,data).then(function(response){
-                    if (response.body) {
-                        alertaPagina('Conversa excluida com sucesso.','success');
-                            setTimeout(function(){
-                                window.open('/minha-conta/mensagem','_self');
-                            }, 2000);
-                    }else{
-                        alertaPagina('Erro ao excluir conversa! [cod:1]','danger');
+            },
+            openTalk: function(conversa_id){
+                // alert(conversa_id)
+                // var url = '/minha-conta/mensagem/updateNotificacao';
+                // var data = {
+                //     conversa_id:conversa_id
+                // }
+                // this.$http.post(url,data).then(function(response){
+                //     // buscaNotificacao();
+                // });
+
+                $(".conversa").addClass('hide');
+
+                var talk = document.getElementById("conversa_" + conversa_id);
+                talk.classList.remove('hide');
+            },
+            closeTalk: function (conversa_id) {
+                var talk = document.getElementById("conversa_" + conversa_id);
+                talk.classList.add('hide');
+            },
+            excluiConversa: function(conversa_id){
+                if (confirm('Deseja realmente apagar esta conversa?')){
+                    var url = '/minha-conta/mensagem/delete';
+                    var data = {
+                        conversa_id:conversa_id
                     }
-                });
-                // $.ajax({
-                //     url:'/minha-conta/mensagem/delete',
-                //     method:'POST',
-                //     data:{
-                //         conversa_id:conversa_id
-                //     },
-                //     success:function(retorno){
-                //         if (retorno) {
-                //             alertaPagina('Conversa excluida com sucesso.','success');
-                //             setTimeout(function(){
-                //                 window.open('/minha-conta/mensagem','_self');
-                //             }, 2000);
-                //         }else{
-                //             alertaPagina('Erro ao excluir conversa! [cod:1]','danger');
-                //         }
-                //     },
-                //     error:function(){
-                //         alertaPagina('Erro ao excluir conversa! [cod:2]','danger');
-                //     }
-                // })
+
+                    axios.post(url, data)
+                    .then(function (response) {
+                        if (response.status == 200) {
+                            alertaPagina('Conversa excluida com sucesso.', 'success');
+                        }
+
+                        setTimeout(function () {
+                            window.open('/minha-conta/mensagem', '_self');
+                        }, 1500);
+                    })
+                    .catch(error => {
+                        alertaPagina('Erro ao excluir conversa.', 'danger');
+                        console.log(error)
+                    })
+                }
             }
         },
-        enviarResposta: function(conversa_id,mensagem,tipo){
-            // if (mensagem == '') {
-			// 	alertaPagina('Campo resposta não pode ser vazio','danger');
-			// 	return false;
-			// }
-			// $.ajax({
-			// 	url:'/minha-conta/mensagem/update',
-			// 	type:'POST',
-			// 	dataType:'json',
-			// 	data:{
-			// 		mensagem:mensagem,
-			// 		conversa_id:conversa_id
-			// 	},
-			// 	success: function(retorno){
-			// 		if(retorno){
-			// 			var data = retorno.data.date.split('.');
-			// 			var html = "<div class='conversa-esquerda'>";
-			// 			html += "<small><i>" + retorno.nome + " - " + data[0] + "</i></small>";
-			// 			html += "<p>" + retorno.mensagem + "</p></div>";
-			// 			$('.conversa_'+conversa_id).append(html);
-			// 			$('#resposta_'+conversa_id).val('');
-			// 		}else{
-			// 			alertaPagina('Erro ao enviar resposta 1','danger');
-			// 		}
-			// 	},
-			// 	error:function(retorno){
-			// 		alertaPagina('Erro ao enviar resposta 2','danger');
-			// 	}
-			// })
+        created:function () {
+            elementMessage.classList.remove("hide")
+            // this.buscaDados();
         }
-
-    },
-    created:function () {
-        $('.el-mensagem').removeClass('hide');
-        // this.buscaDados();
-    }
-})
+    })
+}
