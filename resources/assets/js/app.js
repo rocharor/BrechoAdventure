@@ -1,5 +1,6 @@
 require('./bootstrap')
 
+const { alertaPagina } = require('./site/global.js');
 const notify = require('bootstrap-notify')
 const xzoom = require('xzoom')
 // const VMasker = require('vanilla-masker')
@@ -11,6 +12,18 @@ require('./site/productView.js')
 require('./site/mensagem.js')
 // require('./site/perfil.js')
 // // require('./site/favorito.js')
+
+window.onload =  function () {
+    var msgSession = document.body.dataset.message
+    if (msgSession != '') {
+        msgSession = JSON.parse(msgSession);
+        message = msgSession.message;
+        type = msgSession.type;
+        alertaPagina(message, type);
+    }
+}
+
+
 
 // // Components
 // Vue.component('example', require('./components/Example.vue'));

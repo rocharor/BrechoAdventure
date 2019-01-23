@@ -48,9 +48,21 @@ class ContactController extends Controller
             Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
             event(new sendEmailAdmin());
 
-            return redirect()->route('contato')->with('sucesso','Enviado com sucesso!');
+            return redirect()->route('contato')->with(
+                'flashMessage',
+                [
+                    'message' => 'Enviado com sucesso!',
+                    'type' => 'success'
+                ]
+            );
         }else{
-            return redirect()->route('contato')->with('erro','Erro ao enviar, tente novamente!');
+            return redirect()->route('contato')->with(
+                'flashMessage',
+                [
+                    'message' => 'Erro ao enviar, tente novamente!',
+                    'type' => 'danger'
+                ]
+            );
         }
     }
 }

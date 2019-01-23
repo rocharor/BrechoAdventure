@@ -15,10 +15,9 @@
 
         <title>{{ config('app.name', 'Brechó Adventure') }}</title>
 
-        <!--CSS-->
 		<link rel="stylesheet" href="/css/app.css">
     </head>
-    <body>
+    <body data-message="{{ session('flashMessage') ? json_encode(session('flashMessage')) : '' }}">
 		<main>
 			<header>
 	        	@include('header')
@@ -35,8 +34,8 @@
 
 		<script src="/js/app.js"></script>
 
-		@if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
-	    @if (session('erro')) <script>alertaPagina('{{ session('erro') }}', 'danger');</script> @endif
+		{{--  @if (session('sucesso')) <script>alertaPagina('{{ session('sucesso') }}', 'success');</script> @endif
+	    @if (session('erro')) <script>alertaPagina('{{ session('erro') }}', 'danger');</script> @endif  --}}
 
     </body>
 </html>
