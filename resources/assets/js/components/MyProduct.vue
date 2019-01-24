@@ -3,7 +3,7 @@
         <p v-if="product.status == 0"><span class="label label-danger">Produto inativo</span></p>
         <p v-else-if="product.status == 1"><span class="label label-success">Ativo <b>{{ product.dataExibicao }}</b></span></p>
         <p v-else-if="product.status == 2"><span class="label label-info"><b>Aguardando aprovação</b></span></p>
-        <p v-else-if="product.status == 3"><span class="label label-warning">Altera&ccedil;&atilde;o reprovada</b></span></p>
+        <p v-else-if="product.status == 3"><span class="label label-warning"><b>Altera&ccedil;&atilde;o reprovada</b></span></p>
 
         <div class="titulo"><b>{{ product.titulo }}</b></div>
 

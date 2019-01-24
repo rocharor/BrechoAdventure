@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    const { alertaPagina } = require('../site/global.js');
+    import { alertaPagina } from '../site/global.js';
 
     export default {
         data() {

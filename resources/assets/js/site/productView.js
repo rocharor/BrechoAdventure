@@ -6,6 +6,7 @@ if (elementProduct != null) {
         components: {
             'Breadcrumb': require('../components/Breadcrumb.vue'),
             'ProductZoom': require('../components/ProductZoom.vue'),
+            'ModalContact': require('../components/ModalContact.vue'),
         },
         created:function () {
             elementProduct.classList.remove("hide")

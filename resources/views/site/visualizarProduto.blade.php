@@ -17,25 +17,27 @@
 
         <div class="row">
             <div class="col-xs-12 col-sm-10">
-
-                <div class="row">
-                    <div class="col-md-5">
-                        {{-- Component Product Zoom  --}}
-                        <product-zoom :images="{{ $produto->imagens_json }}" />
-                    </div>
+                <div>
+                    {{-- Component Product Zoom  --}}
+                    <product-zoom :images="{{ $produto->imagens_json }}" />
                 </div>
 
                 <h3>Preço: <span style='color:#a00;'>R${{ $produto->valor }}</span></h3>
 
                 <p>{{ $produto->descricao }}</p>
 
-
-
                 <p><b>Categoria:</b> {{ $produto->categoria->categoria }}</p>
 
                 <p><b>Estado:</b> {{ $produto->estado }}</p>
 
-                <h3>Dados do vendedor</h3>
+                <hr style="border-color: #ddd;">
+
+                <div>
+                    <modal-contact :product-id="{{ $produto->id }}" :icon="false"/>
+                </div>
+
+
+                {{-- <h3>Dados do vendedor</h3> --}}
 
                 {{-- <table class='table table-striped '>
                     <tr>
@@ -55,21 +57,6 @@
                         <td>{{ $produto->user->telefone_cel }} </td>
                     </tr>
                 </table> --}}
-
-                {{-- <div class="el-produtos">
-                    @if(Auth::check() == 0)
-                        <button class='btn btn-info' title='Necessário estar logado' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
-                    @elseif(Auth::user()->id == $produto->user->id)
-                        <button class='btn btn-info' title='Este produto é seu' disabled><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
-                    @else
-                        <button class='btn btn-info' @click.prevent="openContact({{ $produto->id }})"><span class="glyphicon glyphicon-envelope"></span> Enviar mensagem</button>
-                    @endif
-
-                    <div class="modal fade" id='modal-mensagem'>
-                        @include('complements/modalMensagem')
-                    </div>
-                </div> --}}
-
             </div>
         </div>
     </div>

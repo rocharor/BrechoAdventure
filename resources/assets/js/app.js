@@ -2,7 +2,6 @@ require('./bootstrap')
 
 const { alertaPagina } = require('./site/global.js');
 const notify = require('bootstrap-notify')
-const xzoom = require('xzoom')
 // const VMasker = require('vanilla-masker')
 // const Jcrop = require('jquery-jcrop')
 

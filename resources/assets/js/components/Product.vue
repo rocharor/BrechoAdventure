@@ -18,34 +18,9 @@
 
         <div class='box-buttons'>
             <a :href="link" class='btn btn-warning'><b>Ver detalhes</b></a>
-
-            <button class='btn btn-info' :title='buttonContact.title' :disabled="buttonContact.disabled == true" @click.prevent="openContact(buttonContact.parameter)"><span class="glyphicon glyphicon-envelope"></span></button>
-        </div>
-
-        <!-- Modal de contato -->
-        <div class="modal fade" :class="'modal-mensagem-' + dataProduct.id">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <input type="hidden" name="produto_id" value="">
-
-                    <div class="modal-header" >
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    </div>
-
-                    <div class="modal-body" >
-                        <h2>{{ dataContact.titulo }}</h2>
-
-                        <p><label>De: &nbsp;</label><span> {{ dataContact.remetente }} </span></p>
-                        <p><label>Para: &nbsp;</label><span> {{ dataContact.destinatario }} </span></p>
-                        <p><label>Mensagem: &nbsp;</label><textarea class='form-control' name="mensagem" rows="8" cols="50" required="required" id='campo-mensagem' v-model='dataContact.mensagem'></textarea></p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class='btn btn-danger' name="button" data-dismiss="modal">Cancelar</button>
-                        <button type="button" class='btn btn-success act-enviar-mensagem' name="button" @click.prevent="sendContact()">Enviar</button>
-                    </div>
-
-                </div>
-            </div>
+            <!-- <div> -->
+                <modal-contact :product-id="dataProduct.id" :icon="true"/>
+            <!-- </div> -->
         </div>
     </div>
 </template>
@@ -59,16 +34,19 @@
     .box-product .box-favorite .favorite .glyphicon { font-size: 24px}
     .box-product .box-favorite .favorite .active { color: #E8D336}
     .box-product .box-favorite .favorite .inactive { color: #ccc}
-    .box-product .modal {text-align: left;}
 </style>
 
 <script>
     import axios from 'axios';
-    const { alertaPagina } = require('../site/global.js');
+    import ModalContact from './ModalContact.vue';
+    import { alertaPagina } from '../site/global.js';
 
     export default {
         props: ['data-product', 'data-user'],
         name: 'catalogProducts',
+        components: {
+            ModalContact
+        },
         data() {
             return {
                 imagem: '/imagens/produtos/400x400/' + this.dataProduct.imgPrincipal,
@@ -82,63 +60,9 @@
                     disabled: true,
                     parameter: 0,
                 },
-                dataContact: {
-                    remetente: '',
-                    destinatario: '',
-                    titulo: '',
-                    produto_id: 0,
-                    mensagem: ''
-                },
             }
         },
         methods: {
-            openContact: function(produto_id) {
-                this.dataContact.mensagem = '';
-
-                axios.post('/minha-conta/mensagem/create', {
-                    produto_id: produto_id
-                })
-                .then(response => {
-                    if (response.status != 200) {
-                        throw 'Error';
-                    }
-                    response = response.data
-                    this.dataContact.remetente = response.nome_remet;
-                    this.dataContact.destinatario = response.name;
-                    this.dataContact.titulo = response.titulo;
-                    this.dataContact.produto_id = produto_id;
-
-                    $('.modal-mensagem-' + this.dataProduct.id).modal();
-                })
-                .catch(error => {
-                    alertaPagina('Erro ao buscar dados.','danger');
-                    console.log(error)
-                })
-            },
-            sendContact: function() {
-                if (this.dataContact.mensagem == '') {
-                    alertaPagina('Campo mensagem não pode ser vazio','danger');
-                    return false;
-                }
-
-                axios.post('/minha-conta/mensagem/store', {
-                    produto_id: this.dataContact.produto_id,
-                    mensagem: this.dataContact.mensagem
-                })
-                .then(response => {
-                    if (response.status == 201) {
-                        alertaPagina('Mensagem enviada com sucesso.','success');
-                    }else{
-                        alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=1]','danger');
-                    }
-
-                    $('.modal-mensagem-' + this.dataProduct.id).modal('hide');
-                })
-                .catch(error => {
-                    alertaPagina('Erro ao enviar mensagem, tente novamente! [Cod=2]', 'danger');
-                    console.log(error)
-                })
-            },
             setFavorite: function(produto_id) {
                 if (produto_id == 0) {
                     alertaPagina('Necessário estar logado para favoritar.','danger');
@@ -176,28 +100,10 @@
                     this.favorite.class = 'inactive'
                     this.favorite.parameter = 0
                 }
-            },
-            verifyContact: function() {
-                if (this.dataUser.logged) {
-                    if (this.dataUser.id == this.dataProduct.user_id) {
-                        this.buttonContact.title = 'Este produto é seu';
-                        this.buttonContact.disabled = true;
-                        this.buttonContact.parameter = 0;
-                    } else {
-                        this.buttonContact.title = '';
-                        this.buttonContact.disabled = false;
-                        this.buttonContact.parameter = this.dataProduct.id;
-                    }
-
-                } else {
-                    this.buttonContact.title = 'Necessário estar logado';
-                }
             }
-
         },
         created: function() {
             this.verifyFavorite();
-            this.verifyContact();
         }
     }
 </script>

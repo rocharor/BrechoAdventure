@@ -1,67 +1,80 @@
 <template>
     <div class="box-product-zoom">
-        <div class='provisorio' v-for="image in images" :key="image">
-           <a :href="path + image">
-               <img :src="path + image">
-            </a>
-        </div>
-        <!-- <img class="xzoom" :src="image1" :xoriginal="image2">
+        <div class="row">
+            <div class="col-md-4">
+                <div class='img_main'>
+                    <img :src="imageMain + '?w=400'" :data-zoom="imageMain + '?w=1200'">
+                </div>
 
-        <div class="xzoom-thumbs">
-            <a :href="image.link" v-for="image in imageMini">
-                <img class="xzoom-gallery" width="80" :src="image.linkImage"  >
-            </a>
-        </div> -->
+                <div>
+                    <div class='img_mini' v-for="image in images" :key="image">
+                        <img :src="path + image" @click.prevent="defineImage(image)">
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-8 preview"></div>
+        </div>
     </div>
 </template>
 
 <script>
+    import Drift from 'drift-zoom';
+
     export default {
         props: ['images'],
         data() {
             return {
-                path: '/imagens/produtos/400x400/'
-            //     image1: '',
-            //     image2: '',
-            //     imageMini: []
+                path: '/imagens/produtos/400x400/',
+                imageMain: '',
             }
         },
         methods: {
-            // mountFirstImage: function () {
-            //     this.image1 = '/imagens/produtos/400x400/' + this.images[0]
-            //     this.image2 = '/imagens/produtos/600x600/' + this.images[0]
-            // },
-            // mountImagesPreview: function () {
-            //     var obj = {}
-            //     for (var i in this.images) {
-            //         obj = {
-            //             'link': '/imagens/produtos/600x600/' + this.images[i],
-            //             'linkImage': '/imagens/produtos/400x400/' + this.images[i],
-            //         }
-            //         this.imageMini.push(obj)
-            //     }
-            // }
+            mountFirstImage: function () {
+                this.defineImage(this.images[0])
+            },
+            defineImage: function (image) {
+                this.imageMain = this.path + image
+            },
         },
         created: function() {
-            // this.mountFirstImage()
-            // this.mountImagesPreview()
+            this.mountFirstImage()
         },
         mounted: function () {
-            /* Options */
-            // $('.xzoom, .xzoom-gallery').xzoom({ position: '#xzoom2-id', tint: '#ffa200', scroll: false });
+            new Drift(document.querySelector(".box-product-zoom .img_main > img"), {
+                paneContainer: document.querySelector('.preview'),
+                hoverBoundingBox: true,
+                touchBoundingBox: true,
+            });
+
         }
     }
 </script>
 
 <style media="screen">
-    /* .xzoom { margin-bottom: 10px; } */
-    .provisorio {
+    .box-product-zoom .img_main {
         width: 200px;
         height: 200px;
         margin-bottom: 10px;
+        cursor: zoom-in;
     }
-    .provisorio img {
+
+    .box-product-zoom .img_mini {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .box-product-zoom img {
         width: 100%;
         height: 100%
+    }
+
+    .box-product-zoom .preview {
+        width: 200px;
+        height: 200px;
+        background-image: url('https://cdn4.iconfinder.com/data/icons/software-menu-icons/256/SoftwareIcons-21-512.png');
+        background-size: cover;
     }
 </style>
