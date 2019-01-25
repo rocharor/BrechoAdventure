@@ -1,13 +1,14 @@
+import Breadcrumb from '../components/Breadcrumb.vue'
+
 var elementMessage = document.getElementById("el-message");
 
 if (elementMessage != null) {
-
     const { alertaPagina } = require('../site/global.js')
 
-    var appVueMsg = new Vue({
+    new Vue({
         el: '#el-message',
         components: {
-            'Breadcrumb': require('../components/Breadcrumb.vue'),
+            Breadcrumb
         },
         data: {
             aba: {

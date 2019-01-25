@@ -37,7 +37,7 @@
     import { alertaPagina } from '../site/global.js';
 
     export default {
-        props: ['product-id', 'icon'],
+        props: ['auth', 'product-id', 'icon'],
         name: 'modalContact',
         data() {
             return {
@@ -65,7 +65,13 @@
                     if (response.status != 200) {
                         throw 'Error';
                     }
+
                     response = response.data
+                    if (response.nome_remet == response.name) {
+                        alertaPagina('Você é o dono deste produto.','danger')
+                        return false
+                    }
+
                     this.dataContact.remetente = response.nome_remet;
                     this.dataContact.destinatario = response.name;
                     this.dataContact.titulo = response.titulo;
@@ -102,14 +108,14 @@
                     console.log(error)
                 })
             },
-            // verifyContact: function() {
-            //     if (this.auth == 1) {
-            //         this.buttonContact.disabled = false
-            //     }
-            // }
+            verifyContact: function() {
+                if (this.auth == 1) {
+                    this.buttonContact.disabled = false
+                }
+            }
         },
         created: function() {
-            // this.verifyContact();
+            this.verifyContact();
         }
     };
 </script>

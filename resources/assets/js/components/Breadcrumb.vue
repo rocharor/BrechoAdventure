@@ -2,7 +2,7 @@
     <div>
         <ol class="breadcrumb">
             <li><a href="/"><span class='glyphicon glyphicon-home'> Home</span></a></li>
-            <li class="active" v-for="breadcrumb in dataBreadcrumb">{{ breadcrumb }}</li>
+            <li class="active" v-for="breadcrumb in dataBreadcrumb" :key="breadcrumb">{{ breadcrumb }}</li>
         </ol>
     </div>
 </template>

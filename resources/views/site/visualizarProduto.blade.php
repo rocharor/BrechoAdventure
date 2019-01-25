@@ -2,8 +2,6 @@
 @section('content')
     <div id='el-view-products' class='hide'>
 
-        <link type="text/css" rel="stylesheet" href="/plugins/xzoom/dist/xzoom.css" />
-
         {{-- BREADCRUMB --}}
         <div>
             <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
@@ -33,7 +31,7 @@
                 <hr style="border-color: #ddd;">
 
                 <div>
-                    <modal-contact :product-id="{{ $produto->id }}" :icon="false"/>
+                <modal-contact :auth="{{ Auth::check() ? 1 : 0 }}" :product-id="{{ $produto->id }}" :icon="false"/>
                 </div>
 
 

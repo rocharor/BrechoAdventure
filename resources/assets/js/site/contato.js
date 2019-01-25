@@ -1,11 +1,15 @@
+import Breadcrumb from '../components/Breadcrumb.vue'
+
 var elementContact = document.getElementById("el-contact")
 
 if (elementContact != null) {
-
     const { alertaPagina } = require('../site/global.js')
 
     new Vue({
         el:'#el-contact',
+        components: {
+            Breadcrumb
+        },
         data: {
             dataContact: {
                 name: '',
@@ -24,9 +28,6 @@ if (elementContact != null) {
                 this.imgLoader = true
                 document.getElementById("myForm").submit()
             },
-        },
-        components: {
-            'Breadcrumb': require('../components/Breadcrumb.vue'),
         },
         created: function(){
             elementContact.classList.remove("hide")

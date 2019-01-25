@@ -18,9 +18,7 @@
 
         <div class='box-buttons'>
             <a :href="link" class='btn btn-warning'><b>Ver detalhes</b></a>
-            <!-- <div> -->
-                <modal-contact :product-id="dataProduct.id" :icon="true"/>
-            <!-- </div> -->
+            <modal-contact :auth="auth" :product-id="dataProduct.id" :icon="true"/> 
         </div>
     </div>
 </template>
@@ -42,7 +40,7 @@
     import { alertaPagina } from '../site/global.js';
 
     export default {
-        props: ['data-product', 'data-user'],
+        props: ['data-product', 'data-user', 'auth'],
         name: 'catalogProducts',
         components: {
             ModalContact

@@ -1,11 +1,14 @@
+import Breadcrumb from '../components/Breadcrumb.vue'
+import Product from '../components/Product.vue'
+
 var elementProduct = document.getElementById("el-product")
 
 if (elementProduct != null) {
    new Vue({
         el:'#el-product',
         components: {
-            'Product': require('../components/Product.vue'),
-            'Breadcrumb': require('../components/Breadcrumb.vue'),
+            Product,
+            Breadcrumb
         },
         created:function () {
             elementProduct.classList.remove("hide")
