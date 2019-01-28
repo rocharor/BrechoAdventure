@@ -9,7 +9,7 @@ require('./site/produto')
 require('./site/contato.js')
 require('./site/productView.js')
 require('./site/mensagem.js')
-// require('./site/perfil.js')
+require('./site/perfil.js')
 // // require('./site/favorito.js')
 
 window.onload =  function () {

@@ -1,29 +1,28 @@
 @extends('template')
 
 @section('content')
+    <div id='el-profile' class='hide'>
 
-	<!--BREADCRUMB-->
-    <div id='breadcrumb'>
-        <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
-    </div>
+        {{-- BREADCRUMB --}}
+        <div id='breadcrumb'>
+            <breadcrumb :data-breadcrumb="{{ $breadCrumb }}"/>
+        </div>
 
-    <div align="center" style="border:solid 0px;">
-        <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil">
+        <div align="center">
+            {{-- <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil"> --}}
+            <upload-crop-image :name-image="{{ json_encode(Auth::user()->nome_imagem) }}" />
+        </div>
 
-        <upload-crop-image />
-    </div>
+        <br>
 
-    <br>
-
-    <div id='el-form'>
-        <div class="formulario">
-            @include('complements/exibeErro')
+        <div class="formulario hide">
+            {{-- @include('complements/exibeErro')
 
             @if (session('status'))
                 <div class="alert alert-success">
                     {{ session('status') }}
                 </div>
-            @endif
+            @endif --}}
 
             <form action='{{ Route('minha-conta.update-perfil') }}' name='formPerfil' id='formPerfil'  method="POST">
                 {{ csrf_field() }}
@@ -90,36 +89,37 @@
 
             <hr>
 
-            <button type="button" class="btn btn-primary" :class='{hide: btnForm == false}' @click.prevent='openAlterPassword()'>Redefinir de senha</button>
+            {{-- <button type="button" class="btn btn-primary" :class='{hide: btnForm == false}' @click.prevent='openAlterPassword()'>Redefinir de senha</button> --}}
 
-            <div :class='{hide: divAlterPassword == false}' >
+            {{-- <div :class='{hide: divAlterPassword == false}' >
                 <form class="form-horizontal" role="form" method="POST" action="{{ Route('minha-conta.update-password') }}">
                     {{ csrf_field() }}
-					<table>
-						<tr>
-							<td><label>Senha Atual: </label></td>
-							<td><input type='password' name='old_password' class="form-control"/></td>
-						</tr>
-						<tr>
-							<td><label>Nova Senha: </label></td>
-							<td><input type='password' name='new_password' class="form-control"/></td>
-						</tr>
-						<tr>
-							<td><label>Confirme a Senha: &nbsp;</label></td>
-							<td><input type='password' name='confirm_password' class="form-control"/></td>
-						</tr>
-						<tr>
-							<td>&nbsp;</td>
-						</tr>
-						<tr>
-							<td colspan='2' align='center'>
-								<button type="submit" class="btn btn-success">Salvar</button>
-								<button type="submit" class="btn btn-danger" @click.prevent='closeAlterPassword()'>Cancelar</button>
-							</td>
-						</tr>
-					</table>
+                    <table>
+                        <tr>
+                            <td><label>Senha Atual: </label></td>
+                            <td><input type='password' name='old_password' class="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Nova Senha: </label></td>
+                            <td><input type='password' name='new_password' class="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td><label>Confirme a Senha: &nbsp;</label></td>
+                            <td><input type='password' name='confirm_password' class="form-control"/></td>
+                        </tr>
+                        <tr>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td colspan='2' align='center'>
+                                <button type="submit" class="btn btn-success">Salvar</button>
+                                <button type="submit" class="btn btn-danger" @click.prevent='closeAlterPassword()'>Cancelar</button>
+                            </td>
+                        </tr>
+                    </table>
                 </form>
-            </div>
+            </div> --}}
         </div>
+
     </div>
 @endsection

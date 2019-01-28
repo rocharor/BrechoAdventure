@@ -1,7 +1,15 @@
-var elemento = document.getElementById("el-form");
-if (elemento != null) {
-    var appVuePerfil = new Vue({
-        el:'#el-form',
+import Breadcrumb from '../components/Breadcrumb.vue'
+import UploadCropImage from '../components/UploadCropImage.vue'
+
+var elementProfile = document.getElementById("el-profile")
+
+if (elementProfile != null) {
+    new Vue({
+        el:'#el-profile',
+        components: {
+            Breadcrumb,
+            UploadCropImage,
+        },
         data:{
             hide:{
                 content:true,
@@ -21,7 +29,7 @@ if (elemento != null) {
             }
         },
         created: function () {
-            this.hide.content = false;
+            elementProfile.classList.remove("hide")
         }
     })
 }
