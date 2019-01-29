@@ -96,42 +96,13 @@ class PerfilController extends Controller
 
                 $ret =  Auth::user()->update(['nome_imagem'=>$novoNome]);
                 if ($ret) {
-                    return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
+                    // return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
+                    return 1;
                 }
             }
         }
-        return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
-
-        /*
-        // $arquivo_file = $request->file('imagemPerfil');
-        $foto_salva = false;
-        if ($request->hasFile('imagemPerfil') && $request->file('imagemPerfil')->isValid()){
-            $ext = $request->imagemPerfil->extension();
-            if($this->validaExtImagem($ext)){
-                // $path = $request->imagemPerfil->store('imagens/cadastro'); //envia as imagens para a pasta Storage/app
-                // $path = $request->imagemPerfil->storeAs('imagens/cadastro', $foto_nome); // mesma coisa só que pode setar o nome
-                $foto_nome = Auth::user()->id . '_' . date('d-m-Y_h_i_s') . '.' . $ext;
-                $foto_salva = $request->imagemPerfil->move(public_path("imagens/cadastro"), $foto_nome);
-            }
-        }
-
-        if ($foto_salva) {
-            $imagemAntiga = Auth::user()->nome_imagem;
-            if($imagemAntiga != 'padrao.jpg'){
-                $filename = public_path("imagens\cadastro\\" . $imagemAntiga);
-                File::delete($filename);
-            }
-
-            $r = $user->find(Auth::user()->id);
-            $ret =  $r->update(['nome_imagem'=>$foto_nome]);
-                if ($ret) {
-                    return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
-                }
-        }
-
-        return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
-        // return redirect()->action('MinhaConta\PerfilController@index', $retorno);
-        */
+        // return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+        return 0;
     }
 
     /**     

@@ -1,8 +1,6 @@
 <template>
     <div class='box-upload'>
-
         <link rel="stylesheet" href="/node_modules/croppr/dist/croppr.min.css">
-
         <div class='img_official'>
             <img :src="imageMain" alt="brechoAdventure" class="img_perfil">
             <br>
@@ -12,18 +10,11 @@
         </div>
 
         <div class="img_preview" :class="{hide: hidePreview}">
-            <input type="hidden" id="x" name="x">
-            <input type="hidden" id="y" name="y">
-            <input type="hidden" id="w" name="w">
-            <input type="hidden" id="h" name="h">
-
             <p><span class="label label-warning"><b class='text-danger'>Selecione onde quer cortar a imagem.</b></span></p>
-
-            <div id="image_alter"></div>
+            <img id="target" alt="Foto perfil" />
             <br>
             <input type='button' class='btn btn-success' value='Recortar Imagem' @click.prevent="checkImage()">
             <input type='button' class='btn btn-danger' value='Cancelar' @click.prevent='cancelImage()'>
-
             <!-- <span class='label label-warning instrucao' :class='{hide: hideInstruction}'><b class='text-danger'>Extenções permitidas ( jpg, png ), dimenção permitida de até (600 x 400) e tamanho permitido de até 1Mb </b></span> -->
         </div>
     </div>
@@ -40,8 +31,14 @@
                 path: '/imagens/cadastro/',
                 imageMain: '',
                 file: '',
+                measures: {
+                    x: 0,
+                    y: 0,
+                    w: 0,
+                    h: 0,
+                },
                 hidePreview: 1,
-                hideInstruction: 0,
+                // hideInstruction: 0,
             }
         },
         methods: {
@@ -54,23 +51,23 @@
             selectImage: function () {
                 this.hidePreview = 0
                 this.file = document.getElementById("select_image")
-                this.alterImageProfile();
+                this.openPreview();
             },
-            alterImageProfile: function(){
+            openPreview: function(){
+                const self = this
                 document.getElementsByClassName("img_official")[0].classList.add("hide")
                 var reader = new FileReader;
-                reader.onload = function() {
-                    var html = '<img src="' + reader.result + '" id="target" alt="Foto perfil" />'
-                    document.getElementById("image_alter").innerHTML = html
+                reader.onload = function(event) {
+                    document.getElementById("target").src = reader.result
                     document.getElementsByClassName("img_preview")[0].classList.remove("hide")
 
                     var croppr = new Croppr('#target', {
                         startSize: [0, 0, '%'],
                         onCropMove: function onCropMove(value) {
-                            document.getElementById("x").value = value.x;
-                            document.getElementById("y").value = value.y;
-                            document.getElementById("w").value = value.width;
-                            document.getElementById("h").value = value.height;
+                            self.measures.x = value.x
+                            self.measures.y = value.y
+                            self.measures.w = value.width
+                            self.measures.h = value.height
                         }
                     });
                 }
@@ -82,8 +79,7 @@
                 document.getElementsByClassName("img_official")[0].classList.remove("hide")
             },
             checkImage: function () {
-                var value = document.getElementById("w").value
-                if (parseInt(value) <= 0 || value == ''){
+                if (parseInt(this.measures.w) <= 0 || this.measures.w == ''){
                     alertaPagina('Selecione a área para recorte.','danger');
                     return false;
                 }
@@ -91,26 +87,29 @@
                 this.sendImage()
             },
             sendImage: function () {
-
-                var bodyFormData = new FormData();
-                bodyFormData.set('x', document.getElementById("x").value);
-                bodyFormData.set('y', document.getElementById("y").value);
-                bodyFormData.set('w', document.getElementById("w").value);
-                bodyFormData.set('h', document.getElementById("h").value);
-                bodyFormData.append('imagemCrop', this.file.files[0]);
-
                 var config = {headers: {'Content-Type': 'multipart/form-data' }}
+                var bodyFormData = new FormData()
+                bodyFormData.set('x', this.measures.x)
+                bodyFormData.set('y', this.measures.y)
+                bodyFormData.set('w', this.measures.w)
+                bodyFormData.set('h', this.measures.h)
+                bodyFormData.append('imagemCrop', this.file.files[0])
 
-                axios.post('/minha-conta/perfil/update-Foto', bodyFormData, config)
-                .then(retorno => {
+                axios.post(
+                    '/minha-conta/perfil/update-Foto',
+                    bodyFormData,
+                    config
+                ).then(response => {
+                    if (response.data == 0) {
+                        throw 'Erro ao salvar imagem.'
+                    }
+
                     alertaPagina('Salvo com sucesso.','success');
-
                     setTimeout(function () {
                         window.location.reload()
                     }, 1500);
-                })
-                .catch(error => {
-                    alertaPagina('Erro.','danger');
+                }).catch(error => {
+                    alertaPagina(error,'danger');
                 })
             },
         },
