@@ -28,7 +28,7 @@
         props: ['name-image'],
         data() {
             return {
-                path: '/imagens/cadastro/',
+                path: '/images/profile/',
                 imageMain: '',
                 file: '',
                 measures: {

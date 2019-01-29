@@ -11,7 +11,7 @@
         <meta name="keywords" content="Brecho Adventure"/>
 		<meta name="csrf-token" content="{{ csrf_token() }}">
 
-		<link rel="shortcut icon" href="/imagens/favicon.ico" type="image/x-icon" />
+		<link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
 
         <title>{{ config('app.name', 'Brechó Adventure') }}</title>
 

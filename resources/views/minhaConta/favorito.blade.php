@@ -23,7 +23,8 @@
 	    	        <tr>
 	    	            <td>{{ $favorito->produto->titulo }}</td>
 	    	            <td>{{ $favorito->produto->descricao }}</td>
-	                    <td><img src="/imagens/produtos/200x200/{{ $favorito->produto->imgPrincipal }}" width="60px" height="60px"/></td>
+	                    {{-- <td><img src="/imagens/produtos/200x200/{{ $favorito->produto->imgPrincipal }}" width="60px" height="60px"/></td> --}}
+	                    <td><img src="/images/products/{{ $favorito->produto->imgPrincipal }}" width="60px" height="60px"/></td>
 	                    <td>R$ {{ $favorito->produto->valor }}</td>
 
 	    	            <td><a  href='{{ Route('visualizar-produto',$favorito->produto->slug) }}' class="btn btn-primary"><span class="glyphicon glyphicon-eye-open"></span></a></td>

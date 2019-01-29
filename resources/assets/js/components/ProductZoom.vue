@@ -25,7 +25,7 @@
         props: ['images'],
         data() {
             return {
-                path: '/imagens/produtos/400x400/',
+                path: '/images/products/',
                 imageMain: '',
             }
         },

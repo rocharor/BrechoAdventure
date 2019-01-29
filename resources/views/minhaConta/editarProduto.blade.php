@@ -76,7 +76,8 @@
                     @if ($imagem != 'sem-imagem.gif')
                         <button class="btn btn-danger" @click.prevent="deletePhoto('{{ $imagem }}', {{ $produto->id }})" style="position: absolute;">X</button>
                     @endif
-        			<img class="img-thumbnail" src="/imagens/produtos/400x400/{{ $imagem }}" alt="" style="width: 100%; height: 100%;">
+        			{{-- <img class="img-thumbnail" src="/imagens/produtos/400x400/{{ $imagem }}" alt="" style="width: 100%; height: 100%;"> --}}
+        			<img class="img-thumbnail" src="/images/products/{{ $imagem }}" alt="" style="width: 100%; height: 100%;">
         		</div>
             @endforeach
             <br>

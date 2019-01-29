@@ -9,7 +9,6 @@
         </div>
 
         <div align="center">
-            {{-- <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem }}" alt="brechoAdventure" class="img_perfil"> --}}
             <upload-crop-image :name-image="{{ json_encode(Auth::user()->nome_imagem) }}" />
         </div>
 

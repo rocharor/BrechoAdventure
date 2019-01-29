@@ -1,7 +1,7 @@
 {{-- WEB --}}
 <div class="menu hidden-xs">
     <div class='topo_esquerdo '>
-        <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo'>
+        <img src="/images/logo.jpg" alt="Brecho Aventure" class='img_logo'>
         <nav class="links">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('produtos') }}">Produtos</a>
@@ -18,7 +18,7 @@
         @else
             <nav class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
+                    <img src="/images/profile/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="mask img-circle" align='center'><span class="">Minha <br />Conta</span></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
@@ -50,7 +50,7 @@
 {{-- MOBILE --}}
 <div class="menu-mobile hidden-sm hidden-md hidden-lg">
     <div class='topo_esquerdo '>
-        <img src="/imagens/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
+        <img src="/images/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         <nav class="links" style="font-size:7px">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
             <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('produtos',1) }}">Produtos</a>
@@ -72,7 +72,7 @@
         @else
             <nav class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/imagens/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
+                    <img src="/images/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="img-circle" align='center'></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
@@ -114,13 +114,13 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="/imagens/banner.jpg" alt="Brechó Adventure">
+                    <img src="/images/banner.jpg" alt="Brechó Adventure">
                 </div>
                 <div class="item">
-                    <img src="/imagens/banner2.jpg" alt="Brechó Adventure">
+                    <img src="/images/banner2.jpg" alt="Brechó Adventure">
                 </div>
                 <div class="item">
-                    <img src="/imagens/banner3.jpg" alt="Brechó Adventure">
+                    <img src="/images/banner3.jpg" alt="Brechó Adventure">
                 </div>
             </div>
             <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
@@ -144,13 +144,13 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
-                    <img src="/imagens/banner.jpg" alt="Brechó Adventure">
+                    <img src="/images/banner.jpg" alt="Brechó Adventure">
                 </div>
                 <div class="item">
-                    <img src="/imagens/banner2.jpg" alt="Brechó Adventure">
+                    <img src="/images/banner2.jpg" alt="Brechó Adventure">
                 </div>
                 <div class="item">
-                    <img src="/imagens/banner3.jpg" alt="Brechó Adventure">
+                    <img src="/images/banner3.jpg" alt="Brechó Adventure">
                 </div>
             </div>
             <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">

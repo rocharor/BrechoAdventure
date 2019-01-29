@@ -91,7 +91,7 @@
         props: ['product'],
         data() {
             return {
-                image: '/imagens/produtos/400x400/' + this.product.imgPrincipal,
+                image: '/images/products/' + this.product.imgPrincipal,
                 linkEdit: '/minha-conta/produto/editar-produto/' + this.product.slug,
                 linkView: '/produtos/visualizar-produto/' + this.product.slug,
             }

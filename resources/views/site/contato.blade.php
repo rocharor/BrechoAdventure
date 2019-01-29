@@ -37,7 +37,7 @@
 
 				<div class="form-group">
 					<input type="submit" value="Enviar" class="btn btn-success" >
-					<img src="/imagens/ajax-loader.gif" class="carregando" :class="{hide: imgLoader == false}" />
+					<img src="/images/ajax-loader.gif" class="carregando" :class="{hide: imgLoader == false}" />
 				</div>
 			</form>
 		</div>

@@ -3,14 +3,13 @@
 namespace App\Services;
 
 use Illuminate\Http\Request;
-use Image;
-use File;
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
 
 trait UploadImagem
 {
-    public $pathPerfil = 'imagens/cadastro/';
-    public $pathProduto = 'imagens/produtos/400x400/';
-    public $pathProdutoGG = 'imagens/produtos/600x600/';
+    public $pathProfile = 'images/profile/';
+    public $pathProduct = 'images/products/';
     public $w = 0;
     public $h = 0;
     public $x = 0;
@@ -25,7 +24,7 @@ trait UploadImagem
     {
         if ($this->validaExtImagem($file->extension())){
             $fileName  = time() . '_' . $file->hashName();
-            $path = public_path($this->pathPerfil . $fileName);
+            $path = public_path($this->pathProfile . $fileName);
             $retorno = Image::make($file->getRealPath())->crop($this->w, $this->h, $this->x, $this->y)->save($path);
 
             if ($retorno) {
@@ -37,7 +36,7 @@ trait UploadImagem
 
     public function deleteImagemPerfil($nomeImagem)
     {
-        $filename = $this->pathPerfil . $nomeImagem;
+        $filename = $this->pathProfile . $nomeImagem;
         return $this->deleteImagem($filename);
     }
 
@@ -46,13 +45,11 @@ trait UploadImagem
         if ($this->validaExtImagem($file->extension())){
             $fileName  = time() . '_' . $file->hashName();
 
-            $path = public_path($this->pathProduto . $fileName);
-            $pathGG = public_path($this->pathProdutoGG . $fileName);
+            $path = public_path($this->pathProduct . $fileName);
 
             $retorno = Image::make($file->getRealPath())->resize(400, 400)->save($path);
-            $retornoGG = Image::make($file->getRealPath())->resize(600, 600)->save($pathGG);
 
-            if ($retorno && $retornoGG) {
+            if ($retorno) {
                 return $fileName;
             }
         }
@@ -61,9 +58,8 @@ trait UploadImagem
 
     public function deleteImagemProduto($nomeImagem)
     {
-        $filename400 = $this->pathProduto . $nomeImagem;
-        $filename600 = $this->pathProdutoGG . $nomeImagem;
-        return $this->deleteImagem([$filename400, $filename600]);
+        $filename = $this->pathProduct . $nomeImagem;
+        return $this->deleteImagem([$filename]);
     }
 
     private function deleteImagem($fileName)

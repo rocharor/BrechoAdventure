@@ -21,7 +21,7 @@
             }
             .img_top{
                 float:left;
-                background-image: url("http://brechoadventure.com/imagens/logo.jpg");
+                background-image: url("http://brechoadventure.com/images/logo.jpg");
                 background-size: cover;
                 width: 100px;
                 height: 60px;

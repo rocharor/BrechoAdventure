@@ -1,11 +1,11 @@
-public/imagens/cadastro/*
-public/imagens/produtos/400x400/*
-public/imagens/produtos/600x600/*
+public/images/products/*
+public/images/profile/*
 !sem-imagem.jpg
 !sem-imagem.gif
-/public/plugins/*
 /public/css/*
 /public/js/*
 node_modules/
 /vendor
 .env
+composer.lock
+package-lock.json

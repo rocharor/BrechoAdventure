@@ -18,7 +18,7 @@
 
         <div class='box-buttons'>
             <a :href="link" class='btn btn-warning'><b>Ver detalhes</b></a>
-            <modal-contact :auth="auth" :product-id="dataProduct.id" :icon="true"/> 
+            <modal-contact :auth="auth" :product-id="dataProduct.id" :icon="true"/>
         </div>
     </div>
 </template>
@@ -47,7 +47,7 @@
         },
         data() {
             return {
-                imagem: '/imagens/produtos/400x400/' + this.dataProduct.imgPrincipal,
+                imagem: '/images/products/' + this.dataProduct.imgPrincipal,
                 link: '/produtos/visualizar-produto/' + this.dataProduct.slug,
                 favorite: {
                     class: '',

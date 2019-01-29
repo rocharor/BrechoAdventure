@@ -37,7 +37,8 @@
                     @foreach ($conversas_enviadas as $key=>$conversa)
                         <tr>
                             <td>{{ $conversa['produto']->titulo }}</td>
-                            <td><img src='/imagens/produtos/400x400/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></td>
+                            {{-- <td><img src='/imagens/produtos/400x400/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></td> --}}
+                            <td><img src='/images/products/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></td>
                             <td><button class="btn btn-danger" @click.prevent="excluiConversa({{ $conversa['mensagens'][0]->conversa_id }})">X</button></td>
                             <td><button class='btn btn-warning' @click.prevent="openTalk({{ $conversa['mensagens'][0]->conversa_id }})"><small>Responder</small></button></td>
                             <td>
@@ -84,7 +85,8 @@
                         @foreach ($conversas_recebidas as $conversa)
                             <tr>
                                 <td>{{ $conversa['produto']->titulo }}</td>
-                                <td><img src='/imagens/produtos/400x400/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></td>
+                                {{-- <td><img src='/imagens/produtos/400x400/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></td> --}}
+                                <td><img src='/images/products/{{ $conversa['produto']->imgPrincipal }}' width='100' height='100' /></td>
                                 <td><button class="btn btn-danger" @click.prevent="excluiConversa({{ $conversa['mensagens'][0]->conversa_id }})">X</button></td>
                                 <td><button class='btn btn-warning' @click.prevent="openTalk({{ $conversa['mensagens'][0]->conversa_id }})"><small>Responder</small></button></td>
                                 <td>
