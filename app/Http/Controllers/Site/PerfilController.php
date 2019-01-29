@@ -83,7 +83,6 @@ class PerfilController extends Controller
     public function updateFoto(Request $request)
     {
         if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid() && $request->h > 0 && $request->w > 0){
-            // $novoNome = $this->salvarFotoRedimensionado($request->imagemCrop, 'imagens/cadastro/',  $request->h, $request->w, $request->x, $request->y);
             $this->w = $request->w;
             $this->h = $request->h;
             $this->x = $request->x;

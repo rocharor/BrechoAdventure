@@ -15,7 +15,7 @@
 
         <br>
 
-        <div class="formulario hide">
+        <div class="formulario">
             {{-- @include('complements/exibeErro')
 
             @if (session('status'))
