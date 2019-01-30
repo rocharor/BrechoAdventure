@@ -9,9 +9,10 @@ require('./site/produto')
 require('./site/contato.js')
 require('./site/productView.js')
 require('./site/mensagem.js')
-require('./site/perfil.js')
+require('./site/profile.js')
 // // require('./site/favorito.js')
 
+// Flash Message
 window.onload =  function () {
     var msgSession = document.body.dataset.message
     if (msgSession != '') {

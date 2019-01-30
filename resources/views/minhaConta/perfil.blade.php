@@ -40,7 +40,7 @@
                     </tr>
                     <tr>
                         <td><label>CEP: </label> </td>
-                        <td><input type="text" id='cep' name='cep' class="form-control" style="width: 150px;" value="{{ Auth::user()->cep }}" onblur="buscaCEP(this.value)"/></td>
+                        <td><input type="text" id='cep' name='cep' class="form-control" style="width: 150px;" value="{{ Auth::user()->cep }}" @blur="searchCep()" /></td>
                     </tr>
                     <tr>
                         <td><label>Endere&ccedil;o: </label> </td>

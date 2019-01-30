@@ -72,7 +72,7 @@
         @else
             <nav class="btn-group">
                 <a class="dropdown-toggle box" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <img src="/images/cadastro/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
+                    <img src="/images/profile/{{ Auth::user()->nome_imagem}}" alt="Brecho Aventure" title="Minha conta" class="imagem_login img-circle">
                     <div class="img-circle" align='center'></div>
                 </a>
                 <ul class="dropdown-menu menu_logado">
