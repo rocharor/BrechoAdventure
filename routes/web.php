@@ -25,7 +25,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     ### Links ###
     Route::get('/favorito/{pg?}',['as'=>'meus-favorito','uses'=>'Site\FavoriteController@index']);
 
-    Route::get('/perfil',['as'=>'perfil','uses'=>'Site\PerfilController@index']);
+    Route::get('/profile',['as'=>'profile','uses'=>'Site\ProfileController@index']);
 
     Route::get('/produto/create',['as'=>'create-produto','uses'=>'Site\MyProductsController@create']);
     Route::get('/produto/editar-produto/{param}',['as'=>'editar-produto', 'middleware' => ['CheckAuthProduct'], 'uses'=>'Site\MyProductsController@edit']);
@@ -37,9 +37,9 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/favorito/storeFavorito',['as'=>'storeFavorito','uses'=>'Site\FavoriteController@store']);
     Route::get('/favorito/delete/{id}',['as'=>'delete-favorito','middleware' => ['CheckAuthFavorite'], 'uses'=>'Site\FavoriteController@delete']);
 
-    Route::post('/perfil/update',['as'=>'update-perfil','uses'=>'Site\PerfilController@update']);
-    Route::post('/perfil/update-Foto',['as'=>'update-foto','uses'=>'Site\PerfilController@updateFoto']);
-    Route::post('/perfil/update-password',['as'=>'update-password','uses'=>'Site\PerfilController@updatePassword']);
+    Route::post('/profile/update',['as'=>'update-profile','uses'=>'Site\ProfileController@update']);
+    Route::post('/profile/update-Foto',['as'=>'update-foto','uses'=>'Site\ProfileController@updateFoto']);
+    Route::post('/profile/update-password',['as'=>'update-password','uses'=>'Site\ProfileController@updatePassword']);
 
     Route::get('/produto/inativar/{id}',['as'=>'inativar-produto','uses'=>'Site\MyProductsController@inactivate']);
     Route::get('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\MyProductsController@delete']);

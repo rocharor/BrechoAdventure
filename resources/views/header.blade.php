@@ -26,7 +26,7 @@
                         <a {{ Request::route()->getName() == 'minha-conta.create-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.create-produto') }}">Cadastrar Produto</a>
                     </li>
                     <li>
-                        <a {{ Request::route()->getName() == 'minha-conta.perfil' ? 'class=active' : '' }} href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a>
+                        <a {{ Request::route()->getName() == 'minha-conta.profile' ? 'class=active' : '' }} href="{{ Route('minha-conta.profile') }}">Meu Perfil</a>
                     </li>
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.meus-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.meus-produto') }}">Meus Produtos</a>
@@ -80,7 +80,7 @@
                         <a {{ Request::route()->getName() == 'minha-conta.create-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.create-produto') }}">Cadastrar Produtos</a>
                     </li>
                     <li>
-                        <a {{ Request::route()->getName() == 'minha-conta.perfil' ? 'class=active' : '' }} href="{{ Route('minha-conta.perfil') }}">Meu Perfil</a>
+                        <a {{ Request::route()->getName() == 'minha-conta.profile' ? 'class=active' : '' }} href="{{ Route('minha-conta.profile') }}">Meu Perfil</a>
                     </li>
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.meus-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.meus-produto') }}">Meus Produtos</a>

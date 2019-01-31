@@ -1,3 +1,5 @@
+const notify = require('bootstrap-notify')
+
 /**
  * [Gera um alerta no topo da página]
  * @param  {[type]} texto  [Texto do alerta]

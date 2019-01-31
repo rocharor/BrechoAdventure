@@ -23,7 +23,7 @@
                 </div>
             @endif --}}
 
-            <form action='{{ Route('minha-conta.update-perfil') }}' name='formPerfil' id='formPerfil'  method="POST">
+            <form action='{{ Route('minha-conta.update-profile') }}' name='formPerfil' id='formPerfil'  method="POST">
                 {{ csrf_field() }}
                 <table class="table table-striped">
                     <tr>
@@ -88,10 +88,10 @@
 
             <hr>
 
-            {{-- <button type="button" class="btn btn-primary" :class='{hide: btnForm == false}' @click.prevent='openAlterPassword()'>Redefinir de senha</button> --}}
+            <button type="button" class="btn btn-primary" :class='{hide: btnForm == false}' @click.prevent='openAlterPassword()'>Redefinir de senha</button>
 
-            {{-- <div :class='{hide: divAlterPassword == false}' >
-                <form class="form-horizontal" role="form" method="POST" action="{{ Route('minha-conta.update-password') }}">
+            <div :class='{hide: divAlterPassword == false}' >
+                <form class="form-horizontal" role="form" method="post" action="{{ Route('minha-conta.update-password') }}" @submit="validate">
                     {{ csrf_field() }}
                     <table>
                         <tr>
@@ -117,7 +117,7 @@
                         </tr>
                     </table>
                 </form>
-            </div> --}}
+            </div>
         </div>
 
     </div>

@@ -10,14 +10,9 @@ use App\Services\UploadImagem;
 use DB;
 use Illuminate\Support\Facades\Hash;
 
-class PerfilController extends Controller
+class ProfileController extends Controller
 {
     use UploadImagem;
-
-    public function __construct()
-    {
-        //$this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -30,7 +25,7 @@ class PerfilController extends Controller
 
         Auth::user()->dt_nascimento = preg_replace("/([0-9]*)-([0-9]*)-([0-9]*)/", "$3/$2/$1", Auth::user()->dt_nascimento);
 
-        return view('minhaConta/perfil',[
+        return view('minhaConta/profile',[
             'estados'=>$estados,
             'breadCrumb' => $this->getBreadCrumb()
         ]);
@@ -67,10 +62,17 @@ class PerfilController extends Controller
         $retorno = Auth::user()->save();
 
         if($retorno){
-            return redirect()->route('minha-conta.perfil')->with('sucesso','Dados salvos com sucesso.');
+            return redirect()->route('minha-conta.profile')->with('flashMessage', [
+                    'message' => 'Dados salvos com sucesso.',
+                    'type' => 'success'
+                ]
+            );
         }
 
-        return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
+        return redirect()->route('minha-conta.profile')->with('flashMessage', [
+            'message' => 'Erro ao alterar imagem , tente novamente!',
+            'type' => 'danger'
+        ]);
     }
 
     /**
@@ -96,12 +98,10 @@ class PerfilController extends Controller
 
                 $ret =  Auth::user()->update(['nome_imagem'=>$novoNome]);
                 if ($ret) {
-                    // return redirect()->route('minha-conta.perfil')->with('sucesso','Foto alterada com sucesso.');
                     return 1;
                 }
             }
         }
-        // return redirect()->route('minha-conta.perfil')->with('erro','Erro ao alterar imagem , tente novamente!');
         return 0;
     }
 
@@ -113,20 +113,27 @@ class PerfilController extends Controller
      */
     public function updatePassword(Request $request)
     {
-        
         if (Hash::check($request->old_password, Auth::user()->password)){
             if ($request->new_password === $request->confirm_password) {
                 Auth::user()->fill([
                     'password' => Hash::make($request->new_password)
                 ])->save();
 
-                return redirect()->route('minha-conta.perfil')->with('sucesso','Senha alterada com sucesso.');
+                return redirect()->route('minha-conta.profile')->with('flashMessage', [
+                    'message' => 'Senha alterada com sucesso.',
+                    'type' => 'success'
+                ]);
             }else{
-                 return redirect()->route('minha-conta.perfil')->with('erro','As senhas novas não conferem.');
+                return redirect()->route('minha-conta.profile')->with('flashMessage', [
+                    'message' => 'As senhas novas não conferem.',
+                    'type' => 'danger'
+                ]);
             }
-            
         }else{
-             return redirect()->route('minha-conta.perfil')->with('erro','Senha atual incorreta.');
+            return redirect()->route('minha-conta.profile')->with('flashMessage', [
+                'message' => 'Senha atual incorreta.',
+                'type' => 'danger'
+            ]);
         }
     }
 }
