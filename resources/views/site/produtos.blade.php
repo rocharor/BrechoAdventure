@@ -22,9 +22,9 @@
 
                     <br style="clear:both">
 
-                    {{-- PAGINAÇÃO --}}
+                    <!--PAGINAÇÃO-->
                     <div align='center'>
-                        @include('complements/paginacao')
+                        <pagination pg="{{ $pg }}" link="{{ $link }}" number-pages="{{ $numberPages }}" />
                     </div>
                 </div>
             </div>

@@ -40,7 +40,7 @@ trait UploadImagem
         return $this->deleteImagem($filename);
     }
 
-    public function imagemProduto($file)
+    public function uploadImageProduct($file)
     {
         if ($this->validaExtImagem($file->extension())){
             $fileName  = time() . '_' . $file->hashName();

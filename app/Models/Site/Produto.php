@@ -15,10 +15,11 @@ class Produto extends Model
     use SoftDeletes, Util;
 
     protected $table = 'produtos';
+    protected $fillable = ['user_id', 'categoria_id', 'titulo', 'slug', 'descricao', 'valor', 'estado', 'nm_imagem'];
     protected $dates = ['deleted_at'];
     public $paginacao = false;
     public $pagina = 1;
-    public $totalPagina = 12;
+    public $totalPagina = 8;//12;
     public $parametros = [];
 
     /*Relacionamentos (inverso) (1 para muitos) */
@@ -54,8 +55,8 @@ class Produto extends Model
         if (is_string($param)) {
             $slug = trim($param);
             $dadosProduto = $this->where('slug', $slug)->first();
-        }else{
-            $produto_id = (int) $param;
+        } else {
+            $produto_id = (int)$param;
             $dadosProduto = $this->find($produto_id);
         }
 
@@ -66,30 +67,30 @@ class Produto extends Model
     {
         $objProdutos = [];
         $total = [];
-        if($this->paginacao){
+        if ($this->paginacao) {
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
-            if($limit['fim']){
+            if ($limit['fim']) {
                 $objProdutos = $this
-                ->join('categorias','categorias.id', 'produtos.categoria_id')
-                ->select('produtos.*', 'categorias.slug as categoria_slug')
-                ->where('status',1)
-                ->limit($limit['inicio'])
-                ->offset($limit['fim'])
-                ->orderBy('produtos.id', 'DESC');
-            }else{
+                    ->join('categorias', 'categorias.id', 'produtos.categoria_id')
+                    ->select('produtos.*', 'categorias.slug as categoria_slug')
+                    ->where('status', 1)
+                    ->limit($limit['inicio'])
+                    ->offset($limit['fim'])
+                    ->orderBy('produtos.id', 'DESC');
+            } else {
                 $objProdutos = $this
-                ->join('categorias','categorias.id', 'produtos.categoria_id')
-                ->select('produtos.*', 'categorias.slug as categoria_slug')
-                ->where('status', 1)
-                ->limit($limit['inicio'])
-                ->orderBy('produtos.id', 'DESC');
+                    ->join('categorias', 'categorias.id', 'produtos.categoria_id')
+                    ->select('produtos.*', 'categorias.slug as categoria_slug')
+                    ->where('status', 1)
+                    ->limit($limit['inicio'])
+                    ->orderBy('produtos.id', 'DESC');
             }
-            $total = $this->where('status',1)->count();
-        }else{
+            $total = $this->where('status', 1)->count();
+        } else {
             $objProdutos = $this
-            ->join('categorias','categorias.id', 'produtos.categoria_id')
-            ->select('produtos.*', 'categorias.slug as categoria_slug')
-            ->where('status',1);
+                ->join('categorias', 'categorias.id', 'produtos.categoria_id')
+                ->select('produtos.*', 'categorias.slug as categoria_slug')
+                ->where('status', 1);
         }
 
         // Para montar o filtro lateral
@@ -97,17 +98,17 @@ class Produto extends Model
 
             if (isset($this->parametros['categoria'])) {
                 $objProdutos = $objProdutos
-                ->whereIn('categorias.slug', $this->parametros['categoria']);
+                    ->whereIn('categorias.slug', $this->parametros['categoria']);
             }
 
             if (isset($this->parametros['estado'])) {
                 $objProdutos = $objProdutos
-                ->whereIn('produtos.estado', $this->parametros['estado']);
+                    ->whereIn('produtos.estado', $this->parametros['estado']);
             }
             $produtos = $objProdutos->get();
 
             $total = count($produtos);
-        }else{
+        } else {
             $produtos = $objProdutos->get();
         }
 
@@ -123,31 +124,32 @@ class Produto extends Model
     {
         $meusProdutos = [];
         $total = [];
-        if($this->paginacao){
+        if ($this->paginacao) {
             $limit = $this->geraLimitPaginacao($this->pagina, $this->totalPagina);
-            if($limit['fim']){
-                $meusProdutos =  $this->where('user_id',Auth::user()->id)
-                ->limit($limit['inicio'])
-                ->offset($limit['fim'])
-                ->orderBy('status', 'DESC')
-                ->orderBy('updated_at', 'DESC')
-                ->orderBy('deleted_at', 'ASC')
-                ->get();
-            }else{
-                $meusProdutos =  $this->where('user_id',Auth::user()->id)
-                ->limit($limit['inicio'])
-                ->orderBy('status', 'DESC')
-                ->orderBy('updated_at', 'DESC')
-                ->orderBy('deleted_at', 'ASC')
-                ->get();
+
+            if ($limit['fim']) {
+                $meusProdutos = $this->where('user_id', Auth::user()->id)
+                    ->limit($limit['inicio'])
+                    ->offset($limit['fim'])
+                    ->orderBy('status', 'DESC')
+                    ->orderBy('updated_at', 'DESC')
+                    ->orderBy('deleted_at', 'ASC')
+                    ->get();
+            } else {
+                $meusProdutos = $this->where('user_id', Auth::user()->id)
+                    ->limit($limit['inicio'])
+                    ->orderBy('status', 'DESC')
+                    ->orderBy('updated_at', 'DESC')
+                    ->orderBy('deleted_at', 'ASC')
+                    ->get();
             }
-            $total = $this->where('status',1)->where('user_id',Auth::user()->id)->count();
-        }else{
-            $meusProdutos =  $this->where('user_id',Auth::user()->id)
-            ->orderBy('status', 'DESC')
-            ->orderBy('updated_at', 'DESC')
-            ->orderBy('deleted_at', 'ASC')
-            ->get();
+            $total = $this->where('status', 1)->where('user_id', Auth::user()->id)->count();
+        } else {
+            $meusProdutos = $this->where('user_id', Auth::user()->id)
+                ->orderBy('status', 'DESC')
+                ->orderBy('updated_at', 'DESC')
+                ->orderBy('deleted_at', 'ASC')
+                ->get();
         }
 
         $retorno = [
@@ -163,26 +165,26 @@ class Produto extends Model
         $this->paginacao = false;
         $products = $this->getProdutos();
         $data = [];
-        foreach ($products['itens'] as $key=>$product) {
+        foreach ($products['itens'] as $key => $product) {
             if (!isset($data['Categoria']['itens'][str_slug($product->categoria->categoria)])) {
                 $data['Categoria']['itens'][str_slug($product->categoria->categoria)] = [
-                    'slug'=>str_slug($product->categoria->categoria),
-                    'rotulo'=>$product->categoria->categoria,
+                    'slug' => str_slug($product->categoria->categoria),
+                    'rotulo' => $product->categoria->categoria,
                     'qtd' => 1,
                     'checked' => false
                 ];
-            }else{
+            } else {
                 $data['Categoria']['itens'][str_slug($product->categoria->categoria)]['qtd'] += 1;
             }
 
             if (!isset($data['Estado']['itens'][str_slug($product->estado)])) {
                 $data['Estado']['itens'][str_slug($product->estado)] = [
                     'slug' => str_slug($product->estado),
-                    'rotulo'=>$product->estado,
+                    'rotulo' => $product->estado,
                     'qtd' => 1,
                     'checked' => false
                 ];
-            }else{
+            } else {
                 $data['Estado']['itens'][str_slug($product->estado)]['qtd'] += 1;
             }
         }
@@ -195,15 +197,15 @@ class Produto extends Model
     /*******/
     public function getPendentes()
     {
-        $pendentes = $this->where('status',2)->orderBy('updated_at', 'DESC')->get();
+        $pendentes = $this->where('status', 2)->orderBy('updated_at', 'DESC')->get();
 
         return $pendentes;
     }
 
     public function getQuantidades()
     {
-        $data['ativos'] = $this->where('status',1)->count();
-        $data['pendentes'] = $this->where('status',2)->count();
+        $data['ativos'] = $this->where('status', 1)->count();
+        $data['pendentes'] = $this->where('status', 2)->count();
         $data['excluidos'] = $this->onlyTrashed()->count();
 
         return $data;

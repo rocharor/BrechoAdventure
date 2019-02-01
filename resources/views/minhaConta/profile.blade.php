@@ -96,15 +96,15 @@
                     <table>
                         <tr>
                             <td><label>Senha Atual: </label></td>
-                            <td><input type='password' name='old_password' class="form-control"/></td>
+                            <td><input type='password' name='old_password' class="form-control" required/></td>
                         </tr>
                         <tr>
                             <td><label>Nova Senha: </label></td>
-                            <td><input type='password' name='new_password' class="form-control"/></td>
+                            <td><input type='password' name='new_password' class="form-control" required/></td>
                         </tr>
                         <tr>
                             <td><label>Confirme a Senha: &nbsp;</label></td>
-                            <td><input type='password' name='confirm_password' class="form-control"/></td>
+                            <td><input type='password' name='confirm_password' class="form-control" required/></td>
                         </tr>
                         <tr>
                             <td>&nbsp;</td>

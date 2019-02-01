@@ -2,11 +2,13 @@ require('./bootstrap')
 
 const { alertaPagina } = require('./site/global.js');
 
-require('./site/produto')
-require('./site/contato.js')
+require('./site/contact.js')
 require('./site/productView.js')
-require('./site/mensagem.js')
+require('./site/message.js')
 require('./site/profile.js')
+require('./site/products')
+require('./site/myProducts.js')
+require('./site/createProduct.js')
 // // require('./site/favorito.js')
 
 // Flash Message
@@ -19,15 +21,3 @@ window.onload =  function () {
         alertaPagina(message, type);
     }
 }
-
-
-
-// // Components
-// Vue.component('my-product', require('./components/MyProduct.vue'));
-
-// // Mascaras (cadastro e editar produto))
-// if (document.getElementById("valor") != null) {
-//     VMasker(document.getElementById("valor")).maskMoney();
-// }
-
-

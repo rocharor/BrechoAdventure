@@ -5,7 +5,9 @@
         <p v-else-if="product.status == 2"><span class="label label-info"><b>Aguardando aprovação</b></span></p>
         <p v-else-if="product.status == 3"><span class="label label-warning"><b>Altera&ccedil;&atilde;o reprovada</b></span></p>
 
-        <div class="titulo"><b>{{ product.titulo }}</b></div>
+        <div class="titulo">
+            <b>{{ product.titulo }}</b>
+        </div>
 
         <!-- Produto inativado -->
         <div v-if="product.status == 0">
@@ -39,6 +41,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Produto reprovado -->
         <div v-else-if="product.status == 3">
             <div class='div_imagem'>
@@ -58,6 +61,7 @@
                 </div>
             </div>
         </div>
+
         <!-- Produto ativo -->
         <div v-else>
             <div class='div_imagem'>
