@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Auth;
 use Mail;
-use App\Models\Site\Contato as ContatoModel;
+use App\Models\Site\Contact;
 use App\Models\Categoria;
 use App\Mail\BrechoMail;
 use App\Events\sendEmailAdmin;
@@ -15,16 +15,16 @@ class ContactController extends Controller
 {
     public $model;
 
-    public function __construct(ContatoModel $contato)
+    public function __construct(Contact $contact)
     {
-        $this->model = $contato;
+        $this->model = $contact;
     }
 
     public function index()
     {
         $data['tipos'] = $this->getTipoContato();
 
-        return view('site/contato',[
+        return view('site/contact',[
             'breadCrumb' => $this->getBreadCrumb(),
             'data' => $data
         ]);
@@ -48,7 +48,7 @@ class ContactController extends Controller
             Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
             event(new sendEmailAdmin());
 
-            return redirect()->route('contato')->with(
+            return redirect()->route('contact')->with(
                 'flashMessage',
                 [
                     'message' => 'Enviado com sucesso!',
@@ -56,7 +56,7 @@ class ContactController extends Controller
                 ]
             );
         }else{
-            return redirect()->route('contato')->with(
+            return redirect()->route('contact')->with(
                 'flashMessage',
                 [
                     'message' => 'Erro ao enviar, tente novamente!',

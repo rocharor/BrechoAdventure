@@ -10,7 +10,7 @@ use App\Models\Site\Favorito;
 use App\Models\Categoria;
 use App\Services\Util;
 
-class Produto extends Model
+class Product extends Model
 {
     use SoftDeletes, Util;
 

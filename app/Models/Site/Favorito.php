@@ -5,7 +5,7 @@ namespace App\Models\Site;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Site\Produto;
+use App\Models\Site\Product;
 use App\Models\User;
 use App\Services\Util;
 
@@ -22,7 +22,7 @@ class Favorito extends Model
 
     public function produto()
     {
-        return $this->belongsTo(Produto::class);
+        return $this->belongsTo(Product::class);
         // Uso: $f->find(1)->produto
         // Retorno: O produto que este favorito pertence (id=1) coluna "id" da tabela "produto"
     }

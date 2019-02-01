@@ -22,7 +22,7 @@
 					<br>
 
 					<div align="center">
-						<a href="{{ Route('produtos') }}" class="btn btn-primary" style="width: 50%">VER TODOS</a>
+						<a href="{{ Route('product') }}" class="btn btn-primary" style="width: 50%">VER TODOS</a>
 					</div>
 				</div>
 

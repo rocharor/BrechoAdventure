@@ -9,10 +9,10 @@
         </div>
 
         @if($autorizado == false)
-            <div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.perfil') }}">CLIQUE AQUI</a></div>
+            <div class="well">VOCÊ NÃO ESTA AUTORIZADO A CADASTRAR PRODUTOS. FAVOR COMPLETAR SEU PERFIL <a href="{{ Route('minha-conta.profile') }}">CLIQUE AQUI</a></div>
         @else
             <div class='formulario'>
-                <form action="{{ Route('minha-conta.store-produto') }}" method="post" name="form" enctype="multipart/form-data">
+                <form action="{{ Route('minha-conta.product-store') }}" method="post" name="form" enctype="multipart/form-data">
                     {{ csrf_field() }}
 
                     <div>

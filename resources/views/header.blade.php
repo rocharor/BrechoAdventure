@@ -4,8 +4,8 @@
         <img src="/images/logo.jpg" alt="Brecho Aventure" class='img_logo'>
         <nav class="links">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
-            <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('produtos') }}">Produtos</a>
-            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
+            <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('product') }}">Produtos</a>
+            <a {{ Request::route()->getName() == 'contact' ? 'class=active' : '' }} href="{{ Route('contact') }}">Fale conosco</a>
         </nav>
     </div>
 
@@ -23,13 +23,13 @@
                 </a>
                 <ul class="dropdown-menu menu_logado">
                     <li>
-                        <a {{ Request::route()->getName() == 'minha-conta.create-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.create-produto') }}">Cadastrar Produto</a>
+                        <a {{ Request::route()->getName() == 'minha-conta.create-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.product-create') }}">Cadastrar Produto</a>
                     </li>
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.profile' ? 'class=active' : '' }} href="{{ Route('minha-conta.profile') }}">Meu Perfil</a>
                     </li>
                     <li>
-                        <a {{ Request::route()->getName() == 'minha-conta.meus-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.meus-produto') }}">Meus Produtos</a>
+                        <a {{ Request::route()->getName() == 'minha-conta.meus-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.my-product') }}">Meus Produtos</a>
                     </li>
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.meus-favorito' ? 'class=active' : '' }} href="{{ Route('minha-conta.meus-favorito') }}">Meus Favoritos</a>
@@ -53,8 +53,8 @@
         <img src="/images/logo.jpg" alt="Brecho Aventure" class='img_logo_mobile hidden-sm hidden-md hidden-lg'>
         <nav class="links" style="font-size:7px">
             <a {{ Request::route()->getName() == 'home' ? 'class=active' : '' }} href="{{ Route('home') }}">Home</a>
-            <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('produtos',1) }}">Produtos</a>
-            <a {{ Request::route()->getName() == 'contato' ? 'class=active' : '' }} href="{{ Route('contato') }}">Fale conosco</a>
+            <a {{ Request::route()->getName() == 'produtos' ? 'class=active' : '' }} href="{{ Route('product',1) }}">Produtos</a>
+            <a {{ Request::route()->getName() == 'contact' ? 'class=active' : '' }} href="{{ Route('contact') }}">Fale conosco</a>
         </nav>
     </div>
 
@@ -77,13 +77,13 @@
                 </a>
                 <ul class="dropdown-menu menu_logado">
                     <li>
-                        <a {{ Request::route()->getName() == 'minha-conta.create-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.create-produto') }}">Cadastrar Produtos</a>
+                        <a {{ Request::route()->getName() == 'minha-conta.create-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.product-create') }}">Cadastrar Produtos</a>
                     </li>
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.profile' ? 'class=active' : '' }} href="{{ Route('minha-conta.profile') }}">Meu Perfil</a>
                     </li>
                     <li>
-                        <a {{ Request::route()->getName() == 'minha-conta.meus-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.meus-produto') }}">Meus Produtos</a>
+                        <a {{ Request::route()->getName() == 'minha-conta.meus-produto' ? 'class=active' : '' }} href="{{ Route('minha-conta.my-product') }}">Meus Produtos</a>
                     </li>
                     <li>
                         <a {{ Request::route()->getName() == 'minha-conta.meus-favorito' ? 'class=active' : '' }} href="{{ Route('minha-conta.meus-favorito') }}">Meus Favoritos</a>

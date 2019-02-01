@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Site\Conversa;
 use App\Models\Site\Mensagem;
-use App\Models\Site\Produto;
+use App\Models\Site\Product;
 use App\Models\User;
 use App\Services\Util;
 
@@ -47,7 +47,7 @@ class Mensagem extends Model
         $qtdNotificacaoGeral = 0;
         foreach ($objConversa as  $key1=>$conversa) {
             $qtdNotificacaoProduto = 0;
-            $produto = Produto::find($conversa->produto_id);
+            $produto = Product::find($conversa->produto_id);
             $arrImg = explode('|',$produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
             $mensagens = Conversa::find($conversa->id)->mensagem;

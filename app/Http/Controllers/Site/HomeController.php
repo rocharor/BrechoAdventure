@@ -5,16 +5,16 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Site\Produto;
+use App\Models\Site\Product;
 use App\Models\Site\Favorito;
 
 class HomeController extends Controller
 {
     private $model;
 
-    public function __construct(Produto $produto)
+    public function __construct(Product $product)
     {
-        $this->model = $produto;
+        $this->model = $product;
     }
 
     public function index(Favorito $favorito)

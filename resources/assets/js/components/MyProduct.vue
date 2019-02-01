@@ -97,7 +97,7 @@
             return {
                 image: '/images/products/' + this.product.imgPrincipal,
                 linkEdit: '/minha-conta/produto/editar-produto/' + this.product.slug,
-                linkView: '/produtos/visualizar-produto/' + this.product.slug,
+                linkView: '/produto/visualizar-produto/' + this.product.slug,
             }
         },
         methods: {

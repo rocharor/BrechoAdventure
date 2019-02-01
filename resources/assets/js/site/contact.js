@@ -3,7 +3,7 @@ import Breadcrumb from '../components/Breadcrumb.vue'
 var elementContact = document.getElementById("el-contact")
 
 if (elementContact != null) {
-    const { alertaPagina } = require('../site/global.js')
+    const { alertaPagina } = require('./global.js')
 
     new Vue({
         el:'#el-contact',

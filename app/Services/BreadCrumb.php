@@ -9,15 +9,15 @@ trait BreadCrumb
 {
     private $listBreadCrumb = [
         'home'=>[],
-        'produtos'=>['Produtos'],
-        'visualizar-produto'=>['Visualizar Produto'],
-        'contato'=>['Contato'],
-        'minha-conta.profile'=>['profile'],
+        'product'=>['Produto'],
+        'product-view'=>['Visualizar Produto'],
+        'contact'=>['Contato'],
+        'minha-conta.profile'=>['Perfil'],
         'minha-conta.meus-favorito'=>['Meus Favoritos'],
         'minha-conta.mensagem'=>['Minhas Mensagens'],
-        'minha-conta.meus-produto'=>['Meus Produtos'],
-        'minha-conta.create-produto'=>['Cadastrar Produto'],
-        'minha-conta.editar-produto'=>['Meus Produtos', 'Editar Produto'],
+        'minha-conta.my-product'=>['Meus Produtos'],
+        'minha-conta.product-create'=>['Cadastrar Produto'],
+        'minha-conta.product-edit'=>['Meus Produtos', 'Editar Produto'],
     ];
 
     public function getBreadCrumb()

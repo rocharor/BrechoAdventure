@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Site\Produto;
+use App\Models\Site\Product;
 use App\Services\Util;
 
 class CheckAuthProduct
@@ -21,9 +21,9 @@ class CheckAuthProduct
     {
         $retorno = [];
         if (is_string($request->route('param'))) {
-            $retorno = Produto::where('slug', $request->route('param'))->where('user_id', Auth::user()->id)->get();
+            $retorno = Product::where('slug', $request->route('param'))->where('user_id', Auth::user()->id)->get();
         }else{
-            $retorno = Produto::where('id', $request->route('param'))->where('user_id', Auth::user()->id)->get();
+            $retorno = Product::where('id', $request->route('param'))->where('user_id', Auth::user()->id)->get();
         }
 
         if (count($retorno) == 0) {

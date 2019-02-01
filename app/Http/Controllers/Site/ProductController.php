@@ -5,17 +5,16 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Site\Produto;
+use App\Models\Site\Product;
 use App\Models\Site\Favorito;
 use App\Models\Categoria;
 
 
-
-class ProductsController extends Controller
+class ProductController extends Controller
 {
     private $model;
 
-    public function __construct(Produto $produto)
+    public function __construct(Product $produto)
     {
         $this->model = $produto;
     }
@@ -51,12 +50,11 @@ class ProductsController extends Controller
             'id' => Auth::check() ? Auth::user()->id : 0,
         ]);
 
-        return view('site/produtos',[
-            // 'produtos' => $produtos['itens'],
+        return view('site/product',[
             'produtos' => $produtos,
             'pg' => $pagina,
             'numberPages' => $numberPages,
-            'link' => '/produtos/',
+            'link' => Route('product') . '/',
             'breadCrumb' => $this->getBreadCrumb()
         ]);
     }
@@ -74,7 +72,7 @@ class ProductsController extends Controller
         $produto->imagens_json = json_encode($imagens);
         $produto->inserido = $this->formataDataExibicao($produto->updated_at);
 
-        return view('site/visualizarProduto',[
+        return view('site/productView',[
             'produto'=>$produto,
             'breadCrumb' => $this->getBreadCrumb()
         ]);

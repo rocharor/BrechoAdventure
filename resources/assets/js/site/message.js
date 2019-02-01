@@ -3,7 +3,7 @@ import Breadcrumb from '../components/Breadcrumb.vue'
 var elementMessage = document.getElementById("el-message");
 
 if (elementMessage != null) {
-    const { alertaPagina } = require('../site/global.js')
+    const { alertaPagina } = require('./global.js')
 
     new Vue({
         el: '#el-message',

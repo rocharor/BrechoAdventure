@@ -8,15 +8,15 @@
 ### Links ###
 Route::get('/',['as'=>'home','uses'=>'Site\HomeController@index']);
 
-Route::get('/produtos/{pg?}',['as'=>'produtos','uses'=>'Site\ProductsController@index']);
-Route::get('/produtos/visualizar-produto/{param}',['as'=>'visualizar-produto', 'middleware' => ['CheckStatusProduct'], 'uses'=>'Site\ProductsController@show']);
+Route::get('/produto/{pg?}',['as'=> 'product','uses'=>'Site\ProductController@index']);
+Route::get('/produto/visualizar-produto/{param}',['as'=> 'product-view', 'middleware' => ['CheckStatusProduct'], 'uses'=>'Site\ProductController@show']);
 
-Route::get('/contato',['as'=>'contato','uses'=>'Site\ContactController@index']);
+Route::get('/contato',['as'=>'contact','uses'=>'Site\ContactController@index']);
 
 ### Ações ###
-Route::post('/produto/busca-filtro',['as'=>'busca-filtro','uses'=>'Site\ProductsController@getFiltro']);
+Route::post('/produto/busca-filtro',['as'=>'busca-filtro','uses'=>'Site\ProductController@getFiltro']);
 
-Route::post('/contato/store',['as'=>'contatoPost','uses'=>'Site\ContactController@store']);
+Route::post('/contact/store',['as'=>'contatoPost','uses'=>'Site\ContactController@store']);
 
 /**************************
 | Rotas da area Minha Conta
@@ -25,11 +25,11 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     ### Links ###
     Route::get('/favorito/{pg?}',['as'=>'meus-favorito','uses'=>'Site\FavoriteController@index']);
 
-    Route::get('/profile',['as'=>'profile','uses'=>'Site\ProfileController@index']);
+    Route::get('/perfil',['as'=>'profile','uses'=>'Site\ProfileController@index']);
 
-    Route::get('/produto/create',['as'=>'create-produto','uses'=>'Site\MyProductsController@create']);
-    Route::get('/produto/editar-produto/{param}',['as'=>'editar-produto', 'middleware' => ['CheckAuthProduct'], 'uses'=>'Site\MyProductsController@edit']);
-    Route::get('/produto/{pg?}',['as'=>'meus-produto','uses'=>'Site\MyProductsController@index']);
+    Route::get('/produto/create',['as'=>'product-create','uses'=>'Site\MyProductController@create']);
+    Route::get('/produto/editar-produto/{param}',['as'=>'product-edit', 'middleware' => ['CheckAuthProduct'], 'uses'=>'Site\MyProductController@edit']);
+    Route::get('/produto/{pg?}',['as'=>'my-product','uses'=>'Site\MyProductController@index']);
 
     Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
 
@@ -37,15 +37,15 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/favorito/storeFavorito',['as'=>'storeFavorito','uses'=>'Site\FavoriteController@store']);
     Route::get('/favorito/delete/{id}',['as'=>'delete-favorito','middleware' => ['CheckAuthFavorite'], 'uses'=>'Site\FavoriteController@delete']);
 
-    Route::post('/profile/update',['as'=>'update-profile','uses'=>'Site\ProfileController@update']);
-    Route::post('/profile/update-Foto',['as'=>'update-foto','uses'=>'Site\ProfileController@updateFoto']);
-    Route::post('/profile/update-password',['as'=>'update-password','uses'=>'Site\ProfileController@updatePassword']);
+    Route::post('/perfil/update',['as'=>'update-profile','uses'=>'Site\ProfileController@update']);
+    Route::post('/perfil/update-Foto',['as'=>'update-foto','uses'=>'Site\ProfileController@updateFoto']);
+    Route::post('/perfil/update-password',['as'=>'update-password','uses'=>'Site\ProfileController@updatePassword']);
 
-    Route::get('/produto/inativar/{id}',['as'=>'inativar-produto','uses'=>'Site\MyProductsController@inactivate']);
-    Route::get('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\MyProductsController@delete']);
-    Route::post('/produto/delete-foto',['as'=>'delete-foto','uses'=>'Site\MyProductsController@deletePhoto']);
-    Route::post('/produto/update',['as'=>'update-produto','uses'=>'Site\MyProductsController@update']);
-    Route::post('/produto/store',['as'=>'store-produto','uses'=>'Site\MyProductsController@store']);
+    Route::get('/produto/inativar/{id}',['as'=>'inativar-produto','uses'=>'Site\MyProductController@inactivate']);
+    Route::get('/produto/delete/{id}',['as'=>'delete-produto','uses'=>'Site\MyProductController@delete']);
+    Route::post('/produto/delete-foto',['as'=>'delete-foto','uses'=>'Site\MyProductController@deletePhoto']);
+    Route::post('/produto/update',['as'=>'product-update','uses'=>'Site\MyProductController@update']);
+    Route::post('/produto/store',['as'=>'product-store','uses'=>'Site\MyProductController@store']);
 
     Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MensagemController@create']);
     Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MensagemController@store']);

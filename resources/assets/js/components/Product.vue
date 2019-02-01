@@ -48,7 +48,7 @@
         data() {
             return {
                 imagem: '/images/products/' + this.dataProduct.imgPrincipal,
-                link: '/produtos/visualizar-produto/' + this.dataProduct.slug,
+                link: '/produto/visualizar-produto/' + this.dataProduct.slug,
                 favorite: {
                     class: '',
                     parameter: 0

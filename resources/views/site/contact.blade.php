@@ -9,7 +9,7 @@
 		<div class="formulario">
 			@include('complements/exibeErro')
 
-			<form action="/contato/store" method="post" id='myForm' v-on:submit.prevent="onSubmit">
+			<form action="{{ Route('contatoPost') }}" method="post" id='myForm' v-on:submit.prevent="onSubmit">
 				{{ csrf_field() }}
 
 				<div class="form-group">

@@ -9,6 +9,7 @@ require('./site/profile.js')
 require('./site/products')
 require('./site/myProducts.js')
 require('./site/createProduct.js')
+require('./site/editProduct.js')
 // // require('./site/favorito.js')
 
 // Flash Message

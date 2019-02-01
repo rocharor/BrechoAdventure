@@ -5,19 +5,19 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Site\Produto;
+use App\Models\Site\Product;
 use App\Models\Categoria;
 use App\Services\UploadImagem;
 
-class MyProductsController extends Controller
+class MyProductController extends Controller
 {
     use UploadImagem;
 
     private $model;
 
-    public function __construct(Produto $produto)
+    public function __construct(Product $product)
     {
-        $this->model = $produto;
+        $this->model = $product;
     }
 
     public function index($pagina = 1)
@@ -59,6 +59,14 @@ class MyProductsController extends Controller
 
     public function store(Request $request)
     {
+        $this->validate($request, [
+            'titulo' => 'required|max:255',
+            'categoria' => 'required',
+            'descricao' => 'required',
+            'estado' => 'required',
+            'valor' => 'required'
+        ]);
+
         $images = [];
         foreach ($request->foto as $key => $image) {
             $extension = $image->extension();
@@ -100,20 +108,20 @@ class MyProductsController extends Controller
 
     public function edit($param, Categoria $categoria)
     {
-        $produto = $this->model->getProduto($param);
-        $categorias = $categoria->all();
+        $product = $this->model->getProduto($param);
+        $categorys = $categoria->all();
 
-        $imagens = [];
-        if ($produto->nm_imagem != '') {
-            $imagens = explode('|', $produto->nm_imagem);
+        $images = [];
+        if ($product->nm_imagem != '') {
+            $images = explode('|', $product->nm_imagem);
         }
 
-        $produto->imagens = $imagens;
-        $produto->dataExibicao = $this->formataDataExibicao($produto->created_at, false);
+        $product->imagens = $images;
+        $product->dataExibicao = $this->formataDataExibicao($product->created_at, false);
 
-        return view('minhaConta/editarProduto', [
-            'categorias' => $categorias,
-            'produto' => $produto,
+        return view('minhaConta/editProduct', [
+            'categorias' => $categorys,
+            'produto' => $product,
             'breadCrumb' => $this->getBreadCrumb()
         ]);
     }
@@ -128,31 +136,34 @@ class MyProductsController extends Controller
             'valor' => 'required'
         ]);
 
-        $produto = $this->model->find($request->produto_id);
+        $params = [
+            'categoria_id' => $request->categoria,
+            'titulo' => $request->titulo,
+            'descricao' => $request->descricao,
+            'valor' => $this->formataMoedaBD($request->valor),
+            'estado' => $request->estado,
+            'status' => 2,
+        ];
 
-        $produto->categoria_id = $request->get('categoria');
-        $produto->titulo = $request->get('titulo');
-        $produto->descricao = $request->get('descricao');
-        $produto->valor = $this->formataMoedaBD($request->get('valor'));
-        $produto->estado = $request->get('estado');
-        $produto->status = 2;
-        $nome_imagem = [$produto->nm_imagem];
+        $product = $this->model->find($request->produto_id);
+
+        $images[] = $product->nm_imagem;
 
         if (!is_null($request->imagemProduto)) {
-            foreach ($request->imagemProduto as $key => $foto) {
-                $novoNome = $this->imagemProduto($foto);
-                $nome_imagem[] = $novoNome;
-                // $foto_salva = $foto->move(public_path("imagens/produtos"), $foto_nome);
-            }
-            if (count($nome_imagem) > 1 && in_array('sem-imagem.gif', $nome_imagem)) {
-                $chave = array_search('sem-imagem.gif', $nome_imagem);
-                unset($nome_imagem[$chave]);
+            foreach ($request->imagemProduto as $key => $image) {
+                $newName = $this->uploadImageProduct($image);
+                $images[] = $newName;
             }
 
-            $produto->nm_imagem = implode('|', $nome_imagem);
+            if (count($images) > 1 && in_array('sem-imagem.gif', $images)) {
+                $key = array_search('sem-imagem.gif', $images);
+                unset($nome_imagem[$key]);
+            }
+
+            $params['nm_imagem'] = implode('|', $images);
         }
 
-        if ($produto->save()) {
+        if ($product->update($params)) {
             return redirect()->route('minha-conta.meus-produto')->with('sucesso', 'Salvo com sucesso!');
         };
 
