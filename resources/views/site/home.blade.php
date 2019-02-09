@@ -14,7 +14,7 @@
 					<div class="row">
 						@foreach($produtos['itens'] as $produto)
 							<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-								<product :data-product="{{ $produto->toJson() }}" :data-user="{{ $produtos['user'] }}" />
+								<product :data-product="{{ $produto->toJson() }}" :data-user="{{ $produtos['user'] }}" :auth="{{ Auth::check() ? 1 : 0 }}"/>
 							</div>
 						@endforeach
 					</div>

@@ -31,7 +31,7 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::get('/produto/editar-produto/{param}',['as'=>'product-edit', 'middleware' => ['CheckAuthProduct'], 'uses'=>'Site\MyProductController@edit']);
     Route::get('/produto/{pg?}',['as'=>'my-product','uses'=>'Site\MyProductController@index']);
 
-    Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MensagemController@index']);
+    Route::get('/mensagem',['as'=>'mensagem','uses'=>'Site\MessageController@index']);
 
     ### Ações ###
     Route::post('/favorito/storeFavorito',['as'=>'storeFavorito','uses'=>'Site\FavoriteController@store']);
@@ -47,12 +47,12 @@ Route::group(['prefix' => 'minha-conta', 'as' => 'minha-conta.', 'middleware' =>
     Route::post('/produto/update',['as'=>'product-update','uses'=>'Site\MyProductController@update']);
     Route::post('/produto/store',['as'=>'product-store','uses'=>'Site\MyProductController@store']);
 
-    Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MensagemController@create']);
-    Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MensagemController@store']);
-    Route::post('/mensagem/update',['as'=>'update-mensagem','uses'=>'Site\MensagemController@update']);
-    Route::post('/mensagem/delete',['as'=>'delete-mensagem','uses'=>'Site\MensagemController@delete']);
-    Route::post('/mensagem/buscaNotificacao',['as'=>'buscaNotificacao','uses'=>'Site\MensagemController@buscaNotificacao']);
-    Route::post('/mensagem/updateNotificacao',['as'=>'updateNotificacao','uses'=>'Site\MensagemController@updateNotificacao']);
+    Route::post('/mensagem/create',['as'=>'create','uses'=>'Site\MessageController@create']);
+    Route::post('/mensagem/store',['as'=>'storeMensagem','uses'=>'Site\MessageController@store']);
+    Route::post('/mensagem/update',['as'=>'update-mensagem','uses'=>'Site\MessageController@update']);
+    Route::post('/mensagem/delete',['as'=>'delete-mensagem','uses'=>'Site\MessageController@delete']);
+    Route::post('/mensagem/buscaNotificacao',['as'=>'buscaNotificacao','uses'=>'Site\MessageController@buscaNotificacao']);
+    Route::post('/mensagem/updateNotificacao',['as'=>'updateNotificacao','uses'=>'Site\MessageController@updateNotificacao']);
 });
 
 /********************

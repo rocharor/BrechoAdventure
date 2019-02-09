@@ -50,7 +50,7 @@ class MyProductController extends Controller
 
         $categorias = $categoria->all();
 
-        return view('minhaConta/createProduct', [
+        return view('minhaConta/productCreate', [
             'autorizado' => $autorizado,
             'categorias' => $categorias,
             'breadCrumb' => $this->getBreadCrumb()
@@ -93,14 +93,14 @@ class MyProductController extends Controller
             $response = $this->model->create($params);
 
             if ($response) {
-                return redirect()->route('minha-conta.create-produto')->with('flashMessage', [
+                return redirect()->route('minha-conta.product-create')->with('flashMessage', [
                     'message' => 'Produto inserido com sucesso.',
                     'type' => 'success'
                 ]);
             }
         }
 
-        return redirect()->route('minha-conta.create-produto')->with('flashMessage', [
+        return redirect()->route('minha-conta.product-create')->with('flashMessage', [
             'message' => 'Erro ao salvar produto, tente novamente!',
             'type' => 'danger'
         ]);
@@ -119,7 +119,7 @@ class MyProductController extends Controller
         $product->imagens = $images;
         $product->dataExibicao = $this->formataDataExibicao($product->created_at, false);
 
-        return view('minhaConta/editProduct', [
+        return view('minhaConta/productEdit', [
             'categorias' => $categorys,
             'produto' => $product,
             'breadCrumb' => $this->getBreadCrumb()

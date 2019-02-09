@@ -6,12 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Site\Conversa;
-use App\Models\Site\Mensagem;
 use App\Models\Site\Product;
 use App\Models\User;
 use App\Services\Util;
 
-class Mensagem extends Model
+class Message extends Model
 {
     use Util, SoftDeletes;
 

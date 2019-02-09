@@ -5,18 +5,18 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Site\Mensagem;
-use App\Models\Site\Produto;
+use App\Models\Site\Message;
+use App\Models\Site\Product;
 use App\Models\Site\Conversa;
 
-class MensagemController extends Controller
+class MessageController extends Controller
 {
 
     public $model;
 
-    public function __construct(Mensagem $mensagem)
+    public function __construct(Message $message)
     {
-        $this->model = $mensagem;
+        $this->model = $message;
     }
 
     public function index()
@@ -29,7 +29,7 @@ class MensagemController extends Controller
         unset($conversas_enviadas['naoLidas']);
         unset($conversas_recebidas['naoLidas']);
 
-        return view('minhaConta/mensagem',[
+        return view('minhaConta/message',[
             'conversas_enviadas'=>$conversas_enviadas,
             'conversas_recebidas'=>$conversas_recebidas,
             'qtdConversasEnviadas'=>$qtdConversasEnviadas,
@@ -39,7 +39,7 @@ class MensagemController extends Controller
         );
     }
 
-    public function create(Request $request,Produto $produto)
+    public function create(Request $request,Product $produto)
     {
         try {
             $produto_id = (int)$request->get('produto_id');
@@ -54,9 +54,8 @@ class MensagemController extends Controller
         }
     }
 
-    public function store(Request $request, Produto $produto, Conversa $conversa)
+    public function store(Request $request, Product $produto, Conversa $conversa)
     {
-
         $produto_id = $request->get('produto_id');
         $mensagem = $request->get('mensagem');
         $user_id_envio = Auth::user()->id;

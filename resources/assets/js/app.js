@@ -3,14 +3,14 @@ require('./bootstrap')
 const { alertaPagina } = require('./site/global.js');
 
 require('./site/contact.js')
-require('./site/productView.js')
 require('./site/message.js')
 require('./site/profile.js')
 require('./site/products')
+require('./site/productView.js')
 require('./site/myProducts.js')
-require('./site/createProduct.js')
-require('./site/editProduct.js')
-// // require('./site/favorito.js')
+require('./site/productCreate.js')
+require('./site/productEdit.js')
+require('./site/favorite.js')
 
 // Flash Message
 window.onload =  function () {

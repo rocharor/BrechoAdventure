@@ -10,17 +10,17 @@ use App\Models\Site\Favorito;
 
 class HomeController extends Controller
 {
-    private $model;
+    private $productModel;
 
     public function __construct(Product $product)
     {
-        $this->model = $product;
+        $this->productModel = $product;
     }
 
     public function index(Favorito $favorito)
     {
-        $this->model->paginacao = true;
-        $produtos = $this->model->getProdutos();
+        $this->productModel->paginacao = true;
+        $produtos = $this->productModel->getProdutos();
 
         $favoritos = $favorito->getFavoritos();
         foreach($produtos['itens'] as $produto){

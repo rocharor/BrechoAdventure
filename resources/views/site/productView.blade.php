@@ -31,7 +31,7 @@
                 <hr style="border-color: #ddd;">
 
                 <div>
-                <modal-contact :auth="{{ Auth::check() ? 1 : 0 }}" :product-id="{{ $produto->id }}" :icon="false"/>
+                    <modal-contact :auth="{{ Auth::check() ? 1 : 0 }}" :product-id="{{ $produto->id }}" :icon="false"/>
                 </div>
 
 
