@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Models\Site;
+namespace App\Data\Models\Site;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Site\Message;
+use App\Data\Models\Site\Message;
 
 class Conversa extends Model
 {

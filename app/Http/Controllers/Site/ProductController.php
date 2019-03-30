@@ -5,41 +5,41 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Site\Product;
-use App\Models\Site\Favorito;
-use App\Models\Categoria;
-
+use App\Data\Repositories\Site\ProductRepository;
+use App\Data\Repositories\Site\FavoriteRepository;
 
 class ProductController extends Controller
 {
-    private $model;
+    private $repository;
+    private $favoriteRepository;
 
-    public function __construct(Product $produto)
+    public function __construct(ProductRepository $repository, FavoriteRepository $favoriteRepository)
     {
-        $this->model = $produto;
+        $this->repository = $repository;
+        $this->favoriteRepository = $favoriteRepository;
     }
 
-    public function index(Favorito $favorito, Request $request, $pagina=1)
+    public function index(Request $request, $pagina = 1)
     {
         if (count($request->all()) > 0) {
             foreach ($request->all() as $key => $value) {
-                $parametros[$key] = explode(',',$value);
+                $parametros[$key] = explode(',', $value);
             }
-            $this->model->parametros = $parametros;
+            $this->repository->parametros = $parametros;
         }
 
-        $this->model->paginacao = true;
-        $this->model->pagina = $pagina;
-        $produtos = $this->model->getProdutos();
-        $numberPages = (int)ceil($produtos['total'] / $this->model->totalPagina);
+        $this->repository->paginacao = true;
+        $this->repository->pagina = $pagina;
+        $produtos = $this->repository->getProdutos();
+        $numberPages = (int)ceil($produtos['total'] / $this->repository->totalPagina);
 
-        $favoritos = $favorito->getFavoritos();
-        foreach($produtos['itens'] as $produto){
+        $favoritos = $this->favoriteRepository->getFavoritos();
+        foreach ($produtos['itens'] as $produto) {
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
 
             $produto->favorito = false;
-            foreach($favoritos['itens'] as $favorito){
-                if($favorito->produto_id == $produto->id){
+            foreach ($favoritos['itens'] as $favorito) {
+                if ($favorito->produto_id == $produto->id) {
                     $produto->favorito = true;
                 }
             }
@@ -50,7 +50,7 @@ class ProductController extends Controller
             'id' => Auth::check() ? Auth::user()->id : 0,
         ]);
 
-        return view('site/product',[
+        return view('site/product', [
             'produtos' => $produtos,
             'pg' => $pagina,
             'numberPages' => $numberPages,
@@ -62,18 +62,18 @@ class ProductController extends Controller
     public function show($param)
     {
         $this->getBreadCrumb();
-        $produto = $this->model->getProduto($param);
+        $produto = $this->repository->getProduto($param);
 
         $imagens = [];
         if ($produto->nm_imagem != '') {
-            $imagens = explode('|',$produto->nm_imagem);
+            $imagens = explode('|', $produto->nm_imagem);
         }
 
         $produto->imagens_json = json_encode($imagens);
         $produto->inserido = $this->formataDataExibicao($produto->updated_at);
 
-        return view('site/productView',[
-            'produto'=>$produto,
+        return view('site/productView', [
+            'produto' => $produto,
             'breadCrumb' => $this->getBreadCrumb()
         ]);
     }
@@ -82,15 +82,14 @@ class ProductController extends Controller
     {
         if (count($request->parametro) > 0) {
             foreach ($request->parametro as $key => $value) {
-                $parametros[$key] = explode(',',$value);
+                $parametros[$key] = explode(',', $value);
             }
-            $this->model->parametros = $parametros;
+            $this->repository->parametros = $parametros;
         }
 
-        $retorno = $this->model->mountFilter();
+        $retorno = $this->repository->mountFilter();
 
         echo response()->json($retorno)->content();
         die();
     }
-
 }

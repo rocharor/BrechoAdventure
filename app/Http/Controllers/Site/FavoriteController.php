@@ -4,31 +4,30 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Auth;
-use App\Models\Site\Favorito;
-use App\Models\Robo;
+use App\Data\Repositories\Site\FavoriteRepository;
 
 class FavoriteController extends Controller
 {
-    private $model;
+    private $repository;
 
-    public function __construct(Favorito $favorito)
+    public function __construct(FavoriteRepository $repository)
     {
-        $this->model = $favorito;
+        $this->repository = $repository;
     }
 
-    public function index($pagina=1)
+    public function index($pagina = 1)
     {
-        $this->model->paginacao = true;
-        $this->model->pagina = $pagina;
-        $favoritos = $this->model->getFavoritos();
-        foreach($favoritos['itens'] as $key=>$favorito){
+        $this->repository->paginacao = true;
+        $this->repository->pagina = $pagina;
+        $favoritos = $this->repository->getFavoritos();
+
+        foreach ($favoritos['itens'] as $favorito) {
             $favorito->produto->imgPrincipal = $this->imagemPrincipal($favorito->produto->nm_imagem);
         }
 
-        $numberPages = (int)ceil($favoritos['total'] / $this->model->totalPagina);
+        $numberPages = (int)ceil($favoritos['total'] / $this->repository->totalPagina);
 
-        return view('minhaConta/favorito',[
+        return view('minhaConta/favorito', [
             'favoritos' => $favoritos['itens'],
             'breadCrumb' => $this->getBreadCrumb(),
             'pg' => $pagina,
@@ -39,52 +38,18 @@ class FavoriteController extends Controller
 
     public function store(Request $request)
     {
-        $user_id = Auth::user()->id;
-        $vefificacao = $this->model->where('user_id',$user_id)->where('produto_id',$request->produto_id)->get();
+        $response = $this->repository->store($request);
 
-        $status = 1;
-        if(count($vefificacao) == 0){
-            $this->model->user_id = $user_id;
-            $this->model->produto_id = $request->produto_id;
-            $this->model->status = $status;
-            $retorno = $this->model->save();
-        }else{
-            if($vefificacao[0]->status == 1){
-                $status = 0;
-            }
-
-            $retorno = $this->update($request->produto_id, $status);
-        }
-
-        if($retorno){
-            echo response()->json([
-                'success' => 1,
-                'produto_id' => $request->produto_id,
-                'status' => $status
-            ])->content();
-            die();
-        }
-        echo 0;
-        die();
-    }
-
-    public function update($produto_id,$status)
-    {
-        $produto = $this->model->where('produto_id',$produto_id)->get();
-        $produto[0]->status = $status;
-        $retorno = $produto[0]->save();
-
-        return $retorno;
+        return $response;
     }
 
     public function delete(Request $request)
     {
-        $favorito_id = $request->id;
-        $favorito = $this->model->find($favorito_id);
+        $response = $this->repository->delete($request);
 
-        if ($favorito->delete()) {
-            return redirect()->route('minha-conta.meus-favorito',1)->with('sucesso','Favorito excluido com sucesso.');
+        if ($response) {
+            return redirect()->route('minha-conta.meus-favorito', 1)->with('sucesso', 'Favorito excluido com sucesso.');
         }
-        return redirect()->route('minha-conta.meus-favorito',1)->with('erro','Erro ao excluir favorito.');
+        return redirect()->route('minha-conta.meus-favorito', 1)->with('erro', 'Erro ao excluir favorito.');
     }
 }

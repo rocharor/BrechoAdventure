@@ -5,27 +5,28 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Site\Product;
-use App\Models\Categoria;
+use App\Data\Models\Site\Product;
+use App\Data\Models\Categoria;
 use App\Services\UploadImagem;
+use App\Data\Repositories\Site\ProductRepository;
 
 class MyProductController extends Controller
 {
     use UploadImagem;
 
-    private $model;
+    private $repository;
 
-    public function __construct(Product $product)
+    public function __construct(ProductRepository $repository)
     {
-        $this->model = $product;
+        $this->repository = $repository;
     }
 
     public function index($pagina = 1)
     {
-        $this->model->paginacao = true;
-        $this->model->pagina = $pagina;
-        $meusProdutos = $this->model->getMeusProdutos();
-        $numberPages = (int)ceil($meusProdutos['total'] / $this->model->totalPagina);
+        $this->repository->paginacao = true;
+        $this->repository->pagina = $pagina;
+        $meusProdutos = $this->repository->getMeusProdutos();
+        $numberPages = (int)ceil($meusProdutos['total'] / $this->repository->totalPagina);
 
         foreach ($meusProdutos['itens'] as $produto) {
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);

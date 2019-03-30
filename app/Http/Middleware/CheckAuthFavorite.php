@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Auth;
-use App\Models\Site\Favorito;
+use App\Data\Models\Site\Favorite;
 
 class CheckAuthFavorite
 {
@@ -17,7 +17,7 @@ class CheckAuthFavorite
      */
     public function handle($request, Closure $next)
     {
-        $favorito = Favorito::find($request->id);
+        $favorito = Favorite::find($request->id);
 
         if (Auth::user()->id != $favorito->user_id) {
             return redirect()->route('minha-conta.meus-favorito',1)->with('erro','Erro ao excluir favorito.');

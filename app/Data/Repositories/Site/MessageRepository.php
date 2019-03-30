@@ -1,60 +1,61 @@
 <?php
 
-namespace App\Models\Site;
+namespace App\Data\Repositories\Site;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\Site\Conversa;
-use App\Models\Site\Product;
-use App\Models\User;
+use App\Data\Models\Site\Message;
+use App\Data\Models\Site\Conversa;
+use App\Data\Models\Site\Product;
+use App\Data\Models\User;
 use App\Services\Util;
 
-class Message extends Model
+class MessageRepository
 {
-    use Util, SoftDeletes;
+    use Util;
 
-    public $table = 'mensagens';
-    protected $dates = ['deleted_at'];
+    private $model;
+    private $conversaModel;
+    private $productModel;
 
-    public function conversa()
+    public function __construct(Message $model, Conversa $conversaModel, Product $productModel)
     {
-        return $this->belongsTo(Conversa::class);
-        // Uso: $mensagem->find(1)->conversa
-        // Retorno: O conversa que esta mensagem pertence (id=1) coluna "id" da tabela "conversa"
+        $this->model = $model;
+        $this->conversaModel = $conversaModel;
+        $this->productModel = $productModel;
     }
-    // dd($conversas_meus_produtos);
 
     public function buscaConversasEnviadas()
     {
-        $conversas_envio = Conversa::where('user_id_envio',Auth::user()->id)->get();
+        $conversas_envio = $this->conversaModel->where('user_id_envio', Auth::user()->id)->get();
         $conversas = $this->buscaMensagens($conversas_envio);
         return $conversas;
     }
 
     public function buscaConversasRecebidas()
     {
-        $conversas_meus_produtos = Conversa::where('user_id_destino',Auth::user()->id)->get();
+        $conversas_meus_produtos = $this->conversaModel->where('user_id_destino', Auth::user()->id)->get();
         $conversas = $this->buscaMensagens($conversas_meus_produtos);
 
         return $conversas;
     }
 
-    public function buscaMensagens ($objConversa)
+    public function buscaMensagens($objConversa)
     {
         $conversas = [];
         $qtdNotificacaoGeral = 0;
-        foreach ($objConversa as  $key1=>$conversa) {
+
+        foreach ($objConversa as  $key1 => $conversa) {
             $qtdNotificacaoProduto = 0;
-            $produto = Product::find($conversa->produto_id);
-            $arrImg = explode('|',$produto->nm_imagem);
+            $produto = $this->productModel->find($conversa->produto_id);
+            $arrImg = explode('|', $produto->nm_imagem);
             $produto->imgPrincipal = $arrImg[0];
-            $mensagens = Conversa::find($conversa->id)->mensagem;
-            foreach ($mensagens as $key=>$mensagem) {
-                if($mensagem->user_id_envio == Auth::user()->id){
+            $mensagens = $this->conversaModel->find($conversa->id)->mensagem;
+
+            foreach ($mensagens as $key => $mensagem) {
+                if ($mensagem->user_id_envio == Auth::user()->id) {
                     $mensagens[$key]['posicao'] = 'esquerda';
                     $mensagens[$key]['nome'] = Auth::user()->name;
-                }else{
+                } else {
                     $mensagens[$key]['posicao'] = 'direita';
                     $mensagens[$key]['nome'] = User::find($mensagem->user_id_envio)->name;
                     if ($mensagem->lido == 0) {
@@ -71,7 +72,5 @@ class Message extends Model
         $conversas['naoLidas'] = $qtdNotificacaoGeral;
 
         return $conversas;
-
     }
-
 }

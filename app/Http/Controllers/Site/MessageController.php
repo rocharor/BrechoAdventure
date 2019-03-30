@@ -5,24 +5,27 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Site\Message;
+use App\Data\Repositories\Site\MessageRepository;
 use App\Models\Site\Product;
 use App\Models\Site\Conversa;
+use App\Data\Repositories\Site\ProductRepository;
 
 class MessageController extends Controller
 {
 
-    public $model;
+    public $repository;
+    public $productRepository;
 
-    public function __construct(Message $message)
+    public function __construct(MessageRepository $repository, ProductRepository $productRepository)
     {
-        $this->model = $message;
+        $this->repository = $repository;
+        $this->productRepository = $productRepository;
     }
 
     public function index()
     {
-        $conversas_enviadas = $this->model->buscaConversasEnviadas();
-        $conversas_recebidas = $this->model->buscaConversasRecebidas();
+        $conversas_enviadas = $this->repository->buscaConversasEnviadas();
+        $conversas_recebidas = $this->repository->buscaConversasRecebidas();
 
         $qtdConversasEnviadas = $conversas_enviadas['naoLidas'];
         $qtdConversasRecebidas = $conversas_recebidas['naoLidas'];
@@ -39,16 +42,17 @@ class MessageController extends Controller
         );
     }
 
-    public function create(Request $request,Product $produto)
+    public function create(Request $request)
     {
         try {
             $produto_id = (int)$request->get('produto_id');
 
-            $dados = $produto->getProduto($produto_id);
-            $dados['name'] = $dados->user->name;
-            $dados['nome_remet'] = Auth::user()->name;
+            $response = $this->productRepository->getProduto($produto_id);
 
-            return response($dados, 200);
+            $response['name'] = $response->user->name;
+            $response['nome_remet'] = Auth::user()->name;
+
+            return response($response, 200);
         } catch(\Exception $e) {
             return response($e->getMessage(), $e->getCode());
         }

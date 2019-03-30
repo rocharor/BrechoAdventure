@@ -4,27 +4,25 @@ namespace App\Http\Controllers\Site;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Auth;
 use Mail;
-use App\Models\Site\Contact;
-use App\Models\Categoria;
 use App\Mail\BrechoMail;
 use App\Events\sendEmailAdmin;
+use App\Data\Repositories\Site\ContactRepository;
 
 class ContactController extends Controller
 {
-    public $model;
+    public $repository;
 
-    public function __construct(Contact $contact)
+    public function __construct(ContactRepository $repository)
     {
-        $this->model = $contact;
+        $this->repository = $repository;
     }
 
     public function index()
     {
         $data['tipos'] = $this->getTipoContato();
 
-        return view('site/contact',[
+        return view('site/contact', [
             'breadCrumb' => $this->getBreadCrumb(),
             'data' => $data
         ]);
@@ -39,13 +37,10 @@ class ContactController extends Controller
             'message' => 'required|max:150',
         ]);
 
-        $dados = $request->all();
+        $response = $this->repository->store($request->all());
 
-        $dados['category'] = $this->getTipoContato($dados['category']);
-        $retorno = $this->model->setMensagem($dados);
-
-        if($retorno){
-            Mail::to($dados['email'])->send(new BrechoMail(1, $dados));
+        if ($response) {
+            Mail::to($request->email)->send(new BrechoMail(1, $request->all()));
             event(new sendEmailAdmin());
 
             return redirect()->route('contact')->with(
@@ -55,7 +50,7 @@ class ContactController extends Controller
                     'type' => 'success'
                 ]
             );
-        }else{
+        } else {
             return redirect()->route('contact')->with(
                 'flashMessage',
                 [

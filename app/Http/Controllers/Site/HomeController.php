@@ -2,33 +2,34 @@
 
 namespace App\Http\Controllers\Site;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
-use App\Models\Site\Product;
-use App\Models\Site\Favorito;
+use App\Data\Repositories\Site\ProductRepository;
+use App\Data\Repositories\Site\FavoriteRepository;
 
 class HomeController extends Controller
 {
-    private $productModel;
+    private $repository;
+    private $favoriteRepository;
 
-    public function __construct(Product $product)
+    public function __construct(ProductRepository $repository, FavoriteRepository $favoriteRepository)
     {
-        $this->productModel = $product;
+        $this->repository = $repository;
+        $this->favoriteRepository = $favoriteRepository;
     }
 
-    public function index(Favorito $favorito)
+    public function index()
     {
-        $this->productModel->paginacao = true;
-        $produtos = $this->productModel->getProdutos();
+        $this->repository->paginacao = true;
+        $produtos = $this->repository->getProdutos();
 
-        $favoritos = $favorito->getFavoritos();
-        foreach($produtos['itens'] as $produto){
+        $favoritos = $this->favoriteRepository->getFavoritos();
+        foreach ($produtos['itens'] as $produto) {
             $produto->imgPrincipal = $this->imagemPrincipal($produto->nm_imagem);
 
             $produto->favorito = false;
-            foreach($favoritos['itens'] as $favorito){
-                if($favorito->produto_id == $produto->id){
+            foreach ($favoritos['itens'] as $favorito) {
+                if ($favorito->produto_id == $produto->id) {
                     $produto->favorito = true;
                 }
             }
@@ -39,10 +40,9 @@ class HomeController extends Controller
             'id' => Auth::check() ? Auth::user()->id : 0,
         ]);
 
-        return view('site/home',[
-            'produtos'=>$produtos,
+        return view('site/home', [
+            'produtos' => $produtos,
             'breadCrumb' => $this->getBreadCrumb()
         ]);
-
     }
 }

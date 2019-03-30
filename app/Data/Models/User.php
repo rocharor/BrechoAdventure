@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Models;
+namespace App\Data\Models;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use App\Models\Site\Produto;
-use App\Models\Site\Favorito;
+use App\Data\Models\Site\Favorite;
 use App\Models\Acl\Role;
 
 class User extends Authenticatable
@@ -50,7 +50,7 @@ class User extends Authenticatable
      */
     public function favorito()
     {
-        return $this->hasMany(Favorito::class);
+        return $this->hasMany(Favorite::class);
         // Uso: $u->find(1)->favorito
         // Retorno: Todos os favoritos com "1" na coluna "user_id" da tabela "favorito"
     }
