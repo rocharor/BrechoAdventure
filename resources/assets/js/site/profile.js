@@ -70,7 +70,6 @@ if (elementProfile != null) {
                 VMasker(document.getElementById("telefone_cel")).maskPattern('(99) 99999-9999')
             },
             validate: function () {
-                alert('aki')
                 return false
             }
         },

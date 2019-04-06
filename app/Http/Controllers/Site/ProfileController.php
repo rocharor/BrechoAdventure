@@ -5,7 +5,8 @@ namespace App\Http\Controllers\Site;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use App\Models\User;
+use App\Data\Repositories\Site\ProfileRepository;
+// use App\Models\User;
 use App\Services\UploadImagem;
 use DB;
 use Illuminate\Support\Facades\Hash;
@@ -14,6 +15,11 @@ class ProfileController extends Controller
 {
     use UploadImagem;
 
+    public function __construct(ProfileRepository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,23 +27,17 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $estados = DB::table('estados')->pluck('nome','sigla');
+        $estados = DB::table('estados')->pluck('nome', 'sigla');
 
         Auth::user()->dt_nascimento = preg_replace("/([0-9]*)-([0-9]*)-([0-9]*)/", "$3/$2/$1", Auth::user()->dt_nascimento);
 
-        return view('minhaConta/profile',[
-            'estados'=>$estados,
+        return view('minhaConta/profile', [
+            'estados' => $estados,
             'breadCrumb' => $this->getBreadCrumb()
         ]);
     }
 
-    /**
-     * Atualiza dados do usuário
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request)
     {
         $this->validate($request, [
@@ -46,23 +46,13 @@ class ProfileController extends Controller
             'dt_nascimento' => 'required'
         ]);
 
-        Auth::user()->name = $request->nome;
-        Auth::user()->email = $request->email;
-        Auth::user()->dt_nascimento = $this->formataDataBD($request->dt_nascimento,false);
-        Auth::user()->cep = $request->cep;
-        Auth::user()->endereco = $request->endereco;
-        Auth::user()->numero = $request->numero;
-        Auth::user()->complemento = $request->complemento;
-        Auth::user()->bairro = $request->bairro;
-        Auth::user()->cidade = $request->cidade;
-        Auth::user()->uf = $request->uf;
-        Auth::user()->telefone_cel = str_replace(['(',')','-'], '', $request->telefone_cel);
-        Auth::user()->telefone_fixo = str_replace(['(',')','-'], '', $request->telefone_fixo);
+        $id = Auth::user()->id;
+        $response = $this->repository->update($id, $request->all());
 
-        $retorno = Auth::user()->save();
-
-        if($retorno){
-            return redirect()->route('minha-conta.profile')->with('flashMessage', [
+        if ($response) {
+            return redirect()->route('minha-conta.profile')->with(
+                'flashMessage',
+                [
                     'message' => 'Dados salvos com sucesso.',
                     'type' => 'success'
                 ]
@@ -75,53 +65,38 @@ class ProfileController extends Controller
         ]);
     }
 
-    /**
-     * Atualiza foto do perfil do usuário
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function updateFoto(Request $request)
+    public function updatePhoto(Request $request)
     {
-        if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid() && $request->h > 0 && $request->w > 0){
-            $this->w = $request->w;
-            $this->h = $request->h;
-            $this->x = $request->x;
-            $this->y = $request->y;
-            $novoNome = $this->imagemPerfil($request->imagemCrop);
 
-            if ($novoNome) {
-                if (Auth::user()->nome_imagem != 'sem-imagem.jpg') {
-                    $this->deleteImagemPerfil(Auth::user()->nome_imagem);
-                }
+        if ($request->hasFile('imagemCrop') && $request->file('imagemCrop')->isValid() && $request->h > 0 && $request->w > 0) {
 
-                $ret =  Auth::user()->update(['nome_imagem'=>$novoNome]);
-                if ($ret) {
-                    return 1;
-                }
+            $id = Auth::user()->id;
+            $response = $this->repository->updatePhoto($id, $request->all());
+
+            if ($response) {
+                return 1;
             }
         }
+
         return 0;
     }
 
-    /**     
-     *Método para alterar a senha do susuário 
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function updatePassword(Request $request)
     {
         if (Hash::check($request->old_password, Auth::user()->password)){
             if ($request->new_password === $request->confirm_password) {
-                Auth::user()->fill([
-                    'password' => Hash::make($request->new_password)
-                ])->save();
+                $response = $this->repository->updatePassword(Auth::user()->id, Hash::make($request->new_password));
+
+                if ($response == 1) {
+                    return redirect()->route('minha-conta.profile')->with('flashMessage', [
+                        'message' => 'Senha alterada com sucesso.',
+                        'type' => 'success'
+                    ]);
+                }
 
                 return redirect()->route('minha-conta.profile')->with('flashMessage', [
-                    'message' => 'Senha alterada com sucesso.',
-                    'type' => 'success'
+                    'message' => 'Erro ao alterar senha.',
+                    'type' => 'danger'
                 ]);
             }else{
                 return redirect()->route('minha-conta.profile')->with('flashMessage', [
